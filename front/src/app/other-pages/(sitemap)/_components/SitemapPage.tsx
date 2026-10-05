@@ -69,24 +69,7 @@ const SitemapPage = () => {
                                 Apps
                               </a>
                               <ul className="second-part list-unstyled">
-                                <li>
-                                  <a href="#"> calender </a>
-                                </li>
-                                <li>
-                                  <a href="#"> Invoive </a>
-                                </li>
-                                <li>
-                                  <a href="#"> kanban board </a>
-                                </li>
-                                <li>
-                                  <a href="#"> Profile </a>
-                                </li>
-                                <li>
-                                  <a href="#"> timeline </a>
-                                </li>
-                                <li>
-                                  <a href="#"> faqs </a>
-                                </li>
+                               
                                 <li>
                                   <a href="#"> pricing </a>
                                 </li>
@@ -99,81 +82,9 @@ const SitemapPage = () => {
                                 <li>
                                   <a href="#"> Chat </a>
                                 </li>
-                                <li>
-                                  <a href="#"> Email Page </a>
-                                  <ul className="second-part list-unstyled">
-                                    <li>
-                                      <a href="#"> Email </a>
-                                    </li>
-                                    <li>
-                                      <a href="#"> Read Email </a>
-                                    </li>
-                                  </ul>
-                                </li>
-                                <li>
-                                  <a href="#"> e-shop </a>
-                                  <ul className="second-part list-unstyled">
-                                    <li>
-                                      <a href="#"> Cart </a>
-                                    </li>
-
-                                    <li>
-                                      <a href="#"> Product </a>
-                                    </li>
-                                    <li>
-                                      <a href="#"> Add Product </a>
-                                    </li>
-                                    <li>
-                                      <a href="#">Product-Details</a>
-                                    </li>
-                                    <li>
-                                      <a href="#"> Product list </a>
-                                    </li>
-                                    <li>
-                                      <a href="#"> Orders </a>
-                                    </li>
-                                    <li>
-                                      <a href="#"> Orders Details </a>
-                                    </li>
-                                    <li>
-                                      <a href="#"> Orders List </a>
-                                    </li>
-                                    <li>
-                                      <a href="#"> Checkout</a>
-                                    </li>
-                                    <li>
-                                      <a href="#">Wishlist </a>
-                                    </li>
-                                  </ul>
-                                </li>
-                                <li>
-                                  <a href="#"> Projects Page </a>
-                                  <ul className="second-part list-unstyled">
-                                    <li>
-                                      <a href="#">projects </a>
-                                    </li>
-                                    <li>
-                                      <a href="#">projects Details </a>
-                                    </li>
-                                  </ul>
-                                </li>
-                                <li>
-                                  <a href="#"> todo </a>
-                                </li>
-                                <li>
-                                  <a href="#">Filemanager</a>
-                                </li>
-                                <li>
-                                  <a href="#"> Blog Page</a>
-                                  <ul className="second-part list-unstyled">
-                                    <li>
-                                      <a href="#">blog</a>
-                                    </li>
-                                    <li>
-                                      <a href="#">Blog Details</a>
-                                    </li>
-                                  </ul>
-                                </li>
+                              
+                               
+                           
                               </ul>
                             </li>
                             <li>

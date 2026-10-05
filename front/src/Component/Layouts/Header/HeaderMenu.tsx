@@ -4,7 +4,6 @@ import HeaderProfile from "@/Component/Layouts/Header/HeaderProfile";
 import HeaderNotification from "@/Component/Layouts/Header/HeaderNotification";
 
 import HeaderApps from "@/Component/Layouts/Header/HeaderApps";
-import HeaderSearchbar from "@/Component/Layouts/Header/HeaderSearchbar";
 
 
 const HeaderMenu = () => {
@@ -12,10 +11,6 @@ const HeaderMenu = () => {
     <>
       <ul className="d-flex align-items-center">
      
-
-        <li className="header-searchbar">
-          <HeaderSearchbar />
-        </li>
 
         <li className="header-apps">
           <HeaderApps />
