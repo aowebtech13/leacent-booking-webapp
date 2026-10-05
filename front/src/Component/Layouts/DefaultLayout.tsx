@@ -7,7 +7,7 @@ import Sidebar from "@/Component/Layouts/Sidebar";
 import Header from "@/Component/Layouts/Header";
 import Footer from "@/Component/Layouts/Footer";
 import { usePathname } from "next/navigation";
-import Customizer from "@/Component/Customizer";
+
 import { Modal, ModalBody, ModalFooter } from "reactstrap";
 
 interface DefaultLayoutProps {
@@ -64,7 +64,7 @@ const DefaultLayout: React.FC<DefaultLayoutProps> = ({ children }) => {
           <TopGo />
           <Footer />
         </div>
-        <Customizer />
+     
 
         <Modal
           isOpen={welcomeModal}

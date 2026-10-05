@@ -2,7 +2,7 @@ import React from "react";
 import HeaderMode from "@/Component/Layouts/Header/HeaderMode";
 import HeaderProfile from "@/Component/Layouts/Header/HeaderProfile";
 import HeaderNotification from "@/Component/Layouts/Header/HeaderNotification";
-import HeaderCart from "@/Component/Layouts/Header/HeaderCart";
+
 import HeaderApps from "@/Component/Layouts/Header/HeaderApps";
 import HeaderSearchbar from "@/Component/Layouts/Header/HeaderSearchbar";
 
@@ -21,9 +21,6 @@ const HeaderMenu = () => {
           <HeaderApps />
         </li>
 
-        <li className="header-cart">
-          <HeaderCart />
-        </li>
 
         <li className="header-dark">
           <HeaderMode />
