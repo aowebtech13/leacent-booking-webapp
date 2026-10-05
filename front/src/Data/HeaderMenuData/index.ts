@@ -1,65 +1,14 @@
 import {
   AppWindow,
-  CloudFog,
-  CloudSun,
+ 
   Gear,
   ProjectorScreenChart,
   ShieldCheck,
   Table,
 } from "phosphor-react";
-import { SunDim } from "@phosphor-icons/react";
 
-export const weatherData = [
-  {
-    day: "Mon",
-    temperature: "+29°C",
-    icon: CloudFog,
-    rain: "2%",
-    bgClass: "bg-primary-900",
-  },
-  {
-    day: "Tue",
-    temperature: "+29°C",
-    icon: CloudSun,
-    rain: "2%",
-    bgClass: "bg-primary-800",
-  },
-  {
-    day: "Wed",
-    temperature: "+20°C",
-    icon: SunDim,
-    rain: "1%",
-    bgClass: "bg-primary-700",
-  },
-  {
-    day: "Thu",
-    temperature: "+17°C",
-    icon: SunDim,
-    rain: "1%",
-    bgClass: "bg-primary-600",
-  },
-  {
-    day: "Fri",
-    temperature: "+18°C",
-    icon: SunDim,
-    rain: "1%",
-    bgClass: "bg-primary-500",
-  },
-  {
-    day: "Sat",
-    temperature: "+16°C",
-    icon: SunDim,
-    rain: "1%",
-    bgClass: "bg-primary-400",
-  },
-  {
-    day: "Sun",
-    temperature: "+29°C",
-    icon: SunDim,
-    rain: "1%",
-    bgClass: "bg-primary-300",
-  },
-];
+
+
 
 export const cartData = [
   {

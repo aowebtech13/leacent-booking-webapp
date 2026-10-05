@@ -5,20 +5,13 @@ import HeaderNotification from "@/Component/Layouts/Header/HeaderNotification";
 import HeaderCart from "@/Component/Layouts/Header/HeaderCart";
 import HeaderApps from "@/Component/Layouts/Header/HeaderApps";
 import HeaderSearchbar from "@/Component/Layouts/Header/HeaderSearchbar";
-import HeaderLanguage from "@/Component/Layouts/Header/HeaderLanguage";
-import HeaderCloud from "@/Component/Layouts/Header/HeaderCloud";
+
 
 const HeaderMenu = () => {
   return (
     <>
       <ul className="d-flex align-items-center">
-        <li className="header-cloud">
-          <HeaderCloud />
-        </li>
-
-        <li className="header-language">
-          <HeaderLanguage />
-        </li>
+     
 
         <li className="header-searchbar">
           <HeaderSearchbar />

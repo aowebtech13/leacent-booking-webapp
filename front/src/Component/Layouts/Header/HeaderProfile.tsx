@@ -46,13 +46,7 @@ const menuItems: MenuItem[] = [
     icon: <Dollar height={24} width={24} className="pe-1 f-s-20" />,
     external: true,
   },
-  {
-    label: "Add account",
-    href: "/auth-pages/sign-up",
-    icon: <Plus height={24} width={24} className="pe-1 f-s-20" />,
-    external: true,
-    className: "text-secondary",
-  },
+ 
 ];
 
 const HeaderProfile: React.FC = () => {
@@ -129,17 +123,8 @@ const HeaderProfile: React.FC = () => {
 
             <li className="app-divider-v dotted py-1" />
 
-            {/* Dropdown */}
-            <li>
-              <Link
-                href="/apps/setting"
-                target="_blank"
-                className={`f-w-500 d-block`}
-              >
-                <EyeClosed height={24} width={24} className="pe-1 f-s-20" />
-                Hide Settings
-              </Link>
-            </li>
+       
+          
 
             {/* Notification Toggle */}
             <li className="d-flex align-items-center justify-content-between">
@@ -156,21 +141,7 @@ const HeaderProfile: React.FC = () => {
               </FormGroup>
             </li>
 
-            {/* Incognito Toggle */}
-            <li className="d-flex align-items-center justify-content-between">
-              <a className="f-w-500" href="#">
-                <Detective
-                  height={24}
-                  width={24}
-                  weight="duotone"
-                  className="pe-1 f-s-20"
-                />
-                Incognito
-              </a>
-              <FormGroup switch className="mb-0">
-                <Input type="switch" role="switch" id="incognitoSwitch" />
-              </FormGroup>
-            </li>
+         
 
             <li className="app-divider-v dotted py-1" />
 
