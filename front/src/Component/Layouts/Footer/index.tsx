@@ -11,11 +11,11 @@ const Footer = () => {
               <ul className="footer-text">
                 <li>
                   <p className="mb-0">
-                    Copyright © 2025 axelit. All rights reserved 💖
+                    Copyright © 2026 Leacent Books. All rights reserved 💖
                   </p>
                 </li>
                 <li>
-                  <Link href="#"> V1.0.0 </Link>
+                  <Link href="#"> aowebtech </Link>
                 </li>
               </ul>
             </div>
