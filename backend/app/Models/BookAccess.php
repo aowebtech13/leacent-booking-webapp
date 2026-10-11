@@ -76,3 +76,4 @@ class BookAccess extends Model
                 ->orWhere('expires_at', '<=', now());
         });
     }
+}
