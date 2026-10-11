@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\CaseReminderController;
 use App\Http\Controllers\ComplianceController;
 use App\Http\Controllers\ContactController;
@@ -149,6 +150,17 @@ Route::get('products', [ProductController::class, 'index']);
 Route::get('products/total', [ProductController::class, 'total']);
 Route::get('products/{id}', [ProductController::class, 'show']);
 Route::get('products/{id}/related', [ProductController::class, 'related']);
+
+// Books catalog (public read)
+Route::get('books', [BookController::class, 'index']);
+Route::get('books/total', [BookController::class, 'total']);
+Route::get('books/{id}', [BookController::class, 'show']);
+Route::get('books/{id}/preview', [BookController::class, 'preview']);
+
+// Protected book reading (requires active access)
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('books/{id}/read', [BookController::class, 'read']);
+});
 
 // Protected cart & orders
 Route::middleware('auth:sanctum')->group(function () {

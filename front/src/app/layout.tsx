@@ -18,6 +18,7 @@ import "datatables.net-dt/css/dataTables.dataTables.css";
 import "datatables.net-dt/css/dataTables.dataTables.min.css";
 import DefaultLayout from "@/Component/Layouts/DefaultLayout";
 import DocumentTitleManager from "@/Component/DocumentTitleManager";
+import { AuthProvider } from "@/lib/contexts/AuthContext";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -90,13 +91,15 @@ export default function RootLayout({
         />
       </head>
       <body className="ltr light">
-        <DefaultLayout>
-          <DocumentTitleManager
-            defaultTitle="Axelit - Premium Admin Template"
-            blurTitle="👋🏻 Come Back..."
-          />
-          {children}
-        </DefaultLayout>
+        <AuthProvider>
+          <DefaultLayout>
+            <DocumentTitleManager
+              defaultTitle="Axelit - Premium Admin Template"
+              blurTitle="👋🏻 Come Back..."
+            />
+            {children}
+          </DefaultLayout>
+        </AuthProvider>
       </body>
     </html>
   );
