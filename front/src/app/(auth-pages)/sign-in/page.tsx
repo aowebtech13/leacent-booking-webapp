@@ -1,37 +1,57 @@
 "use client";
 
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/contexts/AuthContext";
-import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Sign In - Axelit",
-  description: "Sign in to your Axelit account",
-};
+const EMAIL_PATTERN = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
 type FormData = { email: string; password: string };
+type FormErrors = Partial<Record<keyof FormData, string>>;
 
 const SignInPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [formData, setFormData] = useState<FormData>({ email: "", password: "" });
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
   const { login, isAuthenticated } = useAuth();
   const router = useRouter();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>();
+  const validate = (): FormErrors => {
+    const errors: FormErrors = {};
+    if (!formData.email.trim()) {
+      errors.email = "Email is required";
+    } else if (!EMAIL_PATTERN.test(formData.email)) {
+      errors.email = "Invalid email address";
+    }
+    if (!formData.password) {
+      errors.password = "Password is required";
+    } else if (formData.password.length < 6) {
+      errors.password = "Password must be at least 6 characters";
+    }
+    return errors;
+  };
 
-  const onSubmit = async (data: FormData) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (formErrors[name]) {
+      setFormErrors((prev) => ({ ...prev, [name]: "" }));
+    }
+  };
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const errors = validate();
+    setFormErrors(errors);
+    if (Object.keys(errors).length > 0) return;
+
     setIsLoading(true);
     setError(null);
 
     try {
-      await login(data.email, data.password);
+      await login(formData.email, formData.password);
       // Redirect to dashboard on success.
       router.push("/dashboard/ecommerce");
     } catch (err: any) {
@@ -54,7 +74,7 @@ const SignInPage = () => {
           <p className="text-muted mt-2">Sign in to your account</p>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="auth-form" noValidate>
+        <form onSubmit={onSubmit} className="auth-form" noValidate>
           {error && (
             <div className="alert alert-danger alert-dismissible fade show" role="alert">
               {error}
@@ -68,19 +88,15 @@ const SignInPage = () => {
             </label>
             <input
               type="email"
-              className={`form-control ${errors.email ? "is-invalid" : ""}`}
+              className={`form-control ${formErrors.email ? "is-invalid" : ""}`}
               id="email"
+              name="email"
               placeholder="Enter your registered email"
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: "Invalid email address",
-                },
-              })}
+              value={formData.email}
+              onChange={handleChange}
             />
-            {errors.email && (
-              <div className="invalid-feedback">{errors.email.message}</div>
+            {formErrors.email && (
+              <div className="invalid-feedback">{formErrors.email}</div>
             )}
           </div>
 
@@ -90,19 +106,15 @@ const SignInPage = () => {
             </label>
             <input
               type="password"
-              className={`form-control ${errors.password ? "is-invalid" : ""}`}
+              className={`form-control ${formErrors.password ? "is-invalid" : ""}`}
               id="password"
+              name="password"
               placeholder="Enter your password"
-              {...register("password", {
-                required: "Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters",
-                },
-              })}
+              value={formData.password}
+              onChange={handleChange}
             />
-            {errors.password && (
-              <div className="invalid-feedback">{errors.password.message}</div>
+            {formErrors.password && (
+              <div className="invalid-feedback">{formErrors.password}</div>
             )}
           </div>
 

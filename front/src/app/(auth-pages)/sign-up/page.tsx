@@ -1,17 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/lib/contexts/AuthContext";
 import { register as apiRegister, verifyOtp } from "@/lib/api";
-import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Sign Up - Axelit",
-  description: "Create your Axelit account",
-};
+const EMAIL_PATTERN = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
 type FormData = {
   fullName: string;
@@ -20,37 +14,81 @@ type FormData = {
   confirmPassword: string;
   terms: boolean;
 };
+type FormErrors = Partial<Record<keyof FormData, string>>;
 
 const SignUpPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [emailSent, setEmailSent] = useState<string | null>(null);
+  const [formData, setFormData] = useState<FormData>({
+    fullName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    terms: false,
+  });
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
   const router = useRouter();
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<FormData>();
+  const validate = (): FormErrors => {
+    const errors: FormErrors = {};
+    if (!formData.fullName.trim()) {
+      errors.fullName = "Full name is required";
+    } else if (formData.fullName.trim().length < 2) {
+      errors.fullName = "Name must be at least 2 characters";
+    }
+    if (!formData.email.trim()) {
+      errors.email = "Email is required";
+    } else if (!EMAIL_PATTERN.test(formData.email)) {
+      errors.email = "Invalid email address";
+    }
+    if (!formData.password) {
+      errors.password = "Password is required";
+    } else if (formData.password.length < 8) {
+      errors.password = "Password must be at least 8 characters";
+    }
+    if (!formData.confirmPassword) {
+      errors.confirmPassword = "Please confirm your password";
+    } else if (formData.confirmPassword !== formData.password) {
+      errors.confirmPassword = "Passwords do not match";
+    }
+    if (!formData.terms) {
+      errors.terms = "You must accept the terms and conditions";
+    }
+    return errors;
+  };
 
-  const password = watch("password");
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+    if (formErrors[name as keyof FormData]) {
+      setFormErrors((prev) => ({ ...prev, [name]: "" }));
+    }
+  };
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const errors = validate();
+    setFormErrors(errors);
+    if (Object.keys(errors).length > 0) return;
+
     setIsLoading(true);
     setError(null);
 
     try {
       const res = await apiRegister({
-        name: data.fullName,
-        email: data.email,
-        password: data.password,
-        password_confirmation: data.confirmPassword,
+        name: formData.fullName,
+        email: formData.email,
+        password: formData.password,
+        password_confirmation: formData.confirmPassword,
       });
       // Backend returns the email the code was sent to.
-      setEmailSent(res?.email || data.email);
+      setEmailSent(res?.email || formData.email);
       // Pre-fill the verify-otp page with the email via query param.
-      router.push(`/verify-otp?email=${encodeURIComponent(data.email)}`);
+      router.push(`/verify-otp?email=${encodeURIComponent(formData.email)}`);
     } catch (err: any) {
       setError(err?.message || "Failed to create account. Please try again.");
       setIsLoading(false);
@@ -65,7 +103,7 @@ const SignUpPage = () => {
           <p className="text-muted mt-2">Join Axelit today</p>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="auth-form" noValidate>
+        <form onSubmit={onSubmit} className="auth-form" noValidate>
           {error && (
             <div className="alert alert-danger alert-dismissible fade show" role="alert">
               {error}
@@ -79,19 +117,15 @@ const SignUpPage = () => {
             </label>
             <input
               type="text"
-              className={`form-control ${errors.fullName ? "is-invalid" : ""}`}
+              className={`form-control ${formErrors.fullName ? "is-invalid" : ""}`}
               id="fullName"
+              name="fullName"
               placeholder="Enter your full name"
-              {...register("fullName", {
-                required: "Full name is required",
-                minLength: {
-                  value: 2,
-                  message: "Name must be at least 2 characters",
-                },
-              })}
+              value={formData.fullName}
+              onChange={handleChange}
             />
-            {errors.fullName && (
-              <div className="invalid-feedback">{errors.fullName.message}</div>
+            {formErrors.fullName && (
+              <div className="invalid-feedback">{formErrors.fullName}</div>
             )}
           </div>
 
@@ -101,19 +135,15 @@ const SignUpPage = () => {
             </label>
             <input
               type="email"
-              className={`form-control ${errors.email ? "is-invalid" : ""}`}
+              className={`form-control ${formErrors.email ? "is-invalid" : ""}`}
               id="email"
+              name="email"
               placeholder="Enter your email"
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: "Invalid email address",
-                },
-              })}
+              value={formData.email}
+              onChange={handleChange}
             />
-            {errors.email && (
-              <div className="invalid-feedback">{errors.email.message}</div>
+            {formErrors.email && (
+              <div className="invalid-feedback">{formErrors.email}</div>
             )}
           </div>
 
@@ -123,19 +153,15 @@ const SignUpPage = () => {
             </label>
             <input
               type="password"
-              className={`form-control ${errors.password ? "is-invalid" : ""}`}
+              className={`form-control ${formErrors.password ? "is-invalid" : ""}`}
               id="password"
+              name="password"
               placeholder="Create a password"
-              {...register("password", {
-                required: "Password is required",
-                minLength: {
-                  value: 8,
-                  message: "Password must be at least 8 characters",
-                },
-              })}
+              value={formData.password}
+              onChange={handleChange}
             />
-            {errors.password && (
-              <div className="invalid-feedback">{errors.password.message}</div>
+            {formErrors.password && (
+              <div className="invalid-feedback">{formErrors.password}</div>
             )}
           </div>
 
@@ -145,16 +171,15 @@ const SignUpPage = () => {
             </label>
             <input
               type="password"
-              className={`form-control ${errors.confirmPassword ? "is-invalid" : ""}`}
+              className={`form-control ${formErrors.confirmPassword ? "is-invalid" : ""}`}
               id="confirmPassword"
+              name="confirmPassword"
               placeholder="Confirm your password"
-              {...register("confirmPassword", {
-                required: "Please confirm your password",
-                validate: (value) => value === password || "Passwords do not match",
-              })}
+              value={formData.confirmPassword}
+              onChange={handleChange}
             />
-            {errors.confirmPassword && (
-              <div className="invalid-feedback">{errors.confirmPassword.message}</div>
+            {formErrors.confirmPassword && (
+              <div className="invalid-feedback">{formErrors.confirmPassword}</div>
             )}
           </div>
 
@@ -162,11 +187,11 @@ const SignUpPage = () => {
             <div className="form-check">
               <input
                 type="checkbox"
-                className={`form-check-input ${errors.terms ? "is-invalid" : ""}`}
+                className={`form-check-input ${formErrors.terms ? "is-invalid" : ""}`}
                 id="terms"
-                {...register("terms", {
-                  required: "You must accept the terms and conditions",
-                })}
+                name="terms"
+                checked={formData.terms}
+                onChange={handleChange}
               />
               <label className="form-check-label text-muted" htmlFor="terms">
                 I agree to the{" "}
@@ -179,8 +204,8 @@ const SignUpPage = () => {
                 </Link>
               </label>
             </div>
-            {errors.terms && (
-              <div className="invalid-feedback d-block">{errors.terms.message}</div>
+            {formErrors.terms && (
+              <div className="invalid-feedback d-block">{formErrors.terms}</div>
             )}
           </div>
 
