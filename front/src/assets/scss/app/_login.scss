@@ -115,7 +115,7 @@
 
         &:hover,
         &:focus {
-          border: 1px solid color.adjust(var(--semi-dark), $lightness: 35%);
+          border: 1px solid color.adjust($semi-dark, $lightness: 35%);
           box-shadow: none !important;
           transition: all 0.3s ease;
         }

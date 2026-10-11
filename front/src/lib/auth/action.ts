@@ -91,7 +91,7 @@ export async function forgotPasswordAction(formData: FormData): Promise<void> {
 
   try {
     await forgotPassword({ email });
-    redirect("/auth-pages/password-reset");
+    redirect("/auth-pages/sign-in?reset=sent");
   } catch (error: any) {
     throw new Error(error.message || "Failed to send reset email");
   }

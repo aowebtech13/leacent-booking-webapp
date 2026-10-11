@@ -1,3 +1,5 @@
+// >>-- 50 Login css start --<<
+
 /**=====================
     3.42 Login CSS Start
 ==========================**/
@@ -12,8 +14,9 @@
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  background: url('../images/login/login_bg.jpg');
+  background: url('/images/login/login_bg.jpg');
   background-position: center;
+  background-size: cover;
   padding: 30px 12px;
 
   .logo {
@@ -41,7 +44,7 @@
 
       i {
         font-size: 18px;
-        color: $dark-color;
+        color: var(--dark);
       }
 
       svg {
@@ -52,17 +55,18 @@
   }
 
   .login-main {
-    width: 450px;
+    width: 100%;
+    max-width: 450px;
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 0 37px rgba(8, 21, 66, 0.05);
     margin: 0 auto;
-    background-color: $white;
+    background-color: var(--white);
 
-    .alert{
-      &.alert-success{
-        background-color: $primary-color;
-        border-color: $primary-color;
+    .alert {
+      &.alert-success {
+        background-color: var(--primary);
+        border-color: var(--primary);
       }
     }
 
@@ -77,7 +81,7 @@
       }
 
       .checkbox label::before {
-        background-color: $card-body-color;
+        background-color: var(--card-body-color);
         border: 1px solid #dfdfdf;
       }
 
@@ -106,12 +110,12 @@
         transition: all 0.3s ease;
 
         &::-webkit-input-placeholder {
-          color: $light-text;
+          color: var(--light-text);
         }
 
         &:hover,
         &:focus {
-          border: 1px solid color.adjust($semi-dark, $lightness: 35%);
+          border: 1px solid color.adjust(var(--semi-dark), $lightness: 35%);
           box-shadow: none !important;
           transition: all 0.3s ease;
         }
@@ -130,7 +134,7 @@
       p {
         margin-bottom: 25px;
         font-size: 14px;
-        color: $dark-gray;
+        color: var(--dark-gray);
       }
 
       .form-group {
@@ -200,24 +204,24 @@
     &.show {
       &:before {
         content: "\f06e";
-        font-family: $font-awesome;
+        font-family: "Font Awesome 6 Free";
         font-weight: 900;
-        color: $light-text;
+        color: var(--light-text);
       }
     }
 
     &:before {
       content: "\f070";
-      font-family: $font-awesome;
+      font-family: "Font Awesome 6 Free";
       font-weight: 900;
-      color: $light-text;
+      color: var(--light-text);
     }
   }
 }
 
 .needs-validation {
   .invalid-feedback {
-    color: $dark-gray;
+    color: var(--dark-gray);
   }
 
   .show-hide {
@@ -233,3 +237,5 @@
 /**=====================
     3.42 Login CSS Ends
 ==========================**/
+
+// >>-- 50 Login css end --<<

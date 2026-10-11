@@ -73,6 +73,11 @@
   --hover-shadow: 0 0.5rem 2rem var(--light-gray);
   --app-transition: all 0.3s ease;
   --light-gray: #f4f7f8;
+  --light-text: #999999;
+  --semi-dark: #59667a;
+  --dark-gray: #898989;
+  --theme-default: 140, 118, 240;
+  --card-body-color: #f9f9fa;
 
   --p-line-height: 1.6;
   --link-color: var(--primary-color);
@@ -153,6 +158,11 @@ body.dark {
   --bs-text-opacity: 0;
   --bs-card-color: #eaeaec;
   --bs-tertiary-bg: #242425;
+  --light-text: #999999;
+  --semi-dark: #59667a;
+  --dark-gray: #898989;
+  --theme-default: 140, 118, 240;
+  --card-body-color: #262932;
 
   --primary-dark: 160, 148, 226;
   --secondary-dark: 152, 137, 146;
