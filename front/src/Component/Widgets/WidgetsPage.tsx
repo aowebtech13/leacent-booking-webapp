@@ -1,8 +1,8 @@
 import React, { useState, ChangeEvent, useEffect } from "react";
 import EcommerceCard from "@/Component/Dashboard/EcommerceDashboard/EcommerceCard";
-import Effortless from "@/Component/Dashboard/ProjectDashboard/Effortless";
-import ProjectCard from "@/Component/Dashboard/ProjectDashboard/ProjectCard";
-import ProjectFileData from "@/Component/Dashboard/ProjectDashboard/ProjectFileData";
+
+
+
 import {
   Card,
   CardBody,
@@ -167,9 +167,9 @@ const WidgetsPage: React.FC = () => {
           </Card>
         </Col>
 
-        <Effortless show />
-        <ProjectCard />
-        <ProjectFileData />
+
+
+
       </Row>
     </Container>
   );
