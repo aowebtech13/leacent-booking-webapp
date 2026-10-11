@@ -217,7 +217,7 @@ const TopProduct = () => {
       </Col>
       <Col md="5" xxl="3">
         <div className="p-3">
-          <h5>Customer</h5>
+          <h5>Leacent Authors</h5>
         </div>
         <Card>
           <CardBody>
