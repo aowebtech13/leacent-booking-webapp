@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   Button,
   Col,
@@ -10,16 +10,45 @@ import {
   Row,
   Spinner,
 } from "reactstrap";
-import { verifyOtp } from "@/lib/auth/action";
+import { useSearchParams } from "next/navigation";
+import { verifyOtp, resendOtpAction } from "@/lib/auth/action";
 
-const OTP_LENGTH = 5;
+const OTP_LENGTH = 4;
 
 const VerifyOtpPage: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isResending, setIsResending] = useState(false);
+  const [resendMessage, setResendMessage] = useState("");
+  const searchParams = useSearchParams();
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    const emailParam = searchParams.get("email");
+    if (emailParam) {
+      setEmail(emailParam);
+    }
+  }, [searchParams]);
 
   const handleSubmit = () => {
     setIsSubmitting(true);
   };
+
+  const handleResend = async () => {
+    if (!email) return;
+    setIsResending(true);
+    setResendMessage("");
+    try {
+      const formData = new FormData();
+      formData.append("email", email);
+      await resendOtpAction(formData);
+      setResendMessage("Verification code resent successfully!");
+    } catch (error: any) {
+      setResendMessage(error.message || "Failed to resend code");
+    } finally {
+      setIsResending(false);
+    }
+  };
+
   const inputRefs = useRef<(HTMLInputElement | HTMLTextAreaElement | null)[]>(
     []
   );
@@ -84,7 +113,7 @@ const VerifyOtpPage: React.FC = () => {
                           <div className="mb-5 text-center text-lg-start">
                             <h2 className="text-primary-dark">Verify OTP</h2>
                             <p>
-                              Enter the 5 digit code sent to the registered
+                              Enter the {OTP_LENGTH} digit code sent to the registered
                               email Id
                             </p>
                           </div>
@@ -118,11 +147,19 @@ const VerifyOtpPage: React.FC = () => {
                             <a
                               className="link-primary-dark text-decoration-underline"
                               href="#"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                handleResend();
+                              }}
                             >
-                              Resend!
+                              {isResending ? "Resending..." : "Resend!"}
                             </a>
+                            {resendMessage && (
+                              <span className="ms-2 text-success">{resendMessage}</span>
+                            )}
                           </p>
                         </Col>
+                        <input type="hidden" name="email" value={email} />
                         <Col xs={12}>
                           <FormGroup className="mb-3">
                             <Button
