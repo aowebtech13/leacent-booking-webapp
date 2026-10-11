@@ -24,7 +24,7 @@ const NotFoundPage = () => {
         </Row>
 
         <Link
-          href="/dashboard/project"
+          href="/dashboard/ecommerce"
           className="btn btn-lg btn-light-primary mt-3 rounded-pill d-inline-flex align-items-center justify-content-center gap-1"
         >
           <IconHome size={18} />

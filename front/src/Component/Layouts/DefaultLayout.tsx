@@ -38,7 +38,7 @@ const DefaultLayout: React.FC<DefaultLayoutProps> = ({ children }) => {
         head.appendChild(link);
       }
     }
-    if (pathname === "/dashboard/project" || pathname === "/") {
+    if (pathname === "/dashboard/ecommerce" || pathname === "/") {
       setWelcomeModal(true);
     }
   }, [pathname]);

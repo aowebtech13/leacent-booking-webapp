@@ -198,7 +198,7 @@ const LandingPage = () => {
           }`}
         >
           <Container fluid>
-            <NavbarBrand className="logo" tag={Link} href="/dashboard/project">
+            <NavbarBrand className="logo" tag={Link} href="/dashboard/ecommerce">
               <img alt="logo" src="/images/logo/axelit-white.png" />
             </NavbarBrand>
 
@@ -285,7 +285,7 @@ const LandingPage = () => {
                     <Button
                       color="primary"
                       className="py-3 px-4 rounded-pill btn-lg"
-                      href="/dashboard/project"
+                      href="/dashboard/ecommerce"
                       target="_blank"
                     >
                       Check Now

@@ -2,7 +2,7 @@ export const demos = [
   {
     title: "Project",
     imgSrc: "/images/landing/project-dashboard.jpg",
-    link: "/dashboard/project",
+    link: "/dashboard/ecommerce",
     btnClass: "btn-success",
   },
 

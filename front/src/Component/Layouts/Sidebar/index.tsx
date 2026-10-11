@@ -36,7 +36,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
         .join(" ")}
     >
       <div className="app-logo">
-        <Link className="logo d-inline-block" href="/dashboard/project">
+        <Link className="logo d-inline-block" href="/dashboard/ecommerce">
           <img src="/images/logo/1.png" alt="#" className="dark-logo" />
         </Link>
         <span
