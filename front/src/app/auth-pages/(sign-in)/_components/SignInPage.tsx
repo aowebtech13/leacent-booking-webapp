@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useActionState } from "react";
 import {
   Container,
   Row,
@@ -10,6 +10,7 @@ import {
   Input,
   Button,
   Spinner,
+  Alert,
 } from "reactstrap";
 import Link from "next/link";
 import {
@@ -17,14 +18,25 @@ import {
   IconBrandGithub,
   IconBrandGoogle,
 } from "@tabler/icons-react";
-import { loginUser } from "@/lib/auth/action";
+import { loginUser, ActionError } from "@/lib/auth/action";
+
+const INITIAL_STATE = { error: null as string | null };
 
 const SignInPage = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleSubmit = () => {
-    setIsSubmitting(true);
-  };
+  const [state, formAction, isPending] = useActionState(
+    async (_prev: { error: string | null }, formData: FormData) => {
+      try {
+        await loginUser(formData);
+      } catch (err: any) {
+        if (err instanceof ActionError) {
+          return { error: err.message };
+        }
+        return { error: err?.message || "Invalid credentials" };
+      }
+      return INITIAL_STATE;
+    },
+    INITIAL_STATE
+  );
 
   return (
     <div className="sign-in-bg">
@@ -54,11 +66,7 @@ const SignInPage = () => {
               </Col>
               <Col lg={6} className="form-contentbox">
                 <div className="form-container">
-                  <Form
-                    action={loginUser}
-                    onSubmit={handleSubmit}
-                    className="app-form rounded-control"
-                  >
+                  <Form action={formAction} className="app-form rounded-control">
                     <Row>
                       <Col xs={12} className="mb-5 text-center text-lg-start">
                         <h2 className="text-primary-dark f-w-600">
@@ -69,6 +77,14 @@ const SignInPage = () => {
                           registration
                         </p>
                       </Col>
+
+                      {state.error && (
+                        <Col xs={12}>
+                          <Alert color="danger" className="mb-3">
+                            {state.error}
+                          </Alert>
+                        </Col>
+                      )}
 
                       <Col xs={12}>
                         <FormGroup>
@@ -120,14 +136,15 @@ const SignInPage = () => {
                             type="submit"
                             color="light-primary"
                             className="w-100"
+                            disabled={isPending}
                           >
-                            {isSubmitting ? <Spinner size="sm" /> : "Sign In"}
+                            {isPending ? <Spinner size="sm" /> : "Sign In"}
                           </Button>
                         </div>
                       </Col>
 
                       <Col xs={12} className="text-center text-lg-start mt-3">
-                        Don&#39;t have an account?
+                        Don't have an account?
                         <Link
                           href="/auth-pages/sign-up"
                           className="link-primary text-decoration-underline ms-1"

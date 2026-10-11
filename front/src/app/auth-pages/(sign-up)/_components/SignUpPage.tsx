@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useActionState } from "react";
 import {
   Col,
   Container,
@@ -10,6 +10,7 @@ import {
   Input,
   Button,
   Spinner,
+  Alert,
 } from "reactstrap";
 import Link from "next/link";
 import {
@@ -17,14 +18,25 @@ import {
   IconBrandGithub,
   IconBrandGoogle,
 } from "@tabler/icons-react";
-import { registerUser } from "@/lib/auth/action";
+import { registerUser, ActionError } from "@/lib/auth/action";
+
+const INITIAL_STATE = { error: null as string | null };
 
 const SignUpPage = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleSubmit = () => {
-    setIsSubmitting(true);
-  };
+  const [state, formAction, isPending] = useActionState(
+    async (_prev: { error: string | null }, formData: FormData) => {
+      try {
+        await registerUser(formData);
+      } catch (err: any) {
+        if (err instanceof ActionError) {
+          return { error: err.message };
+        }
+        return { error: err?.message || "Registration failed" };
+      }
+      return INITIAL_STATE;
+    },
+    INITIAL_STATE
+  );
 
   return (
     <div className="sign-in-bg">
@@ -54,11 +66,7 @@ const SignUpPage = () => {
               </Col>
               <Col lg={6} className="form-contentbox">
                 <div className="form-container">
-                  <Form
-                    action={registerUser}
-                    onSubmit={handleSubmit}
-                    className="app-form rounded-control"
-                  >
+                  <Form action={formAction} className="app-form rounded-control">
                     <Row>
                       <Col xs={12}>
                         <div className="mb-5 text-center text-lg-start">
@@ -68,6 +76,14 @@ const SignUpPage = () => {
                           <p>Get Started For Free Today!</p>
                         </div>
                       </Col>
+
+                      {state.error && (
+                        <Col xs={12}>
+                          <Alert color="danger" className="mb-3">
+                            {state.error}
+                          </Alert>
+                        </Col>
+                      )}
 
                       <Col xs={12}>
                         <FormGroup className="mb-3">
@@ -156,8 +172,9 @@ const SignUpPage = () => {
                             color="light-primary"
                             type="submit"
                             className="w-100"
+                            disabled={isPending}
                           >
-                            {isSubmitting ? <Spinner size="sm" /> : "Sign Up"}
+                            {isPending ? <Spinner size="sm" /> : "Sign Up"}
                           </Button>
                         </div>
                       </Col>

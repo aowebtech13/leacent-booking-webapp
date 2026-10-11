@@ -9,9 +9,10 @@ import {
   Input,
   Row,
   Spinner,
+  Alert,
 } from "reactstrap";
 import { useSearchParams } from "next/navigation";
-import { verifyOtp, resendOtpAction } from "@/lib/auth/action";
+import { verifyOtp, resendOtpAction, ActionError } from "@/lib/auth/action";
 
 const OTP_LENGTH = 4;
 
@@ -19,6 +20,7 @@ const VerifyOtpPage: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isResending, setIsResending] = useState(false);
   const [resendMessage, setResendMessage] = useState("");
+  const [formError, setFormError] = useState("");
   const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
 
@@ -29,21 +31,46 @@ const VerifyOtpPage: React.FC = () => {
     }
   }, [searchParams]);
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (isSubmitting) return;
     setIsSubmitting(true);
+    setFormError("");
+    const form = e.currentTarget as HTMLFormElement;
+    const formData = new FormData(form);
+
+    // Run the server action manually so we can surface errors in the UI.
+    (async () => {
+      try {
+        await verifyOtp(formData);
+      } catch (err: any) {
+        const message =
+          err instanceof ActionError
+            ? err.message
+            : err?.message || "Invalid verification code";
+        setFormError(message);
+      } finally {
+        setIsSubmitting(false);
+      }
+    })();
   };
 
   const handleResend = async () => {
     if (!email) return;
     setIsResending(true);
     setResendMessage("");
+    setFormError("");
     try {
       const formData = new FormData();
       formData.append("email", email);
       await resendOtpAction(formData);
       setResendMessage("Verification code resent successfully!");
     } catch (error: any) {
-      setResendMessage(error.message || "Failed to resend code");
+      const message =
+        error instanceof ActionError
+          ? error.message
+          : error?.message || "Failed to resend code";
+      setResendMessage(message);
     } finally {
       setIsResending(false);
     }
@@ -103,11 +130,7 @@ const VerifyOtpPage: React.FC = () => {
                 </Col>
                 <Col lg={6} className="form-contentbox">
                   <div className="form-container">
-                    <Form
-                      className="app-form rounded-control"
-                      action={verifyOtp}
-                      onSubmit={handleSubmit}
-                    >
+                    <Form onSubmit={handleSubmit} className="app-form rounded-control">
                       <Row>
                         <Col xs={12}>
                           <div className="mb-5 text-center text-lg-start">
@@ -118,6 +141,13 @@ const VerifyOtpPage: React.FC = () => {
                             </p>
                           </div>
                         </Col>
+                        {formError && (
+                          <Col xs={12}>
+                            <Alert color="danger" className="mb-3">
+                              {formError}
+                            </Alert>
+                          </Col>
+                        )}
                         <Col xs={12}>
                           <div className="verification-box d-flex gap-2 justify-content-lg-start mb-3">
                             {otp.map((digit, index) => (
@@ -166,6 +196,7 @@ const VerifyOtpPage: React.FC = () => {
                               color="light-primary"
                               type="submit"
                               className="w-100"
+                              disabled={isSubmitting}
                             >
                               {isSubmitting ? <Spinner size="sm" /> : "Verify"}
                             </Button>
