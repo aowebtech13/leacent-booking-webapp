@@ -95,7 +95,7 @@ const DefaultLayout: React.FC<DefaultLayoutProps> = ({ children }) => {
                   <img
                     alt="img"
                     className="img-fluid"
-                    src="/images/modals/welcome-1.png"
+                    src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791754748/pexels-sahfy-lenz-2153643467-36895469_q1rtht.jpg"
                   />
                 </div>
                 <ModalFooter className="modal-btn mb-4 justify-content-center">
@@ -104,7 +104,7 @@ const DefaultLayout: React.FC<DefaultLayoutProps> = ({ children }) => {
                     onClick={toggleWelcomeModal}
                     type="button"
                   >
-                    Get Started
+                    start Reading
                   </button>
                 </ModalFooter>
               </div>
