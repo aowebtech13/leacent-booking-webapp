@@ -46,7 +46,7 @@ const ScrollpyNav: React.FC = () => {
           >
             <Container fluid>
               <a className="navbar-brand" href="#">
-                <img src="https://res.cloudinary.com/djme9spdc/image/upload/v1775536052/WhatsApp-Image-2023-01-27-at-07.45.34_wz1fal.jpg" className="w-150" alt="#" />
+                <img src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png" className="w-150" alt="#" />
               </a>
               <Button
                 className="navbar-toggler"

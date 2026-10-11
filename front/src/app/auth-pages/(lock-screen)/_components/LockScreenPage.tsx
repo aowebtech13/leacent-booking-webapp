@@ -32,7 +32,7 @@ const LockScreenPage = () => {
                     <span>
                       {" "}
                       <img
-                        src="/images/logo/1.png"
+                        src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png"
                         alt="logo"
                         className="img-fluid"
                       />

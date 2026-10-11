@@ -37,7 +37,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
     >
       <div className="app-logo">
         <Link className="logo d-inline-block" href="/dashboard/ecommerce">
-          <img src="https://res.cloudinary.com/djme9spdc/image/upload/v1775536052/WhatsApp-Image-2023-01-27-at-07.45.34_wz1fal.jpg" alt="#" className="dark-logo" />
+          <img src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png" alt="#" className="dark-logo" />
         </Link>
         <span
           className="bg-light-light toggle-semi-nav"

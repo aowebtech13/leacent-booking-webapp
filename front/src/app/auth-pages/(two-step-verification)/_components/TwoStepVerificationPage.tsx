@@ -88,7 +88,7 @@ const VerifyOtpPage: React.FC = () => {
                         <img
                           alt="logo"
                           className="img-fluid"
-                          src="/images/logo/1.png"
+                          src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png"
                         />
                       </span>
                     </div>

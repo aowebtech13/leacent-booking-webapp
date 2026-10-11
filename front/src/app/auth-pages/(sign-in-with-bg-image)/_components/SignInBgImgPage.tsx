@@ -48,7 +48,7 @@ const SignInBgImgPage = () => {
           <div className="login-form-container">
             <div className="mb-4 text-center">
               <Link className="logo d-inline-block" href="/">
-                <img src="/images/logo/1.png" className="w-250" alt="logo" />
+                <img src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png" className="w-250" alt="logo" />
               </Link>
             </div>
 
