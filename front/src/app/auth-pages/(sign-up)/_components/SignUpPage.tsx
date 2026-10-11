@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   Col,
   Container,
@@ -9,6 +9,7 @@ import {
   Label,
   Input,
   Button,
+  Spinner,
 } from "reactstrap";
 import Link from "next/link";
 import {
@@ -16,8 +17,15 @@ import {
   IconBrandGithub,
   IconBrandGoogle,
 } from "@tabler/icons-react";
+import { registerUser } from "@/lib/auth/action";
 
 const SignUpPage = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = () => {
+    setIsSubmitting(true);
+  };
+
   return (
     <div className="sign-in-bg">
       <div className="app-wrapper d-block">
@@ -46,7 +54,11 @@ const SignUpPage = () => {
               </Col>
               <Col lg={6} className="form-contentbox">
                 <div className="form-container">
-                  <Form className="app-form rounded-control">
+                  <Form
+                    action={registerUser}
+                    onSubmit={handleSubmit}
+                    className="app-form rounded-control"
+                  >
                     <Row>
                       <Col xs={12}>
                         <div className="mb-5 text-center text-lg-start">
@@ -63,6 +75,7 @@ const SignUpPage = () => {
                           <Input
                             type="text"
                             id="username"
+                            name="username"
                             placeholder="Enter Your Username"
                             required
                           />
@@ -75,6 +88,7 @@ const SignUpPage = () => {
                           <Input
                             type="email"
                             id="email"
+                            name="email"
                             placeholder="Enter Your Email"
                             required
                           />
@@ -87,6 +101,7 @@ const SignUpPage = () => {
                           <Input
                             type="password"
                             id="password"
+                            name="password"
                             placeholder="Enter Your Password"
                             required
                           />
@@ -99,8 +114,21 @@ const SignUpPage = () => {
                           <Input
                             type="password"
                             id="confirmPassword"
+                            name="confirmPassword"
                             placeholder="Enter Your Password"
                             required
+                          />
+                        </FormGroup>
+                      </Col>
+
+                      <Col xs={12}>
+                        <FormGroup className="mb-3">
+                          <Label for="phone">Phone (Optional)</Label>
+                          <Input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            placeholder="Enter Your Phone"
                           />
                         </FormGroup>
                       </Col>
@@ -128,9 +156,8 @@ const SignUpPage = () => {
                             color="light-primary"
                             type="submit"
                             className="w-100"
-                            href="/dashboard/project"
                           >
-                            Sign Up
+                            {isSubmitting ? <Spinner size="sm" /> : "Sign Up"}
                           </Button>
                         </div>
                       </Col>

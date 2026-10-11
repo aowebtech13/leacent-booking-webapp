@@ -1,9 +1,26 @@
 "use client";
-import React from "react";
-import { Col, Container, Row, Form, FormGroup, Label, Input } from "reactstrap";
+import React, { useState, useEffect } from "react";
+import { Col, Container, Row, Form, FormGroup, Label, Input, Button, Spinner } from "reactstrap";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { resetPasswordAction } from "@/lib/auth/action";
 
 const PasswordResetPage = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const searchParams = useSearchParams();
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    const tokenParam = searchParams.get("token");
+    if (tokenParam) {
+      setToken(tokenParam);
+    }
+  }, [searchParams]);
+
+  const handleSubmit = () => {
+    setIsSubmitting(true);
+  };
+
   return (
     <div>
       <div className="sign-in-bg">
@@ -35,7 +52,11 @@ const PasswordResetPage = () => {
 
                 <Col lg={6} className="form-contentbox">
                   <div className="form-container">
-                    <Form className="app-form rounded-control">
+                    <Form
+                      action={resetPasswordAction}
+                      onSubmit={handleSubmit}
+                      className="app-form rounded-control"
+                    >
                       <Row>
                         <Col xs={12}>
                           <div className="mb-5 text-center text-lg-start">
@@ -52,6 +73,7 @@ const PasswordResetPage = () => {
                             <Input
                               type="password"
                               id="password"
+                              name="password"
                               placeholder="Enter Your Password"
                               required
                             />
@@ -60,25 +82,28 @@ const PasswordResetPage = () => {
 
                         <Col xs={12}>
                           <FormGroup className="mb-3">
-                            <Label htmlFor="password1">Confirm Password</Label>
+                            <Label htmlFor="password_confirmation">Confirm Password</Label>
                             <Input
                               type="password"
-                              id="password1"
-                              placeholder="Enter Your Password"
+                              id="password_confirmation"
+                              name="password_confirmation"
+                              placeholder="Confirm Your Password"
                               required
                             />
                           </FormGroup>
                         </Col>
 
+                        <input type="hidden" name="token" value={token} />
+
                         <Col xs={12}>
                           <div className="mb-3">
-                            <Link
-                              href="/auth-pages/sign-in"
-                              role="button"
-                              className="btn btn-light-primary w-100"
+                            <Button
+                              color="light-primary"
+                              type="submit"
+                              className="w-100"
                             >
-                              Reset Password
-                            </Link>
+                              {isSubmitting ? <Spinner size="sm" /> : "Reset Password"}
+                            </Button>
                           </div>
                         </Col>
                       </Row>

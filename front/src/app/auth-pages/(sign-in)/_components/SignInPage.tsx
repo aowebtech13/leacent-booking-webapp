@@ -87,7 +87,7 @@ const SignInPage = () => {
                         <FormGroup>
                           <Label for="password">Password</Label>
                           <Link
-                            href="/auth-pages/password-reset"
+                            href="/auth-pages/forgot-password"
                             className="link-primary-dark float-end"
                           >
                             Forgot Password?

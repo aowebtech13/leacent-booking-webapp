@@ -127,3 +127,12 @@ export async function logout() {
     setAuthToken(null);
   }
 }
+
+/**
+ * Resend the OTP verification code.
+ */
+export async function resendOtp(payload: { email: string }) {
+  await ensureCsrf();
+  const res = await api.post("auth/resend-otp", payload);
+  return res.data;
+}
