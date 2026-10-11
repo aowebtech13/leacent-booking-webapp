@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { resetPassword } from "@/lib/api";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,33 +12,56 @@ export const metadata: Metadata = {
   description: "Reset your Axelit account password",
 };
 
+type FormData = {
+  password: string;
+  confirmPassword: string;
+};
+
 const ResetPasswordPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>(null);
 
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<{
-    password: string;
-    confirmPassword: string;
-  }>();
-
+  } = useForm<FormData>();
   const password = watch("password");
 
-  const onSubmit = async (data: { password: string; confirmPassword: string }) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const t = searchParams.get("token");
+    if (t) {
+      setToken(t);
+    }
+  }, [searchParams]);
+
+  const onSubmit = async (data: FormData) => {
+    if (!token) {
+      setError("Missing reset token. Please request a new reset link.");
+      return;
+    }
+
     setIsLoading(true);
     setError(null);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    // In a real app, you would call a server action or API here
-    setSuccess(true);
-    setIsLoading(false);
+    try {
+      await resetPassword({
+        token,
+        password: data.password,
+        password_confirmation: data.confirmPassword,
+      });
+      setSuccess(true);
+    } catch (err: any) {
+      setError(err?.message || "Failed to reset password. The link may have expired.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -94,9 +119,10 @@ const ResetPasswordPage = () => {
                 id="confirmPassword"
                 placeholder="Confirm new password"
                 {...register("confirmPassword", {
-                    required: "Please confirm your password",
-                    validate: (value: string) => value === password || "Passwords do not match",
-                  })}
+                  required: "Please confirm your password",
+                  validate: (value: string) =>
+                    value === password || "Passwords do not match",
+                })}
               />
               {errors.confirmPassword && (
                 <div className="invalid-feedback">{errors.confirmPassword.message}</div>

@@ -3,6 +3,9 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/lib/contexts/AuthContext";
+import { register as apiRegister, verifyOtp } from "@/lib/api";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,41 +13,48 @@ export const metadata: Metadata = {
   description: "Create your Axelit account",
 };
 
+type FormData = {
+  fullName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  terms: boolean;
+};
+
 const SignUpPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [emailSent, setEmailSent] = useState<string | null>(null);
+  const router = useRouter();
 
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<{
-    fullName: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-    terms: boolean;
-  }>();
+  } = useForm<FormData>();
 
   const password = watch("password");
 
-  const onSubmit = async (data: {
-    fullName: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-    terms: boolean;
-  }) => {
+  const onSubmit = async (data: FormData) => {
     setIsLoading(true);
     setError(null);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    // In a real app, you would call a server action or API here
-    // For now, redirect to verify-otp
-    window.location.href = "/verify-otp";
+    try {
+      const res = await apiRegister({
+        name: data.fullName,
+        email: data.email,
+        password: data.password,
+        password_confirmation: data.confirmPassword,
+      });
+      // Backend returns the email the code was sent to.
+      setEmailSent(res?.email || data.email);
+      // Pre-fill the verify-otp page with the email via query param.
+      router.push(`/verify-otp?email=${encodeURIComponent(data.email)}`);
+    } catch (err: any) {
+      setError(err?.message || "Failed to create account. Please try again.");
+      setIsLoading(false);
+    }
   };
 
   return (

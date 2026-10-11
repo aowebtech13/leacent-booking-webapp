@@ -3,12 +3,15 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
+import { forgotPassword } from "@/lib/api";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Forgot Password - Axelit",
   description: "Reset your Axelit account password",
 };
+
+type FormData = { email: string };
 
 const ForgotPasswordPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -19,18 +22,20 @@ const ForgotPasswordPage = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<{ email: string }>();
+  } = useForm<FormData>();
 
-  const onSubmit = async (data: { email: string }) => {
+  const onSubmit = async (data: FormData) => {
     setIsLoading(true);
     setError(null);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    // In a real app, you would call a server action or API here
-    setSuccess(true);
-    setIsLoading(false);
+    try {
+      await forgotPassword({ email: data.email });
+      setSuccess(true);
+    } catch (err: any) {
+      setError(err?.message || "Failed to send reset link. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

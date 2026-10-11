@@ -3,7 +3,8 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
-import { loginUser } from "@/lib/auth/action";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/lib/contexts/AuthContext";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,31 +12,39 @@ export const metadata: Metadata = {
   description: "Sign in to your Axelit account",
 };
 
+type FormData = { email: string; password: string };
+
 const SignInPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { login, isAuthenticated } = useAuth();
+  const router = useRouter();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<{ username: string; password: string }>();
+  } = useForm<FormData>();
 
-  const onSubmit = async (data: { username: string; password: string }) => {
+  const onSubmit = async (data: FormData) => {
     setIsLoading(true);
     setError(null);
 
-    const formData = new FormData();
-    formData.append("username", data.username);
-    formData.append("password", data.password);
-
     try {
-      await loginUser(formData);
-    } catch (err) {
-      setError("Invalid credentials. Please try again.");
+      await login(data.email, data.password);
+      // Redirect to dashboard on success.
+      router.push("/dashboard/ecommerce");
+    } catch (err: any) {
+      setError(err?.message || "Invalid credentials. Please try again.");
       setIsLoading(false);
     }
   };
+
+  // Already-authenticated users should not linger on the sign-in page.
+  if (isAuthenticated) {
+    router.push("/dashboard/ecommerce");
+    return null;
+  }
 
   return (
     <div className="auth-page-wrapper">
@@ -54,20 +63,24 @@ const SignInPage = () => {
           )}
 
           <div className="mb-3">
-            <label htmlFor="username" className="form-label f-w-500">
-              Username or Email
+            <label htmlFor="email" className="form-label f-w-500">
+              Email Address
             </label>
             <input
-              type="text"
-              className={`form-control ${errors.username ? "is-invalid" : ""}`}
-              id="username"
-              placeholder="Enter your username or email"
-              {...register("username", {
-                required: "Username or email is required",
+              type="email"
+              className={`form-control ${errors.email ? "is-invalid" : ""}`}
+              id="email"
+              placeholder="Enter your registered email"
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: "Invalid email address",
+                },
               })}
             />
-            {errors.username && (
-              <div className="invalid-feedback">{errors.username.message}</div>
+            {errors.email && (
+              <div className="invalid-feedback">{errors.email.message}</div>
             )}
           </div>
 

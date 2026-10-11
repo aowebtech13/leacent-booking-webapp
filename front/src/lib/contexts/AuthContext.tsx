@@ -22,6 +22,7 @@ interface AuthContextValue {
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
+  setAuth: (res: AuthResponse) => void;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
 }
@@ -114,11 +115,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     router.push("/sign-in");
   }, [router]);
 
+  const setAuth = useCallback((res: AuthResponse) => {
+    setAuthToken(res.access_token);
+    storeToken(res.access_token);
+    setUser(res.user);
+  }, []);
+
   const value: AuthContextValue = {
     user,
     isAuthenticated: !!user,
     isLoading,
     login,
+    setAuth,
     logout,
     refreshUser,
   };

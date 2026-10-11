@@ -3,7 +3,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
-import { verifyOtp } from "@/lib/auth/action";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useAuth } from "@/lib/contexts/AuthContext";
+import { verifyOtp as apiVerifyOtp, AuthResponse } from "@/lib/api";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,23 +13,41 @@ export const metadata: Metadata = {
   description: "Verify your OTP to complete the process",
 };
 
+type FormData = {
+  otp0: string;
+  otp1: string;
+  otp2: string;
+  otp3: string;
+  otp4: string;
+};
+
 const VerifyOtpPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [resendTimer, setResendTimer] = useState(60);
   const [canResend, setCanResend] = useState(false);
+  const [email, setEmail] = useState<string | null>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const { setAuth } = useAuth();
 
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm<{ otp0: string; otp1: string; otp2: string; otp3: string; otp4: string }>();
+  } = useForm<FormData>();
 
   useEffect(() => {
-    // Start resend timer
+    const emailParam = searchParams.get("email");
+    if (emailParam) {
+      setEmail(emailParam);
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
     timerRef.current = setInterval(() => {
       setResendTimer((prev) => {
         if (prev <= 1) {
@@ -48,11 +68,9 @@ const VerifyOtpPage = () => {
     const fieldName = `otp${index}` as const;
     setValue(fieldName, value, { shouldValidate: true });
 
-    // Auto-focus next input
     if (value.length === 1 && index < 4) {
       inputsRef.current[index + 1]?.focus();
     }
-    // Auto-focus previous input on backspace
     if (value.length === 0 && index > 0) {
       inputsRef.current[index - 1]?.focus();
     }
@@ -69,29 +87,25 @@ const VerifyOtpPage = () => {
     }
   };
 
-  const onSubmit = async (data: {
-    otp0: string;
-    otp1: string;
-    otp2: string;
-    otp3: string;
-    otp4: string;
-  }) => {
+  const onSubmit = async (data: FormData) => {
     setIsLoading(true);
     setError(null);
 
-    const formData = new FormData();
-    formData.append("otp0", data.otp0);
-    formData.append("otp1", data.otp1);
-    formData.append("otp2", data.otp2);
-    formData.append("otp3", data.otp3);
-    formData.append("otp4", data.otp4);
+    const code = [data.otp0, data.otp1, data.otp2, data.otp3, data.otp4].join("");
+
+    if (!email) {
+      setError("Missing email. Please go back and sign up again.");
+      setIsLoading(false);
+      return;
+    }
 
     try {
-      await verifyOtp(formData);
-    } catch (err) {
-      setError("Invalid OTP. Please try again.");
+      const res: AuthResponse = await apiVerifyOtp({ email, code });
+      setAuth(res);
+      router.push("/dashboard/ecommerce");
+    } catch (err: any) {
+      setError(err?.message || "Invalid OTP. Please try again.");
       setIsLoading(false);
-      // Clear inputs on error
       for (let i = 0; i < 5; i++) {
         setValue(`otp${i}` as const, "");
       }
@@ -103,7 +117,6 @@ const VerifyOtpPage = () => {
     if (!canResend) return;
     setResendTimer(60);
     setCanResend(false);
-    // In a real app, you would call an API to resend the OTP
     timerRef.current = setInterval(() => {
       setResendTimer((prev) => {
         if (prev <= 1) {
