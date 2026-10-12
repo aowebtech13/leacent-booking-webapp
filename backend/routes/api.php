@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BookReadingProgressController;
 use App\Http\Controllers\CaseReminderController;
 use App\Http\Controllers\ComplianceController;
 use App\Http\Controllers\ContactController;
@@ -160,6 +161,10 @@ Route::get('books/{id}/preview', [BookController::class, 'preview']);
 // Protected book reading (requires active access)
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('books/{id}/read', [BookController::class, 'read']);
+
+    // Reading progress (save / resume position)
+    Route::get('books/{id}/progress', [BookReadingProgressController::class, 'show']);
+    Route::post('books/{id}/progress', [BookReadingProgressController::class, 'update']);
 });
 
 // Protected cart & orders
