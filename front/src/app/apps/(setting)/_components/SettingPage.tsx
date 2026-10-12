@@ -25,11 +25,11 @@ import {
   UserCircleGear,
 } from "phosphor-react";
 import ActivityTimeline from "@/app/apps/(setting)/_components/ActivityTimeline";
-import SecurityCard from "@/app/apps/(setting)/_components/SecurityCard";
-import PrivacyCard from "@/app/apps/(setting)/_components/PrivacyCard";
-import NotificationSettings from "@/app/apps/(setting)/_components/NotificationSettings";
+
+
+
 import Subscription from "@/app/apps/(setting)/_components/Subscription";
-import Connection from "@/app/apps/(setting)/_components/Connection";
+
 import SettingProfile from "@/app/apps/(setting)/_components/SettingProfile";
 import Breadcrumbs from "@/Component/CommonElements/Breadcrumbs";
 import TimeSpent from "./TimeSpent";
@@ -210,30 +210,8 @@ const Setting = () => {
                     </div>
                   </CardBody>
                 </Card>
-                <div className="my-3 border-top"></div>
-                <div className="d-flex align-items-center">
-                  <span className="h-45 w-45 d-flex justify-content-center align-items-center bg-warning rounded-circle position-relative">
-                    <img
-                      src="/images/avatar/9.png"
-                      alt="avatar"
-                      className="img-fluid rounded-circle w-4 h-45"
-                    />
-                    <span className="position-absolute top-0 end-0 p-1 bg-success border border-light rounded-circle"></span>
-                  </span>
-                  <div className="flex-grow-1 ps-2">
-                    <div className="fw-bold fs-6">Ninfa Monaldo</div>
-                    <div className="text-secondary fs-6">Web Developer</div>
-                  </div>
-                  <div>
-                    <Link href="/apps/profile">
-                      <ArrowSquareOut
-                        weight="bold"
-                        size={24}
-                        className="fs-4"
-                      />
-                    </Link>
-                  </div>
-                </div>
+              
+               
               </CardBody>
             </Card>
           </Col>
@@ -245,21 +223,13 @@ const Setting = () => {
               <TabPane tabId="2">
                 <ActivityTimeline />
               </TabPane>
-              <TabPane tabId="3">
-                <SecurityCard />
-              </TabPane>
-              <TabPane tabId="4">
-                <PrivacyCard />
-              </TabPane>
-              <TabPane tabId="5">
-                <NotificationSettings />
-              </TabPane>
+             
+            
+            
               <TabPane tabId="6">
                 <Subscription />
               </TabPane>
-              <TabPane tabId="7">
-                <Connection />
-              </TabPane>
+            
             </TabContent>
           </Col>
         </Row>
