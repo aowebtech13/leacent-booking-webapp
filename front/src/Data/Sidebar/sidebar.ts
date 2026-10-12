@@ -32,32 +32,22 @@ export const MenuList = [
     type: "dropdown",
     iconClass: AppleShortcuts,
     collapseId: "apps",
-    name: "apps",
-    path: "/apps",
-    children: [
-      { name: "Calendar", path: "/apps/calendar" },
-      {
-        name: "Profile Page",
-        path: "/Apexcharts",
-        collapseId: "profile-page",
-        children: [
-          { name: "Profile", path: "/apps/profile" },
-          { name: "Setting", path: "/apps/setting" },
-        ],
-      },
-     
-     
-      
-    ],
+    name: "My Profile",
+    path: "/apps/setting",
+   
   },
   {
-    name: "Widgets",
+    name: "Ugrade to Pro",
     path: "/widgets",
-    iconClass: ViewGrid,
+    iconClass: ShoppingBagPlus,
   },
   
   
-  
+   {
+    name: "Book Libary",
+    path: "/apps/file-manager",
+    iconClass: PageStar,
+  },
  
   
   {
@@ -77,11 +67,7 @@ export const MenuList = [
       },
     ],
   },
-  {
-    name: "Document",
-    path: "https://phpstack-1384472-5121645.cloudwaysapps.com/document/next-ts/axelit/index.html",
-    iconClass: PageStar,
-  },
+ 
   {
     name: "Support",
     path: "mailto:teqlathemes@gmail.com",

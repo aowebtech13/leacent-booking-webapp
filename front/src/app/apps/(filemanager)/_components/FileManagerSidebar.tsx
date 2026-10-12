@@ -74,7 +74,7 @@ const FileManagerSidebar: React.FC<FileManagerSidebarProps> = ({
     <>
       <Card>
         <CardHeader>
-          <h5>My Drive</h5>
+          <h5>My Books</h5>
         </CardHeader>
 
         <CardBody>
@@ -90,24 +90,8 @@ const FileManagerSidebar: React.FC<FileManagerSidebarProps> = ({
                 10+
               </li>
 
-              <li
-                className={`tab-link align-items-center ${activeTab === "2" ? "active" : ""}`}
-                onClick={() => handleTabClick("2")}
-                data-tab="2"
-              >
-                <IconStar size={28} className=" pe-2" />
-                <span className="flex-grow-1">Starred</span>
-              </li>
+           
 
-              <li
-                className={`tab-link align-items-center ${activeTab === "3" ? "active" : ""}`}
-                onClick={() => handleTabClick("3")}
-                data-tab="3"
-              >
-                <IconTrash size={28} className=" pe-2" />
-                <span className="flex-grow-1">Recycle Bin</span>
-                2+
-              </li>
 
               <li
                 className={`tab-link align-items-center ${activeTab === "4" ? "active" : ""}`}
@@ -120,13 +104,7 @@ const FileManagerSidebar: React.FC<FileManagerSidebarProps> = ({
 
               <div className="app-divider-v dashed m-0 p-2"></div>
 
-              <li
-                className="tab-link align-items-center"
-                onClick={() => handleTabClick("5")}
-              >
-                <IconSend size={28} className="pe-2" />
-                <span className="flex-grow-1">Shared File</span>
-              </li>
+            
 
               <li
                 className="tab-link align-items-center"
@@ -136,13 +114,6 @@ const FileManagerSidebar: React.FC<FileManagerSidebarProps> = ({
                 <span className="flex-grow-1">Help</span>
               </li>
 
-              <li
-                className="tab-link align-items-center"
-                onClick={() => handleTabClick("7")}
-              >
-                <IconAdjustmentsAlt size={28} className=" pe-2" />
-                <span className="flex-grow-1">Settings</span>
-              </li>
             </ul>
           </div>
         </CardBody>
@@ -236,45 +207,7 @@ const FileManagerSidebar: React.FC<FileManagerSidebarProps> = ({
           ))}
         </CardBody>
       </Card>
-      <Card>
-        <CardHeader>
-          <h5>File Upload</h5>
-        </CardHeader>
-        <CardBody>
-          <div className="mb-4">
-            <h6 className="mb-1 text-dark">Uploading 59 photos</h6>
-            <div>
-              <div className="d-flex justify-content-between">
-                <p className="text-secondary">Photoes 01</p>
-                <span className="text-primary">65%</span>
-              </div>
-              <Progress className="h-5" value={65} max={100} color="primary" />
-            </div>
-          </div>
-
-          <div className="mb-4">
-            <h6 className="mb-1 text-dark">Uploading 7 videos</h6>
-            <div>
-              <div className="d-flex justify-content-between">
-                <p className="text-secondary">Museum</p>
-                <span className="text-primary">25%</span>
-              </div>
-              <Progress className="h-5" value={25} max={100} color="primary" />
-            </div>
-          </div>
-
-          <div className="mb-4">
-            <h6 className="mb-1 text-dark">Uploading 12 Documents</h6>
-            <div>
-              <div className="d-flex justify-content-between">
-                <p className="text-secondary">My Work</p>
-                <span className="text-primary">90%</span>
-              </div>
-              <Progress className="h-5" value={90} max={100} color="primary" />
-            </div>
-          </div>
-        </CardBody>
-      </Card>
+    
     </>
   );
 };

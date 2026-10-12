@@ -131,7 +131,7 @@ const CloudTabData = ({ onDelete, onStar }: Props) => {
       {/* Folders */}
       <Card>
         <CardHeader>
-          <h5>Folders</h5>
+          <h5>Books Category</h5>
         </CardHeader>
         <CardBody>
           <Row>
