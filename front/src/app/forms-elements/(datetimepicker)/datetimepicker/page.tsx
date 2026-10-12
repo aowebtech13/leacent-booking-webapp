@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Datetime Picker Forms - Axelit",
+    title: "Datetime Picker Forms -Leacent Book-App",
     description:
       "Explore datetime picker components for selecting dates and times in your React forms.",
     keywords: [
@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "calendar integration",
     ],
     openGraph: {
-      title: "Datetime Picker Forms - Axelit",
+      title: "Datetime Picker Forms -Leacent Book-App",
       description:
         "Explore datetime picker components for selecting dates and times in your React forms.",
       url: "https://axelit-next.vercel.app/forms-elements/datetimepicker",

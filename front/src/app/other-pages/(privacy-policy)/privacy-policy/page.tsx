@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Privacy Policy - Axelit",
+    title: "Privacy Policy -Leacent Book-App",
     description:
       "Privacy policy page template for your React application's data protection and user privacy information.",
     keywords: [
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "user privacy",
     ],
     openGraph: {
-      title: "Privacy Policy - Axelit",
+      title: "Privacy Policy -Leacent Book-App",
       description:
         "Privacy policy page template for your React application's data protection and user privacy information.",
       url: "https://axelit-next.vercel.app/other-pages/privacy-policy",

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Avatars - Axelit",
+    title: "Avatars -Leacent Book-App",
     description:
       "Explore avatar components for user profile images and icons in your React application.",
     keywords: [
@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "user components",
     ],
     openGraph: {
-      title: "Avatars - Axelit",
+      title: "Avatars -Leacent Book-App",
       description:
         "Explore avatar components for user profile images and icons in your React application.",
       url: "https://axelit-next.vercel.app/ui-kit/avatar",

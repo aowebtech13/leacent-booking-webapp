@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "404 Not Found - Axelit",
+    title: "404 Not Found -Leacent Book-App",
     description:
       "The page you're looking for doesn't exist. Please check the URL and try again.",
     keywords: [
@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "page not found",
     ],
     openGraph: {
-      title: "404 Not Found - Axelit",
+      title: "404 Not Found -Leacent Book-App",
       description:
         "The page you're looking for doesn't exist. Please check the URL and try again.",
       url: "https://axelit-next.vercel.app/error-pages/not-found",

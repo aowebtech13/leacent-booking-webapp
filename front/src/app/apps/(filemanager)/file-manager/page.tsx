@@ -6,7 +6,7 @@ export const dynamic = "force-static";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "File Manager - Axelit",
+    title: "File Manager -Leacent Book-App",
     description:
       "Manage your files and documents with our intuitive file management system.",
     keywords: [
@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "file operations",
     ],
     openGraph: {
-      title: "File Manager - Axelit",
+      title: "File Manager -Leacent Book-App",
       description:
         "Manage your files and documents with our intuitive file management system.",
       url: "https://axelit-next.vercel.app/apps/file-manager",

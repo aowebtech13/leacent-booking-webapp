@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Wrapper - Axelit",
+    title: "Wrapper -Leacent Book-App",
     description:
       "Explore wrapper components for layout and content organization in your React application.",
     keywords: [
@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "content organization",
     ],
     openGraph: {
-      title: "Wrapper - Axelit",
+      title: "Wrapper -Leacent Book-App",
       description:
         "Explore wrapper components for layout and content organization in your React application.",
       url: "https://axelit-next.vercel.app/ui-kit/wrapper",

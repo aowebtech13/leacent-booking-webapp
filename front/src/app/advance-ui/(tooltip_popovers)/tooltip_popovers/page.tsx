@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Tooltip & Popovers - Axelit",
+    title: "Tooltip & Popovers -Leacent Book-App",
     description:
       "Explore advanced tooltip and popover components for your web applications.",
     keywords: [
@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "popover optimization",
     ],
     openGraph: {
-      title: "Tooltip & Popovers - Axelit",
+      title: "Tooltip & Popovers -Leacent Book-App",
       description:
         "Explore advanced tooltip and popover components for your web applications.",
       url: "https://axelit-next.vercel.app/advance-ui/tooltip-popovers",

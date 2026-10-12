@@ -11,8 +11,8 @@ const LandingFooter = () => {
             Build a <span className="highlight-title"> Startling </span> site
           </h1>
           <p className="txt-ellipsis-3">
-            Purchase The axelit & Craft Your Site Super Faster And Powerful.
-            Discover the axelit Admin Theme. If you enjoy our template, please
+            Purchase TheLeacent Book-App & Craft Your Site Super Faster And Powerful.
+            Discover theLeacent Book-App Admin Theme. If you enjoy our template, please
             take a moment to rate us.
           </p>
           <div className="footer-btn">

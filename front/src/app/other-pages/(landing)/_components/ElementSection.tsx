@@ -83,7 +83,7 @@ const ElementSection = () => {
         <Col xl={{ size: 6, offset: 3 }}>
           <div className="landing-title text-md-center">
             <h2>
-              <span className="highlight-title">Elements</span> of axelit
+              <span className="highlight-title">Elements</span> ofLeacent Book-App
             </h2>
             <p>
               offer a responsive and user-friendly interface, streamlining the

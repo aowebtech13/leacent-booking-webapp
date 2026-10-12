@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "E-commerce Dashboard - Axelit",
+    title: "E-commerce Dashboard -Leacent Book-App",
     description:
       "Monitor and manage your e-commerce operations with our comprehensive dashboard featuring real-time analytics and insights.",
     keywords: [
@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "business analytics",
     ],
     openGraph: {
-      title: "E-commerce Dashboard - Axelit",
+      title: "E-commerce Dashboard -Leacent Book-App",
       description:
         "Monitor and manage your e-commerce operations with our comprehensive dashboard featuring real-time analytics and insights.",
       url: "https://axelit-next.vercel.app/dashboard/ecommerce",

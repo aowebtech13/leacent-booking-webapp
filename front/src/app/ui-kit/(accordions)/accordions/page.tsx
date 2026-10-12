@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Accordions - Axelit",
+    title: "Accordions -Leacent Book-App",
     description:
       "Explore accordion components for collapsible content sections in your React application.",
     keywords: [
@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "react components",
     ],
     openGraph: {
-      title: "Accordions - Axelit",
+      title: "Accordions -Leacent Book-App",
       description:
         "Explore accordion components for collapsible content sections in your React application.",
       url: "https://axelit-next.vercel.app/ui-kit/accordions",

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Count Up - Axelit",
+    title: "Count Up -Leacent Book-App",
     description:
       "Explore advanced count-up animations and number counters for your web applications.",
     keywords: [
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "count up library",
     ],
     openGraph: {
-      title: "Count Up - Axelit",
+      title: "Count Up -Leacent Book-App",
       description:
         "Explore advanced count-up animations and number counters for your web applications.",
       url: "https://axelit-next.vercel.app/advance-ui/count-up",

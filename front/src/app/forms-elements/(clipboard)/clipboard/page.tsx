@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Clipboard Forms - Axelit",
+    title: "Clipboard Forms -Leacent Book-App",
     description:
       "Explore clipboard integration components for copying and pasting text in your React forms.",
     keywords: [
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "text copying",
     ],
     openGraph: {
-      title: "Clipboard Forms - Axelit",
+      title: "Clipboard Forms -Leacent Book-App",
       description:
         "Explore clipboard integration components for copying and pasting text in your React forms.",
       url: "https://axelit-next.vercel.app/forms-elements/clipboard",

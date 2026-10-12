@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "403 Forbidden - Axelit",
+    title: "403 Forbidden -Leacent Book-App",
     description: "Access denied. You don't have permission to view this page.",
     keywords: [
       "403 error",
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "access denied",
     ],
     openGraph: {
-      title: "403 Forbidden - Axelit",
+      title: "403 Forbidden -Leacent Book-App",
       description:
         "Access denied. You don't have permission to view this page.",
       url: "https://axelit-next.vercel.app/error-pages/forbidden",

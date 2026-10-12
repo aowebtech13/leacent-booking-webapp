@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Dividers - Axelit",
+    title: "Dividers -Leacent Book-App",
     description:
       "Explore divider components for content separation and organization in your React application.",
     keywords: [
@@ -23,7 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "organizational components",
     ],
     openGraph: {
-      title: "Dividers - Axelit",
+      title: "Dividers -Leacent Book-App",
       description:
         "Explore divider components for content separation and organization in your React application.",
       url: "https://axelit-next.vercel.app/ui-kit/divider",

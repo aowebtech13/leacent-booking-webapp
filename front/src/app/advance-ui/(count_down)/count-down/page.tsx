@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Count Down - Axelit",
+    title: "Count Down -Leacent Book-App",
     description:
       "Explore count down components for event timers and countdowns in your React application.",
     keywords: [
@@ -23,7 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "countdown library",
     ],
     openGraph: {
-      title: "Count Down - Axelit",
+      title: "Count Down -Leacent Book-App",
       description:
         "Explore advanced countdown timers and timers for your web applications.",
       url: "https://axelit-next.vercel.app/advance-ui/count-down",

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Tree View - Axelit",
+    title: "Tree View -Leacent Book-App",
     description:
       "Explore advanced tree view components and hierarchical data visualization for your web applications.",
     keywords: [
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "tree performance",
     ],
     openGraph: {
-      title: "Tree View - Axelit",
+      title: "Tree View -Leacent Book-App",
       description:
         "Explore advanced tree view components and hierarchical data visualization for your web applications.",
       url: "https://axelit-next.vercel.app/advance-ui/tree-view",

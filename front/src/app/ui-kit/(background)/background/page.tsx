@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Backgrounds - Axelit",
+    title: "Backgrounds -Leacent Book-App",
     description:
       "Explore background components and styles for your React application's UI elements.",
     keywords: [
@@ -23,7 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "styling components",
     ],
     openGraph: {
-      title: "Backgrounds - Axelit",
+      title: "Backgrounds -Leacent Book-App",
       description:
         "Explore background components and styles for your React application's UI elements.",
       url: "https://axelit-next.vercel.app/ui-kit/background",

@@ -6,7 +6,7 @@ export const dynamic = "force-static";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Profile - Axelit",
+    title: "Profile -Leacent Book-App",
     description:
       "Manage your profile settings, update personal information, and customize your dashboard preferences.",
     keywords: [
@@ -20,9 +20,9 @@ export async function generateMetadata(): Promise<Metadata> {
       "preferences",
     ],
     openGraph: {
-      title: "Profile - Axelit",
+      title: "Profile -Leacent Book-App",
       description:
-        "Manage your profile settings and preferences in Axelit dashboard.",
+        "Manage your profile settings and preferences inLeacent Book-App dashboard.",
       url: "https://axelit-next.vercel.app/apps/profile",
       siteName: "Axelit-next",
       locale: "en_US",

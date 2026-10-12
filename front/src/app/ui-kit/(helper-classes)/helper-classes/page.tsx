@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Helper Classes - Axelit",
+    title: "Helper Classes -Leacent Book-App",
     description:
       "Explore utility classes for styling and layout in your React application.",
     keywords: [
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "CSS classes",
     ],
     openGraph: {
-      title: "Helper Classes - Axelit",
+      title: "Helper Classes -Leacent Book-App",
       description:
         "Explore utility classes for styling and layout in your React application.",
       url: "https://axelit-next.vercel.app/ui-kit/helper-classes",

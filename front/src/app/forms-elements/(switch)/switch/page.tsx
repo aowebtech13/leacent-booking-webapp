@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Switch Forms - Axelit",
+    title: "Switch Forms -Leacent Book-App",
     description:
       "Explore switch components for toggling boolean values in your React forms.",
     keywords: [
@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "on/off state",
     ],
     openGraph: {
-      title: "Switch Forms - Axelit",
+      title: "Switch Forms -Leacent Book-App",
       description:
         "Explore switch components for toggling boolean values in your React forms.",
       url: "https://axelit-next.vercel.app/forms-elements/switch",

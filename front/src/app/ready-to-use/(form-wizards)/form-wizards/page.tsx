@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Form Wizards - Axelit",
+    title: "Form Wizards -Leacent Book-App",
     description:
       "Explore multiple form wizard templates for multi-step form handling in your React application.",
     keywords: [
@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "form wizard template",
     ],
     openGraph: {
-      title: "Form Wizards - Axelit",
+      title: "Form Wizards -Leacent Book-App",
       description:
         "Explore multiple form wizard templates for multi-step form handling in your React application.",
       url: "https://axelit-next.vercel.app/ready-to-use/form-wizards",

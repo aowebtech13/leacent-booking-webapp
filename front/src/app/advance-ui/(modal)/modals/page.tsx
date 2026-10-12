@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Modal - Axelit",
+    title: "Modal -Leacent Book-App",
     description:
       "Explore advanced modal components and dialog boxes for your web applications.",
     keywords: [
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "react dialog",
     ],
     openGraph: {
-      title: "Modal - Axelit",
+      title: "Modal -Leacent Book-App",
       description:
         "Explore advanced modal components and dialog boxes for your web applications.",
       url: "https://axelit-next.vercel.app/advance-ui/modal",

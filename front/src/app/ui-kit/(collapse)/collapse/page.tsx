@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Collapse - Axelit",
+    title: "Collapse -Leacent Book-App",
     description:
       "Explore collapse components for showing and hiding content in your React application.",
     keywords: [
@@ -23,7 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "hide/show components",
     ],
     openGraph: {
-      title: "Collapse - Axelit",
+      title: "Collapse -Leacent Book-App",
       description:
         "Explore collapse components for showing and hiding content in your React application.",
       url: "https://axelit-next.vercel.app/ui-kit/collapse",

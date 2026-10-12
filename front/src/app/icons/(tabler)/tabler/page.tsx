@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Tabler Icons - Axelit",
+    title: "Tabler Icons -Leacent Book-App",
     description: "Explore the Tabler icon library for your React applications.",
     keywords: [
       "tabler icons",
@@ -22,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "icon customization",
     ],
     openGraph: {
-      title: "Tabler Icons - Axelit",
+      title: "Tabler Icons -Leacent Book-App",
       description:
         "Explore the Tabler icon library for your React applications.",
       url: "https://axelit-next.vercel.app/icons/tabler",

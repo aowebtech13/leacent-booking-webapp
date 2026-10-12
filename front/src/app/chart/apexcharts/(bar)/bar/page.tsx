@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Bar Chart - ApexCharts - Axelit",
+    title: "Bar Chart - ApexCharts -Leacent Book-App",
     description:
       "Explore interactive bar charts using ApexCharts for data visualization.",
     keywords: [
@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "data representation",
     ],
     openGraph: {
-      title: "Bar Chart - ApexCharts - Axelit",
+      title: "Bar Chart - ApexCharts -Leacent Book-App",
       description:
         "Explore interactive bar charts using ApexCharts for data visualization.",
       url: "https://axelit-next.vercel.app/chart/apexcharts/bar",

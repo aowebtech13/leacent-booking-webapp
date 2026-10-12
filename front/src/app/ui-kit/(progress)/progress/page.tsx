@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Progress - Axelit",
+    title: "Progress -Leacent Book-App",
     description:
       "Explore progress components for visualizing task completion in your React application.",
     keywords: [
@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "task tracking",
     ],
     openGraph: {
-      title: "Progress - Axelit",
+      title: "Progress -Leacent Book-App",
       description:
         "Explore progress components for visualizing task completion in your React application.",
       url: "https://axelit-next.vercel.app/ui-kit/progress",

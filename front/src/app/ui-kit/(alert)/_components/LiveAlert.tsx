@@ -50,7 +50,7 @@ const LiveAlert: React.FC = () => {
         <Button
           variant="primary"
           onClick={() =>
-            appendAlert("Hi! Welcome to Axelit 🎉", "light-primary")
+            appendAlert("Hi! Welcome toLeacent Book-App 🎉", "light-primary")
           }
         >
           Show live alert

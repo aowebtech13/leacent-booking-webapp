@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Spinners - Axelit",
+    title: "Spinners -Leacent Book-App",
     description:
       "Explore advanced spinner components and loading indicators for your web applications.",
     keywords: [
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "spinner performance",
     ],
     openGraph: {
-      title: "Spinners - Axelit",
+      title: "Spinners -Leacent Book-App",
       description:
         "Explore advanced spinner components and loading indicators for your web applications.",
       url: "https://axelit-next.vercel.app/advance-ui/spinners",

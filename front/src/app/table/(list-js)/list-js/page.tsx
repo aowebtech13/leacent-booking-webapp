@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "List.js Tables - Axelit",
+    title: "List.js Tables -Leacent Book-App",
     description:
       "Explore List.js table components for interactive and searchable data display in your React application.",
     keywords: [
@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "searchable tables",
     ],
     openGraph: {
-      title: "List.js Tables - Axelit",
+      title: "List.js Tables -Leacent Book-App",
       description:
         "Explore List.js table components for interactive and searchable data display in your React application.",
       url: "https://axelit-next.vercel.app/table/list-js",

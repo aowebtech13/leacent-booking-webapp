@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Badges - Axelit",
+    title: "Badges -Leacent Book-App",
     description:
       "Explore badge components for status indicators and notifications in your React application.",
     keywords: [
@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "notification components",
     ],
     openGraph: {
-      title: "Badges - Axelit",
+      title: "Badges -Leacent Book-App",
       description:
         "Explore badge components for status indicators and notifications in your React application.",
       url: "https://axelit-next.vercel.app/ui-kit/badges",

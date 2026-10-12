@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Form Validation - Axelit",
+    title: "Form Validation -Leacent Book-App",
     description:
       "Explore form validation components and techniques for ensuring data integrity in your React forms.",
     keywords: [
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "error handling",
     ],
     openGraph: {
-      title: "Form Validation - Axelit",
+      title: "Form Validation -Leacent Book-App",
       description:
         "Explore form validation components and techniques for ensuring data integrity in your React forms.",
       url: "https://axelit-next.vercel.app/forms-elements/form-validation",

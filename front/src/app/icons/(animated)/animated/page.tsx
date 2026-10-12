@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Animated Icons - Axelit",
+    title: "Animated Icons -Leacent Book-App",
     description:
       "Explore animated icons for enhanced UI interactions in your React applications.",
     keywords: [
@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "icon customization",
     ],
     openGraph: {
-      title: "Animated Icons - Axelit",
+      title: "Animated Icons -Leacent Book-App",
       description:
         "Explore animated icons for enhanced UI interactions in your React applications.",
       url: "https://axelit-next.vercel.app/icons/animated",

@@ -38,7 +38,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: {
     default: "Axelit - Premium Admin Template",
-    template: "%s | Axelit",
+    template: "%s |Leacent Book-App",
   },
   description:
     "Multipurpose, super flexible, powerful, clean modern responsive bootstrap 5 admin template",

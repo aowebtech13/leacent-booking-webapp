@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Two-Step Verification - Axelit",
+    title: "Two-Step Verification -Leacent Book-App",
     description:
       "Enhance your account security with our two-step verification system.",
     keywords: [
@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "account protection",
     ],
     openGraph: {
-      title: "Two-Step Verification - Axelit",
+      title: "Two-Step Verification -Leacent Book-App",
       description:
         "Enhance your account security with our two-step verification system.",
       url: "https://axelit-next.vercel.app/auth/two-step-verification",

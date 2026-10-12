@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Advanced Tables - Axelit",
+    title: "Advanced Tables -Leacent Book-App",
     description:
       "Explore advanced table components with enhanced features and customization options in your React application.",
     keywords: [
@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "table optimization",
     ],
     openGraph: {
-      title: "Advanced Tables - Axelit",
+      title: "Advanced Tables -Leacent Book-App",
       description:
         "Explore advanced table components with enhanced features and customization options in your React application.",
       url: "https://axelit-next.vercel.app/table/advance-table",

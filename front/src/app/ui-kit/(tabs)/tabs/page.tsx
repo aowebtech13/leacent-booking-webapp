@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Tabs - Axelit",
+    title: "Tabs -Leacent Book-App",
     description:
       "Explore tab components for content organization and navigation in your React application.",
     keywords: [
@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "content organization",
     ],
     openGraph: {
-      title: "Tabs - Axelit",
+      title: "Tabs -Leacent Book-App",
       description:
         "Explore tab components for content organization and navigation in your React application.",
       url: "https://axelit-next.vercel.app/ui-kit/tabs",

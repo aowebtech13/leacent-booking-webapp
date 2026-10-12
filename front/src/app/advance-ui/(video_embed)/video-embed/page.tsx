@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Video Embed - Axelit",
+    title: "Video Embed -Leacent Book-App",
     description:
       "Explore advanced video embedding components and media integration for your web applications.",
     keywords: [
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "media player",
     ],
     openGraph: {
-      title: "Video Embed - Axelit",
+      title: "Video Embed -Leacent Book-App",
       description:
         "Explore advanced video embedding components and media integration for your web applications.",
       url: "https://axelit-next.vercel.app/advance-ui/video-embed",

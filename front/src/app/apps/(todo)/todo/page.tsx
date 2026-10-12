@@ -7,7 +7,7 @@ export const revalidate = false;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "To-Do - Axelit",
+    title: "To-Do -Leacent Book-App",
     description:
       "Manage your tasks and to-do list with our task management system.",
     keywords: [
@@ -28,7 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "task reporting",
     ],
     openGraph: {
-      title: "To-Do - Axelit",
+      title: "To-Do -Leacent Book-App",
       description:
         "Manage your tasks and to-do list with our task management system.",
       url: "https://axelit-next.vercel.app/apps/todo",

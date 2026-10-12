@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Lock Screen - Axelit",
+    title: "Lock Screen -Leacent Book-App",
     description:
       "Secure your session with our user-friendly lock screen interface.",
     keywords: [
@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "session protection",
     ],
     openGraph: {
-      title: "Lock Screen - Axelit",
+      title: "Lock Screen -Leacent Book-App",
       description:
         "Secure your session with our user-friendly lock screen interface.",
       url: "https://axelit-next.vercel.app/auth/lock-screen",

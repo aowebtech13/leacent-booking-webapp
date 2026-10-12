@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Bootstrap Slider - Axelit",
+    title: "Bootstrap Slider -Leacent Book-App",
     description:
       "Explore Bootstrap slider components for content carousels and image galleries in your React application.",
     keywords: [
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "bootstrap form controls",
     ],
     openGraph: {
-      title: "Bootstrap Slider - Axelit",
+      title: "Bootstrap Slider -Leacent Book-App",
       description:
         "Explore advanced slider components built with Bootstrap for your web applications.",
       url: "https://axelit-next.vercel.app/advance-ui/bootstrap-slider",

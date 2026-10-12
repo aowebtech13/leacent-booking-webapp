@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Placeholder - Axelit",
+    title: "Placeholder -Leacent Book-App",
     description:
       "Explore placeholder components for loading states and content placeholders in your React application.",
     keywords: [
@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "content skeleton",
     ],
     openGraph: {
-      title: "Placeholder - Axelit",
+      title: "Placeholder -Leacent Book-App",
       description:
         "Explore placeholder components for loading states and content placeholders in your React application.",
       url: "https://axelit-next.vercel.app/ui-kit/placeholder",

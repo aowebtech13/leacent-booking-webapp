@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Checkbox and Radio Forms - Axelit",
+    title: "Checkbox and Radio Forms -Leacent Book-App",
     description:
       "Explore various types of checkbox and radio button components for your React forms.",
     keywords: [
@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "radio validation",
     ],
     openGraph: {
-      title: "Checkbox and Radio Forms - Axelit",
+      title: "Checkbox and Radio Forms -Leacent Book-App",
       description:
         "Explore various types of checkbox and radio button components for your React forms.",
       url: "https://axelit-next.vercel.app/forms-elements/checkbox-radio",

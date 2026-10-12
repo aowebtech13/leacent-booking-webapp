@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Timeline Range Bars Chart - ApexCharts - Axelit",
+    title: "Timeline Range Bars Chart - ApexCharts -Leacent Book-App",
     description:
       "Explore interactive timeline range bars charts using ApexCharts for data visualization.",
     keywords: [
@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "data representation",
     ],
     openGraph: {
-      title: "Timeline Range Bars Chart - ApexCharts - Axelit",
+      title: "Timeline Range Bars Chart - ApexCharts -Leacent Book-App",
       description:
         "Explore interactive timeline range bars charts using ApexCharts for data visualization.",
       url: "https://axelit-next.vercel.app/chart/apexcharts/timeline-range-bars",

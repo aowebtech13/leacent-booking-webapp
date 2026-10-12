@@ -270,7 +270,7 @@ const LandingPage = () => {
                   <h1>
                     Power Up Your <br />
                     <span ref={typedRef} id="highlight-typed"></span> With
-                    axelit <br />
+                   Leacent Book-App <br />
                   </h1>
                   <img
                     alt="shape"
@@ -278,7 +278,7 @@ const LandingPage = () => {
                     src="/images/landing/vector-shaps.png"
                   />
                   <p className="text-white">
-                    axelit Comes with so many sidebar options, <br /> layouts
+                   Leacent Book-App Comes with so many sidebar options, <br /> layouts
                     like RTL & many more ...!
                   </p>
                   <div className="mt-5">

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Create Password - Axelit",
+    title: "Create Password -Leacent Book-App",
     description:
       "Create a secure password for your account with our user-friendly password creation system.",
     keywords: [
@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "account security",
     ],
     openGraph: {
-      title: "Create Password - Axelit",
+      title: "Create Password -Leacent Book-App",
       description:
         "Create a secure password for your account with our user-friendly password creation system.",
       url: "https://axelit-next.vercel.app/auth/password-create",

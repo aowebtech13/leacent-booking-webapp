@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Editor - Axelit",
+    title: "Editor -Leacent Book-App",
     description:
       "Explore rich text editor components for content creation in your React application.",
     keywords: [
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "rich text",
     ],
     openGraph: {
-      title: "Editor - Axelit",
+      title: "Editor -Leacent Book-App",
       description:
         "Explore rich text editor components for content creation in your React application.",
       url: "https://axelit-next.vercel.app/ui-kit/editor",

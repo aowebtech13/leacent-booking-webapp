@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Ready to Use Form - Axelit",
+    title: "Ready to Use Form -Leacent Book-App",
     description:
       "Explore ready-to-use form templates with pre-configured components for your React application.",
     keywords: [
@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "form library",
     ],
     openGraph: {
-      title: "Ready to Use Form - Axelit",
+      title: "Ready to Use Form -Leacent Book-App",
       description:
         "Explore ready-to-use form templates with pre-configured components for your React application.",
       url: "https://axelit-next.vercel.app/ready-to-use/ready-to-use-form",

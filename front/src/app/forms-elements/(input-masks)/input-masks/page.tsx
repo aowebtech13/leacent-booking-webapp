@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Input Masks Forms - Axelit",
+    title: "Input Masks Forms -Leacent Book-App",
     description:
       "Explore input mask components for formatting and validating input data in your React forms.",
     keywords: [
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "data validation",
     ],
     openGraph: {
-      title: "Input Masks Forms - Axelit",
+      title: "Input Masks Forms -Leacent Book-App",
       description:
         "Explore input mask components for formatting and validating input data in your React forms.",
       url: "https://axelit-next.vercel.app/forms-elements/input-masks",

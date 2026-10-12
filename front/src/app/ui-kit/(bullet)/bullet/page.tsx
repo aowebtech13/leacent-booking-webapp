@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Bullet - Axelit",
+    title: "Bullet -Leacent Book-App",
     description:
       "Explore bullet components for decorative and highlight elements in your React application.",
     keywords: [
@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "highlight components",
     ],
     openGraph: {
-      title: "Bullet - Axelit",
+      title: "Bullet -Leacent Book-App",
       description:
         "Explore bullet components for decorative and highlight elements in your React application.",
       url: "https://axelit-next.vercel.app/ui-kit/bullet",

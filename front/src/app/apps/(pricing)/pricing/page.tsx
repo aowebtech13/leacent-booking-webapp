@@ -6,7 +6,7 @@ export const dynamic = "force-static";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Pricing - Axelit",
+    title: "Pricing -Leacent Book-App",
     description:
       "Discover our flexible pricing plans and features tailored for your needs.",
     keywords: [
@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "pricing benefits",
     ],
     openGraph: {
-      title: "Pricing - Axelit",
+      title: "Pricing -Leacent Book-App",
       description:
         "Discover our flexible pricing plans and features tailored for your needs.",
       url: "https://axelit-next.vercel.app/apps/pricing",

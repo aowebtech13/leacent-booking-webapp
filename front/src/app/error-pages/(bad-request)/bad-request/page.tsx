@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "400 Bad Request - Axelit",
+    title: "400 Bad Request -Leacent Book-App",
     description:
       "Oops! Something went wrong with your request. Please check the URL and try again.",
     keywords: [
@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "error handling",
     ],
     openGraph: {
-      title: "400 Bad Request - Axelit",
+      title: "400 Bad Request -Leacent Book-App",
       description:
         "Oops! Something went wrong with your request. Please check the URL and try again.",
       url: "https://axelit-next.vercel.app/error-pages/bad-request",

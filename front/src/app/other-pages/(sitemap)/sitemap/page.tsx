@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Sitemap - Axelit",
+    title: "Sitemap -Leacent Book-App",
     description:
       "Sitemap page template for organizing and displaying your React application's content structure.",
     keywords: [
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "content organization",
     ],
     openGraph: {
-      title: "Sitemap - Axelit",
+      title: "Sitemap -Leacent Book-App",
       description:
         "Sitemap page template for organizing and displaying your React application's content structure.",
       url: "https://axelit-next.vercel.app/other-pages/sitemap",

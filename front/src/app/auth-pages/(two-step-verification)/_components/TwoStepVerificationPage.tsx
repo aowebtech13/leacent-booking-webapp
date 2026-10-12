@@ -12,7 +12,8 @@ import {
   Alert,
 } from "reactstrap";
 import { useSearchParams } from "next/navigation";
-import { verifyOtp, resendOtpAction, ActionError } from "@/lib/auth/action";
+import { verifyOtp, resendOtpAction } from "@/lib/auth/action";
+import { ActionError } from "@/lib/auth/action-error";
 
 const OTP_LENGTH = 4;
 

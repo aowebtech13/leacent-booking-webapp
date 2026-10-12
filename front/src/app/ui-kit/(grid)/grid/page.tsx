@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Grid - Axelit",
+    title: "Grid -Leacent Book-App",
     description:
       "Explore grid layout components for responsive and flexible layouts in your React application.",
     keywords: [
@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "flexible layout",
     ],
     openGraph: {
-      title: "Grid - Axelit",
+      title: "Grid -Leacent Book-App",
       description:
         "Explore grid layout components for responsive and flexible layouts in your React application.",
       url: "https://axelit-next.vercel.app/ui-kit/grid",

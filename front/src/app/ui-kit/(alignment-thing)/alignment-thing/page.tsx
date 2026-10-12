@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Alignment - Axelit",
+    title: "Alignment -Leacent Book-App",
     description:
       "Explore alignment components for precise content positioning in your React application.",
     keywords: [
@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "layout components",
     ],
     openGraph: {
-      title: "Alignment - Axelit",
+      title: "Alignment -Leacent Book-App",
       description:
         "Explore alignment components for precise content positioning in your React application.",
       url: "https://axelit-next.vercel.app/ui-kit/alignment-thing",

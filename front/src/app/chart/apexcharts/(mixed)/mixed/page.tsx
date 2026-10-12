@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Mixed Chart - ApexCharts - Axelit",
+    title: "Mixed Chart - ApexCharts -Leacent Book-App",
     description:
       "Explore interactive mixed charts using ApexCharts for data visualization.",
     keywords: [
@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "data representation",
     ],
     openGraph: {
-      title: "Mixed Chart - ApexCharts - Axelit",
+      title: "Mixed Chart - ApexCharts -Leacent Book-App",
       description:
         "Explore interactive mixed charts using ApexCharts for data visualization.",
       url: "https://axelit-next.vercel.app/chart/apexcharts/mixed",

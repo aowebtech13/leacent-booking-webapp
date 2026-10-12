@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "500 Internal Server Error - Axelit",
+    title: "500 Internal Server Error -Leacent Book-App",
     description:
       "Oops! Something went wrong on our end. Please try again later or contact support.",
     keywords: [
@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "server error",
     ],
     openGraph: {
-      title: "500 Internal Server Error - Axelit",
+      title: "500 Internal Server Error -Leacent Book-App",
       description:
         "Oops! Something went wrong on our end. Please try again later or contact support.",
       url: "https://axelit-next.vercel.app/error-pages/internal-server",

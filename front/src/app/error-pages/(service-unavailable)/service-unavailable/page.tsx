@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "503 Service Unavailable - Axelit",
+    title: "503 Service Unavailable -Leacent Book-App",
     description:
       "The service is temporarily unavailable. Please try again later.",
     keywords: [
@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "service error",
     ],
     openGraph: {
-      title: "503 Service Unavailable - Axelit",
+      title: "503 Service Unavailable -Leacent Book-App",
       description:
         "The service is temporarily unavailable. Please try again later.",
       url: "https://axelit-next.vercel.app/error-pages/service-unavailable",

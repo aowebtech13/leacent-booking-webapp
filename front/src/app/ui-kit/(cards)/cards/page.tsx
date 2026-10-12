@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Cards - Axelit",
+    title: "Cards -Leacent Book-App",
     description:
       "Explore card components for content organization and display in your React application.",
     keywords: [
@@ -23,7 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "display components",
     ],
     openGraph: {
-      title: "Cards - Axelit",
+      title: "Cards -Leacent Book-App",
       description:
         "Explore card components for content organization and display in your React application.",
       url: "https://axelit-next.vercel.app/ui-kit/cards",

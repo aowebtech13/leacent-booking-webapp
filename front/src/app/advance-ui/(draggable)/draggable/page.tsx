@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Draggable - Axelit",
+    title: "Draggable -Leacent Book-App",
     description:
       "Explore advanced draggable components and drag-and-drop functionality for your web applications.",
     keywords: [
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "drag library",
     ],
     openGraph: {
-      title: "Draggable - Axelit",
+      title: "Draggable -Leacent Book-App",
       description:
         "Explore advanced draggable components and drag-and-drop functionality for your web applications.",
       url: "https://axelit-next.vercel.app/advance-ui/draggable",

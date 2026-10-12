@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "File Upload Forms - Axelit",
+    title: "File Upload Forms -Leacent Book-App",
     description:
       "Explore file upload components for handling file uploads in your React forms.",
     keywords: [
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "drag and drop",
     ],
     openGraph: {
-      title: "File Upload Forms - Axelit",
+      title: "File Upload Forms -Leacent Book-App",
       description:
         "Explore file upload components for handling file uploads in your React forms.",
       url: "https://axelit-next.vercel.app/forms-elements/file-upload",

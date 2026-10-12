@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Basic Tables - Axelit",
+    title: "Basic Tables -Leacent Book-App",
     description:
       "Explore basic table components for displaying data in your React application.",
     keywords: [
@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "table layout",
     ],
     openGraph: {
-      title: "Basic Tables - Axelit",
+      title: "Basic Tables -Leacent Book-App",
       description:
         "Explore basic table components for displaying data in your React application.",
       url: "https://axelit-next.vercel.app/table/basic-table",

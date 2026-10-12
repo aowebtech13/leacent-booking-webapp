@@ -18,7 +18,8 @@ import {
   IconBrandGithub,
   IconBrandGoogle,
 } from "@tabler/icons-react";
-import { loginUser, ActionError } from "@/lib/auth/action";
+import { loginUser } from "@/lib/auth/action";
+import { ActionError } from "@/lib/auth/action-error";
 
 const INITIAL_STATE = { error: null as string | null };
 
@@ -70,7 +71,7 @@ const SignInPage = () => {
                     <Row>
                       <Col xs={12} className="mb-5 text-center text-lg-start">
                         <h2 className="text-primary-dark f-w-600">
-                          Welcome To axelit!
+                          Welcome ToLeacent Book-App!
                         </h2>
                         <p>
                           Sign in with your data that you entered during your

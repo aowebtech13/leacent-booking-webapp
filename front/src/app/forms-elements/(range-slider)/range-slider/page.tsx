@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Range Slider Forms - Axelit",
+    title: "Range Slider Forms -Leacent Book-App",
     description:
       "Explore range slider components for selecting values in your React forms.",
     keywords: [
@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "value range",
     ],
     openGraph: {
-      title: "Range Slider Forms - Axelit",
+      title: "Range Slider Forms -Leacent Book-App",
       description:
         "Explore range slider components for selecting values in your React forms.",
       url: "https://axelit-next.vercel.app/forms-elements/range-slider",

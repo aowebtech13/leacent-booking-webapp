@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Rating - Axelit",
+    title: "Rating -Leacent Book-App",
     description:
       "Explore advanced rating components and star rating systems for your web applications.",
     keywords: [
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "rating customization",
     ],
     openGraph: {
-      title: "Rating - Axelit",
+      title: "Rating -Leacent Book-App",
       description:
         "Explore advanced rating components and star rating systems for your web applications.",
       url: "https://axelit-next.vercel.app/advance-ui/rating",

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Touch Spin Forms - Axelit",
+    title: "Touch Spin Forms -Leacent Book-App",
     description:
       "Explore touch spin components for numeric input with increment/decrement functionality in your React forms.",
     keywords: [
@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "numeric controls",
     ],
     openGraph: {
-      title: "Touch Spin Forms - Axelit",
+      title: "Touch Spin Forms -Leacent Book-App",
       description:
         "Explore touch spin components for numeric input with increment/decrement functionality in your React forms.",
       url: "https://axelit-next.vercel.app/forms-elements/touch-spin",

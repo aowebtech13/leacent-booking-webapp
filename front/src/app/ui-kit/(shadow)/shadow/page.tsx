@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Shadow - Axelit",
+    title: "Shadow -Leacent Book-App",
     description:
       "Explore shadow components and effects for depth and visual hierarchy in your React application.",
     keywords: [
@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "effects components",
     ],
     openGraph: {
-      title: "Shadow - Axelit",
+      title: "Shadow -Leacent Book-App",
       description:
         "Explore shadow components and effects for depth and visual hierarchy in your React application.",
       url: "https://axelit-next.vercel.app/ui-kit/shadow",

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Terms & Conditions - Axelit",
+    title: "Terms & Conditions -Leacent Book-App",
     description:
       "Terms and conditions page template for your React application's legal terms and user agreements.",
     keywords: [
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "legal terms",
     ],
     openGraph: {
-      title: "Terms & Conditions - Axelit",
+      title: "Terms & Conditions -Leacent Book-App",
       description:
         "Terms and conditions page template for your React application's legal terms and user agreements.",
       url: "https://axelit-next.vercel.app/other-pages/terms-condition",
