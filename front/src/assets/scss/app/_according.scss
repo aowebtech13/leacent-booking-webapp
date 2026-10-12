@@ -86,7 +86,9 @@
 }
 
 @mixin accordion_mixin($name, $color, $light-color: null) {
-  $light-color: if($light-color == null, $color, $light-color);
+  @if $light-color == null {
+    $light-color: $color;
+  }
   .accordion-#{$name} {
     .accordion-item {
       border-color: rgba(#{$color}, 0.2);

@@ -6,12 +6,6 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/lib/contexts/AuthContext";
 import { verifyOtp as apiVerifyOtp, AuthResponse } from "@/lib/api";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Verify OTP - Axelit",
-  description: "Verify your OTP to complete the process",
-};
 
 type FormData = {
   otp0: string;
