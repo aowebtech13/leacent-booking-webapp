@@ -19,7 +19,6 @@ import {
   IconBrandGoogle,
 } from "@tabler/icons-react";
 import { registerUser } from "@/lib/auth/action";
-import { ActionError } from "@/lib/auth/action-error";
 
 const INITIAL_STATE = { error: null as string | null };
 
