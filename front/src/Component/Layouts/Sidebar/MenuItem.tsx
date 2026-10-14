@@ -64,11 +64,11 @@ const MenuItem: React.FC<MenuItemProps> = ({
       {type === "dropdown" ? (
         <Fragment>
           {title && (
-            <li className="menu-title">
+            <li className="menu-title" style={{ marginBottom: "0.5rem" }}>
               <span>{title}</span>
             </li>
           )}
-          <li>
+          <li style={{ marginBottom: "0.25rem" }}>
             <Link
               href={collapseId ? `#${collapseId}` : ""}
               onClick={(e) => {
@@ -105,7 +105,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
                 {(links || []).map((link, index: number) => (
                   <Fragment key={index}>
                     {link.children ? (
-                      <li className="another-level">
+                      <li className="another-level" style={{ marginBottom: "0.25rem" }}>
                         <Link
                           href={`#${link.collapseId}`}
                           onClick={(e) => {
@@ -129,6 +129,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
                               className={
                                 isActive(underLink.path) ? "active" : ""
                               }
+                              style={{ marginBottom: "0.25rem" }}
                             >
                               <Link href={underLink.path}>
                                 {underLink.name}
@@ -138,7 +139,10 @@ const MenuItem: React.FC<MenuItemProps> = ({
                         </ul>
                       </li>
                     ) : (
-                      <li className={isActive(link.path) ? "active" : ""}>
+                      <li
+                        className={isActive(link.path) ? "active" : ""}
+                        style={{ marginBottom: "0.25rem" }}
+                      >
                         <Link href={link.path}>{link.name}</Link>
                       </li>
                     )}
@@ -149,7 +153,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
           </li>
         </Fragment>
       ) : (
-        <li className="no-sub">
+        <li className="no-sub" style={{ marginBottom: "0.25rem" }}>
           <Link href={path || ""}>
             {typeof iconClass === "string" ? (
               <i className={iconClass}></i>
