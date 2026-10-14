@@ -4,7 +4,7 @@ import { Card, CardBody, CardHeader, Row, Col, Container } from "reactstrap";
 import Breadcrumbs from "@/Component/CommonElements/Breadcrumbs";
 import SimplePricingCard from "@/app/apps/(pricing)/_components/SimplePricingCard";
 import ComparePricing from "@/app/apps/(pricing)/_components/ComparePricing";
-import PricingCard from "@/app/apps/(pricing)/_components/PricingCard";
+
 import { IconStack2 } from "@tabler/icons-react";
 
 const PricingPage = () => {
@@ -82,20 +82,7 @@ const PricingPage = () => {
           Icon={IconStack2}
         />
         <Row>
-          <Col xs={12}>
-            <Card>
-              <CardHeader>
-                <h5>Pricing Plans</h5>
-              </CardHeader>
-              <CardBody>
-                <Row className="flip-pricing-container app-arrow">
-                  {plans.map((plan, index) => (
-                    <PricingCard key={index} {...plan} />
-                  ))}
-                </Row>
-              </CardBody>
-            </Card>
-          </Col>
+        
 
           <Col xs={12}>
             <Card>

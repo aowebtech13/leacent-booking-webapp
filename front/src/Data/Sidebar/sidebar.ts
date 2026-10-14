@@ -21,7 +21,7 @@ import {
 
 export const MenuList = [
   {
-    type: "dropdown",
+   
     title: "Dashboard",
     iconClass: HomeAlt,
     name: "dashboard",
@@ -29,7 +29,7 @@ export const MenuList = [
     
   },
   {
-    type: "dropdown",
+   
     iconClass: AppleShortcuts,
     collapseId: "apps",
     name: "My Profile",
@@ -38,7 +38,7 @@ export const MenuList = [
   },
   {
     name: "Ugrade to Pro",
-    path: "/widgets",
+    path: "/apps/pricing",
     iconClass: ShoppingBagPlus,
   },
   
@@ -50,27 +50,47 @@ export const MenuList = [
   },
  
   
-  {
-    type: "dropdown",
-    title: "Others",
-    iconClass: KeyframesCouple,
-    name: "2 level",
-    collapseId: "level",
-    path: "/level",
-    children: [
-      { name: "Blank", path: "" },
-      {
-        name: "Another level",
-        path: "/",
-        collapseId: "level2",
-        children: [{ name: "Blank", path: "/other-pages/blank" }],
-      },
-    ],
-  },
+  
  
   {
     name: "Support",
     path: "mailto:teqlathemes@gmail.com",
     iconClass: ChatBubbleQuestion,
+  },
+  {
+    type: "link",
+    title: "Libary",
+    iconClass: KeyframesCouple,
+    name: "libary",
+   
+    path: "/level",
+   
+  },
+  {
+    type: "link",
+    title: "Settings",
+    iconClass: KeyframesCouple,
+    name: "Settings",
+   
+    path: "/level",
+   
+  },
+  {
+    type: "link",
+    title: "Whatsapp",
+    iconClass: KeyframesCouple,
+    name: "Whatsapp",
+    
+    path: "/level",
+   
+  },
+  {
+    type: "link",
+    title: "Logout",
+    iconClass: KeyframesCouple,
+    name: "Logout",
+   
+    path: "/level",
+   
   },
 ];
