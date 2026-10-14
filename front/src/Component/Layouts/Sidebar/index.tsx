@@ -6,11 +6,21 @@ import React, { Fragment, useState, useRef, useEffect } from "react";
 import { SidebarProps } from "@/interface/common";
 import { IconChevronsRight } from "@tabler/icons-react";
 import HorizontalNav from "@/Component/Layouts/Sidebar/HorizontalNav";
+import { LogOut } from "iconoir-react";
+import { useAuth } from "@/lib/contexts/AuthContext";
+import { useRouter } from "next/navigation";
 
 const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
   const [navTranslateX, setNavTranslateX] = useState(0);
   const [isHorizontal, setIsHorizontal] = useState(false);
   const navRef = useRef<HTMLUListElement>(null);
+  const { logout, isAuthenticated } = useAuth();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await logout();
+    router.push("/auth-pages/sign-in");
+  };
 
   useEffect(() => {
     const getSidebarOption = () => {
@@ -75,9 +85,22 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
                 />
               </Fragment>
             ))}
+            <li style={{ marginBottom: "1rem" }} />
           </ul>
         </div>
       </Scrollbar>
+      {isAuthenticated && (
+        <div className="sidebar-footer p-3 border-top">
+          <button
+            onClick={handleLogout}
+            className="btn btn-light-danger w-100 d-flex align-items-center justify-content-center gap-2"
+            type="button"
+          >
+            <LogOut width={20} height={20} />
+            <span>Logout</span>
+          </button>
+        </div>
+      )}
       <HorizontalNav navRef={navRef} onScroll={setNavTranslateX} />
     </nav>
   );
