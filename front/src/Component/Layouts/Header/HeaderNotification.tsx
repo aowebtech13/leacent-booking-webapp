@@ -1,39 +1,96 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Bell, Xmark } from "iconoir-react";
 import { Offcanvas, OffcanvasHeader, OffcanvasBody } from "reactstrap";
-import { notificationsData } from "@/Data/HeaderMenuData";
-
-interface Notification {
-  id: number;
-  name: string;
-  action: string;
-  file?: string;
-  avatar?: string;
-  iconClass?: string;
-  bgClass: string;
-  date: string;
-  dateBadgeClass: string;
-}
+import {
+  fetchNotifications,
+  fetchUnreadCount,
+  markAsRead,
+  deleteNotification,
+  type Notification,
+} from "@/lib/api";
+import Image from "next/image";
 
 const HeaderNotification: React.FC = () => {
-  const [notifications, setNotifications] =
-    useState<Notification[]>(notificationsData);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const handleRemoveNotification = (id: number) => {
-    const updated = notifications.filter((n) => n.id !== id);
-    setNotifications(updated);
+  const loadNotifications = async () => {
+    try {
+      const [notifs, count] = await Promise.all([
+        fetchNotifications(),
+        fetchUnreadCount(),
+      ]);
+      setNotifications(notifs);
+      setUnreadCount(count);
+    } catch {
+      // Ignore errors for now
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  useEffect(() => {
+    loadNotifications();
+  }, []);
+
+  const handleRemoveNotification = async (id: number) => {
+    try {
+      await deleteNotification(id);
+      const updated = notifications.filter((n) => n.id !== id);
+      setNotifications(updated);
+      if (unreadCount > 0) setUnreadCount(unreadCount - 1);
+    } catch {
+      // Ignore errors
+    }
+  };
+
+  const handleMarkAsRead = async (id: number) => {
+    try {
+      await markAsRead(id);
+      const updated = notifications.map((n) =>
+        n.id === id ? { ...n, read_at: new Date().toISOString() } : n
+      );
+      setNotifications(updated);
+      if (unreadCount > 0) setUnreadCount(unreadCount - 1);
+    } catch {
+      // Ignore errors
+    }
+  };
+
+  const formatNotification = (notification: Notification) => {
+    const data = notification.data;
+    return {
+      id: notification.id,
+      name: data.title || "Notification",
+      action: data.message || "",
+      file: data.file,
+      avatar: data.avatar,
+      iconClass: data.iconClass,
+      bgClass: data.bgClass || "bg-secondary",
+      date: data.date || new Date(notification.created_at).toLocaleDateString(),
+      dateBadgeClass: data.dateBadgeClass || "text-light-secondary",
+      read_at: notification.read_at,
+    };
+  };
+
+  const formattedNotifications = notifications.map(formatNotification);
 
   return (
     <div>
       <a
         className="d-block head-icon position-relative bg-transparent border-0 shadow-none p-0"
-        onClick={() => setIsOpen(true)}
+        onClick={() => {
+          setIsOpen(true);
+          loadNotifications();
+        }}
       >
         <Bell className="fs-6" />
-        <span className="position-absolute translate-middle p-1 bg-success border border-light rounded-circle animate__animated animate__fadeIn animate__infinite animate__slower"></span>
+        {unreadCount > 0 && (
+          <span className="position-absolute translate-middle p-1 bg-success border border-light rounded-circle animate__animated animate__fadeIn animate__infinite animate__slower"></span>
+        )}
       </a>
 
       <Offcanvas
@@ -47,10 +104,18 @@ const HeaderNotification: React.FC = () => {
         </OffcanvasHeader>
         <OffcanvasBody className="notification-offcanvas-body app-scroll p-0">
           <div className="head-container notification-head-container">
-            {notifications.length > 0 ? (
-              notifications.map((notification) => (
+            {isLoading ? (
+              <div className="hidden-massage py-4 px-3 text-center">
+                <div className="spinner-border text-primary" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              </div>
+            ) : formattedNotifications.length > 0 ? (
+              formattedNotifications.map((notification) => (
                 <div
-                  className="notification-message head-box d-flex gap-2 align-items-start"
+                  className={`notification-message head-box d-flex gap-2 align-items-start ${
+                    notification.read_at ? "" : "unread"
+                  }`}
                   key={notification.id}
                 >
                   <div className="message-images">
@@ -58,10 +123,12 @@ const HeaderNotification: React.FC = () => {
                       <span
                         className={`${notification.bgClass} h-35 w-35 d-flex-center b-r-10 position-relative`}
                       >
-                        <img
+                        <Image
                           alt="avatar"
                           className="img-fluid b-r-10"
                           src={notification.avatar}
+                          width={35}
+                          height={35}
                         />
                         <span className="position-absolute bottom-30 end-0 p-1 bg-secondary border border-light rounded-circle notification-avatar"></span>
                       </span>
@@ -123,10 +190,12 @@ const HeaderNotification: React.FC = () => {
               ))
             ) : (
               <div className="hidden-massage py-4 px-3 text-center">
-                <img
+                <Image
                   alt=""
                   className="w-50 h-50 mb-3 mt-2"
                   src="/images/icons/bell.png"
+                  width={80}
+                  height={80}
                 />
                 <div>
                   <h6 className="mb-0">Notification Not Found</h6>
