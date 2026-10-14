@@ -146,22 +146,3 @@ export async function logout() {
     setAuthToken(null);
   }
 }
-
-/**
- * Update the currently authenticated user's profile.
- */
-export async function updateProfile(data: {
-  full_name?: string;
-  avatar_url?: string;
-  phone?: string;
-  company_name?: string;
-  phone_number?: string;
-  address?: string;
-  about_me?: string;
-  facebook_url?: string;
-  twitter_url?: string;
-  linkedin_url?: string;
-}) {
-  const res = await api.put("profile", data);
-  return res.data;
-}
