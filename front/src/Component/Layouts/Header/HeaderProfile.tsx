@@ -12,6 +12,7 @@ import {
 } from "iconoir-react";
 import { Detective, SignOut } from "phosphor-react";
 import Image from "next/image";
+import { useAuth } from "@/lib/contexts/AuthContext";
 
 type MenuItem = {
   label: string;
@@ -51,20 +52,26 @@ const menuItems: MenuItem[] = [
 
 const HeaderProfile: React.FC = () => {
   const [isCanvasOpen, setCanvasOpen] = useState(false);
+  const { user } = useAuth();
 
   const toggleCanvas = () => setCanvasOpen(!isCanvasOpen);
 
+  const userName = user?.name || "User";
+  const userEmail = user?.email || "";
+  const userAvatar = user?.profile?.avatar || "/images/avatar/woman.jpg";
+  const isVerified = user?.profile?.email_verified_at !== null && user?.profile?.email_verified_at !== undefined;
+
   return (
     <>
-      <a role="button" className="d-block head-icon" onClick={toggleCanvas}>
-        <Image
-          src="/images/avatar/woman.jpg"
-          alt="avatar"
-          width={35}
-          height={35}
-          className="rounded-2"
-        />
-      </a>
+<a role="button" className="d-block head-icon" onClick={toggleCanvas}>
+          <Image
+            src={userAvatar}
+            alt="avatar"
+            width={35}
+            height={35}
+            className="rounded-2"
+          />
+        </a>
 
       <Offcanvas
         direction="end"
@@ -88,22 +95,24 @@ const HeaderProfile: React.FC = () => {
                     width={45}
                     height={45}
                     className="img-fluid rounded-2"
-                    src="/images/avatar/woman.jpg"
+                    src={userAvatar}
                   />
                 </span>
               </div>
               <div className="text-center mt-2">
                 <h6 className="mb-0">
-                  Laura Monaldo{" "}
-                  <Image
-                    alt="verified"
-                    src="/images/profile/01.png"
-                    width={20}
-                    height={20}
-                  />
+                  {userName}{" "}
+                  {isVerified && (
+                    <Image
+                      alt="verified"
+                      src="/images/profile/01.png"
+                      width={20}
+                      height={20}
+                    />
+                  )}
                 </h6>
                 <p className="f-s-12 mb-0 text-secondary">
-                  lauradesign@gmail.com
+                  {userEmail}
                 </p>
               </div>
             </li>

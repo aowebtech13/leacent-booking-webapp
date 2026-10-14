@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/",
-        destination: "/dashboard/ecommerce",
+        destination: "/auth-pages/sign-in",
         permanent: true,
       },
     ];
