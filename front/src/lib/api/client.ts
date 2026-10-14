@@ -64,18 +64,25 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
-    // Surface a friendlier error object for the UI layer.
     const data = error?.response?.data;
-    const message =
+    const backendMessage =
       data?.message ||
-      (data?.errors ? Object.values(data.errors).flat().join(" ") : null) ||
-      error?.message ||
-      "Something went wrong";
+      (data?.errors ? Object.values(data.errors).flat().join(" ") : null);
+
+    let message: string;
+    if (backendMessage) {
+      message = backendMessage;
+    } else if (error?.response) {
+      message = error?.message || "Something went wrong";
+    } else {
+      message = "Unable to connect to the server. Please try again later.";
+    }
 
     const err = new Error(message);
     (err as any).response = error?.response;
     (err as any).data = data;
     (err as any).status = error?.response?.status;
+    (err as any).code = error?.code;
     return Promise.reject(err);
   }
 );

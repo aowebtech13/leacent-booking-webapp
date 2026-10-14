@@ -19,11 +19,13 @@ export class ActionError extends Error {
  */
 export function toActionError(error: any): ActionError {
   if (error instanceof ActionError) return error;
-  const message =
-    error?.message ||
-    (error?.response?.data?.message) ||
-    (error?.data?.message) ||
-    "Something went wrong";
+  const hasResponse = Boolean(error?.response);
+  const message = hasResponse
+    ? error?.message ||
+      error?.response?.data?.message ||
+      error?.data?.message ||
+      "Something went wrong"
+    : "Unable to connect to the server. Please try again later.";
   const status = error?.status || error?.response?.status;
   const data = error?.data || error?.response?.data;
   return new ActionError(message, status, data);
