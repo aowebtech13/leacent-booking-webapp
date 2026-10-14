@@ -109,7 +109,7 @@ const VerifyOtpPage = () => {
     try {
       const res: AuthResponse = await apiVerifyOtp({ email, code });
       setAuth(res);
-      router.push("/dashboard/ecommerce");
+      router.push("/apps/setting");
     } catch (err: any) {
       setError(err?.message || "Invalid OTP. Please try again.");
       setIsLoading(false);
@@ -217,7 +217,7 @@ const VerifyOtpPage = () => {
           </div>
 
           <div className="text-center mt-3">
-            <Link href="/sign-in" className="text-muted small">
+            <Link href="/auth-pages/sign-in" className="text-muted small">
               Back to Sign In
             </Link>
           </div>
