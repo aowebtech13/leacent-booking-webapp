@@ -93,11 +93,30 @@ export async function forgotPassword(payload: ForgotPasswordPayload) {
 }
 
 /**
- * Reset the user's password using the token emailed during forgot-password.
+ * Resend the OTP verification code.
  */
-export async function resetPassword(payload: ResetPasswordPayload) {
+export async function resendOtp(payload: { email: string }) {
   await ensureCsrf();
-  const res = await api.post("auth/reset-password", payload);
+  const res = await api.post("auth/resend-otp", payload);
+  return res.data;
+}
+
+/**
+ * Update the currently authenticated user's profile.
+ */
+export async function updateProfile(data: {
+  full_name?: string;
+  avatar_url?: string;
+  phone?: string;
+  company_name?: string;
+  phone_number?: string;
+  address?: string;
+  about_me?: string;
+  facebook_url?: string;
+  twitter_url?: string;
+  linkedin_url?: string;
+}) {
+  const res = await api.put("profile", data);
   return res.data;
 }
 
@@ -129,10 +148,20 @@ export async function logout() {
 }
 
 /**
- * Resend the OTP verification code.
+ * Update the currently authenticated user's profile.
  */
-export async function resendOtp(payload: { email: string }) {
-  await ensureCsrf();
-  const res = await api.post("auth/resend-otp", payload);
+export async function updateProfile(data: {
+  full_name?: string;
+  avatar_url?: string;
+  phone?: string;
+  company_name?: string;
+  phone_number?: string;
+  address?: string;
+  about_me?: string;
+  facebook_url?: string;
+  twitter_url?: string;
+  linkedin_url?: string;
+}) {
+  const res = await api.put("profile", data);
   return res.data;
 }
