@@ -18,7 +18,8 @@ import {
   IconBrandGithub,
   IconBrandGoogle,
 } from "@tabler/icons-react";
-import { registerUser, ActionError } from "@/lib/auth/action";
+import { registerUser } from "@/lib/auth/action";
+import { ActionError } from "@/lib/auth/action-error";
 
 const INITIAL_STATE = { error: null as string | null };
 
@@ -28,7 +29,7 @@ const SignUpPage = () => {
       try {
         await registerUser(formData);
       } catch (err: any) {
-        if (err instanceof ActionError) {
+        if (err?.name === "ActionError") {
           return { error: err.message };
         }
         return { error: err?.message || "Registration failed" };

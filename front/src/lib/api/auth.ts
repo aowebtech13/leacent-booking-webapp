@@ -102,6 +102,15 @@ export async function resendOtp(payload: { email: string }) {
 }
 
 /**
+ * Reset the user's password using the token emailed during forgot-password.
+ */
+export async function resetPassword(payload: ResetPasswordPayload) {
+  await ensureCsrf();
+  const res = await api.post("auth/reset-password", payload);
+  return res.data;
+}
+
+/**
  * Update the currently authenticated user's profile.
  */
 export async function updateProfile(data: {

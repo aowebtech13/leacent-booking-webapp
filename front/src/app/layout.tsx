@@ -90,7 +90,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body className="ltr light">
+      <body className="ltr light" suppressHydrationWarning>
         <AuthProvider>
           <DefaultLayout>
             <DocumentTitleManager

@@ -11,6 +11,8 @@ import {
 } from "@/lib/api/auth";
 import { ActionError, toActionError } from "./action-error";
 
+export { ActionError };
+
 export async function unlockScreen(formData: FormData): Promise<void> {
   const password = formData.get("password");
   const remember = formData.get("rememberMe");

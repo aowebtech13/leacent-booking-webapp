@@ -18,7 +18,8 @@ import {
   IconBrandGithub,
   IconBrandGoogle,
 } from "@tabler/icons-react";
-import { loginUser, ActionError } from "@/lib/auth/action";
+import { loginUser } from "@/lib/auth/action";
+import { ActionError } from "@/lib/auth/action-error";
 
 const INITIAL_STATE = { error: null as string | null };
 
@@ -28,7 +29,7 @@ const SignInPage = () => {
       try {
         await loginUser(formData);
       } catch (err: any) {
-        if (err instanceof ActionError) {
+        if (err?.name === "ActionError") {
           return { error: err.message };
         }
         return { error: err?.message || "Invalid credentials" };
