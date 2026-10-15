@@ -9,7 +9,6 @@ use App\Models\ReferralClick;
 use App\Models\User;
 use App\Models\UserRole;
 use App\Models\UserLog;
-use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -97,41 +96,12 @@ class AdminWebController extends Controller
         $stats = [
             'total_admins' => User::whereHas('roles', fn ($query) => $query->where('role', 'admin'))->count(),
             'online_users' => User::where('last_seen_at', '>=', now()->subMinutes(5))->count(),
-            'total_customers' => Customer::count(),
             'total_orders' => Order::count(),
             'total_debt' => (float) Profile::sum('balance'),
             'total_revenue' => (float) Transaction::whereIn('status', ['accepted', 'completed'])->sum('amount'),
             'total_cost' => (float) Order::sum('total'),
             'total_visitors' => User::count(),
         ];
-
-        $recentCustomers = User::whereHas('roles', fn ($query) => $query->where('role', 'customer'))
-            ->with('profile')
-            ->latest()
-            ->take(5)
-            ->get();
-
-        // Top customers by total purchase count and total price from orders
-        $topCustomers = Customer::with(['user.profile'])
-            ->withCount(['orders as total_purchases' => function ($query) {
-                $query->select(DB::raw('COUNT(*)'));
-            }])
-            ->withSum(['orders as total_price' => function ($query) {
-                $query->select(DB::raw('COALESCE(SUM(total), 0)'));
-            }], 'total')
-            ->whereHas('orders')
-            ->orderByDesc('total_purchases')
-            ->take(8)
-            ->get()
-            ->map(function ($customer) {
-                return (object) [
-                    'id' => $customer->id,
-                    'name' => trim($customer->first_name . ' ' . ($customer->last_name ?? '')),
-                    'total_purchases' => (int) ($customer->total_purchases ?? 0),
-                    'total_price' => (float) ($customer->total_price ?? 0),
-                    'customer_number' => '#' . str_pad($customer->id, 6, '0', STR_PAD_LEFT),
-                ];
-            });
 
         // Recent user activity logs (login/logout actions)
         $userLogs = UserLog::with(['user.profile'])
@@ -252,8 +222,6 @@ class AdminWebController extends Controller
 
         return view('admin.dashboard.index', compact(
             'stats',
-            'recentCustomers',
-            'topCustomers',
             'userLogs',
             'recentOrders',
             'monthlySalesData',
@@ -789,36 +757,6 @@ private function getPlanAmount(string $plan, string $cycle = 'monthly'): float
         return (float) (self::PLAN_PRICING[$planKey][$cycle] ?? 0);
     }
 
-    public function customers(Request $request)
-    {
-        $query = Customer::with(['user', 'orders']);
-
-        if ($request->filled('search')) {
-            $search = $request->search;
-            $query->where(function ($q) use ($search) {
-                $q->where('first_name', 'like', "%{$search}%")
-                    ->orWhere('last_name', 'like', "%{$search}%")
-                    ->orWhere('phone', 'like', "%{$search}%")
-                    ->orWhereHas('user', function ($u) use ($search) {
-                        $u->where('name', 'like', "%{$search}%")
-                            ->orWhere('email', 'like', "%{$search}%");
-                    });
-            });
-        }
-
-        $customers = $query->orderByDesc('created_at')->paginate(20)->withQueryString();
-
-        return view('admin.customers.index', compact('customers'));
-    }
-
-    public function destroyCustomer(Customer $customer)
-    {
-        $customer->delete();
-
-        return redirect()->route('admin.customers.index')->with('status', 'Customer deleted successfully.');
-    }
-
-
     /* ------------------------------------------------------------------ */
     /* Books Management                                                   */
     /* ------------------------------------------------------------------ */
@@ -1288,67 +1226,6 @@ private function getPlanAmount(string $plan, string $cycle = 'monthly'): float
             ->get();
 
         return view('reports.sales_return', compact('allMonths', 'pendingPayments', 'paymentHistory'));
-    }
-
-    /**
-     * Report: Customer Order - Customers with order stats.
-     */
-    public function reportsCustomerOrder()
-    {
-        $customers = Customer::with(['user.profile', 'orders.items'])
-            ->withCount(['orders as order_count'])
-            ->withSum(['orders as total_spent' => function ($q) {
-                $q->whereIn('payment_status', [Order::PAYMENT_PAID, Order::PAYMENT_PENDING_VERIFICATION]);
-            }], 'total')
-            ->orderByDesc('order_count')
-            ->get()
-            ->map(function ($customer) {
-                $productCount = \App\Models\OrderItem::whereIn('order_id', $customer->orders->pluck('id'))
-                    ->sum('quantity');
-
-                $avatar = $customer->user?->profile?->avatar_url
-                    ? Storage::url($customer->user->profile->avatar_url)
-                    : asset('assets/images/user/6.jpg');
-
-                return (object) [
-                    'id' => $customer->id,
-                    'name' => trim(($customer->first_name ?? '') . ' ' . ($customer->last_name ?? '')),
-                    'email' => $customer->user?->email ?? 'unknown@example.com',
-                    'avatar' => $avatar,
-                    'order_count' => (int) ($customer->order_count ?? 0),
-                    'product_count' => (int) $productCount,
-                    'total_spent' => (float) ($customer->total_spent ?? 0),
-                ];
-            });
-
-        // If no customers with orders exist, supplement with additional simulated customers
-        if ($customers->isEmpty()) {
-            $simulatedCustomers = [];
-            $names = [
-                ['Floyd Miles', 'floyd@gmail.com'],
-                ['Celine Stokes', 'celine@gmail.com'],
-                ['Ila Malone', 'ila@gmail.com'],
-                ['Poppy Mosley', 'poppy@gmail.com'],
-                ['Eileen Portillo', 'eileen@gmail.com'],
-                ['Ruben Charles', 'ruben@gmail.com'],
-                ['Sullivan Thomas', 'sullivan@gmail.com'],
-                ['Jeffrey Daniel', 'jeffrey@gmail.com'],
-            ];
-            foreach ($names as $i => $n) {
-                $simulatedCustomers[] = (object) [
-                    'id' => $i + 1,
-                    'name' => $n[0],
-                    'email' => $n[1],
-                    'avatar' => asset('assets/images/dashboard-11/user/' . ($i + 1) . '.jpg'),
-                    'order_count' => random_int(100, 1000),
-                    'product_count' => random_int(100, 880),
-                    'total_spent' => round(random_int(1500, 99000), 2),
-                ];
-            }
-            $customers = collect($simulatedCustomers);
-        }
-
-        return view('reports.customer_order', compact('customers'));
     }
 
     public function affiliates(Request $request)

@@ -49,9 +49,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('activity-logs', [AdminWebController::class, 'activityLogs'])->name('activity-logs');
         Route::get('finances', [AdminWebController::class, 'finances'])->name('finances');
 
-        Route::get('customers', [AdminWebController::class, 'customers'])->name('customers.index');
-        Route::delete('customers/{customer}', [AdminWebController::class, 'destroyCustomer'])->name('customers.destroy');
-
         // Books management
         Route::prefix('books')->name('books.')->group(function () {
             Route::get('/', [AdminWebController::class, 'books'])->name('index');
@@ -90,7 +87,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Reports
         Route::get('reports/sales', [AdminWebController::class, 'reportsSales'])->name('reports.sales');
         Route::get('reports/sales-return', [AdminWebController::class, 'reportsSalesReturn'])->name('reports.sales_return');
-        Route::get('reports/customer-order', [AdminWebController::class, 'reportsCustomerOrder'])->name('reports.customer_order');
 
         // Notifications (admin web)
         Route::prefix('notifications')->name('notifications.')->group(function () {
