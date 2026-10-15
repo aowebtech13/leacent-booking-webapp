@@ -9,8 +9,6 @@ use App\Models\ReferralClick;
 use App\Models\User;
 use App\Models\UserRole;
 use App\Models\UserLog;
-use App\Models\Order;
-use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\Subscription;
 use App\Models\Transaction;
@@ -124,108 +122,9 @@ class AdminWebController extends Controller
                 ];
             });
 
-        // Recent orders (latest 8 with customer, items, and product images)
-        $recentOrders = Order::with(['items.product.images'])
-            ->latest()
-            ->take(8)
-            ->get()
-            ->map(function ($order) {
-                // Get first item for product info
-                $firstItem = $order->items->first();
-                $product = $firstItem?->product;
-                $firstImage = $product?->images->first();
-                $productImageUrl = $firstImage
-                    ? asset('storage/' . $firstImage->image_path)
-                    : asset('assets/images/dashboard-2/order/sub-product/16.png');
-
-                // Determine customer name
-                $customerName = $order->billing_name ?? 'Guest';
-
-                if (empty(trim($customerName))) {
-                    $customerName = 'Guest';
-                }
-
-                // Total quantity
-                $totalQty = (int) $order->items->sum('quantity');
-
-                // Status label and button class
-                $statusLabel = ucfirst($order->status);
-                $statusButtonClass = 'button-light-info txt-info'; // default for pending
-
-                switch ($order->status) {
-                    case Order::STATUS_COMPLETED:
-                    case Order::STATUS_PAID:
-                        $statusLabel = 'Delivered';
-                        $statusButtonClass = 'button-light-success txt-success';
-                        break;
-                    case Order::STATUS_PROCESSING:
-                    case Order::STATUS_SHIPPED:
-                        $statusLabel = 'In Progress';
-                        $statusButtonClass = 'button-light-warning txt-warning';
-                        break;
-                    case Order::STATUS_CANCELLED:
-                        $statusLabel = 'Canceled';
-                        $statusButtonClass = 'button-light-danger txt-danger';
-                        break;
-                    case Order::STATUS_PENDING:
-                    default:
-                        $statusLabel = 'Pending';
-                        $statusButtonClass = 'button-light-info txt-info';
-                        break;
-                }
-
-                return (object) [
-                    'id' => $order->id,
-                    'order_number' => '#' . str_pad($order->id, 6, '0', STR_PAD_LEFT),
-                    'product_name' => $product?->name ?? 'N/A',
-                    'product_image' => $productImageUrl,
-                    'customer_name' => $customerName,
-                    'quantity' => $totalQty . ' PCS',
-                    'total_price' => number_format((float) $order->total, 2),
-                    'order_date' => $order->created_at->format('d M,Y'),
-                    'status' => $order->status,
-                    'status_label' => $statusLabel,
-                    'status_button_class' => $statusButtonClass,
-                ];
-            });
-
-        // Sales Statistical Overview - monthly sales data for last 12 months
-        $monthlySalesData = [];
-        for ($i = 11; $i >= 0; $i--) {
-            $month = now()->subMonths($i);
-            $monthStart = $month->copy()->startOfMonth();
-            $monthEnd = $month->copy()->endOfMonth();
-
-            $monthlySalesData[] = (float) Order::whereIn('payment_status', [Order::PAYMENT_PAID, Order::PAYMENT_PENDING_VERIFICATION])
-                ->whereBetween('created_at', [$monthStart, $monthEnd])
-                ->sum('total');
-        }
-
-        // Monthly Target data
-        $currentMonthSales = (float) Order::whereIn('payment_status', [Order::PAYMENT_PAID, Order::PAYMENT_PENDING_VERIFICATION])
-            ->where('created_at', '>=', now()->startOfMonth())
-            ->sum('total');
-
-        $last6MonthsTotal = (float) Order::whereIn('payment_status', [Order::PAYMENT_PAID, Order::PAYMENT_PENDING_VERIFICATION])
-            ->where('created_at', '>=', now()->subMonths(6))
-            ->sum('total');
-
-        $monthlyTarget = $last6MonthsTotal > 0 ? round(($last6MonthsTotal / 6) * 1.2) : 10000;
-        $monthlyAchievement = $monthlyTarget > 0 ? min(100, round(($currentMonthSales / $monthlyTarget) * 100)) : 0;
-
-        $todaySales = (float) Order::whereIn('payment_status', [Order::PAYMENT_PAID, Order::PAYMENT_PENDING_VERIFICATION])
-            ->where('created_at', '>=', now()->startOfDay())
-            ->sum('total');
-
         return view('admin.dashboard.index', compact(
             'stats',
             'userLogs',
-            'recentOrders',
-            'monthlySalesData',
-            'monthlyTarget',
-            'monthlyAchievement',
-            'currentMonthSales',
-            'todaySales'
         ));
     }
 
