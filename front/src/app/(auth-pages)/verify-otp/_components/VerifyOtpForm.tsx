@@ -69,7 +69,7 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
   const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
     e.preventDefault();
     const pastedData = e.clipboardData.getData("text").slice(0, 5);
-    if (/^\d{5}$/.test(pastedData)) {
+    if (new RegExp("^\\d{5}$").test(pastedData)) {
       pastedData.split("").forEach((digit, index) => {
         const fieldName = otpFields[index];
         if (fieldName) {
@@ -127,8 +127,10 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
       
       
       <div className="login-main">
+                          <img src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png" alt="Leacent Logo" height="40" />
+
+        
         <div className="theme-form">
-                  <img src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png" alt="Leacent Logo" height="40" />
 
             <h4 className="f-w-700 text-primary-dark">Verify OTP</h4>
             <p className="text-muted mt-2">
@@ -147,17 +149,16 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
             <div className="form-group mb-4">
               <div className="d-flex justify-content-center gap-2 otp-inputs">
                 {otpFields.map((field, index) => (
-                  <input
-                    key={field}
-                    type="text"
-                    maxLength={1}
-                    inputMode="numeric"
-                    pattern="[0-9]*"
-                    className={`form-control text-center otp-input ${errors[field] ? "is-invalid" : ""}`}
+<input
+                      key={field}
+                      type="text"
+                      maxLength={1}
+                      inputMode="numeric"
+                      className={`form-control text-center otp-input ${errors[field] ? "is-invalid" : ""}`}
                     {...register(field, {
                       required: "Required",
                       pattern: {
-                        value: /^\d$/,
+                        value: new RegExp("^\\d$"),
                         message: "Numbers only",
                       },
                     })}
@@ -209,7 +210,6 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
