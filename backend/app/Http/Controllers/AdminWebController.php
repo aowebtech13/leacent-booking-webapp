@@ -97,7 +97,6 @@ class AdminWebController extends Controller
             'total_admins' => User::whereHas('roles', fn ($query) => $query->where('role', 'admin'))->count(),
             'online_users' => User::where('last_seen_at', '>=', now()->subMinutes(5))->count(),
          
-            'total_debt' => (float) Profile::sum('balance'),
             'total_revenue' => (float) Transaction::whereIn('status', ['accepted', 'completed'])->sum('amount'),
     
             'total_visitors' => User::count(),
@@ -1248,37 +1247,5 @@ private function getPlanAmount(string $plan, string $cycle = 'monthly'): float
         $affiliates = $query->paginate(20)->withQueryString();
 
         return view('admin.affiliates.index', compact('affiliates'));
-    }
-
-    public function updateAffiliateBalance(Request $request, User $user)
-    {
-        $data = $request->validate([
-            'amount' => ['required', 'numeric', 'min:0'],
-            'action' => ['required', Rule::in(['add', 'remove'])],
-            'reason' => ['nullable', 'string', 'max:255'],
-        ]);
-
-        $profile = $user->profile ?: $user->profile()->create(['user_id' => $user->id, 'email' => $user->email]);
-        
-        $amount = (float) $data['amount'];
-        $oldBalance = (float) ($profile->balance ?? 0);
-        
-        if ($data['action'] === 'add') {
-            $newBalance = $oldBalance + $amount;
-        } else {
-            $newBalance = max(0, $oldBalance - $amount);
-        }
-
-        $profile->update(['balance' => $newBalance]);
-
-        \App\Models\WalletTransaction::create([
-            'user_id' => $user->id,
-            'amount' => $amount,
-            'type' => $data['action'] === 'add' ? 'credit' : 'debit',
-            'description' => $data['reason'] ?? 'Admin balance adjustment',
-            'reference' => 'admin_' . time(),
-        ]);
-
-        return back()->with('status', "Affiliate balance updated successfully for {$user->name}. New balance: ".number_format($newBalance, 2));
     }
 }

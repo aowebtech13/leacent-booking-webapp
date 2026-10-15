@@ -24,7 +24,6 @@ class Profile extends Model
         'linkedin_url',
         'avatar_url',
         'phone',
-        'balance',
     ];
 
     /**

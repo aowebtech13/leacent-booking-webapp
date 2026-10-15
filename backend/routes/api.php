@@ -60,7 +60,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/', [ProfileController::class, 'show']);
         Route::put('/', [ProfileController::class, 'update']);
         Route::get('referral', [ProfileController::class, 'getReferralInfo']);
-        Route::get('balance', [ProfileController::class, 'getBalance']);
         Route::get('transactions', [ProfileController::class, 'getWalletTransactions']);
     });
 

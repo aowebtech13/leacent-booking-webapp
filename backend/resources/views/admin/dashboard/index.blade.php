@@ -80,32 +80,6 @@
                         <div class="card widget-1">
                             <div class="card-body">
                                 <div class="widget-content">
-                                    <div class="widget-round secondary">
-                                        <div class="bg-round"><svg>
-                                                <use href="{{ asset('assets/svg/icon-sprite.svg#c-revenue') }}"> </use>
-                                            </svg><svg class="half-circle svg-fill">
-                                                <use href="{{ asset('assets/svg/icon-sprite.svg#halfcircle') }}"></use>
-                                            </svg></div>
-                                    </div>
-                                    <div>
-                                        <h4>₦<span class="counter" data-target="{{ $stats['total_debt'] ?? 0 }}">0</span></h4><span
-                                            class="f-light"> Total Debt</span>
-                                    </div>
-                                </div>
-                                <div class="font-success f-w-500"><i class="bookmark-search me-1"
-                                        data-feather="trending-up"></i><span class="txt-success">+50%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xxl-auto col-xl-3 col-sm-6 box-col-3">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="card widget-1">
-                            <div class="card-body">
-                                <div class="widget-content">
                                     <div class="widget-round primary">
                                         <div class="bg-round"><svg class="fill-primary">
                                                 <use href="{{ asset('assets/svg/icon-sprite.svg#c-invoice') }}">

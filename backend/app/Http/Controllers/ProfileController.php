@@ -75,16 +75,4 @@ class ProfileController extends Controller
         ]);
     }
 
-
-    public function getBalance(Request $request)
-    {
-        return response()->json([
-            'success' => true,
-            'data' => [
-                'balance' => $request->user()->profile->balance ?? 0,
-            ],
-        ]);
-    }
-
- 
 }
