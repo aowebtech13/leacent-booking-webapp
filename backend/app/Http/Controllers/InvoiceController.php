@@ -12,17 +12,11 @@ class InvoiceController extends Controller
 {
     public function index()
     {
-        $invoices = Order::with(['customer', 'items.product'])
+        $invoices = Order::with(['items.product'])
             ->orderByDesc('created_at')
             ->get()
             ->map(function ($order) {
-                $customerName = $order->customer
-                    ? trim(($order->customer->first_name ?? '') . ' ' . ($order->customer->last_name ?? ''))
-                    : ($order->billing_name ?? 'Guest');
-
-                if (empty(trim($customerName))) {
-                    $customerName = $order->billing_name ?? 'Guest';
-                }
+                $customerName = $order->billing_name ?? 'Guest';
 
                 $statusLabel = ucfirst($order->status);
                 $statusClass = 'badge-light-info';
@@ -66,19 +60,17 @@ class InvoiceController extends Controller
 
     public function show(int $id)
     {
-        $order = Order::with(['customer', 'items.product.images'])
+        $order = Order::with(['items.product.images'])
             ->findOrFail($id);
 
-        $customerName = $order->customer
-            ? trim(($order->customer->first_name ?? '') . ' ' . ($order->customer->last_name ?? ''))
-            : ($order->billing_name ?? 'Guest');
+        $customerName = $order->billing_name ?? 'Guest';
 
         if (empty(trim($customerName))) {
-            $customerName = $order->billing_name ?? 'Guest';
+            $customerName = 'Guest';
         }
 
-        $customerEmail = $order->customer?->user?->email ?? $order->billing_email ?? 'N/A';
-        $customerPhone = $order->customer?->phone ?? $order->billing_phone ?? 'N/A';
+        $customerEmail = $order->billing_email ?? 'N/A';
+        $customerPhone = $order->billing_phone ?? 'N/A';
         $customerAddress = $order->shipping_address ?? 'N/A';
 
         $statusLabel = ucfirst($order->status);

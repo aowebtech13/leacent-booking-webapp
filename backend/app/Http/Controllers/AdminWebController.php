@@ -125,7 +125,7 @@ class AdminWebController extends Controller
             });
 
         // Recent orders (latest 8 with customer, items, and product images)
-        $recentOrders = Order::with(['customer', 'items.product.images'])
+        $recentOrders = Order::with(['items.product.images'])
             ->latest()
             ->take(8)
             ->get()
@@ -139,12 +139,10 @@ class AdminWebController extends Controller
                     : asset('assets/images/dashboard-2/order/sub-product/16.png');
 
                 // Determine customer name
-                $customerName = $order->customer
-                    ? trim(($order->customer->first_name ?? '') . ' ' . ($order->customer->last_name ?? ''))
-                    : ($order->billing_name ?? 'Guest');
+                $customerName = $order->billing_name ?? 'Guest';
 
-                if (empty(trim($customerName)) || $customerName === 'Guest') {
-                    $customerName = $order->billing_name ?? 'Guest';
+                if (empty(trim($customerName))) {
+                    $customerName = 'Guest';
                 }
 
                 // Total quantity
