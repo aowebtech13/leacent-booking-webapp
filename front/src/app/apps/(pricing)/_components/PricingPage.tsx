@@ -87,7 +87,7 @@ const PricingPage = () => {
           <Col xs={12}>
             <Card>
               <CardHeader>
-                <h5>Simple Pricing Plans</h5>
+                <h5>Subscription Price</h5>
               </CardHeader>
               <CardBody>
                 <SimplePricingCard />

@@ -6,9 +6,9 @@ import { Button, Card, CardBody } from "reactstrap";
 const SimplePricingCard = () => {
   const pricingPlans = [
     {
-      title: "Basic",
-      price: "$9.99",
-      period: "per month",
+      title: "Daily",
+      price: "#500",
+      period: "per day",
       features: [
         "100 requests per day",
         "Free trial features access",

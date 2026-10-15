@@ -54,7 +54,7 @@ export async function resetPasswordAction(formData: FormData): Promise<void> {
  *
  * The backend enforces email verification: if the account is not yet verified
  * the login endpoint responds with a 422 and a message telling the user to
- * verify. In that case we redirect to the two-step-verification page so the
+ * verify. In that case we redirect to the verify-otp page so the
  * user can complete the OTP flow (the backend has already emailed a fresh
  * code for the unverified account).
  */
@@ -70,7 +70,7 @@ export async function loginUser(formData: FormData): Promise<void> {
     // Backend returns 422 for unverified-email logins.
     if (actionError.status === 422) {
       redirect(
-        `/auth-pages/two-step-verification?email=${encodeURIComponent(email)}`
+        `/verify-otp?email=${encodeURIComponent(email)}`
       );
     }
     throw actionError;
@@ -88,7 +88,7 @@ export async function loginUserImg(formData: FormData): Promise<void> {
     const actionError = toActionError(error);
     if (actionError.status === 422) {
       redirect(
-        `/auth-pages/two-step-verification?email=${encodeURIComponent(email)}`
+        `/verify-otp?email=${encodeURIComponent(email)}`
       );
     }
     throw actionError;
@@ -118,7 +118,7 @@ export async function registerUser(formData: FormData): Promise<void> {
 
   try {
     await register(payload);
-    redirect(`/auth-pages/two-step-verification?email=${encodeURIComponent(email)}`);
+    redirect(`/verify-otp?email=${encodeURIComponent(email)}`);
   } catch (error: any) {
     throw toActionError(error);
   }
