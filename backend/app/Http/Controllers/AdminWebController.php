@@ -9,7 +9,6 @@ use App\Models\ReferralClick;
 use App\Models\User;
 use App\Models\UserRole;
 use App\Models\UserLog;
-use App\Models\Product;
 use App\Models\Subscription;
 use App\Models\Transaction;
 use App\Models\Book;
@@ -994,35 +993,6 @@ private function getPlanAmount(string $plan, string $cycle = 'monthly'): float
             'monthlyData',
             'planDistribution'
         ));
-    }
-
-    /**
-     * Report: Products - List products with total sold count, price, and rating.
-     */
-    public function reportsProducts()
-    {
-        $products = Product::with('images')->withCount(['orderItems as total_sold' => function ($q) {
-                $q->select(DB::raw('COALESCE(SUM(quantity), 0)'));
-            }])
-            ->orderByDesc('total_sold')
-            ->get()
-            ->map(function ($product) {
-                $rating = min(5, max(1, (int) ceil($product->total_sold / 10)));
-                $fullStars = $rating;
-                $emptyStars = 5 - $rating;
-                return (object) [
-                    'id' => $product->id,
-                    'name' => $product->name,
-                    'sku' => $product->sku,
-                    'total_sold' => (int) ($product->total_sold ?? 0),
-                    'price' => (float) ($product->sale_price ?: $product->price),
-                    'image' => $product->images->first()?->url ?? asset('assets/images/dashboard-8/product-categories/laptop.png'),
-                    'full_stars' => $fullStars,
-                    'empty_stars' => $emptyStars,
-                ];
-            });
-
-        return view('reports.products', compact('products'));
     }
 
     /**

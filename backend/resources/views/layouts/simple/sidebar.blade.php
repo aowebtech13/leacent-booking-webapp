@@ -75,7 +75,6 @@
                                 <use href="{{ asset('assets/svg/icon-sprite.svg#fill-reports') }}"></use>
                             </svg><span>Reports</span></a>
                         <ul class="sidebar-submenu">
-                            <li><a href="{{ route('admin.reports.products') }}">Products</a></li>
                             <li><a href="{{ route('admin.reports.sales') }}">Sales</a></li>
                         </ul>
                     </li>
