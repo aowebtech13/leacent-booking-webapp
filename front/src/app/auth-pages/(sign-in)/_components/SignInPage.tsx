@@ -70,7 +70,7 @@ const SignInPage = () => {
                     <Row>
                       <Col xs={12} className="mb-5 text-center text-lg-start">
                         <h2 className="text-primary-dark f-w-600">
-                          Welcome To axelit!
+                          Welcome To Bookstore!
                         </h2>
                         <p>
                           Sign in with your data that you entered during your
@@ -153,33 +153,6 @@ const SignInPage = () => {
                         </Link>
                       </Col>
 
-                      <div className="app-divider-v justify-content-center my-4">
-                        <p className="text-center mb-0">Or sign in with</p>
-                      </div>
-
-                      <Col xs={12} className="text-center">
-                        <Button
-                          type="button"
-                          color="light-primary"
-                          className="btn btn-light-facebook icon-btn b-r-22 m-1"
-                        >
-                          <IconBrandFacebook size={18} />
-                        </Button>
-                        <Button
-                          type="button"
-                          color="light-danger"
-                          className="btn btn-light-gmail icon-btn b-r-22 m-1"
-                        >
-                          <IconBrandGoogle size={18} />
-                        </Button>
-                        <Button
-                          type="button"
-                          color="light-dark"
-                          className="btn btn-light-github icon-btn b-r-22 m-1"
-                        >
-                          <IconBrandGithub size={18} />
-                        </Button>
-                      </Col>
                     </Row>
                   </Form>
                 </div>
