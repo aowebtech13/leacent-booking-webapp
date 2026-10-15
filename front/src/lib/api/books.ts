@@ -22,7 +22,7 @@ export interface Book {
   description: string | null;
   author: string | null;
   author_id: number | null;
-  author?: Author | null;
+  authorDetail?: Author | null;
   isbn: string | null;
   publisher: string | null;
   language: string | null;

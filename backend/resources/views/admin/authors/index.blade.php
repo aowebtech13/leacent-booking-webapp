@@ -30,7 +30,7 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Authors List Card (Leacent Authors Design) -->
-            <div class="col-md-5 xxl-3">
+            <div class="col-md-5 col-xxl-3">
                 <div class="p-3">
                     <h5>Leacent Authors</h5>
                 </div>
