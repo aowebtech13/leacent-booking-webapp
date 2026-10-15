@@ -106,15 +106,17 @@ class DatabaseSeeder extends Seeder
                 'billing_cycle' => 'monthly',
                 'amount' => 25 * 1500,
                 'currency' => 'NGN',
-                'start_date' => now(),
+'start_date' => now(),
             ]
         );
 
+        // Seed categories
+        $this->call(CategorySeeder::class);
 
-
-
-
+        // Seed tags
+        $this->call(TagSeeder::class);
     }
+}
 }
 
 
