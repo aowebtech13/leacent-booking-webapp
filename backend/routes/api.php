@@ -11,6 +11,7 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\CategoryController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -128,6 +129,13 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('{id}', [AuthorController::class, 'show']);
             Route::put('{id}', [AuthorController::class, 'update']);
             Route::delete('{id}', [AuthorController::class, 'destroy']);
+        });
+
+        // Categories management (admin)
+        Route::prefix('categories')->group(function () {
+            Route::post('/', [CategoryController::class, 'store']);
+            Route::put('{id}', [CategoryController::class, 'update']);
+            Route::delete('{id}', [CategoryController::class, 'destroy']);
         });
 
         // Referral analytics removed from admin.

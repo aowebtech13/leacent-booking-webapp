@@ -69,6 +69,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::delete('{author}', [AdminWebController::class, 'destroyAuthor'])->name('destroy');
         });
 
+        // Categories (admin web) - uses dedicated web controller that returns Blade redirects.
+        Route::get('categories', [\App\Http\Controllers\Ecommerce\AdminCategoryWebController::class, 'index'])->name('categories.index');
+        Route::get('categories/create', [\App\Http\Controllers\Ecommerce\AdminCategoryWebController::class, 'create'])->name('categories.create');
+        Route::post('categories', [\App\Http\Controllers\Ecommerce\AdminCategoryWebController::class, 'store'])->name('categories.store');
+        Route::get('categories/{id}/edit', [\App\Http\Controllers\Ecommerce\AdminCategoryWebController::class, 'edit'])->name('categories.edit');
+        Route::put('categories/{id}', [\App\Http\Controllers\Ecommerce\AdminCategoryWebController::class, 'update'])->name('categories.update');
+        Route::delete('categories/{id}', [\App\Http\Controllers\Ecommerce\AdminCategoryWebController::class, 'destroy'])->name('categories.destroy');
+        Route::post('categories/update-orders', [\App\Http\Controllers\Ecommerce\AdminCategoryWebController::class, 'updateOrders'])->name('categories.update.orders');
+
         // Invoice
         Route::get('invoice-1', [App\Http\Controllers\InvoiceController::class, 'index'])->name('invoice_1');
         Route::get('invoice/{id}', [App\Http\Controllers\InvoiceController::class, 'show'])->name('invoice.show');
