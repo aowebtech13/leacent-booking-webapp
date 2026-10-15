@@ -976,7 +976,7 @@ private function getPlanAmount(string $plan, string $cycle = 'monthly'): float
 
     public function createAuthor()
     {
-        return view('admin.authors.create');
+        return view('admin.authors.index');
     }
 
     public function storeAuthor(Request $request)
@@ -1003,7 +1003,7 @@ private function getPlanAmount(string $plan, string $cycle = 'monthly'): float
 
     public function editAuthor(Author $author)
     {
-        return view('admin.authors.edit', compact('author'));
+        return view('admin.authors.index', compact('author'));
     }
 
     public function updateAuthor(Request $request, Author $author)
