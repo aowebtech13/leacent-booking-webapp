@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-
 class BookController extends Controller
 {
     /**
@@ -162,6 +161,161 @@ class BookController extends Controller
             'data' => [
                 'preview_url' => Storage::disk('public')->url($book->preview_path),
             ],
+        ]);
+    }
+
+    /**
+     * GET /api/admin/books
+     * Admin: list all books (including inactive) with pagination and search.
+     */
+    public function adminIndex(Request $request)
+    {
+        $query = Book::query()->with('author');
+
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('title', 'like', "%{$request->get('search')}%")
+                    ->orWhere('author', 'like', "%{$request->get('search')}%")
+                    ->orWhere('isbn', 'like', "%{$request->get('search')}%");
+            });
+        }
+
+        if ($request->filled('is_active')) {
+            $query->where('is_active', filter_var($request->get('is_active'), FILTER_VALIDATE_BOOLEAN));
+        }
+
+        $books = $query->orderBy('created_at', 'desc')->paginate($request->get('per_page', 15));
+
+        return response()->json([
+            'success' => true,
+            'data' => $books,
+        ]);
+    }
+
+    /**
+     * GET /api/admin/books/{id}
+     * Admin: get a single book.
+     */
+    public function adminShow(int $id)
+    {
+        $book = Book::with('author')->findOrFail($id);
+
+        return response()->json([
+            'success' => true,
+            'data' => $book,
+        ]);
+    }
+
+    /**
+     * POST /api/admin/books
+     * Admin: create a new book.
+     */
+    public function adminStore(Request $request)
+    {
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:255|unique:books',
+            'author' => 'nullable|string|max:255',
+            'author_id' => 'nullable|exists:authors,id',
+            'isbn' => 'nullable|string|max:255|unique:books',
+            'publisher' => 'nullable|string|max:255',
+            'language' => 'nullable|string|max:255',
+            'category' => 'nullable|string|max:255',
+            'publication_year' => 'nullable|integer|min:1000|max:9999',
+            'page_count' => 'nullable|integer|min:1',
+            'format' => 'nullable|string|max:50',
+            'description' => 'nullable|string',
+            'file_path' => 'nullable|string|max:255',
+            'cover_image_path' => 'nullable|string|max:255',
+            'preview_path' => 'nullable|string|max:255',
+            'price' => 'nullable|numeric|min:0',
+            'is_premium' => 'sometimes|boolean',
+            'is_active' => 'sometimes|boolean',
+            'is_featured' => 'sometimes|boolean',
+            'tags' => 'sometimes|array',
+        ]);
+
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($data['title']);
+        }
+
+        $data['price'] = $data['price'] ?? 0;
+        $data['is_premium'] = $data['is_premium'] ?? false;
+        $data['is_active'] = $data['is_active'] ?? true;
+        $data['is_featured'] = $data['is_featured'] ?? false;
+
+        $book = Book::create($data);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Book created successfully.',
+            'data' => $book->load('author'),
+        ], 201);
+    }
+
+    /**
+     * PUT/PATCH /api/admin/books/{id}
+     * Admin: update a book.
+     */
+    public function adminUpdate(Request $request, int $id)
+    {
+        $book = Book::findOrFail($id);
+
+        $data = $request->validate([
+            'title' => 'sometimes|string|max:255',
+            'slug' => 'sometimes|string|max:255|unique:books,slug,' . $book->id,
+            'author' => 'sometimes|nullable|string|max:255',
+            'author_id' => 'sometimes|nullable|exists:authors,id',
+            'isbn' => 'sometimes|nullable|string|max:255|unique:books,isbn,' . $book->id,
+            'publisher' => 'sometimes|nullable|string|max:255',
+            'language' => 'sometimes|nullable|string|max:255',
+            'category' => 'sometimes|nullable|string|max:255',
+            'publication_year' => 'sometimes|nullable|integer|min:1000|max:9999',
+            'page_count' => 'sometimes|nullable|integer|min:1',
+            'format' => 'sometimes|nullable|string|max:50',
+            'description' => 'sometimes|nullable|string',
+            'file_path' => 'sometimes|nullable|string|max:255',
+            'cover_image_path' => 'sometimes|nullable|string|max:255',
+            'preview_path' => 'sometimes|nullable|string|max:255',
+            'price' => 'sometimes|nullable|numeric|min:0',
+            'is_premium' => 'sometimes|boolean',
+            'is_active' => 'sometimes|boolean',
+            'is_featured' => 'sometimes|boolean',
+            'tags' => 'sometimes|array',
+        ]);
+
+        $book->update($data);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Book updated successfully.',
+            'data' => $book->load('author'),
+        ]);
+    }
+
+    /**
+     * DELETE /api/admin/books/{id}
+     * Admin: delete a book.
+     */
+    public function adminDestroy(int $id)
+    {
+        $book = Book::findOrFail($id);
+
+        if ($book->file_path) {
+            Storage::disk('public')->delete($book->file_path);
+        }
+        if ($book->cover_image_path) {
+            Storage::disk('public')->delete($book->cover_image_path);
+        }
+        if ($book->preview_path) {
+            Storage::disk('public')->delete($book->preview_path);
+        }
+
+        $book->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Book deleted successfully.',
         ]);
     }
 }

@@ -14,6 +14,7 @@ class Book extends Model
         'slug',
         'description',
         'author',
+        'author_id',
         'isbn',
         'publisher',
         'language',
@@ -67,6 +68,11 @@ class Book extends Model
     public function activeAccess(): HasMany
     {
         return $this->hasMany(BookAccess::class)->where('is_active', true);
+    }
+
+    public function author(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Author::class);
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookReadingProgressController;
 use App\Http\Controllers\CaseReminderController;
@@ -121,6 +122,24 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::prefix('profile')->group(function () {
             Route::get('/', [AdminController::class, 'getProfile']);
             Route::put('/', [AdminController::class, 'updateProfile']);
+        });
+
+        // Books management (admin)
+        Route::prefix('books')->group(function () {
+            Route::get('/', [BookController::class, 'adminIndex']);
+            Route::post('/', [BookController::class, 'adminStore']);
+            Route::get('{id}', [BookController::class, 'adminShow']);
+            Route::put('{id}', [BookController::class, 'adminUpdate']);
+            Route::delete('{id}', [BookController::class, 'adminDestroy']);
+        });
+
+        // Authors management (admin)
+        Route::prefix('authors')->group(function () {
+            Route::get('/', [AuthorController::class, 'index']);
+            Route::post('/', [AuthorController::class, 'store']);
+            Route::get('{id}', [AuthorController::class, 'show']);
+            Route::put('{id}', [AuthorController::class, 'update']);
+            Route::delete('{id}', [AuthorController::class, 'destroy']);
         });
 
         // Referral analytics removed from admin.
