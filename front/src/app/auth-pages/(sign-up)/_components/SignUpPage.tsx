@@ -79,7 +79,7 @@ const SignUpPage = () => {
 
                        {state.error && (
                          <Col xs={12}>
-                            <Alert color="danger" className="mb-3" dismissible="true">
+                            <Alert color="danger" className="mb-3" dismissible={true}>
                               {state.error}
                             </Alert>
                          </Col>

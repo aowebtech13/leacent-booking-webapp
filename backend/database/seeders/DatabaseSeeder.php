@@ -110,19 +110,6 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // Seed categories
-        $this->call(CategorySeeder::class);
-
-        // Seed tags
-        $this->call(TagSeeder::class);
-
-        // Seed ecommerce demo: products, orders, and wallet transactions
-        $this->call(ProductSeeder::class);
-        $this->call(VendorOrderSeeder::class);
-        $this->call(TransactionSeeder::class);
-
-        // Backfill the Ledger (audit trail) from existing orders.
-        $this->call(LedgerSeeder::class);
 
 
 

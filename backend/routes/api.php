@@ -16,13 +16,6 @@ use App\Http\Controllers\NotificationController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Ecommerce\CategoryController;
-use App\Http\Controllers\Ecommerce\ProductController;
-use App\Http\Controllers\Ecommerce\TagController;
-use App\Http\Controllers\Ecommerce\CartController;
-use App\Http\Controllers\Ecommerce\OrderController;
-use App\Http\Controllers\Ecommerce\AdminOrderController;
-use App\Http\Controllers\Ecommerce\AdminPaymentController;
 
 
 /*
@@ -86,7 +79,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('methods', [PaymentController::class, 'methods']);
         Route::get('order/{id}', [PaymentController::class, 'order']);
         Route::post('initialize', [PaymentController::class, 'initializePayment']);
-        Route::post('verify', [PaymentController::class, 'verifyPayment']);
+        Route::post('verify', [PaymentController::class, 'verify']);
         Route::post('upload-receipt', [PaymentController::class, 'uploadReceipt']);
     });
 
@@ -144,13 +137,12 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('categories', [CategoryController::class, 'index']);
 Route::get('categories/{id}', [CategoryController::class, 'show']);
 
-Route::get('tags', [TagController::class, 'index']);
-Route::get('tags/{id}', [TagController::class, 'show']);
-
-Route::get('products', [ProductController::class, 'index']);
-Route::get('products/total', [ProductController::class, 'total']);
-Route::get('products/{id}', [ProductController::class, 'show']);
-Route::get('products/{id}/related', [ProductController::class, 'related']);
+Route::get('tags', function () {
+    return response()->json(['data' => []]);
+});
+Route::get('tags/{id}', function () {
+    return response()->json(['data' => []]);
+});
 
 // Books catalog (public read)
 Route::get('books', [BookController::class, 'index']);
@@ -166,63 +158,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('books/{id}/progress', [BookReadingProgressController::class, 'show']);
     Route::post('books/{id}/progress', [BookReadingProgressController::class, 'update']);
 });
-
-// Protected cart & orders
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('cart', [CartController::class, 'show']);
-    Route::post('cart/items', [CartController::class, 'addItem']);
-    Route::put('cart/items', [CartController::class, 'updateItem']);
-    Route::delete('cart/items', [CartController::class, 'removeItem']);
-    Route::delete('cart', [CartController::class, 'clear']);
-
-    // Checkout page summary (computed cart totals, tax, shipping, payment methods)
-    Route::get('checkout', [OrderController::class, 'checkout']);
-
-    Route::get('orders', [OrderController::class, 'index']);
-    Route::get('orders/{id}', [OrderController::class, 'show']);
-    Route::post('orders', [OrderController::class, 'store']);
-    Route::post('orders/{id}/pay', [OrderController::class, 'pay']);
-    Route::post('orders/{id}/manual-payment', [OrderController::class, 'submitManualPayment']);
-    Route::post('orders/{id}/cancel', [OrderController::class, 'cancel']);
-    Route::post('orders/verify', [OrderController::class, 'verify']);
-});
-
-// Guest checkout (no authentication required)
-Route::post('orders/guest', [OrderController::class, 'storeGuest']);
-Route::post('orders/guest/{id}/pay', [OrderController::class, 'pay']);
-Route::post('orders/guest/{id}/manual-payment', [OrderController::class, 'submitManualPayment']);
-Route::post('orders/guest/{id}/cancel', [OrderController::class, 'cancel']);
-
-// Admin ecommerce CRUD
-Route::middleware('admin')->group(function () {
-    Route::post('categories', [CategoryController::class, 'store']);
-    Route::put('categories/{id}', [CategoryController::class, 'update']);
-    Route::delete('categories/{id}', [CategoryController::class, 'destroy']);
-
-    Route::post('tags', [TagController::class, 'store']);
-    Route::put('tags/{id}', [TagController::class, 'update']);
-    Route::delete('tags/{id}', [TagController::class, 'destroy']);
-
-    Route::post('products', [ProductController::class, 'store']);
-    Route::put('products/{id}', [ProductController::class, 'update']);
-    Route::delete('products/{id}', [ProductController::class, 'destroy']);
-
-    // Purchases submitted to the admin area
-    Route::get('admin/orders/stats', [AdminOrderController::class, 'stats']);
-    Route::get('admin/orders', [AdminOrderController::class, 'index']);
-    Route::get('admin/orders/{id}', [AdminOrderController::class, 'show']);
-    Route::put('admin/orders/{id}/status', [AdminOrderController::class, 'updateStatus']);
-
-    // Manual payment verification
-    Route::get('admin/payments', [AdminPaymentController::class, 'index']);
-    Route::get('admin/payments/{id}', [AdminPaymentController::class, 'show']);
-    Route::get('admin/payments/{id}/receipt', [AdminPaymentController::class, 'receipt']);
-    Route::post('admin/payments/{id}/verify', [AdminPaymentController::class, 'verify']);
-    Route::post('admin/payments/{id}/reject', [AdminPaymentController::class, 'reject']);
-});
-
-// Top products sales (weekly/monthly)
-Route::middleware('auth:sanctum')->get('admin/top-products-sales', [\App\Http\Controllers\Ecommerce\TopProductsSalesController::class, '__invoke']);
 
 // Health check route
 Route::get('health', function () {

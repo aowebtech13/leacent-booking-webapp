@@ -59,43 +59,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('profile', [AdminWebController::class, 'profile'])->name('profile');
         Route::put('profile', [AdminWebController::class, 'updateProfile'])->name('profile.update');
 
-        // Categories (admin web) - uses dedicated web controller that returns Blade redirects.
-        Route::get('categories', [\App\Http\Controllers\Ecommerce\AdminCategoryWebController::class, 'index'])->name('categories.index');
-        Route::get('categories/create', [\App\Http\Controllers\Ecommerce\AdminCategoryWebController::class, 'create'])->name('categories.create');
-        Route::post('categories', [\App\Http\Controllers\Ecommerce\AdminCategoryWebController::class, 'store'])->name('categories.store');
-        Route::get('categories/{id}/edit', [\App\Http\Controllers\Ecommerce\AdminCategoryWebController::class, 'edit'])->name('categories.edit');
-        Route::put('categories/{id}', [\App\Http\Controllers\Ecommerce\AdminCategoryWebController::class, 'update'])->name('categories.update');
-        Route::delete('categories/{id}', [\App\Http\Controllers\Ecommerce\AdminCategoryWebController::class, 'destroy'])->name('categories.destroy');
-        Route::post('categories/update-orders', [\App\Http\Controllers\Ecommerce\AdminCategoryWebController::class, 'updateOrders'])->name('categories.update.orders');
 
-        // Product Ecommerce Views
-        Route::get('add-products', function () {
-            return redirect()->route('admin.products.create');
-        })->name('add_products');
-        Route::get('products-grid', [\App\Http\Controllers\Ecommerce\AdminProductWebController::class, 'grid'])->name('products_grid');
-        Route::get('list-products', function () {
-            return redirect()->route('admin.products.index');
-        })->name('list_prodcuts');
-        Route::get('products-details/{product?}', [\App\Http\Controllers\Ecommerce\AdminProductWebController::class, 'details'])->name('products_details');
 
-        // Ecommerce Order Views
-        Route::get('order-details', function () {
-            return view('ecommerce.order.order_details');
-        })->name('order_details');
 
-        // Products (admin web)
-        Route::prefix('products')->name('products.')->group(function () {
-            Route::get('/', [\App\Http\Controllers\Ecommerce\AdminProductWebController::class, 'index'])->name('index');
-            Route::get('/create', [\App\Http\Controllers\Ecommerce\AdminProductWebController::class, 'create'])->name('create');
-            Route::post('/', [\App\Http\Controllers\Ecommerce\AdminProductWebController::class, 'store'])->name('store');
 
-            Route::get('/{id}/edit', [\App\Http\Controllers\Ecommerce\AdminProductWebController::class, 'edit'])->name('edit');
-            Route::put('/{id}', [\App\Http\Controllers\Ecommerce\AdminProductWebController::class, 'update'])->name('update');
-            Route::delete('/{id}', [\App\Http\Controllers\Ecommerce\AdminProductWebController::class, 'destroy'])->name('destroy');
-        });
+
+
+
 
         // Reports
-        Route::get('reports/products', [AdminWebController::class, 'reportsProducts'])->name('reports.products');
         Route::get('reports/sales', [AdminWebController::class, 'reportsSales'])->name('reports.sales');
         Route::get('reports/sales-return', [AdminWebController::class, 'reportsSalesReturn'])->name('reports.sales_return');
         Route::get('reports/customer-order', [AdminWebController::class, 'reportsCustomerOrder'])->name('reports.customer_order');
