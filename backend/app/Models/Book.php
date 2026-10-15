@@ -70,6 +70,11 @@ class Book extends Model
         return $this->hasMany(BookAccess::class)->where('is_active', true);
     }
 
+    public function orderItems(): HasMany
+    {
+        return $this->hasMany(OrderItem::class, 'book_id');
+    }
+
     public function author(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Author::class);

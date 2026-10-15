@@ -11,7 +11,7 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Ecommerce\CategoryController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
