@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 import {
   login,
   register,
@@ -12,6 +13,24 @@ import {
 import { ActionError, toActionError } from "./action-error";
 
 export { ActionError };
+
+const PENDING_EMAIL_COOKIE = "pending_email";
+const PENDING_EMAIL_MAX_AGE = 300;
+
+async function setPendingEmail(email: string) {
+  const cookieStore = await cookies();
+  cookieStore.set(PENDING_EMAIL_COOKIE, email, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    maxAge: PENDING_EMAIL_MAX_AGE,
+    path: "/",
+  });
+}
+
+async function clearPendingEmail() {
+  const cookieStore = await cookies();
+  cookieStore.delete(PENDING_EMAIL_COOKIE);
+}
 
 export async function unlockScreen(formData: FormData): Promise<void> {
   const password = formData.get("password");
@@ -59,7 +78,7 @@ export async function resetPasswordAction(formData: FormData): Promise<void> {
  * code for the unverified account).
  */
 export async function loginUser(formData: FormData): Promise<void> {
-  const email = formData.get("username") as string;
+  const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
   try {
@@ -69,16 +88,15 @@ export async function loginUser(formData: FormData): Promise<void> {
     const actionError = toActionError(error);
     // Backend returns 422 for unverified-email logins.
     if (actionError.status === 422) {
-      redirect(
-        `/verify-otp?email=${encodeURIComponent(email)}`
-      );
+      await setPendingEmail(email);
+      redirect("/verify-otp");
     }
     throw actionError;
   }
 }
 
 export async function loginUserImg(formData: FormData): Promise<void> {
-  const email = formData.get("username") as string;
+  const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
   try {
@@ -87,9 +105,8 @@ export async function loginUserImg(formData: FormData): Promise<void> {
   } catch (error: any) {
     const actionError = toActionError(error);
     if (actionError.status === 422) {
-      redirect(
-        `/verify-otp?email=${encodeURIComponent(email)}`
-      );
+      await setPendingEmail(email);
+      redirect("/verify-otp");
     }
     throw actionError;
   }
@@ -118,7 +135,8 @@ export async function registerUser(formData: FormData): Promise<void> {
 
   try {
     await register(payload);
-    redirect(`/verify-otp?email=${encodeURIComponent(email)}`);
+    await setPendingEmail(email);
+    redirect("/verify-otp");
   } catch (error: any) {
     throw toActionError(error);
   }
@@ -146,6 +164,7 @@ export async function verifyOtp(formData: FormData): Promise<void> {
 
   try {
     await apiVerifyOtp({ email, code: otpDigits });
+    await clearPendingEmail();
     redirect("/apps/setting");
   } catch (error: any) {
     throw toActionError(error);

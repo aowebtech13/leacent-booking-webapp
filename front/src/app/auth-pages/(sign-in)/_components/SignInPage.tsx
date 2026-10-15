@@ -88,13 +88,13 @@ const SignInPage = () => {
 
                       <Col xs={12}>
                         <FormGroup>
-                          <Label for="username">Username</Label>
+                          <Label for="email">Email</Label>
                           <Input
                             className="form-control"
-                            id="username"
-                            name="username"
-                            placeholder="Enter Your Username"
-                            type="text"
+                            id="email"
+                            name="email"
+                            placeholder="Enter Your Email"
+                            type="email"
                           />
                         </FormGroup>
                       </Col>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import VerifyOtpForm from "./_components/VerifyOtpForm";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -8,8 +9,10 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-const Page = () => {
-  return <VerifyOtpForm />;
+const Page = async () => {
+  const cookieStore = await cookies();
+  const email = cookieStore.get("pending_email")?.value ?? null;
+  return <VerifyOtpForm email={email} />;
 };
 
 export default Page;

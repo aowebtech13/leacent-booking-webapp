@@ -27,7 +27,6 @@ const SignInBgImgPage = () => {
   };
 
   const [formData, setFormData] = useState({
-    username: "",
     email: "",
     password: "",
     remember: false,
@@ -67,13 +66,13 @@ const SignInBgImgPage = () => {
                 </div>
 
                 <FormGroup className="mb-">
-                  <Label for="username">Email address</Label>
+                  <Label for="email">Email address</Label>
                   <Input
-                    type="text"
-                    id="username"
+                    type="email"
+                    id="email"
                     className="form-control b-r-20"
-                    name="username"
-                    value={formData.username}
+                    name="email"
+                    value={formData.email}
                     onChange={handleChange}
                   />
                   <div className="form-text text">

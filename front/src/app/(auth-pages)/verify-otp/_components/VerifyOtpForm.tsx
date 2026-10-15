@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/contexts/AuthContext";
 import { verifyOtp as apiVerifyOtp, AuthResponse } from "@/lib/api";
 
@@ -17,16 +17,15 @@ type FormData = {
 
 const otpFields = ["otp0", "otp1", "otp2", "otp3", "otp4"] as const;
 
-const VerifyOtpForm = () => {
+const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [resendTimer, setResendTimer] = useState(60);
   const [canResend, setCanResend] = useState(false);
-  const [email, setEmail] = useState<string | null>(null);
+  const [email] = useState<string | null>(initialEmail);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
   const router = useRouter();
-  const searchParams = useSearchParams();
   const { setAuth } = useAuth();
 
   const {
@@ -35,13 +34,6 @@ const VerifyOtpForm = () => {
     setValue,
     formState: { errors },
   } = useForm<FormData>();
-
-  useEffect(() => {
-    const emailParam = searchParams.get("email");
-    if (emailParam) {
-      setEmail(emailParam);
-    }
-  }, [searchParams]);
 
   useEffect(() => {
     timerRef.current = setInterval(() => {
@@ -95,7 +87,7 @@ const VerifyOtpForm = () => {
     const code = otpFields.map((field) => data[field as keyof FormData]).join("");
 
     if (!email) {
-      setError("Missing email. Please go back and sign up again.");
+      setError("Missing email. Please go back and sign in again.");
       setIsLoading(false);
       return;
     }
@@ -132,12 +124,12 @@ const VerifyOtpForm = () => {
 
   return (
     <div className="login-card">
-      <div className="logo">
-        <img src="/images/logo/logo.png" alt="Axelit Logo" height="40" />
-      </div>
+      
+      
       <div className="login-main">
         <div className="theme-form">
-          <div className="auth-header text-center mb-4">
+                  <img src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png" alt="Leacent Logo" height="40" />
+
             <h4 className="f-w-700 text-primary-dark">Verify OTP</h4>
             <p className="text-muted mt-2">
               Enter the 5-digit code sent to your email
