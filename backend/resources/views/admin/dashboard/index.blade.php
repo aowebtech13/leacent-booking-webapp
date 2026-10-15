@@ -175,49 +175,6 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6 ord-xl-3 ord-md-4 box-ord-3">
-                <div class="card monthly-header">
-                    <div class="card-header card-no-border">
-                        <div class="header-top">
-                            <h5>Monthly Target</h5>
-                            <div class="card-header-right-icon">
-                                <div class="dropdown icon-dropdown"><button class="btn dropdown-toggle"
-                                        id="monthlyButton" type="button" data-bs-toggle="dropdown"
-                                        aria-expanded="false"><i class="icon-more-alt"></i></button>
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="monthlyButton"><a
-                                            class="dropdown-item" href="#!">Today</a><a class="dropdown-item"
-                                            href="#!">Tomorrow</a><a class="dropdown-item"
-                                            href="#!">Yesterday</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="monthly-target">
-                            <div class="position-relative" id="monthly_target"></div>
-                        </div>
-                        <div class="target-content">
-                            <p>Revenue Surges! The sales for this month is better than last month.. Keep the momentum going!</p>
-                            <div class="common-box">
-                                <ul class="common-flex">
-                                    <li>
-                                        <h6>Revenue</h6><span class="common-space badge badge-light-success"> <i
-                                                class="me-1" data-feather="trending-up"></i>{{ number_format($currentMonthSales / 1000000, 1) }}m</span>
-                                    </li>
-                                    <li>
-                                        <h6>Target</h6><span class="common-space badge badge-light-danger"><i
-                                                class="me-1" data-feather="trending-down"></i>{{ number_format($monthlyTarget / 1000000, 1) }}m</span>
-                                    </li>
-                                    <li>
-                                        <h6>Today</h6><span class="common-space badge badge-light-success"><i
-                                                class="me-1" data-feather="trending-up"></i>{{ number_format($todaySales / 1000000, 1) }}m</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="col-xl-5 col-md-6 ord-xl-4 ord-md-5 box-ord-4">
                 <div class="card activity-log notification main-timeline">
                     <div class="card-header card-no-border">
@@ -260,81 +217,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xxl-7 col-lg-8 ord-xl-6 ord-md-6 box-ord-6 box-col-8e">
-                <div class="card">
-                    <div class="card-header card-no-border">
-                        <div class="header-top">
-                            <h5>Recent Orders</h5>
-                            <div class="card-header-right-icon">
-                                <div class="dropdown icon-dropdown"><button class="btn dropdown-toggle" id="recentButton"
-                                        type="button" data-bs-toggle="dropdown" aria-expanded="false"><i
-                                            class="icon-more-alt"></i></button>
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="recentButton"><a
-                                            class="dropdown-item" href="#!">Today</a><a class="dropdown-item"
-                                            href="#!">Tomorrow</a><a class="dropdown-item"
-                                            href="#!">Yesterday</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body px-0 pt-0 common-option">
-                        <div class="recent-table table-responsive currency-table recent-order-table custom-scrollbar">
-                            <table class="table" id="main-recent-order">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Product Name</th>
-                                        <th>Customers</th>
-                                        <th>Qty</th>
-                                        <th>Total Price</th>
-                                        <th>Order Date</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse($recentOrders as $order)
-                                    <tr>
-                                        <td></td>
-                                        <td>
-                                            <div class="d-flex align-items-center gap-2">
-                                                <div class="currency-icon warning"><img class="img-fluid"
-                                                        src="{{ $order->product_image }}"
-                                                        alt="{{ $order->product_name }}"></div>
-                                                <div> <a class="f-14 mb-0 f-w-500 c-light"
-                                                        href="{{ route('admin.products.index') }}">{{ $order->product_name }}</a>
-                                                    <p class="c-o-light" href="{{ '#' }}">{{ $order->order_number }}</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>{{ $order->customer_name }}</td>
-                                        <td>{{ $order->quantity }}</td>
-                                        <td>₦{{ $order->total_price }}</td>
-                                        <td>{{ $order->order_date }}</td>
-                                        <td> <button class="btn {{ $order->status_button_class }} f-w-500">{{ $order->status_label }}</button>
-                                        </td>
-                                    </tr>
-                                    @empty
-                                    <tr>
-                                        <td colspan="7" class="text-center f-light">No recent orders found.</td>
-                                    </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
          
         
         </div>
     </div><!-- Container-fluid Ends-->
-    <script>
-        window.dashboardChartData = @json([
-            'monthlySales' => $monthlySalesData,
-            'monthlyTarget' => $monthlyTarget,
-            'monthlyAchievement' => $monthlyAchievement
-        ]);
-    </script>
 @endsection
 
 @section('scripts')
