@@ -81,8 +81,6 @@
                         <ul class="sidebar-submenu">
                             <li><a href="{{ route('admin.reports.products') }}">Products</a></li>
                             <li><a href="{{ route('admin.reports.sales') }}">Sales</a></li>
-                    
-                            <li><a href="{{ route('admin.reports.customer_order') }}">Customer Order</a></li>
                         </ul>
                     </li>
                     <li class="sidebar-list"><i class="fa-solid fa-thumbtack"></i><a

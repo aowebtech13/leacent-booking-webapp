@@ -97,29 +97,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-12">
-                            <div class="card widget-1">
-                                <div class="card-body">
-                                    <div class="widget-content">
-                                        <div class="widget-round success">
-                                            <div class="bg-round"><svg>
-                                                    <use href="{{ asset('assets/svg/icon-sprite.svg#c-customer') }}">
-                                                    </use>
-                                                </svg><svg class="half-circle svg-fill">
-                                                    <use href="{{ asset('assets/svg/icon-sprite.svg#halfcircle') }}">
-                                                    </use>
-                                                </svg></div>
-                                        </div>
-                                        <div>
-                                            <h4> <span class="counter" data-target="{{ $stats['total_customers'] ?? 0 }}">0</span>+</h4><span
-                                                class="f-light">Customers</span>
-                                        </div>
-                                    </div>
-                                    <div class="font-danger f-w-500"><i class="bookmark-search me-1"
-                                            data-feather="trending-down"></i><span class="txt-danger">-40%</span></div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -175,65 +152,6 @@
                             </div>
                         </div>
                         <div id="visitor_chart"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xxl-4 col-sm-6 ord-xl-1 ord-md-1 box-ord-1 box-col-6">
-                <div class="card">
-                    <div class="card-header card-no-border">
-                        <div class="header-top">
-                            <h5>Top Customers</h5>
-                            <div class="card-header-right-icon">
-                                <div class="dropdown icon-dropdown"><button class="btn dropdown-toggle"
-                                        id="customerButton" type="button" data-bs-toggle="dropdown"
-                                        aria-expanded="false"><i class="icon-more-alt"></i></button>
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="customerButton"><a
-                                            class="dropdown-item" href="#!">Today</a><a class="dropdown-item"
-                                            href="#!">Tomorrow</a><a class="dropdown-item"
-                                            href="#!">Yesterday</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body main-customer-table px-0 pt-0">
-                        <div class="recent-table table-responsive custom-scrollbar">
-                            <table class="table" id="top-customer">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Customers</th>
-                                        <th>Total Purchase</th>
-                                        <th>Total Price</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse($topCustomers as $customer)
-                                    <tr>
-                                        <td> </td>
-                                        <td>
-                                            <div class="d-flex"><img class="img-fluid img-40 rounded-circle me-2"
-                                                    src="{{ asset('assets/images/dashboard/user/1.jpg') }}"
-                                                    alt="user">
-                                                <div class="img-content-box"><a class="f-w-500"
-                                                        href="{{ route('admin.products.index') }}">{{ $customer->name }}</a>
-                                                    <p class="mb-0 f-light">{{ $customer->customer_number }}</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>{{ $customer->total_purchases }} Purchases</td>
-                                        <td class="f-w-500 txt-success">₦{{ number_format($customer->total_price, 2) }}</td>
-                                    </tr>
-                                    @empty
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="text-center f-light">No customer data available yet.</td>
-                                    </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
                 </div>
             </div>
