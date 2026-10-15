@@ -43,11 +43,8 @@
 
                             <li><a href="{{ route('admin.categories.index') }}">Category</a></li>
 
-                          
                            
-<li><a href="{{ route('admin.add_products') }}">Add Product</a></li>
-<li><a href="{{ route('admin.products_grid') }}">Products Grid</a></li>
-<li><a href="{{ route('admin.list_prodcuts') }}">Products List</a></li>
+                            
                             <li><a href="{{ route('admin.orders.index') }}">Order History</a></li>
                             <li><a href="{{ route('admin.reports.sales_return') }}">Payments</a></li>
                             <li><a href="{{ route('admin.books.index') }}">Books</a></li>

@@ -96,6 +96,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Reports
         Route::get('reports/sales', [AdminWebController::class, 'reportsSales'])->name('reports.sales');
         Route::get('reports/sales-return', [AdminWebController::class, 'reportsSalesReturn'])->name('reports.sales_return');
+        Route::get('reports/products', [AdminWebController::class, 'reportsProducts'])->name('reports.products');
 
         // Notifications (admin web)
         Route::prefix('notifications')->name('notifications.')->group(function () {
