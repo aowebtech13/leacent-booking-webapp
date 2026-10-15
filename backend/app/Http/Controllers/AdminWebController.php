@@ -15,6 +15,8 @@ use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\Subscription;
 use App\Models\Transaction;
+use App\Models\Book;
+use App\Models\Author;
 use App\Notifications\ManualPaymentRejectedNotification;
 use App\Notifications\ManualPaymentVerifiedNotification;
 use Carbon\Carbon;
@@ -817,6 +819,219 @@ private function getPlanAmount(string $plan, string $cycle = 'monthly'): float
     }
 
 
+    /* ------------------------------------------------------------------ */
+    /* Books Management                                                   */
+    /* ------------------------------------------------------------------ */
+
+    public function books(Request $request)
+    {
+        $query = Book::with('author')->latest();
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('author', 'like', "%{$search}%")
+                    ->orWhere('isbn', 'like', "%{$search}%")
+                    ->orWhere('category', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('is_active')) {
+            $query->where('is_active', filter_var($request->get('is_active'), FILTER_VALIDATE_BOOLEAN));
+        }
+
+        $books = $query->paginate(20)->withQueryString();
+
+        return view('admin.books.index', compact('books'));
+    }
+
+    public function createBook()
+    {
+        $authors = Author::where('is_active', true)->orderBy('name')->get();
+
+        return view('admin.books.create', compact('authors'));
+    }
+
+    public function storeBook(Request $request)
+    {
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:255|unique:books',
+            'author' => 'nullable|string|max:255',
+            'author_id' => 'nullable|exists:authors,id',
+            'isbn' => 'nullable|string|max:255|unique:books',
+            'publisher' => 'nullable|string|max:255',
+            'language' => 'nullable|string|max:255',
+            'category' => 'nullable|string|max:255',
+            'publication_year' => 'nullable|integer|min:1000|max:9999',
+            'page_count' => 'nullable|integer|min:1',
+            'format' => 'nullable|string|max:50',
+            'description' => 'nullable|string',
+            'file_path' => 'nullable|string|max:255',
+            'cover_image_path' => 'nullable|string|max:255',
+            'preview_path' => 'nullable|string|max:255',
+            'price' => 'nullable|numeric|min:0',
+            'is_premium' => 'sometimes|boolean',
+            'is_active' => 'sometimes|boolean',
+            'is_featured' => 'sometimes|boolean',
+            'tags' => 'sometimes|array',
+        ]);
+
+        if (empty($data['slug'])) {
+            $data['slug'] = \Illuminate\Support\Str::slug($data['title']);
+        }
+
+        $data['price'] = $data['price'] ?? 0;
+        $data['is_premium'] = $data['is_premium'] ?? false;
+        $data['is_active'] = $data['is_active'] ?? true;
+        $data['is_featured'] = $data['is_featured'] ?? false;
+
+        Book::create($data);
+
+        return redirect()->route('admin.books.index')->with('status', 'Book created successfully.');
+    }
+
+    public function editBook(Book $book)
+    {
+        $book->load('author');
+        $authors = Author::where('is_active', true)->orderBy('name')->get();
+
+        return view('admin.books.edit', compact('book', 'authors'));
+    }
+
+    public function updateBook(Request $request, Book $book)
+    {
+        $data = $request->validate([
+            'title' => 'sometimes|string|max:255',
+            'slug' => 'sometimes|string|max:255|unique:books,slug,' . $book->id,
+            'author' => 'sometimes|nullable|string|max:255',
+            'author_id' => 'sometimes|nullable|exists:authors,id',
+            'isbn' => 'sometimes|nullable|string|max:255|unique:books,isbn,' . $book->id,
+            'publisher' => 'sometimes|nullable|string|max:255',
+            'language' => 'sometimes|nullable|string|max:255',
+            'category' => 'sometimes|nullable|string|max:255',
+            'publication_year' => 'sometimes|nullable|integer|min:1000|max:9999',
+            'page_count' => 'sometimes|nullable|integer|min:1',
+            'format' => 'sometimes|nullable|string|max:50',
+            'description' => 'sometimes|nullable|string',
+            'file_path' => 'sometimes|nullable|string|max:255',
+            'cover_image_path' => 'sometimes|nullable|string|max:255',
+            'preview_path' => 'sometimes|nullable|string|max:255',
+            'price' => 'sometimes|nullable|numeric|min:0',
+            'is_premium' => 'sometimes|boolean',
+            'is_active' => 'sometimes|boolean',
+            'is_featured' => 'sometimes|boolean',
+            'tags' => 'sometimes|array',
+        ]);
+
+        $book->update($data);
+
+        return redirect()->route('admin.books.index')->with('status', 'Book updated successfully.');
+    }
+
+    public function destroyBook(Book $book)
+    {
+        if ($book->file_path) {
+            Storage::disk('public')->delete($book->file_path);
+        }
+        if ($book->cover_image_path) {
+            Storage::disk('public')->delete($book->cover_image_path);
+        }
+        if ($book->preview_path) {
+            Storage::disk('public')->delete($book->preview_path);
+        }
+
+        $book->delete();
+
+        return redirect()->route('admin.books.index')->with('status', 'Book deleted successfully.');
+    }
+
+
+    /* ------------------------------------------------------------------ */
+    /* Authors Management                                                 */
+    /* ------------------------------------------------------------------ */
+
+    public function authors(Request $request)
+    {
+        $query = Author::withCount('books')->latest();
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('bio', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('is_active')) {
+            $query->where('is_active', filter_var($request->get('is_active'), FILTER_VALIDATE_BOOLEAN));
+        }
+
+        $authors = $query->paginate(20)->withQueryString();
+
+        return view('admin.authors.index', compact('authors'));
+    }
+
+    public function createAuthor()
+    {
+        return view('admin.authors.create');
+    }
+
+    public function storeAuthor(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:255|unique:authors',
+            'bio' => 'nullable|string',
+            'email' => 'nullable|email|max:255|unique:authors',
+            'phone' => 'nullable|string|max:255',
+            'website' => 'nullable|url|max:255',
+            'avatar' => 'nullable|string|max:255',
+            'is_active' => 'sometimes|boolean',
+        ]);
+
+        if (empty($data['slug'])) {
+            $data['slug'] = \Illuminate\Support\Str::slug($data['name']);
+        }
+
+        Author::create($data);
+
+        return redirect()->route('admin.authors.index')->with('status', 'Author created successfully.');
+    }
+
+    public function editAuthor(Author $author)
+    {
+        return view('admin.authors.edit', compact('author'));
+    }
+
+    public function updateAuthor(Request $request, Author $author)
+    {
+        $data = $request->validate([
+            'name' => 'sometimes|string|max:255',
+            'slug' => 'sometimes|string|max:255|unique:authors,slug,' . $author->id,
+            'bio' => 'sometimes|nullable|string',
+            'email' => 'sometimes|nullable|email|max:255|unique:authors,email,' . $author->id,
+            'phone' => 'sometimes|nullable|string|max:255',
+            'website' => 'sometimes|nullable|url|max:255',
+            'avatar' => 'sometimes|nullable|string|max:255',
+            'is_active' => 'sometimes|boolean',
+        ]);
+
+        $author->update($data);
+
+        return redirect()->route('admin.authors.index')->with('status', 'Author updated successfully.');
+    }
+
+    public function destroyAuthor(Author $author)
+    {
+        $author->books()->update(['author_id' => null]);
+
+        $author->delete();
+
+        return redirect()->route('admin.authors.index')->with('status', 'Author deleted successfully.');
+    }
     private function validateUserPayload(Request $request, ?int $userId = null, bool $isCreating = true): array
     {
         return $request->validate([

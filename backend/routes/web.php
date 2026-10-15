@@ -52,6 +52,26 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('customers', [AdminWebController::class, 'customers'])->name('customers.index');
         Route::delete('customers/{customer}', [AdminWebController::class, 'destroyCustomer'])->name('customers.destroy');
 
+        // Books management
+        Route::prefix('books')->name('books.')->group(function () {
+            Route::get('/', [AdminWebController::class, 'books'])->name('index');
+            Route::get('create', [AdminWebController::class, 'createBook'])->name('create');
+            Route::post('/', [AdminWebController::class, 'storeBook'])->name('store');
+            Route::get('{book}', [AdminWebController::class, 'editBook'])->name('edit');
+            Route::put('{book}', [AdminWebController::class, 'updateBook'])->name('update');
+            Route::delete('{book}', [AdminWebController::class, 'destroyBook'])->name('destroy');
+        });
+
+        // Authors management
+        Route::prefix('authors')->name('authors.')->group(function () {
+            Route::get('/', [AdminWebController::class, 'authors'])->name('index');
+            Route::get('create', [AdminWebController::class, 'createAuthor'])->name('create');
+            Route::post('/', [AdminWebController::class, 'storeAuthor'])->name('store');
+            Route::get('{author}', [AdminWebController::class, 'editAuthor'])->name('edit');
+            Route::put('{author}', [AdminWebController::class, 'updateAuthor'])->name('update');
+            Route::delete('{author}', [AdminWebController::class, 'destroyAuthor'])->name('destroy');
+        });
+
         // Invoice
         Route::get('invoice-1', [App\Http\Controllers\InvoiceController::class, 'index'])->name('invoice_1');
         Route::get('invoice/{id}', [App\Http\Controllers\InvoiceController::class, 'show'])->name('invoice.show');
