@@ -4,15 +4,12 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookReadingProgressController;
-use App\Http\Controllers\CaseReminderController;
-use App\Http\Controllers\ComplianceController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TransactionController;
-use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\NotificationController;
 
 use Illuminate\Http\Request;
@@ -65,14 +62,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('referral', [ProfileController::class, 'getReferralInfo']);
         Route::get('balance', [ProfileController::class, 'getBalance']);
         Route::get('transactions', [ProfileController::class, 'getWalletTransactions']);
-    });
-
-    // Customer (create-customers dashboard form) routes
-    Route::prefix('customers')->group(function () {
-        Route::get('/', [CustomerController::class, 'index']);
-        Route::post('/', [CustomerController::class, 'store']);
-        Route::put('{id}', [CustomerController::class, 'update']);
-        Route::delete('{id}', [CustomerController::class, 'destroy']);
     });
 
     // Payment routes
