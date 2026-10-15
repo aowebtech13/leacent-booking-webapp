@@ -805,12 +805,17 @@ private function getPlanAmount(string $plan, string $cycle = 'monthly'): float
 
         $authors = $query->paginate(20)->withQueryString();
 
-        return view('admin.authors.index', compact('authors'));
+        $author = null;
+
+        return view('admin.authors.index', compact('authors', 'author'));
     }
 
     public function createAuthor()
     {
-        return view('admin.authors.index');
+        $authors = Author::withCount('books')->latest()->paginate(20)->withQueryString();
+        $author = null;
+
+        return view('admin.authors.index', compact('authors', 'author'));
     }
 
     public function storeAuthor(Request $request)
@@ -837,7 +842,9 @@ private function getPlanAmount(string $plan, string $cycle = 'monthly'): float
 
     public function editAuthor(Author $author)
     {
-        return view('admin.authors.index', compact('author'));
+        $authors = Author::withCount('books')->latest()->paginate(20)->withQueryString();
+
+        return view('admin.authors.index', compact('author', 'authors'));
     }
 
     public function updateAuthor(Request $request, Author $author)
@@ -1064,64 +1071,6 @@ private function getPlanAmount(string $plan, string $cycle = 'monthly'): float
         }
 
         return view('reports.sales', compact('allMonths'));
-    }
-
-/**
-     * Report: Sales Return - Monthly return summary.
-     * Uses simulated data for demo purposes, and falls back to real data when available.
-     */
-    public function reportsSalesReturn()
-    {
-        $monthNames = ['', 'January', 'February', 'March', 'April', 'May', 'June',
-                        'July', 'August', 'September', 'October', 'November', 'December'];
-
-        $reasons = ['Damaged Package', 'Defective Item', 'Received the wrong item', 'Item Arrived Late', 'Repeat Order'];
-
-        // Try to get real data from cancelled/refunded orders
-        $monthlyReturns = Order::select(
-                DB::raw("DATE_FORMAT(created_at, '%m') as month_num"),
-                DB::raw("DATE_FORMAT(created_at, '%Y') as year"),
-                DB::raw('COALESCE(SUM(total), 0) as total_return'),
-                DB::raw('COUNT(*) as returned_count')
-            )
-            ->where(function ($q) {
-                $q->whereIn('payment_status', [Order::PAYMENT_FAILED, Order::PAYMENT_REFUNDED])
-                  ->orWhere('status', Order::STATUS_CANCELLED);
-            })
-            ->groupBy('year', 'month_num')
-            ->orderBy('year')
-            ->orderBy('month_num')
-            ->get();
-
-        $allMonths = [];
-        for ($m = 1; $m <= 12; $m++) {
-            $monthData = $monthlyReturns->firstWhere('month_num', str_pad($m, 2, '0', STR_PAD_LEFT));
-
-            // Generate simulated data for each month for demo purposes
-            $allMonths[] = (object) [
-                'month' => $monthNames[$m],
-                'total_items' => random_int(5, 45),
-                'ordered' => random_int(14, 300),
-                'returned' => $monthData ? (int) $monthData->returned_count : random_int(1, 20),
-                'reason' => $reasons[array_rand($reasons)],
-                'total_replace' => random_int(1, 10),
-                'total_return' => $monthData ? (float) $monthData->total_return : round((float) random_int(250, 900), 2),
-            ];
-        }
-
-        // Pending payments for verification
-        $pendingPayments = Order::with('user')
-            ->where('payment_status', Order::PAYMENT_PENDING_VERIFICATION)
-            ->orderByDesc('created_at')
-            ->get();
-
-        // Payment history from the transaction ledger
-        $paymentHistory = \App\Models\Transaction::with(['order', 'user', 'verifier'])
-            ->whereIn('type', [\App\Models\Transaction::TYPE_ORDER_PAYMENT, \App\Models\Transaction::TYPE_MANUAL_PAYMENT])
-            ->orderByDesc('created_at')
-            ->get();
-
-        return view('reports.sales_return', compact('allMonths', 'pendingPayments', 'paymentHistory'));
     }
 
     public function affiliates(Request $request)

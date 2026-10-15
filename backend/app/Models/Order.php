@@ -9,15 +9,23 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Order extends Model
 {
     public const STATUS_COMPLETED = 'completed';
+
     public const STATUS_PAID = 'paid';
+
     public const STATUS_PROCESSING = 'processing';
+
     public const STATUS_SHIPPED = 'shipped';
+
     public const STATUS_CANCELLED = 'cancelled';
+
     public const STATUS_PENDING = 'pending';
 
     public const PAYMENT_PAID = 'paid';
+
     public const PAYMENT_FAILED = 'failed';
+
     public const PAYMENT_REFUNDED = 'refunded';
+
     public const PAYMENT_PENDING_VERIFICATION = 'pending_verification';
 
     protected $fillable = [
