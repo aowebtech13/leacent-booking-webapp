@@ -35,6 +35,16 @@ export const MenuList = [
     iconClass: Book,
   },
   {
+    name: "Books",
+    path: "/admin/books",
+    iconClass: Book,
+  },
+  {
+    name: "Authors",
+    path: "/admin/authors",
+    iconClass: User,
+  },
+  {
     name: "Support",
     path: "mailto:teqlathemes@gmail.com",
     iconClass: ChatBubbleQuestion,
