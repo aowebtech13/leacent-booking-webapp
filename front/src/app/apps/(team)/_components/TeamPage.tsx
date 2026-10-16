@@ -40,8 +40,6 @@ const Team = () => {
   };
 
   const [authors, setAuthors] = useState<Author[]>([]);
-  const [authorsLoading, setAuthorsLoading] = useState(true);
-  const [authorsError, setAuthorsError] = useState<string | null>(null);
 
   const authorAvatar = (author: Author) => {
     if (!author.avatar) return "/images/avatar/1.png";
@@ -57,11 +55,8 @@ const Team = () => {
       .then((data) => {
         if (!cancelled) setAuthors(data);
       })
-      .catch((err) => {
-        if (!cancelled) setAuthorsError(err?.message || "Failed to load authors");
-      })
-      .finally(() => {
-        if (!cancelled) setAuthorsLoading(false);
+      .catch(() => {
+        // Non-fatal: team page falls back to an empty author list.
       });
     return () => {
       cancelled = true;

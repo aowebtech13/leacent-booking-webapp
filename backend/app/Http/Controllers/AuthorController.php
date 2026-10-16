@@ -41,7 +41,7 @@ class AuthorController extends Controller
      * GET /api/authors
      * Public list of active authors (for the frontend team directory).
      */
-    public function publicIndex(): \Illuminate\Http\JsonResponse
+    public function publicIndex()
     {
         $authors = Author::withCount('books')
             ->where('is_active', true)
@@ -109,9 +109,9 @@ class AuthorController extends Controller
 
         $data = $request->validate([
             'name' => 'sometimes|string|max:255',
-            'slug' => 'sometimes|string|max:255|unique:authors,slug,' . $author->id,
+            'slug' => 'sometimes|string|max:255|unique:authors,slug,'.$author->id,
             'bio' => 'sometimes|nullable|string',
-            'email' => 'sometimes|nullable|email|max:255|unique:authors,email,' . $author->id,
+            'email' => 'sometimes|nullable|email|max:255|unique:authors,email,'.$author->id,
             'phone' => 'sometimes|nullable|string|max:255',
             'website' => 'sometimes|nullable|url|max:255',
             'avatar' => 'sometimes|nullable|string|max:255',
