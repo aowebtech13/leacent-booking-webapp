@@ -29,7 +29,7 @@
                             <li><a href="{{ route('admin.orders.index') }}">Order History</a></li>
                         </ul>
                     </li>
-                    <li class="sidebar-list"><i class="fa-solid fa-thumbtack"></i><a class="sidebar-link sidebar-title" href="javascript:void(0)"><svg class="stroke-icon"><use href="{{ asset('assets/svg/icon-sprite.svg#stroke-book') }}"></use></svg><svg class="fill-icon"><use href="{{ asset('assets/svg/icon-sprite.svg#fill-book') }}"></use></svg><span>Books</span></a>
+                    <li class="sidebar-list"><i class="fa-solid fa-thumbtack"></i><a class="sidebar-link sidebar-title" href="javascript:void(0)"><svg class="stroke-icon"><use href="{{ asset('assets/svg/icon-sprite.svg#stroke-bookmark') }}"></use></svg><svg class="fill-icon"><use href="{{ asset('assets/svg/icon-sprite.svg#fill-bookmark') }}"></use></svg><span>Books</span></a>
                         <ul class="sidebar-submenu">
                             <li><a href="{{ route('admin.books.index') }}">All Books</a></li>
                             <li><a href="{{ route('admin.books.create') }}">Create Book</a></li>
@@ -41,7 +41,7 @@
                             <li><a href="{{ route('admin.authors.create') }}">Create Author</a></li>
                         </ul>
                     </li>
-                    <li class="sidebar-list"><i class="fa-solid fa-thumbtack"></i><a class="sidebar-link sidebar-title" href="javascript:void(0)"><svg class="stroke-icon"><use href="{{ asset('assets/svg/icon-sprite.svg#stroke-tag') }}"></use></svg><svg class="fill-icon"><use href="{{ asset('assets/svg/icon-sprite.svg#fill-tag') }}"></use></svg><span>Categories</span></a>
+                    <li class="sidebar-list"><i class="fa-solid fa-thumbtack"></i><a class="sidebar-link sidebar-title" href="javascript:void(0)"><svg class="stroke-icon"><use href="{{ asset('assets/svg/icon-sprite.svg#product-category') }}"></use></svg><svg class="fill-icon"><use href="{{ asset('assets/svg/icon-sprite.svg#product-category') }}"></use></svg><span>Categories</span></a>
                         <ul class="sidebar-submenu">
                             <li><a href="{{ route('admin.categories.index') }}">All Categories</a></li>
                             <li><a href="{{ route('admin.categories.create') }}">Create Category</a></li>
@@ -52,7 +52,7 @@
                             <li><a href="{{ route('admin.invoice_1') }}">Invoice Lists</a></li>
                         </ul>
                     </li>
-                    <li class="sidebar-list"><i class="fa-solid fa-thumbtack"></i><a class="sidebar-link sidebar-title link-nav" href="javascript:void(0)" onclick="document.getElementById('logout-form').submit();"><svg class="stroke-icon"><use href="{{ asset('assets/svg/icon-sprite.svg#stroke-logout') }}"></use></svg><svg class="fill-icon"><use href="{{ asset('assets/svg/icon-sprite.svg#fill-logout') }}"></use></svg><span>Logout</span></a>
+                    <li class="sidebar-list"><i class="fa-solid fa-thumbtack"></i><a class="sidebar-link sidebar-title link-nav" href="javascript:void(0)" onclick="document.getElementById('logout-form').submit();"><svg class="stroke-icon"><use href="{{ asset('assets/svg/icon-sprite.svg#freepik--Door--inject-63') }}"></use></svg><svg class="fill-icon"><use href="{{ asset('assets/svg/icon-sprite.svg#freepik--Door--inject-63') }}"></use></svg><span>Logout</span></a>
                         <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display:none;">@csrf</form>
                     </li>
                 </ul>
