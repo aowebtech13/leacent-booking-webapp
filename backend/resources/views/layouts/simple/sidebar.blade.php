@@ -53,12 +53,6 @@
                             <li><a href="{{ route('admin.invoice_1') }}">Invoice Lists</a></li>
                         </ul>
                     </li>
-                    <li class="sidebar-list"><i class="fa-solid fa-thumbtack"></i><a class="sidebar-link sidebar-title" href="javascript:void(0)"><svg class="stroke-icon"><use href="{{ asset('assets/svg/icon-sprite.svg#stroke-settings') }}"></use></svg><svg class="fill-icon"><use href="{{ asset('assets/svg/icon-sprite.svg#fill-settings') }}"></use></svg><span>Roles</span></a>
-                        <ul class="sidebar-submenu">
-                            <li><a href="{{ route('admin.role.index') }}">All Roles</a></li>
-                            <li><a href="{{ route('admin.role.create') }}">Create Role</a></li>
-                        </ul>
-                    </li>
                     <li class="sidebar-list"><i class="fa-solid fa-thumbtack"></i><a class="sidebar-link sidebar-title link-nav" href="javascript:void(0)" onclick="document.getElementById('logout-form').submit();"><svg class="stroke-icon"><use href="{{ asset('assets/svg/icon-sprite.svg#stroke-logout') }}"></use></svg><svg class="fill-icon"><use href="{{ asset('assets/svg/icon-sprite.svg#fill-logout') }}"></use></svg><span>Logout</span></a>
                         <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display:none;">@csrf</form>
                     </li>

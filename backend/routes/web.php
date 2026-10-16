@@ -66,16 +66,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('{author}', [AdminWebController::class, 'destroyAuthor'])->name('destroy');
     });
 
-    // Roles management
-    Route::prefix('roles')->name('role.')->group(function () {
-        Route::get('/', [AdminWebController::class, 'roles'])->name('index');
-        Route::get('create', [AdminWebController::class, 'createRole'])->name('create');
-        Route::post('/', [AdminWebController::class, 'storeRole'])->name('store');
-        Route::get('{role}', [AdminWebController::class, 'editRole'])->name('edit');
-        Route::put('{role}', [AdminWebController::class, 'updateRole'])->name('update');
-        Route::delete('{role}', [AdminWebController::class, 'destroyRole'])->name('destroy');
-    });
-
         // Categories (admin web) - uses dedicated web controller that returns Blade redirects.
         Route::get('categories', [\App\Http\Controllers\Ecommerce\AdminCategoryWebController::class, 'index'])->name('categories.index');
         Route::get('categories/create', [\App\Http\Controllers\Ecommerce\AdminCategoryWebController::class, 'create'])->name('categories.create');

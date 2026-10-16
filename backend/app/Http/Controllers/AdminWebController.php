@@ -8,7 +8,6 @@ use App\Models\BookAccess;
 use App\Models\BookPayment;
 use App\Models\Category;
 use App\Models\Profile;
-use App\Models\Role;
 use App\Models\Subscription;
 use App\Models\Transaction;
 use App\Models\User;
@@ -893,73 +892,6 @@ class AdminWebController extends Controller
         return redirect()->route('admin.authors.index')->with('status', 'Author deleted successfully.');
     }
 
-    /* ------------------------------------------------------------------ */
-    /* Roles Management */
-    /* ------------------------------------------------------------------ */
-
-    public function roles(Request $request)
-    {
-        $query = Role::latest();
-
-        if ($request->filled('search')) {
-            $search = $request->search;
-            $query->where('name', 'like', "%{$search}%");
-        }
-
-        $roles = $query->paginate(20)->withQueryString();
-
-        $dataTable = new \App\Support\DataTable([
-            'name' => 'Name',
-        ], $roles->getCollection()->map(fn ($role) => [
-            'name' => $role->name,
-        ]));
-
-        return view('admin.role.index', compact('roles', 'dataTable'));
-    }
-
-    public function createRole()
-    {
-        $modules = collect();
-
-        return view('admin.role.create', compact('modules'));
-    }
-
-    public function storeRole(Request $request)
-    {
-        $data = $request->validate([
-            'name' => 'required|string|max:255|unique:roles',
-        ]);
-
-        Role::create($data);
-
-        return redirect()->route('admin.roles.index')->with('status', 'Role created successfully.');
-    }
-
-    public function editRole(Role $role)
-    {
-        $modules = collect();
-
-        return view('admin.role.edit', compact('role', 'modules'));
-    }
-
-    public function updateRole(Request $request, Role $role)
-    {
-        $data = $request->validate([
-            'name' => 'sometimes|string|max:255|unique:roles,name,'.$role->id,
-        ]);
-
-        $role->update($data);
-
-        return redirect()->route('admin.roles.index')->with('status', 'Role updated successfully.');
-    }
-
-    public function destroyRole(Role $role)
-    {
-        $role->delete();
-
-        return redirect()->route('admin.roles.index')->with('status', 'Role deleted successfully.');
-    }
-
     private function validateUserPayload(Request $request, ?int $userId = null, bool $isCreating = true): array
     {
         return $request->validate([
@@ -1086,49 +1018,6 @@ class AdminWebController extends Controller
             ->get();
 
         return view('admin.activity-logs', compact('logs', 'onlineUsers'));
-    }
-
-    public function finances()
-    {
-        $subscriptions = Subscription::whereIn('status', ['active', 'successful'])
-            ->whereNotNull('amount')
-            ->where('amount', '>', 0)
-            ->get();
-
-        $totalIncome = (float) $subscriptions->sum('amount');
-
-        // Assuming 10% operational cost for net income
-        $netIncome = $totalIncome * 0.9;
-
-        // Prepare monthly chart data (last 6 months)
-        $monthlyData = [];
-        for ($i = 5; $i >= 0; $i--) {
-            $month = now()->subMonths($i);
-            $monthStart = $month->copy()->startOfMonth();
-            $monthEnd = $month->copy()->endOfMonth();
-
-            $monthlyData[] = [
-                'label' => $month->format('M Y'),
-                'income' => (float) Subscription::whereIn('status', ['active', 'successful'])
-                    ->whereBetween('created_at', [$monthStart, $monthEnd])
-                    ->sum('amount'),
-                'sales' => Subscription::whereIn('status', ['active', 'successful'])
-                    ->whereBetween('created_at', [$monthStart, $monthEnd])
-                    ->count(),
-            ];
-        }
-
-        // Prepare pie chart data for income variations (by plan)
-        $planDistribution = $subscriptions->groupBy('plan')
-            ->map(fn ($group) => (float) $group->sum('amount'))
-            ->toArray();
-
-        return view('admin.finances', compact(
-            'totalIncome',
-            'netIncome',
-            'monthlyData',
-            'planDistribution'
-        ));
     }
 
     public function affiliates(Request $request)
