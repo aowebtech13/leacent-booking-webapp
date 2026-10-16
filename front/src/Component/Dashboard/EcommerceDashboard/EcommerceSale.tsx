@@ -14,10 +14,20 @@ import {
 } from "reactstrap";
 import { AlignLeft, Calendar, CreditCards, DollarCircle } from "iconoir-react";
 import { IconChevronDown } from "@tabler/icons-react";
+import {
+  getCategories,
+  Category,
+  getLatestBookPlanTransaction,
+} from "@/lib/api/books";
 
 const EcommerceSale = () => {
   const [Chart, setChart] = useState<any>(null);
   const [overviewDropdownOpen, setOverviewDropdownOpen] = useState(false);
+  const [productCategories, setProductCategories] = useState<Category[]>([]);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
+  const [categoriesError, setCategoriesError] = useState<string | null>(null);
+  const [latestTransaction, setLatestTransaction] = useState<any>(null);
+  const [transactionLoading, setTransactionLoading] = useState(true);
 
   useEffect(() => {
     const loadModules = async () => {
@@ -31,40 +41,46 @@ const EcommerceSale = () => {
     }
   }, []);
 
-  const productCategories = [
-    {
-      id: 1,
-      name: "Clothing & Accessories",
-      sales: "$5,000",
-      count: 5641,
-      bgClass: "bg-info-300",
-      textClass: "text-info-dark",
-    },
-    {
-      id: 2,
-      name: "Home & Kitchen",
-      sales: "$5,000",
-      count: 10000,
-      bgClass: "bg-primary-300",
-      textClass: "text-primary-dark",
-    },
-    {
-      id: 3,
-      name: "Electronics",
-      sales: "$5,000",
-      count: 6897,
-      bgClass: "bg-danger-300",
-      textClass: "text-danger-dark",
-    },
-    {
-      id: 4,
-      name: "Jewellery",
-      sales: "$5,000",
-      count: 4548,
-      bgClass: "bg-warning-300",
-      textClass: "text-warning-dark",
-    },
-  ];
+  useEffect(() => {
+    let cancelled = false;
+    const loadCategories = async () => {
+      setCategoriesLoading(true);
+      setCategoriesError(null);
+      try {
+        const categories = await getCategories();
+        if (!cancelled) setProductCategories(categories);
+      } catch (err: any) {
+        if (!cancelled)
+          setCategoriesError(err?.message || "Failed to load categories");
+      } finally {
+        if (!cancelled) setCategoriesLoading(false);
+      }
+    };
+    loadCategories();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    const loadTransaction = async () => {
+      setTransactionLoading(true);
+      try {
+        const payment = await getLatestBookPlanTransaction();
+        if (!cancelled) setLatestTransaction(payment ?? null);
+      } catch {
+        if (!cancelled) setLatestTransaction(null);
+      } finally {
+        if (!cancelled) setTransactionLoading(false);
+      }
+    };
+    loadTransaction();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
@@ -130,32 +146,38 @@ const EcommerceSale = () => {
                   defaultValue="1"
                 >
                   <option>Filter</option>
-                  <option value="1">Fashion</option>
+
                   <option value="2">Books</option>
-                  <option value="3">Sports</option>
-                  <option value="4">Fitness</option>
                 </select>
               </Form>
             </div>
 
             <ul className="product-category-list mt-3">
-              {productCategories.map((category) => (
-                <li key={category.id} className={category.bgClass}>
-                  <div>
-                    <h6 className={`${category.textClass} mb-0`}>
-                      {category.name}
-                    </h6>
-                  </div>
-                  <div className="text-dark f-w-600 ms-2 flex-shrink-0">
-                    {category.sales}
-                    <span
-                      className={`badge bg-white-300 ${category.textClass} f-w-700`}
-                    >
-                      {category.count}
-                    </span>
-                  </div>
-                </li>
-              ))}
+              {categoriesLoading ? (
+                <li className="text-muted py-3">Loading categories…</li>
+              ) : categoriesError ? (
+                <li className="text-danger py-3">{categoriesError}</li>
+              ) : productCategories.length === 0 ? (
+                <li className="text-muted py-3">No categories available.</li>
+              ) : (
+                productCategories.map((category) => (
+                  <li key={category.id} className="bg-light border-bottom">
+                    <div>
+                      <h6 className="text-dark mb-0">{category.name}</h6>
+                      {category.description && (
+                        <p className="text-muted small mb-0">
+                          {category.description}
+                        </p>
+                      )}
+                    </div>
+                    <div className="text-dark f-w-600 ms-2 flex-shrink-0">
+                      <span className={`badge bg-white-300 text-dark f-w-700`}>
+                        {category.products_count ?? 0} products
+                      </span>
+                    </div>
+                  </li>
+                ))
+              )}
             </ul>
           </CardBody>
         </Card>
@@ -243,42 +265,74 @@ const EcommerceSale = () => {
 
             <div className="custom-divider"></div>
 
-            <div className="d-flex justify-content-between">
-              <div>
-                <p className="text-dark f-w-500 mb-0">
-                  <CreditCards
-                    height={20}
-                    width={20}
-                    className="f-s-16 align-text-top me-2"
-                  />
-                  Transaction ID
-                </p>
-                <h6 className="text-success-dark">568368657681</h6>
+            {transactionLoading ? (
+              <div className="text-center py-4 text-muted">
+                Loading transaction…
               </div>
-              <div>
-                <p className="text-dark f-w-500 mb-0">
-                  <DollarCircle
-                    height={20}
-                    width={20}
-                    className="f-s-16 align-text-top me-2"
-                  />
-                  Amount
-                </p>
-                <h6 className="text-success-dark">$68.00</h6>
+            ) : !latestTransaction ? (
+              <div className="text-center py-4 text-muted">
+                No recent book-plan transaction.
               </div>
-            </div>
+            ) : (
+              <>
+                <div className="d-flex justify-content-between">
+                  <div>
+                    <p className="text-dark f-w-500 mb-0">
+                      <CreditCards
+                        height={20}
+                        width={20}
+                        className="f-s-16 align-text-top me-2"
+                      />
+                      Transaction ID
+                    </p>
+                    <h6 className="text-success-dark">
+                      {latestTransaction.payment_reference ||
+                        latestTransaction.flutterwave_tx_ref ||
+                        "—"}
+                    </h6>
+                  </div>
+                  <div>
+                    <p className="text-dark f-w-500 mb-0">
+                      <DollarCircle
+                        height={20}
+                        width={20}
+                        className="f-s-16 align-text-top me-2"
+                      />
+                      Amount
+                    </p>
+                    <h6 className="text-success-dark">
+                      {latestTransaction.currency || "NGN"}{" "}
+                      {Number(latestTransaction.amount ?? 0).toLocaleString()}
+                    </h6>
+                  </div>
+                </div>
 
-            <div className="mt-3">
-              <p className="text-dark f-w-500 mb-0">
-                <Calendar
-                  height={20}
-                  width={20}
-                  className="f-s-16 align-text-top me-2"
-                />
-                Date & Time
-              </p>
-              <h6 className="mb-0 text-success-dark">15 Jun 2024 • 6:90PM</h6>
-            </div>
+                <div className="mt-3">
+                  <p className="text-dark f-w-500 mb-0">
+                    <Calendar
+                      height={20}
+                      width={20}
+                      className="f-s-16 align-text-top me-2"
+                    />
+                    Date &amp; Time
+                  </p>
+                  <h6 className="mb-0 text-success-dark">
+                    {latestTransaction.paid_at
+                      ? new Date(latestTransaction.paid_at).toLocaleString()
+                      : "—"}
+                  </h6>
+                </div>
+
+                {latestTransaction.bookPlan && (
+                  <div className="mt-3 pt-3 border-top">
+                    <p className="text-dark f-w-500 mb-1 text-sm">Book plan</p>
+                    <h6 className="mb-0 text-dark">
+                      {latestTransaction.bookPlan.name}
+                    </h6>
+                  </div>
+                )}
+              </>
+            )}
           </CardBody>
         </Card>
       </Col>

@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BookPayment;
 use Illuminate\Http\Request;
-
-
 
 class ProfileController extends Controller
 {
-    
-
     public function show(Request $request)
     {
         $user = $request->user()->load(['profile', 'roles', 'referral']);
@@ -24,8 +21,6 @@ class ProfileController extends Controller
     {
         $request->validate([
             'full_name' => 'sometimes|string|max:255',
-            // Accepts either a remote URL or a base64 data URL (the SPA sends
-            // the uploaded image as a data:image/...;base64 string).
             'avatar_url' => ['sometimes', 'nullable', 'string', 'regex:/^(https?:\/\/|data:image\/)/i'],
             'phone' => 'sometimes|string|max:20',
             'company_name' => 'sometimes|string|max:255',
@@ -40,7 +35,6 @@ class ProfileController extends Controller
         $user = $request->user();
         $profile = $user->profile;
 
-        // Email is not allowed to be updated by the user
         $profile->update($request->only([
             'full_name',
             'avatar_url',
@@ -61,8 +55,6 @@ class ProfileController extends Controller
         ]);
     }
 
-   
-
     public function getWalletTransactions(Request $request)
     {
         $walletTransactions = $request->user()->walletTransactions()
@@ -75,4 +67,22 @@ class ProfileController extends Controller
         ]);
     }
 
+    /**
+     * GET /api/profile/book-plan-transaction
+     * Latest subscription book-plan payment for the authenticated user.
+     */
+    public function getLatestBookPlanTransaction(Request $request)
+    {
+        $payment = BookPayment::with(['bookPlan', 'user'])
+            ->where('user_id', $request->user()->id)
+            ->where('payment_type', BookPayment::TYPE_SUBSCRIPTION)
+            ->whereIn('status', [BookPayment::STATUS_ACTIVE, BookPayment::STATUS_PENDING])
+            ->latest('paid_at')
+            ->first();
+
+        return response()->json([
+            'success' => true,
+            'data' => $payment,
+        ]);
+    }
 }

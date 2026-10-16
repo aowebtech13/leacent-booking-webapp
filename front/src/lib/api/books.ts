@@ -74,6 +74,33 @@ export interface BookTotalResponse {
   free: number;
 }
 
+/* ------------------------------------------------------------------ */
+/* Categories                                                         */
+/* ------------------------------------------------------------------ */
+
+export interface Category {
+  id: number;
+  name: string;
+  slug: string;
+  description: string | null;
+  products_count?: number;
+  status?: string;
+}
+
+export function getCategories(): Promise<Category[]> {
+  return api.get("categories").then((res) => res.data ?? []);
+}
+
+/**
+ * Latest subscription book-plan payment for the authenticated user.
+ * Returns the payment object or null.
+ */
+export function getLatestBookPlanTransaction(): Promise<any> {
+  return api
+    .get("profile/book-plan-transaction")
+    .then((res) => res.data ?? null);
+}
+
 export interface BookReadResponse {
   book: Book;
   file_url: string;
@@ -128,7 +155,9 @@ export function getBook(id: number): Promise<Book> {
 /**
  * Get the preview URL for a book (public).
  */
-export function getBookPreview(id: number): Promise<{ preview_url: string | null }> {
+export function getBookPreview(
+  id: number
+): Promise<{ preview_url: string | null }> {
   return api.get(`books/${id}/preview`);
 }
 
@@ -150,7 +179,9 @@ export interface AdminBookFilters {
 }
 
 /* List all books (admin, including inactive). */
-export function getAdminBooks(filters: AdminBookFilters = {}): Promise<BookListResponse> {
+export function getAdminBooks(
+  filters: AdminBookFilters = {}
+): Promise<BookListResponse> {
   const params: Record<string, any> = {};
   if (filters.search) params.search = filters.search;
   if (filters.is_active !== undefined) params.is_active = filters.is_active;

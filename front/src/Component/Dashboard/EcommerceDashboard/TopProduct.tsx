@@ -1,23 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Badge, Card, CardBody, Col, Row, Table, Tooltip } from "reactstrap";
 import { Language, Minus, Plus, StarSolid } from "iconoir-react";
 import { AU, DE, CA, FR, US, ES } from "country-flag-icons/react/1x1";
+import { getBooks, Book } from "@/lib/api/books";
 
 interface TooltipState {
   [key: number]: boolean;
 }
 const TopProduct = () => {
-  const topProducts = [
-    {
-      name: "Wireless Headphones",
-      unitsSold: 250,
-      sales: "$5,000",
-      rating: 4.8,
-    },
-    { name: "Smartwatch", unitsSold: 210, sales: "$5,000", rating: 4 },
-    { name: "Bluetooth Speaker", unitsSold: 190, sales: "$4,200", rating: 4.5 },
-    { name: "4K Ultra HD TV", unitsSold: 175, sales: "$3,800", rating: 4.9 },
-  ];
+  const [topProducts, setTopProducts] = useState<Book[]>([]);
+  const [topProductsLoading, setTopProductsLoading] = useState(true);
+  const [topProductsError, setTopProductsError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    const fetchTopProducts = async () => {
+      setTopProductsLoading(true);
+      setTopProductsError(null);
+      try {
+        const res = await getBooks({
+          sort: "read_count",
+          direction: "desc",
+          per_page: 4,
+        });
+        // The API response wraps a paginator: res.data may be the paginator
+        // object { data: Book[] } or, when unwrapped, the array itself.
+        const payload = (res.data as any) ?? [];
+        const books = Array.isArray(payload) ? payload : (payload.data ?? []);
+        if (!cancelled) setTopProducts(books);
+      } catch (err: any) {
+        if (!cancelled)
+          setTopProductsError(err?.message || "Failed to load top products");
+      } finally {
+        if (!cancelled) setTopProductsLoading(false);
+      }
+    };
+    fetchTopProducts();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
   const countriesData = [
     {
       name: "Germany",
@@ -132,7 +154,7 @@ const TopProduct = () => {
     <>
       <Col lg="7" xxl="4">
         <div className="p-3">
-          <h5>Top List Products</h5>
+          <h5>Top Books List</h5>
         </div>
         <Card>
           <CardBody className="px-0">
@@ -147,38 +169,60 @@ const TopProduct = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {topProducts.map((product, index) => (
-                    <tr key={index}>
-                      <td>
-                        <div className="d-flex align-items-center">
-                          <h6 className="mb-0">{product.name}</h6>
-                        </div>
-                      </td>
-                      <td>
-                        <Badge
-                          color={
-                            product.unitsSold > 200
-                              ? "light-success"
-                              : product.unitsSold > 150
-                                ? "light-primary"
-                                : "light-danger"
-                          }
-                          className="f-s-12 f-w-700"
-                        >
-                          {product.unitsSold}
-                        </Badge>
-                      </td>
-                      <td className="f-w-600 text-dark">{product.sales}</td>
-                      <td className="text-warning-dark f-w-600">
-                        <StarSolid
-                          height={16}
-                          width={16}
-                          className="text-warning me-1"
-                        />
-                        {product.rating}
+                  {topProductsLoading ? (
+                    <tr>
+                      <td colSpan={4} className="text-center text-muted py-4">
+                        Loading top products…
                       </td>
                     </tr>
-                  ))}
+                  ) : topProductsError ? (
+                    <tr>
+                      <td colSpan={4} className="text-center text-danger py-4">
+                        {topProductsError}
+                      </td>
+                    </tr>
+                  ) : topProducts.length === 0 ? (
+                    <tr>
+                      <td colSpan={4} className="text-center text-muted py-4">
+                        No top products available.
+                      </td>
+                    </tr>
+                  ) : (
+                    topProducts.map((product, index) => (
+                      <tr key={product.id ?? index}>
+                        <td>
+                          <div className="d-flex align-items-center">
+                            <h6 className="mb-0">{product.title}</h6>
+                          </div>
+                        </td>
+                        <td>
+                          <Badge
+                            color={
+                              product.read_count > 200
+                                ? "light-success"
+                                : product.read_count > 150
+                                  ? "light-primary"
+                                  : "light-danger"
+                            }
+                            className="f-s-12 f-w-700"
+                          >
+                            {product.read_count}
+                          </Badge>
+                        </td>
+                        <td className="f-w-600 text-dark">
+                          ₦{Number(product.price ?? 0).toLocaleString()}
+                        </td>
+                        <td className="text-warning-dark f-w-600">
+                          <StarSolid
+                            height={16}
+                            width={16}
+                            className="text-warning me-1"
+                          />
+                          {product.rating ?? 0}
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </Table>
             </div>

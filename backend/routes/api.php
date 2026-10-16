@@ -62,6 +62,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/', [ProfileController::class, 'update']);
         Route::get('referral', [ProfileController::class, 'getReferralInfo']);
         Route::get('transactions', [ProfileController::class, 'getWalletTransactions']);
+        Route::get('book-plan-transaction', [ProfileController::class, 'getLatestBookPlanTransaction']);
     });
 
     // Payment routes

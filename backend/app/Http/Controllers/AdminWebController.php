@@ -1125,7 +1125,6 @@ class AdminWebController extends Controller
 
         return view('admin.finances', compact(
             'totalIncome',
-            'monthlySales',
             'netIncome',
             'monthlyData',
             'planDistribution'

@@ -12,7 +12,7 @@ class CategoryController
     {
         $perPage = (int) $request->get('per_page', 15);
 
-        $query = Category::query();
+        $query = Category::query()->withCount('products');
 
         if ($request->filled('search')) {
             $query->where('name', 'like', '%' . $request->get('search') . '%');
