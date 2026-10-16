@@ -103,7 +103,7 @@
                                     </svg>
                                 </div> 
                                 <p>User</p>
-                                <a href="{{ route('admin.user.create') }}" class="btn btn-secondary">{{ __('Add User') }}</a>
+                                <a href="{{ route('admin.users.create') }}" class="btn btn-secondary">{{ __('Add User') }}</a>
                             </div>
                         </div>
                     </div>

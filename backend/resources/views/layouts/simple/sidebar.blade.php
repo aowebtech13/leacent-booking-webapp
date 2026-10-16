@@ -48,6 +48,7 @@
                             <li><a href="{{ route('admin.orders.index') }}">Order History</a></li>
                             <li><a href="{{ route('admin.books.index') }}">Books</a></li>
                             <li><a href="{{ route('admin.authors.index') }}">Authors</a></li>
+                            <li><a href="{{ route('admin.users.index') }}">Users</a></li>
                    
                         </ul>
                     </li>

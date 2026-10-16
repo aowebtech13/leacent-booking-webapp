@@ -96,9 +96,9 @@
                                 @if($order->paid_at)
                                 <p><strong>Paid At:</strong> {{ $order->paid_at->format('d M, Y H:i') }}</p>
                                 @endif
-                                @if($order->payment_verified_at)
-                                <p><strong>Verified At:</strong> {{ $order->payment_verified_at->format('d M, Y H:i') }}</p>
-                                <p><strong>Verified By:</strong> {{ $order->verifier->name ?? 'N/A' }}</p>
+                                @if($order->verified_at)
+                                <p><strong>Verified At:</strong> {{ $order->verified_at->format('d M, Y H:i') }}</p>
+                                <p><strong>Verified By:</strong> {{ $order->verifier?->name ?? 'N/A' }}</p>
                                 @endif
                             </div>
                         </div>

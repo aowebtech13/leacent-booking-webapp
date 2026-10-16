@@ -73,8 +73,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-xxl-auto col-xl-3 col-sm-6 box-col-3">
+</div>
+            <div class="col-xxl-2 col-xl-2 col-sm-6 box-col-2">
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="card widget-1">
@@ -101,31 +101,84 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xxl-auto col-xl-4 col-sm-6 box-col-4 ord-xl-5 box-ord-5">
-                <div class="card">
-                    <div class="card-header card-no-border pb-2">
-                        <div class="header-top">
-                            <h5>Visitors</h5>
-                            <div class="card-header-right-icon">
-                                <div class="dropdown icon-dropdown"><button class="btn dropdown-toggle"
-                                        id="visitorButton" type="button" data-bs-toggle="dropdown"
-                                        aria-expanded="false"><i class="icon-more-alt"></i></button>
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="visitorButton"><a
-                                            class="dropdown-item" href="#!">Today</a><a class="dropdown-item"
-                                            href="#!">Tomorrow</a><a class="dropdown-item"
-                                            href="#!">Yesterday</a></div>
+            <div class="col-xxl-2 col-xl-2 col-sm-6 box-col-2">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card widget-1">
+                            <div class="card-body">
+                                <div class="widget-content">
+                                    <div class="widget-round secondary">
+                                        <div class="bg-round"><svg class="fill-secondary">
+                                                <use href="{{ asset('assets/svg/icon-sprite.svg#user-visitor') }}">
+                                                </use>
+                                            </svg><svg class="half-circle svg-fill">
+                                                <use href="{{ asset('assets/svg/icon-sprite.svg#halfcircle') }}">
+                                                </use>
+                                            </svg></div>
+                                    </div>
+                                    <div>
+                                        <h4 class="counter" data-target="{{ $stats['total_authors'] ?? 0 }}">0</h4><span
+                                            class="f-light">Authors</span>
+                                    </div>
                                 </div>
+                                <div class="font-success f-w-500"><i class="bookmark-search me-1"
+                                        data-feather="trending-up"></i><span class="txt-success">+0%</span></div>
                             </div>
                         </div>
                     </div>
-                    <div class="card-body visitor-chart pt-0">
-                        <div class="common-flex">
-                            <h6><span class="counter" data-target="{{ $stats['total_visitors'] ?? 0 }}">0</span>K</h6>
-                            <div class="d-flex">
-                                <p>( <span class="txt-success f-w-500 me-1">+0.4%</span>Than last week)</p>
+                </div>
+            </div>
+            <div class="col-xxl-2 col-xl-2 col-sm-6 box-col-2">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card widget-1">
+                            <div class="card-body">
+                                <div class="widget-content">
+                                    <div class="widget-round warning">
+                                        <div class="bg-round"><svg class="fill-warning">
+                                                <use href="{{ asset('assets/svg/icon-sprite.svg#fill-file') }}">
+                                                </use>
+                                            </svg><svg class="half-circle svg-fill">
+                                                <use href="{{ asset('assets/svg/icon-sprite.svg#halfcircle') }}">
+                                                </use>
+                                            </svg></div>
+                                    </div>
+                                    <div>
+                                        <h4 class="counter" data-target="{{ $stats['total_books'] ?? 0 }}">0</h4><span
+                                            class="f-light">Books</span>
+                                    </div>
+                                </div>
+                                <div class="font-success f-w-500"><i class="bookmark-search me-1"
+                                        data-feather="trending-up"></i><span class="txt-success">+0%</span></div>
                             </div>
                         </div>
-                        <div id="visitor_chart"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-2 col-xl-2 col-sm-6 box-col-2">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card widget-1">
+                            <div class="card-body">
+                                <div class="widget-content">
+                                    <div class="widget-round primary">
+                                        <div class="bg-round"><svg class="fill-primary">
+                                                <use href="{{ asset('assets/svg/icon-sprite.svg#fill-user') }}">
+                                                </use>
+                                            </svg><svg class="half-circle svg-fill">
+                                                <use href="{{ asset('assets/svg/icon-sprite.svg#halfcircle') }}">
+                                                </use>
+                                            </svg></div>
+                                    </div>
+                                    <div>
+                                        <h4 class="counter" data-target="{{ $stats['total_users'] ?? 0 }}">0</h4><span
+                                            class="f-light">Users</span>
+                                    </div>
+                                </div>
+                                <div class="font-success f-w-500"><i class="bookmark-search me-1"
+                                        data-feather="trending-up"></i><span class="txt-success">+0%</span></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

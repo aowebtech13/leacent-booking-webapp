@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
+use App\Models\Book;
+use App\Models\BookAccess;
+use App\Models\BookPayment;
+use App\Models\Category;
 use App\Models\Profile;
-use App\Models\Referral;
-use App\Models\ReferralClick;
-
-use App\Models\User;
-use App\Models\UserRole;
-use App\Models\UserLog;
+use App\Models\Role;
 use App\Models\Subscription;
 use App\Models\Transaction;
-use App\Models\Book;
-use App\Models\Author;
+use App\Models\User;
+use App\Models\UserLog;
+use App\Models\UserRole;
 use App\Notifications\ManualPaymentRejectedNotification;
 use App\Notifications\ManualPaymentVerifiedNotification;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
@@ -93,10 +93,14 @@ class AdminWebController extends Controller
         $stats = [
             'total_admins' => User::whereHas('roles', fn ($query) => $query->where('role', 'admin'))->count(),
             'online_users' => User::where('last_seen_at', '>=', now()->subMinutes(5))->count(),
-         
+
             'total_revenue' => (float) Transaction::whereIn('status', ['accepted', 'completed'])->sum('amount'),
-    
+
             'total_visitors' => User::count(),
+            'total_authors' => Author::count(),
+            'total_books' => Book::count(),
+            'total_users' => User::count(),
+            'total_categories' => Category::count(),
         ];
 
         // Recent user activity logs (login/logout actions)
@@ -108,6 +112,7 @@ class AdminWebController extends Controller
                 $userName = $log->user?->name ?? 'Unknown User';
                 $actionText = $log->action === 'login' ? 'Logged in' : 'Logged out';
                 $deviceInfo = $log->device ? " via {$log->device}" : '';
+
                 return (object) [
                     'id' => $log->id,
                     'user_name' => $userName,
@@ -127,12 +132,10 @@ class AdminWebController extends Controller
         ));
     }
 
-
     public function users(Request $request)
     {
         // Subscriptions removed: always show plan as Free.
         $query = User::with(['profile', 'roles']);
-
 
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
@@ -151,10 +154,19 @@ class AdminWebController extends Controller
 
         // plan filter removed (subscriptions removed)
 
-
         $users = $query->orderByDesc('created_at')->paginate(15)->withQueryString();
 
-        return view('admin.users.index', compact('users'));
+        $dataTable = new \App\Support\DataTable([
+            'name' => 'Name',
+            'email' => 'Email',
+            'role' => 'Role',
+        ], $users->getCollection()->map(fn ($user) => [
+            'name' => $user->name,
+            'email' => $user->email,
+            'role' => $user->roles->first()?->role ?? '-',
+        ]));
+
+        return view('admin.users.index', compact('users', 'dataTable'));
     }
 
     public function updateUserPlan(Request $request, User $user)
@@ -167,7 +179,7 @@ class AdminWebController extends Controller
 
         $selectedPlan = $data['plan'];
         $billingCycle = $data['billing_cycle'] ?? ($user->activeSubscription?->billing_cycle ?? 'monthly');
-        $endDate = !empty($data['end_date']) ? Carbon::parse($data['end_date']) : ($billingCycle === 'yearly' ? Carbon::now()->addYear() : Carbon::now()->addMonth());
+        $endDate = ! empty($data['end_date']) ? Carbon::parse($data['end_date']) : ($billingCycle === 'yearly' ? Carbon::now()->addYear() : Carbon::now()->addMonth());
 
         // Deactivate all current active subscriptions
         Subscription::where('user_id', $user->id)
@@ -209,7 +221,7 @@ class AdminWebController extends Controller
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($admin->id)],
-'logo' => ['nullable', 'file', 'mimes:jpg,jpeg,png,gif,webp,bmp,svg,avif', 'max:2048'],
+            'logo' => ['nullable', 'file', 'mimes:jpg,jpeg,png,gif,webp,bmp,svg,avif', 'max:2048'],
             'current_password' => ['nullable', 'string'],
             'password' => ['nullable', 'confirmed', Password::min(8)],
         ]);
@@ -305,13 +317,13 @@ class AdminWebController extends Controller
     public function exportUsers()
     {
         $users = User::with('activeSubscription')->get();
-        
+
         $headers = [
             'Content-Type' => 'text/csv',
-            'Content-Disposition' => 'attachment; filename="users_export_' . now()->format('Y-m-d_H-i-s') . '.csv"',
+            'Content-Disposition' => 'attachment; filename="users_export_'.now()->format('Y-m-d_H-i-s').'.csv"',
         ];
 
-        $callback = function() use ($users) {
+        $callback = function () use ($users) {
             $file = fopen('php://output', 'w');
             fputcsv($file, ['Name', 'Email', 'Plan']);
 
@@ -440,7 +452,7 @@ class AdminWebController extends Controller
     public function updateOrderStatus(Request $request, \App\Models\Order $order)
     {
         $request->validate([
-            'status' => ['required', 'in:' . implode(',', \App\Models\Order::validStatuses())],
+            'status' => ['required', 'in:'.implode(',', \App\Models\Order::validStatuses())],
             'notes' => 'nullable|string|max:2000',
         ]);
 
@@ -470,6 +482,9 @@ class AdminWebController extends Controller
                 $type,
                 Transaction::STATUS_PENDING
             )->settle(Transaction::STATUS_COMPLETED, $request->user()->id);
+
+            // Grant the user access to the books in this order.
+            $this->fulfillBookOrder($order);
         }
 
         if ($request->status === \App\Models\Order::STATUS_CANCELLED && ! $wasCancelled) {
@@ -482,7 +497,7 @@ class AdminWebController extends Controller
 
         return redirect()
             ->route('admin.orders.index', request()->only(['search', 'status', 'payment_status', 'from_date', 'to_date']))
-            ->with('success', 'Order #' . $order->id . ' updated to ' . ucfirst($order->status) . '.');
+            ->with('success', 'Order #'.$order->id.' updated to '.ucfirst($order->status).'.');
     }
 
     public function showOrder(Order $order)
@@ -497,6 +512,8 @@ class AdminWebController extends Controller
         if (! $order->payment_receipt || ! Storage::disk('public')->exists($order->payment_receipt)) {
             return back()->with('error', 'Receipt not found for this order.');
         }
+
+        $order->load(['user', 'items.book', 'verifier']);
 
         return view('admin.orders.receipt', compact('order'));
     }
@@ -531,9 +548,12 @@ class AdminWebController extends Controller
             currency: $order->currency,
         ));
 
+        // Grant the user access to the books in this order.
+        $this->fulfillBookOrder($order);
+
         return redirect()
             ->route('admin.orders.show', $order)
-            ->with('success', 'Payment verified successfully for Order #' . $order->id . '.');
+            ->with('success', 'Payment verified successfully for Order #'.$order->id.'.');
     }
 
     public function rejectPayment(Request $request, Order $order)
@@ -572,7 +592,7 @@ class AdminWebController extends Controller
 
         return redirect()
             ->route('admin.orders.show', $order)
-            ->with('success', 'Payment rejected for Order #' . $order->id . '.');
+            ->with('success', 'Payment rejected for Order #'.$order->id.'.');
     }
 
     public function exportTransactions(Request $request)
@@ -602,13 +622,13 @@ class AdminWebController extends Controller
         }
 
         $transactions = $query->orderByDesc('created_at')->get();
-        
+
         $headers = [
             'Content-Type' => 'text/csv',
-            'Content-Disposition' => 'attachment; filename="transactions_export_' . now()->format('Y-m-d_H-i-s') . '.csv"',
+            'Content-Disposition' => 'attachment; filename="transactions_export_'.now()->format('Y-m-d_H-i-s').'.csv"',
         ];
 
-        $callback = function() use ($transactions) {
+        $callback = function () use ($transactions) {
             $file = fopen('php://output', 'w');
             fputcsv($file, ['Date', 'User Name', 'User Email', 'Type', 'Reference', 'Amount', 'Currency', 'Status', 'Order ID', 'Payment Method']);
 
@@ -646,14 +666,15 @@ class AdminWebController extends Controller
         return back()->with('status', 'Subscription updated successfully.');
     }
 
-private function getPlanAmount(string $plan, string $cycle = 'monthly'): float
+    private function getPlanAmount(string $plan, string $cycle = 'monthly'): float
     {
         $planKey = ucfirst(strtolower($plan));
+
         return (float) (self::PLAN_PRICING[$planKey][$cycle] ?? 0);
     }
 
     /* ------------------------------------------------------------------ */
-    /* Books Management                                                   */
+    /* Books Management */
     /* ------------------------------------------------------------------ */
 
     public function books(Request $request)
@@ -737,10 +758,10 @@ private function getPlanAmount(string $plan, string $cycle = 'monthly'): float
     {
         $data = $request->validate([
             'title' => 'sometimes|string|max:255',
-            'slug' => 'sometimes|string|max:255|unique:books,slug,' . $book->id,
+            'slug' => 'sometimes|string|max:255|unique:books,slug,'.$book->id,
             'author' => 'sometimes|nullable|string|max:255',
             'author_id' => 'sometimes|nullable|exists:authors,id',
-            'isbn' => 'sometimes|nullable|string|max:255|unique:books,isbn,' . $book->id,
+            'isbn' => 'sometimes|nullable|string|max:255|unique:books,isbn,'.$book->id,
             'publisher' => 'sometimes|nullable|string|max:255',
             'language' => 'sometimes|nullable|string|max:255',
             'category' => 'sometimes|nullable|string|max:255',
@@ -780,9 +801,8 @@ private function getPlanAmount(string $plan, string $cycle = 'monthly'): float
         return redirect()->route('admin.books.index')->with('status', 'Book deleted successfully.');
     }
 
-
     /* ------------------------------------------------------------------ */
-    /* Authors Management                                                 */
+    /* Authors Management */
     /* ------------------------------------------------------------------ */
 
     public function authors(Request $request)
@@ -850,9 +870,9 @@ private function getPlanAmount(string $plan, string $cycle = 'monthly'): float
     {
         $data = $request->validate([
             'name' => 'sometimes|string|max:255',
-            'slug' => 'sometimes|string|max:255|unique:authors,slug,' . $author->id,
+            'slug' => 'sometimes|string|max:255|unique:authors,slug,'.$author->id,
             'bio' => 'sometimes|nullable|string',
-            'email' => 'sometimes|nullable|email|max:255|unique:authors,email,' . $author->id,
+            'email' => 'sometimes|nullable|email|max:255|unique:authors,email,'.$author->id,
             'phone' => 'sometimes|nullable|string|max:255',
             'website' => 'sometimes|nullable|url|max:255',
             'avatar' => 'sometimes|nullable|string|max:255',
@@ -872,6 +892,74 @@ private function getPlanAmount(string $plan, string $cycle = 'monthly'): float
 
         return redirect()->route('admin.authors.index')->with('status', 'Author deleted successfully.');
     }
+
+    /* ------------------------------------------------------------------ */
+    /* Roles Management */
+    /* ------------------------------------------------------------------ */
+
+    public function roles(Request $request)
+    {
+        $query = Role::latest();
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where('name', 'like', "%{$search}%");
+        }
+
+        $roles = $query->paginate(20)->withQueryString();
+
+        $dataTable = new \App\Support\DataTable([
+            'name' => 'Name',
+        ], $roles->getCollection()->map(fn ($role) => [
+            'name' => $role->name,
+        ]));
+
+        return view('admin.role.index', compact('roles', 'dataTable'));
+    }
+
+    public function createRole()
+    {
+        $modules = collect();
+
+        return view('admin.role.create', compact('modules'));
+    }
+
+    public function storeRole(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required|string|max:255|unique:roles',
+        ]);
+
+        Role::create($data);
+
+        return redirect()->route('admin.roles.index')->with('status', 'Role created successfully.');
+    }
+
+    public function editRole(Role $role)
+    {
+        $modules = collect();
+
+        return view('admin.role.edit', compact('role', 'modules'));
+    }
+
+    public function updateRole(Request $request, Role $role)
+    {
+        $data = $request->validate([
+            'name' => 'sometimes|string|max:255|unique:roles,name,'.$role->id,
+        ]);
+
+        $role->update($data);
+
+        return redirect()->route('admin.roles.index')->with('status', 'Role updated successfully.');
+    }
+
+    public function destroyRole(Role $role)
+    {
+        $role->delete();
+
+        return redirect()->route('admin.roles.index')->with('status', 'Role deleted successfully.');
+    }
+
     private function validateUserPayload(Request $request, ?int $userId = null, bool $isCreating = true): array
     {
         return $request->validate([
@@ -919,7 +1007,59 @@ private function getPlanAmount(string $plan, string $cycle = 'monthly'): float
         ]);
     }
 
-    
+    /**
+     * Grant the purchasing user access to every book in a paid order.
+     * Creates a book payment record and per-book access grants (purchase).
+     * Idempotent: safe to call more than once for the same order.
+     */
+    private function fulfillBookOrder(Order $order): void
+    {
+        if (! $order->user || $order->items->isEmpty()) {
+            return;
+        }
+
+        if (BookPayment::whereJsonContains('meta', ['order_id' => $order->id])->exists()) {
+            return;
+        }
+
+        $bookPayment = BookPayment::create([
+            'user_id' => $order->user_id,
+            'book_id' => null,
+            'book_plan_id' => null,
+            'payment_type' => BookPayment::TYPE_SINGLE_BOOK,
+            'status' => BookPayment::STATUS_ACTIVE,
+            'amount' => (float) ($order->amount_paid ?? $order->total),
+            'currency' => $order->currency,
+            'payment_method' => $order->payment_method,
+            'payment_reference' => $order->payment_reference ?? $order->flutterwave_tx_ref,
+            'paid_at' => $order->paid_at ?? now(),
+            'verified_by' => $order->verified_by,
+            'verified_at' => $order->verified_at ?? now(),
+            'meta' => [
+                'order_id' => $order->id,
+                'billing_name' => $order->billing_name,
+                'billing_email' => $order->billing_email,
+            ],
+        ]);
+
+        foreach ($order->items as $item) {
+            if (! $item->book_id) {
+                continue;
+            }
+
+            BookAccess::updateOrCreate(
+                ['user_id' => $order->user_id, 'book_id' => $item->book_id],
+                [
+                    'subscription_id' => null,
+                    'book_payment_id' => $bookPayment->id,
+                    'access_type' => 'purchase',
+                    'granted_at' => now(),
+                    'expires_at' => null,
+                    'is_active' => true,
+                ]
+            );
+        }
+    }
 
     public function activityLogs(Request $request)
     {
@@ -959,7 +1099,7 @@ private function getPlanAmount(string $plan, string $cycle = 'monthly'): float
         $monthlySales = Subscription::whereIn('status', ['active', 'successful'])
             ->where('created_at', '>=', now()->startOfMonth())
             ->count();
-        
+
         // Assuming 10% operational cost for net income
         $netIncome = $totalIncome * 0.9;
 
@@ -969,7 +1109,7 @@ private function getPlanAmount(string $plan, string $cycle = 'monthly'): float
             $month = now()->subMonths($i);
             $monthStart = $month->copy()->startOfMonth();
             $monthEnd = $month->copy()->endOfMonth();
-            
+
             $monthlyData[] = [
                 'label' => $month->format('M Y'),
                 'income' => (float) Subscription::whereIn('status', ['active', 'successful'])
@@ -977,13 +1117,13 @@ private function getPlanAmount(string $plan, string $cycle = 'monthly'): float
                     ->sum('amount'),
                 'sales' => Subscription::whereIn('status', ['active', 'successful'])
                     ->whereBetween('created_at', [$monthStart, $monthEnd])
-                    ->count()
+                    ->count(),
             ];
         }
 
         // Prepare pie chart data for income variations (by plan)
         $planDistribution = $subscriptions->groupBy('plan')
-            ->map(fn($group) => (float) $group->sum('amount'))
+            ->map(fn ($group) => (float) $group->sum('amount'))
             ->toArray();
 
         return view('admin.finances', compact(
@@ -1001,12 +1141,12 @@ private function getPlanAmount(string $plan, string $cycle = 'monthly'): float
     public function reportsSales()
     {
         $monthlySales = Order::select(
-                DB::raw("DATE_FORMAT(created_at, '%m') as month_num"),
-                DB::raw("DATE_FORMAT(created_at, '%Y') as year"),
-                DB::raw('COALESCE(SUM(total), 0) as total_sales'),
-                DB::raw('COUNT(*) as total_orders'),
-                DB::raw('COALESCE(AVG(total), 0) as avg_order_value')
-            )
+            DB::raw("DATE_FORMAT(created_at, '%m') as month_num"),
+            DB::raw("DATE_FORMAT(created_at, '%Y') as year"),
+            DB::raw('COALESCE(SUM(total), 0) as total_sales'),
+            DB::raw('COUNT(*) as total_orders'),
+            DB::raw('COALESCE(AVG(total), 0) as avg_order_value')
+        )
             ->whereIn('payment_status', [Order::PAYMENT_PAID, Order::PAYMENT_PENDING_VERIFICATION])
             ->groupBy('year', 'month_num')
             ->orderBy('year')
@@ -1014,7 +1154,7 @@ private function getPlanAmount(string $plan, string $cycle = 'monthly'): float
             ->get();
 
         $monthNames = ['', 'January', 'February', 'March', 'April', 'May', 'June',
-                        'July', 'August', 'September', 'October', 'November', 'December'];
+            'July', 'August', 'September', 'October', 'November', 'December'];
 
         $allMonths = [];
         $prevSales = null;

@@ -153,8 +153,8 @@
                         <p><strong>Phone:</strong> {{ $order->billing_phone ?? 'N/A' }}</p>
                     </div>
                     <div class="col-md-6">
-                        <p><strong>Customer:</strong> {{ $order->user->name ?? 'N/A' }}</p>
-                        <p><strong>User Email:</strong> {{ $order->user->email ?? 'N/A' }}</p>
+                        <p><strong>Customer:</strong> {{ $order->user?->name ?? 'N/A' }}</p>
+                        <p><strong>User Email:</strong> {{ $order->user?->email ?? 'N/A' }}</p>
                     </div>
                 </div>
             </div>
@@ -185,7 +185,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->product->name ?? 'Product #' . $item->product_id }}</td>
-                            <td class="text-end">₦{{ number_format($item->unit_price, 2) }}</td>
+                            <td class="text-end">₦{{ number_format($item->price, 2) }}</td>
                             <td class="text-end">{{ $item->quantity }}</td>
                             <td class="text-end">₦{{ number_format($item->line_total, 2) }}</td>
                         </tr>
@@ -244,11 +244,11 @@
             @endif
 
             {{-- Verification Info --}}
-            @if($order->payment_verified_at)
+            @if($order->verified_at)
             <div class="receipt-section">
                 <h6>Payment Verification</h6>
-                <p><strong>Verified At:</strong> {{ $order->payment_verified_at->format('F d, Y h:i A') }}</p>
-                <p><strong>Verified By:</strong> {{ $order->verifier->name ?? 'N/A' }}</p>
+                <p><strong>Verified At:</strong> {{ $order->verified_at->format('F d, Y h:i A') }}</p>
+                <p><strong>Verified By:</strong> {{ $order->verifier?->name ?? 'N/A' }}</p>
                 @if($order->payment_rejection_reason)
                 <p><strong>Rejection Reason:</strong> {{ $order->payment_rejection_reason }}</p>
                 @endif
