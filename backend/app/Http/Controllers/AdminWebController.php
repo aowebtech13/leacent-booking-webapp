@@ -1096,9 +1096,6 @@ class AdminWebController extends Controller
             ->get();
 
         $totalIncome = (float) $subscriptions->sum('amount');
-        $monthlySales = Subscription::whereIn('status', ['active', 'successful'])
-            ->where('created_at', '>=', now()->startOfMonth())
-            ->count();
 
         // Assuming 10% operational cost for net income
         $netIncome = $totalIncome * 0.9;
