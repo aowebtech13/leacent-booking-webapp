@@ -13,7 +13,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 footer-copyright text-center">
-                <p class="mb-0">Copyright <span class="year-update"> </span> ©mictomon bespoketailor by Ao webtechtech </p>
+                <p class="mb-0">Copyright <span class="year-update"> </span> ©Leacent BookApp by Ao webtechtech </p>
             </div>
         </div>
     </div>

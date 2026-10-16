@@ -12,7 +12,7 @@
     <meta name="author" content="pixelstrap">
     <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
-    <title>@yield('title') Mictomon Tailor-Admin Area</title><!-- Themify icon-->
+    <title>@yield('title') Leacent BookApp -Admin Area</title><!-- Themify icon-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/themify.css') }}"><!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900&amp;display=swap"

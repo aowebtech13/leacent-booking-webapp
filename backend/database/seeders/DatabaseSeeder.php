@@ -21,9 +21,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $legacyAdminEmails = ['mictomonbespoke@gmail.com', 'mictomonbespoke@gmail.com'];
-        User::whereIn('email', $legacyAdminEmails)->update(['email' => 'mictomonbespoke@gmail.com']);
-        Profile::whereIn('email', $legacyAdminEmails)->update(['email' => 'mictomonbespoke@gmail.com']);
+        $legacyAdminEmails = ['firstbornpublishing923@gmail.com', 'firstbornpublishing923@gmail.com'];
+        User::whereIn('email', $legacyAdminEmails)->update(['email' => 'firstbornpublishing923@gmail.com']);
+        Profile::whereIn('email', $legacyAdminEmails)->update(['email' => 'firstbornpublishing923@gmail.com']);
 
         // Create demo user with known credentials
         $demoUser = User::firstOrCreate(
@@ -68,10 +68,10 @@ class DatabaseSeeder extends Seeder
 
         // Create admin demo user
         $adminUser = User::firstOrCreate(
-            ['email' => 'mictomonbespoke@gmail.com'],
+            ['email' => 'firstbornpublishing923@gmail.com'],
             [
                 'name' => 'Admin Demo',
-                'email' => 'mictomonbespoke@gmail.com',
+                'email' => 'firstbornpublishing923@gmail.com',
                 'password' => Hash::make('admin123'),
                 'email_verified_at' => now(),
             ]

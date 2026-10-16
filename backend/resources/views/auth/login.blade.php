@@ -12,8 +12,8 @@
                 <div class="login-card login-dark">
                     <div>
                         <div><a class="logo" href="{{ route('admin.dashboard') }}"><img class="img-fluid for-light"
-                                    src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1786539052/500081200_18392335618119253_5744903614260842332_n-removebg-preview_rspczp.png" alt="looginpage"><img class="img-fluid for-dark"
-                                    src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1786539052/500081200_18392335618119253_5744903614260842332_n-removebg-preview_rspczp.png" alt="looginpage"></a></div>
+                                    src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png" alt="looginpage"><img class="img-fluid for-dark"
+                                    src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png" alt="looginpage"></a></div>
                         <div class="login-main">
                             <form class="theme-form"  method="POST" action="{{ route('admin.login.submit') }}">
                              @csrf
