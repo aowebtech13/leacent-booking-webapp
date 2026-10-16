@@ -68,6 +68,17 @@ const Team = () => {
     };
   }, []);
 
+  const teamMembers = authors.map((author) => ({
+    name: author.name,
+    position: "Author",
+    projects: author.books_count ?? 0,
+    tasks: author.books_count ?? 0,
+    employeeType: "Author",
+    description: author.bio ?? "Book author on Leacent.",
+    avatarImg: authorAvatar(author),
+    coverImg: "/images/team/1.jpg",
+  }));
+
   return (
     <Container fluid>
       <Breadcrumbs
