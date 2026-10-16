@@ -104,8 +104,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 
         // Reports
-        Route::get('reports/sales', [AdminWebController::class, 'reportsSales'])->name('reports.sales');
-
         // Notifications (admin web)
         Route::prefix('notifications')->name('notifications.')->group(function () {
             Route::get('/', [NotificationController::class, 'index'])->name('index');

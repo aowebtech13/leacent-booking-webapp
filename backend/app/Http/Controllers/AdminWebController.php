@@ -1131,54 +1131,6 @@ class AdminWebController extends Controller
         ));
     }
 
-    /**
-     * Report: Sales - Monthly sales summary with totals, averages, and growth.
-     */
-    public function reportsSales()
-    {
-        $monthlySales = Order::select(
-            DB::raw("DATE_FORMAT(created_at, '%m') as month_num"),
-            DB::raw("DATE_FORMAT(created_at, '%Y') as year"),
-            DB::raw('COALESCE(SUM(total), 0) as total_sales'),
-            DB::raw('COUNT(*) as total_orders'),
-            DB::raw('COALESCE(AVG(total), 0) as avg_order_value')
-        )
-            ->whereIn('payment_status', [Order::PAYMENT_PAID, Order::PAYMENT_PENDING_VERIFICATION])
-            ->groupBy('year', 'month_num')
-            ->orderBy('year')
-            ->orderBy('month_num')
-            ->get();
-
-        $monthNames = ['', 'January', 'February', 'March', 'April', 'May', 'June',
-            'July', 'August', 'September', 'October', 'November', 'December'];
-
-        $allMonths = [];
-        $prevSales = null;
-        for ($m = 1; $m <= 12; $m++) {
-            $monthData = $monthlySales->firstWhere('month_num', str_pad($m, 2, '0', STR_PAD_LEFT));
-            $totalSales = $monthData ? (float) $monthData->total_sales : 0;
-            $totalOrders = $monthData ? (int) $monthData->total_orders : 0;
-            $avgOrder = $monthData ? (float) $monthData->avg_order_value : 0;
-
-            if ($prevSales !== null && $prevSales > 0) {
-                $growth = round((($totalSales - $prevSales) / $prevSales) * 100);
-            } else {
-                $growth = $totalSales > 0 ? 100 : 0;
-            }
-
-            $allMonths[] = (object) [
-                'month' => $monthNames[$m],
-                'total_sales' => $totalSales,
-                'avg_order_value' => $avgOrder,
-                'total_orders' => $totalOrders,
-                'growth' => $growth,
-            ];
-            $prevSales = $totalSales;
-        }
-
-        return view('reports.sales', compact('allMonths'));
-    }
-
     public function affiliates(Request $request)
     {
         $query = User::whereHas('referrals')
