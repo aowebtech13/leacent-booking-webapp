@@ -45,9 +45,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('orders/{order}/verify', [AdminWebController::class, 'verifyPayment'])->name('orders.verify');
          Route::post('orders/{order}/reject', [AdminWebController::class, 'rejectPayment'])->name('orders.reject');
 
-        
-        Route::get('activity-logs', [AdminWebController::class, 'activityLogs'])->name('activity-logs');
-        Route::get('finances', [AdminWebController::class, 'finances'])->name('finances');
 
         // Books management
         Route::prefix('books')->name('books.')->group(function () {
