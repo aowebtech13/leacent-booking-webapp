@@ -148,6 +148,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
 // Ecommerce (public read)
 
+// Public author directory (used by the frontend team page).
+Route::get('authors', [AuthorController::class, 'publicIndex']);
+
 // Public category/product endpoints
 Route::get('categories', [CategoryController::class, 'index']);
 Route::get('categories/{id}', [CategoryController::class, 'show']);

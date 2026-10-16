@@ -48,6 +48,14 @@ export function getAuthors(query: AuthorQuery = {}): Promise<AuthorListResponse>
 }
 
 /**
+ * List active authors (public) for the frontend team directory.
+ * Resolves to the authors array directly.
+ */
+export function getPublicAuthors(): Promise<Author[]> {
+  return api.get("authors").then((res) => res.data ?? []);
+}
+
+/**
  * Get a single author by id or slug.
  */
 export function getAuthor(id: number | string): Promise<Author> {

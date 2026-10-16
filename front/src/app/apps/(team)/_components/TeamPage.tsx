@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   TabContent,
@@ -15,8 +15,8 @@ import {
 import {
   developerteamData,
   marketingteamData,
-  teamMembers,
 } from "@/Data/Apps/Team/Teamdata";
+import { getPublicAuthors, Author } from "@/lib/api";
 import Link from "next/link";
 import Breadcrumbs from "@/Component/CommonElements/Breadcrumbs";
 import {
@@ -38,6 +38,35 @@ const Team = () => {
       setActiveTab(tab);
     }
   };
+
+  const [authors, setAuthors] = useState<Author[]>([]);
+  const [authorsLoading, setAuthorsLoading] = useState(true);
+  const [authorsError, setAuthorsError] = useState<string | null>(null);
+
+  const authorAvatar = (author: Author) => {
+    if (!author.avatar) return "/images/avatar/1.png";
+    if (/^https?:\/\//.test(author.avatar)) return author.avatar;
+    const base =
+      process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8001/api";
+    return `${base.replace(/\/api$/, "")}/storage/${author.avatar}`;
+  };
+
+  useEffect(() => {
+    let cancelled = false;
+    getPublicAuthors()
+      .then((data) => {
+        if (!cancelled) setAuthors(data);
+      })
+      .catch((err) => {
+        if (!cancelled) setAuthorsError(err?.message || "Failed to load authors");
+      })
+      .finally(() => {
+        if (!cancelled) setAuthorsLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
     <Container fluid>

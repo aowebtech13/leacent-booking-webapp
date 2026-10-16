@@ -38,6 +38,24 @@ class AuthorController extends Controller
     }
 
     /**
+     * GET /api/authors
+     * Public list of active authors (for the frontend team directory).
+     */
+    public function publicIndex(): \Illuminate\Http\JsonResponse
+    {
+        $authors = Author::withCount('books')
+            ->where('is_active', true)
+            ->orderBy('created_at', 'desc')
+            ->limit(100)
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'data' => $authors,
+        ]);
+    }
+
+    /**
      * POST /api/admin/authors
      * Create a new author.
      */
