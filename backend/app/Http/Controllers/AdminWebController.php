@@ -255,10 +255,7 @@ class AdminWebController extends Controller
         return back()->with('status', 'Profile updated successfully.');
     }
 
-    public function createUser()
-    {
-        return view('admin.users.create');
-    }
+    
 
     public function storeUser(Request $request)
     {

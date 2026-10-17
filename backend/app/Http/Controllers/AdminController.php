@@ -92,55 +92,7 @@ class AdminController extends Controller
         ]);
     }
 
-    /**
-     * Create new user
-     */
-    public function createUser(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
-            'role' => 'required|in:admin,user',
-
-            // Profile fields
-            'full_name' => 'nullable|string|max:255',
-            'company_name' => 'nullable|string|max:255',
-            'phone_number' => 'nullable|string|max:20',
-            'address' => 'nullable|string|max:500',
-            'city' => 'nullable|string|max:100',
-            'state' => 'nullable|string|max:100',
-            'country' => 'nullable|string|max:100',
-        ]);
-
-        // Create user
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
-        // Create profile
-        $profileData = $request->only([
-            'full_name', 'company_name', 'phone_number',
-            'address', 'city', 'state', 'country',
-        ]);
-        $profileData['user_id'] = $user->id;
-        $profileData['email'] = $user->email;
-        Profile::create($profileData);
-
-        // Assign role
-        UserRole::create([
-            'user_id' => $user->id,
-            'role' => $request->role,
-        ]);
-
-        return response()->json([
-            'success' => true,
-            'data' => $user->load(['profile', 'roles']),
-            'message' => 'User created successfully',
-        ]);
-    }
+   
 
     /**
      * Update user

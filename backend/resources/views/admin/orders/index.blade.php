@@ -38,7 +38,7 @@
                         <form method="GET" action="{{ route('admin.orders.index') }}">
                             <div class="row g-3">
                                 <div class="col-md-3">
-                                    <input type="text" name="search" class="form-control" placeholder="Search by name, email, order ID..." value="{{ request('search') }}">
+                                    <input type="text" name="search" class="form-control" placeholder="Search by name, email" value="{{ request('search') }}">
                                 </div>
                                 <div class="col-md-2">
                                     <select name="status" class="form-control">
@@ -56,13 +56,8 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                
                                 <div class="col-md-2">
-                                    <input type="date" name="from_date" class="form-control" placeholder="From Date" value="{{ request('from_date') }}">
-                                </div>
-                                <div class="col-md-2">
-                                    <input type="date" name="to_date" class="form-control" placeholder="To Date" value="{{ request('to_date') }}">
-                                </div>
-                                <div class="col-md-1">
                                     <button type="submit" class="btn btn-primary w-100">Search</button>
                                 </div>
                             </div>
