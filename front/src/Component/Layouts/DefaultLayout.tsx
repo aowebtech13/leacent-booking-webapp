@@ -45,6 +45,7 @@ const DefaultLayout: React.FC<DefaultLayoutProps> = ({ children }) => {
 
   if (
     pathname.includes("/auth-pages") ||
+    pathname.includes("/verify-otp") ||
     pathname.includes("/error-pages") ||
     pathname.includes("/other-pages/maintenance") ||
     pathname.includes("/other-pages/landing") ||
