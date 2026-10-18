@@ -32,6 +32,7 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
     register,
     handleSubmit,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm<FormData>();
 
@@ -53,10 +54,9 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
   }, []);
 
   const handleOtpChange = (index: number, value: string) => {
-    const fieldName = otpFields[index];
-    if (fieldName) {
-      setValue(fieldName, value, { shouldValidate: true });
-    }
+    const field = otpFields[index];
+    if (!field) return;
+    setValue(field, value, { shouldValidate: true });
 
     if (value.length === 1 && index < 4) {
       inputsRef.current[index + 1]?.focus();
@@ -66,23 +66,77 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
+    if (e.key === "ArrowLeft" && index > 0) {
+      e.preventDefault();
+      inputsRef.current[index - 1]?.focus();
+    }
+    if (e.key === "ArrowRight" && index < 4) {
+      e.preventDefault();
+      inputsRef.current[index + 1]?.focus();
+    }
+    if ((e.key === "Backspace" || e.key === "Delete") && !(e.target as HTMLInputElement).value) {
+      if (e.key === "Backspace" && index > 0) {
+        e.preventDefault();
+        inputsRef.current[index - 1]?.focus();
+      }
+      if (e.key === "Delete" && index < 4) {
+        e.preventDefault();
+        inputsRef.current[index + 1]?.focus();
+      }
+    }
+    if (e.key === "Backspace" && (e.target as HTMLInputElement).value) {
+      (e.target as HTMLInputElement).value = "";
+      const field = otpFields[index];
+      if (field) {
+        setValue(field, "", { shouldValidate: true });
+      }
+      if (index > 0) {
+        inputsRef.current[index - 1]?.focus();
+      }
+    }
+    if (e.key === "Delete" && (e.target as HTMLInputElement).value) {
+      (e.target as HTMLInputElement).value = "";
+      const field = otpFields[index];
+      if (field) {
+        setValue(field, "", { shouldValidate: true });
+      }
+      if (index < 4) {
+        inputsRef.current[index + 1]?.focus();
+      }
+    }
+  };
+
+  const handleFocus = (index: number) => {
+    const input = inputsRef.current[index];
+    input?.select();
+  };
+
   const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>, startIndex: number) => {
     e.preventDefault();
     const pastedData = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, 5);
     if (pastedData.length === 0) return;
 
     const digits = pastedData.split("");
+    // Start from the first empty field so pasting always fills from the beginning
+    const firstEmpty = otpFields.findIndex((f) => !errors[f] && !getValue(f));
+    const start = firstEmpty >= 0 ? firstEmpty : startIndex;
+
     digits.forEach((digit, offset) => {
-      const index = startIndex + offset;
+      const index = start + offset;
       if (index >= otpFields.length) return;
-      const fieldName = otpFields[index];
-      if (fieldName) {
-        setValue(fieldName, digit, { shouldValidate: true });
+      const field = otpFields[index];
+      if (field) {
+        setValue(field, digit, { shouldValidate: true });
       }
     });
 
-    const nextIndex = Math.min(startIndex + digits.length, otpFields.length - 1);
+    const nextIndex = Math.min(start + digits.length, otpFields.length - 1);
     inputsRef.current[nextIndex]?.focus();
+  };
+
+  const getValue = (field: string) => {
+    return (getValues() as Record<string, string>)[field] || "";
   };
 
   const onSubmit = async (data: FormData) => {
@@ -168,7 +222,15 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
                       },
                     })}
                     autoComplete="one-time-code"
+                    onFocus={() => handleFocus(index)}
+                    onKeyDown={(e) => handleKeyDown(e, index)}
                     onPaste={(e) => handlePaste(e, index)}
+                    onChange={(e) => {
+                      const field = otpFields[index];
+                      if (field) {
+                        handleOtpChange(index, (e.target as HTMLInputElement).value);
+                      }
+                    }}
                   />
                 ))}
               </div>
