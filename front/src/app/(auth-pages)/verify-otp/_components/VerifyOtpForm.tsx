@@ -100,7 +100,7 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
     try {
       const res: AuthResponse = await apiVerifyOtp({ email, code });
       setAuth(res);
-      router.push("/apps/profile");
+      router.push("/apps/setting");
     } catch (err: any) {
       setError(err?.message || "Invalid OTP. Please try again.");
       setIsLoading(false);

@@ -20,6 +20,11 @@ export const MenuList = [
     path: "/dashboard",
   },
   {
+    iconClass: Settings,
+    name: "My Profile",
+    path: "/apps/setting",
+  },
+  {
     name: "Upgrade to Pro",
     path: "/apps/pricing",
     iconClass: Archive,
