@@ -249,6 +249,8 @@
     background-color: var(--white);
 
     .otp-theme-form {
+      text-align: center;
+
       h4 {
         font-size: 28px;
         margin-bottom: 8px;
@@ -264,6 +266,11 @@
         height: 48px;
         margin-bottom: 20px;
       }
+    }
+
+    .otp-logo {
+      display: block;
+      margin: 0 auto 30px auto;
     }
 
     .otp-auth-form {

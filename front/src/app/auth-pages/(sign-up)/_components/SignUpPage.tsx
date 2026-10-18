@@ -69,7 +69,7 @@ const SignUpPage = () => {
                   <Form action={formAction} className="app-form rounded-control">
                     <Row>
                       <Col xs={12}>
-                        <div className="mb-5 text-center text-lg-start">
+                        <div className="mb-5 mt-5 text-center text-lg-start">
                           <h2 className="text-primary-dark f-w-600">
                             Create Account
                           </h2>

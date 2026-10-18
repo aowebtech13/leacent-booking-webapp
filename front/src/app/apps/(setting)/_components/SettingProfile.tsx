@@ -27,7 +27,6 @@ function SettingProfile() {
 
   const [formData, setFormData] = useState({
     full_name: "",
-    phone: "",
     company_name: "",
     phone_number: "",
     address: "",
@@ -41,7 +40,6 @@ function SettingProfile() {
     if (user) {
       setFormData({
         full_name: user.name || "",
-        phone: user.profile?.phone || "",
         company_name: user.profile?.company_name || "",
         phone_number: user.profile?.phone_number || "",
         address: user.profile?.address || "",
@@ -156,18 +154,6 @@ function SettingProfile() {
                       value={user?.email || ""}
                       disabled
                       placeholder="Email cannot be changed"
-                    />
-                  </FormGroup>
-                </Col>
-                <Col md="6">
-                  <FormGroup>
-                    <Label>Phone</Label>
-                    <Input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      placeholder="Enter your phone"
                     />
                   </FormGroup>
                 </Col>

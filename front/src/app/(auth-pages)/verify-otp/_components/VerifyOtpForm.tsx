@@ -131,8 +131,8 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
     <div className="login-card otp-verify-card">
       
       
-      <div className="login-main otp-verify-main">
-                      <img src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png" alt="Leacent Logo" height="48" />
+        <div className="login-main otp-verify-main">
+                      <img src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png" alt="Leacent Logo" className="otp-logo" height="48" />
 
         
         <div className="theme-form otp-theme-form">
