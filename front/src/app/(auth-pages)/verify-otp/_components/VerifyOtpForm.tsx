@@ -66,18 +66,23 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
     }
   };
 
-  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>, startIndex: number) => {
     e.preventDefault();
-    const pastedData = e.clipboardData.getData("text").slice(0, 5);
-    if (new RegExp("^\\d{5}$").test(pastedData)) {
-      pastedData.split("").forEach((digit, index) => {
-        const fieldName = otpFields[index];
-        if (fieldName) {
-          setValue(fieldName, digit, { shouldValidate: true });
-        }
-      });
-      inputsRef.current[4]?.focus();
-    }
+    const pastedData = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, 5);
+    if (pastedData.length === 0) return;
+
+    const digits = pastedData.split("");
+    digits.forEach((digit, offset) => {
+      const index = startIndex + offset;
+      if (index >= otpFields.length) return;
+      const fieldName = otpFields[index];
+      if (fieldName) {
+        setValue(fieldName, digit, { shouldValidate: true });
+      }
+    });
+
+    const nextIndex = Math.min(startIndex + digits.length, otpFields.length - 1);
+    inputsRef.current[nextIndex]?.focus();
   };
 
   const onSubmit = async (data: FormData) => {
@@ -149,7 +154,7 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
             <div className="form-group mb-4">
               <div className="d-flex justify-content-center gap-2 otp-inputs">
                 {otpFields.map((field, index) => (
-<input
+                  <input
                       key={field}
                       type="text"
                       maxLength={1}
@@ -163,6 +168,7 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
                       },
                     })}
                     autoComplete="one-time-code"
+                    onPaste={(e) => handlePaste(e, index)}
                   />
                 ))}
               </div>

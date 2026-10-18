@@ -31,14 +31,12 @@ use Illuminate\Support\Facades\Route;
 // Public routes
 Route::post('contact', [ContactController::class, 'sendEmail']);
 
-Route::prefix('auth')->middleware('throttle:10,1')->group(function () {
-    Route::post('register', [AuthController::class, 'register']);
-    Route::post('login', [AuthController::class, 'login']);
-    Route::match(['get', 'post'], 'forgot-password', [AuthController::class, 'forgotPassword']);
-    Route::post('reset-password', [AuthController::class, 'resetPassword']);
-    Route::post('verify-otp', [AuthController::class, 'verifyOtp']);
-    Route::post('resend-otp', [AuthController::class, 'resendOtp']);
-});
+Route::post('register', [AuthController::class, 'register'])->middleware('throttle:3,1');
+Route::post('login', [AuthController::class, 'login'])->middleware('throttle:5,1');
+Route::match(['get', 'post'], 'forgot-password', [AuthController::class, 'forgotPassword'])->middleware('throttle:3,1');
+Route::post('reset-password', [AuthController::class, 'resetPassword'])->middleware('throttle:5,1');
+Route::post('verify-otp', [AuthController::class, 'verifyOtp'])->middleware('throttle:10,1');
+Route::post('resend-otp', [AuthController::class, 'resendOtp'])->middleware('throttle:3,1');
 
 // Payment webhook (must be outside auth middleware)
 Route::post('payment/webhook', [PaymentController::class, 'webhook']);

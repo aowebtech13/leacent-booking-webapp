@@ -272,7 +272,7 @@ class AuthController extends Controller
     {
         $data = $request->validate([
             'email' => 'required|email',
-            'code' => 'required|string|size:4',
+            'code' => 'required|string|size:5',
         ]);
 
         $user = User::where('email', $data['email'])->first();
@@ -454,7 +454,7 @@ class AuthController extends Controller
 
     private function assignOtp(User $user): string
     {
-        $code = str_pad((string) random_int(0, 9999), 4, '0', STR_PAD_LEFT);
+        $code = str_pad((string) random_int(0, 99999), 5, '0', STR_PAD_LEFT);
 
         $user->forceFill([
             'otp_code' => $code,
