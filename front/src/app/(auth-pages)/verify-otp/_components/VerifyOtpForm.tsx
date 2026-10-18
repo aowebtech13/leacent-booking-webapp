@@ -66,6 +66,14 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
     }
   };
 
+  const handleAllCodesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const digits = e.target.value.replace(/\D/g, "").slice(0, 5);
+    otpFields.forEach((field, i) => {
+      setValue(field, digits[i] || "", { shouldValidate: true });
+    });
+    e.target.value = digits;
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
     if (e.key === "ArrowLeft" && index > 0) {
       e.preventDefault();
@@ -192,7 +200,7 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
         <div className="theme-form otp-theme-form">
 
             <h4 className="f-w-700 text-primary-dark">Verify OTP</h4>
-            <p className="text-muted mt-3">
+            <p className="text-muted mt-3 fw-bold">
               Enter the 5-digit code sent to your email
             </p>
           </div>
@@ -205,8 +213,28 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
               </div>
             )}
 
-            <div className="form-group mb-5">
-              <div className="d-flex justify-content-center gap-3 otp-inputs">
+              <div className="form-group mb-5">
+                {/* Hidden input to capture all codes typed at once */}
+                <input
+                  type="text"
+                  maxLength={5}
+                  inputMode="numeric"
+                  autoComplete="one-time-code"
+                  autoFocus
+                  style={{
+                    position: "absolute",
+                    opacity: 0,
+                    pointerEvents: "none",
+                    width: 0,
+                    height: 0,
+                    margin: 0,
+                    padding: 0,
+                    border: "none",
+                    outline: "none",
+                  }}
+                  onChange={handleAllCodesChange}
+                />
+                <div className="d-flex justify-content-center gap-3 otp-inputs">
                 {otpFields.map((field, index) => (
                   <input
                       key={field}
@@ -235,8 +263,8 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
                 ))}
               </div>
               {errors.otp0 && (
-                <div className="invalid-feedback d-block text-center mb-4">
-                  Please enter the complete 5-digit code
+                <div className="invalid-feedback d-block text-center text-dark mb-4">
+                  Typing........
                 </div>
               )}
             </div>
