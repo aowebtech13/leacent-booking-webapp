@@ -15,7 +15,6 @@ class Book extends Model
         'description',
         'author',
         'author_id',
-        'isbn',
         'publisher',
         'language',
         'category',
@@ -23,8 +22,6 @@ class Book extends Model
         'page_count',
         'format',
         'file_path',
-        'cover_image_path',
-        'preview_path',
         'price',
         'is_premium',
         'is_active',
@@ -155,8 +152,7 @@ class Book extends Model
         return $query->where(function ($q) use ($search) {
             $q->where('title', 'like', "%{$search}%")
                 ->orWhere('author', 'like', "%{$search}%")
-                ->orWhere('description', 'like', "%{$search}%")
-                ->orWhere('isbn', 'like', "%{$search}%");
+                ->orWhere('description', 'like', "%{$search}%");
         });
     }
 }

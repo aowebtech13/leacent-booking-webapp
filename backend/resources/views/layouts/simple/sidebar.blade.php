@@ -20,7 +20,6 @@
                     <li class="sidebar-list"><i class="fa-solid fa-thumbtack"></i><a class="sidebar-link sidebar-title" href="javascript:void(0)"><svg class="stroke-icon"><use href="{{ asset('assets/svg/icon-sprite.svg#stroke-user') }}"></use></svg><svg class="fill-icon"><use href="{{ asset('assets/svg/icon-sprite.svg#fill-user') }}"></use></svg><span>Users</span></a>
                         <ul class="sidebar-submenu">
                             <li><a href="{{ route('admin.users.index') }}">All Users</a></li>
-                            <li><a href="{{ route('admin.users.create') }}">Create User</a></li>
                         </ul>
                     </li>
 

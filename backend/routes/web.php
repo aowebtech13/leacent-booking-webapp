@@ -25,8 +25,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('users', [AdminWebController::class, 'users'])->name('users.index');
         Route::get('users/export', [AdminWebController::class, 'exportUsers'])->name('users.export');
-        Route::get('users/create', [AdminWebController::class, 'createUser'])->name('users.create');
-        Route::post('users', [AdminWebController::class, 'storeUser'])->name('users.store');
         Route::get('users/{user}', [AdminWebController::class, 'editUser'])->name('users.edit');
         Route::put('users/{user}', [AdminWebController::class, 'updateUser'])->name('users.update');
         Route::post('users/{user}/plan', [AdminWebController::class, 'updateUserPlan'])->name('users.plan');

@@ -175,8 +175,7 @@ class BookController extends Controller
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
                 $q->where('title', 'like', "%{$request->get('search')}%")
-                    ->orWhere('author', 'like', "%{$request->get('search')}%")
-                    ->orWhere('isbn', 'like', "%{$request->get('search')}%");
+                    ->orWhere('author', 'like', "%{$request->get('search')}%");
             });
         }
 
@@ -208,7 +207,7 @@ class BookController extends Controller
 
     /**
      * POST /api/admin/books
-     * Admin: create a new book.
+     * Admin: create a new book (PDF upload only).
      */
     public function adminStore(Request $request)
     {
@@ -217,7 +216,6 @@ class BookController extends Controller
             'slug' => 'nullable|string|max:255|unique:books',
             'author' => 'nullable|string|max:255',
             'author_id' => 'nullable|exists:authors,id',
-            'isbn' => 'nullable|string|max:255|unique:books',
             'publisher' => 'nullable|string|max:255',
             'language' => 'nullable|string|max:255',
             'category' => 'nullable|string|max:255',
@@ -225,9 +223,7 @@ class BookController extends Controller
             'page_count' => 'nullable|integer|min:1',
             'format' => 'nullable|string|max:50',
             'description' => 'nullable|string',
-            'file_path' => 'nullable|string|max:255',
-            'cover_image_path' => 'nullable|string|max:255',
-            'preview_path' => 'nullable|string|max:255',
+            'file' => 'required|file|mimes:pdf|max:20480',
             'price' => 'nullable|numeric|min:0',
             'is_premium' => 'sometimes|boolean',
             'is_active' => 'sometimes|boolean',
@@ -243,6 +239,10 @@ class BookController extends Controller
         $data['is_premium'] = $data['is_premium'] ?? false;
         $data['is_active'] = $data['is_active'] ?? true;
         $data['is_featured'] = $data['is_featured'] ?? false;
+
+        // Upload the PDF file and store its path
+        $filePath = $request->file('file')->store('books', 'public');
+        $data['file_path'] = $filePath;
 
         $book = Book::create($data);
 
@@ -266,7 +266,6 @@ class BookController extends Controller
             'slug' => 'sometimes|string|max:255|unique:books,slug,' . $book->id,
             'author' => 'sometimes|nullable|string|max:255',
             'author_id' => 'sometimes|nullable|exists:authors,id',
-            'isbn' => 'sometimes|nullable|string|max:255|unique:books,isbn,' . $book->id,
             'publisher' => 'sometimes|nullable|string|max:255',
             'language' => 'sometimes|nullable|string|max:255',
             'category' => 'sometimes|nullable|string|max:255',
@@ -274,15 +273,27 @@ class BookController extends Controller
             'page_count' => 'sometimes|nullable|integer|min:1',
             'format' => 'sometimes|nullable|string|max:50',
             'description' => 'sometimes|nullable|string',
-            'file_path' => 'sometimes|nullable|string|max:255',
-            'cover_image_path' => 'sometimes|nullable|string|max:255',
-            'preview_path' => 'sometimes|nullable|string|max:255',
+            'file' => 'sometimes|nullable|file|mimes:pdf|max:20480',
             'price' => 'sometimes|nullable|numeric|min:0',
             'is_premium' => 'sometimes|boolean',
             'is_active' => 'sometimes|boolean',
             'is_featured' => 'sometimes|boolean',
             'tags' => 'sometimes|array',
         ]);
+
+        if (isset($data['slug']) && empty($data['slug'])) {
+            $data['slug'] = Str::slug($data['title'] ?? $book->title);
+        }
+
+        // Handle PDF file upload
+        if ($request->hasFile('file')) {
+            if ($book->file_path) {
+                Storage::disk('public')->delete($book->file_path);
+            }
+            $data['file_path'] = $request->file('file')->store('books', 'public');
+        }
+
+        unset($data['file']);
 
         $book->update($data);
 
@@ -303,12 +314,6 @@ class BookController extends Controller
 
         if ($book->file_path) {
             Storage::disk('public')->delete($book->file_path);
-        }
-        if ($book->cover_image_path) {
-            Storage::disk('public')->delete($book->cover_image_path);
-        }
-        if ($book->preview_path) {
-            Storage::disk('public')->delete($book->preview_path);
         }
 
         $book->delete();
