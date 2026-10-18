@@ -8,7 +8,6 @@ import {
   HelpCircle,
   Plus,
   UserLove,
-  Settings,
 } from "iconoir-react";
 import { Detective, SignOut } from "phosphor-react";
 import Image from "next/image";
@@ -27,12 +26,6 @@ const menuItems: MenuItem[] = [
     label: "Profile Details",
     href: "/apps/profile",
     icon: <UserLove height={24} width={24} className="pe-1 f-s-20" />,
-    external: true,
-  },
-  {
-    label: "Settings",
-    href: "/apps/setting",
-    icon: <Settings height={24} width={24} className="pe-1 f-s-20" />,
     external: true,
   },
   {

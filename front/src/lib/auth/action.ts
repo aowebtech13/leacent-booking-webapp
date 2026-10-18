@@ -165,7 +165,7 @@ export async function verifyOtp(formData: FormData): Promise<void> {
   try {
     await apiVerifyOtp({ email, code: otpDigits });
     await clearPendingEmail();
-    redirect("/apps/setting");
+    redirect("/apps/profile");
   } catch (error: any) {
     throw toActionError(error);
   }

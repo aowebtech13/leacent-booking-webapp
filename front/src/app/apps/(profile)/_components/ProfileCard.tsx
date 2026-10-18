@@ -6,8 +6,8 @@ interface ProfileCardProps {
   user: {
     name?: string;
     email?: string;
-    avatar_url?: string | null;
     profile?: {
+      avatar_url?: string | null;
       company_name?: string | null;
       phone_number?: string | null;
       address?: string | null;
@@ -55,16 +55,13 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
             <div className="details">
               <Col>
                 <h4 className="text-primary">0</h4>
-                <p className="text-secondary">Post</p>
+                <p className="text-secondary">Books Read</p>
               </Col>
               <Col>
                 <h4 className="text-primary">0</h4>
                 <p className="text-secondary">Follower</p>
               </Col>
-              <Col>
-                <h4 className="text-primary">0</h4>
-                <p className="text-secondary">Following</p>
-              </Col>
+            
             </div>
 
             <div className="my-2">

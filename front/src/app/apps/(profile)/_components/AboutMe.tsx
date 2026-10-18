@@ -43,11 +43,7 @@ const AboutMe = ({ profile }: AboutMeProps) => {
       label: "Contact",
       value: phone,
     },
-    {
-      icon: <IconCake size={18} />,
-      label: "Birth of Date",
-      value: "24 Oct",
-    },
+    
     {
       icon: <IconMapPin size={18} />,
       label: "Location",
@@ -58,11 +54,7 @@ const AboutMe = ({ profile }: AboutMeProps) => {
       label: "Website",
       value: "Ninfa_devWWW.com",
     },
-    {
-      icon: <IconBrandGithub size={18} />,
-      label: "Github",
-      value: "Ninfa_dev",
-    },
+   
   ];
 
   return (
