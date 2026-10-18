@@ -7,7 +7,6 @@ use App\Models\Profile;
 use App\Models\UserRole;
 use App\Models\Subscription;
 use Database\Seeders\CategorySeeder;
-use Database\Seeders\TagSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -112,11 +111,7 @@ class DatabaseSeeder extends Seeder
 
         // Seed categories
         $this->call(CategorySeeder::class);
-
-        // Seed tags
-        $this->call(TagSeeder::class);
     }
-}
 }
 
 

@@ -18,6 +18,12 @@ class Authenticate extends Middleware
             return null;
         }
 
+        // Fully log the user out (clear any stale session) before sending them
+        // to the login page, so an unauthenticated user can never reach the
+        // dashboard or any other protected admin page.
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
         return route('admin.login');
     }
 }
