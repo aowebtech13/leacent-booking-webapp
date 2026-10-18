@@ -60,17 +60,7 @@ class AuthController extends Controller
 
         $otpCode = $this->assignOtp($user);
 
-        $emailSent = $this->sendWelcomeEmail($user, $otpCode);
-
-        if (!$emailSent) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to send verification code. Please try again or contact support.',
-                'data' => [
-                    'email' => $user->email,
-                ],
-            ], 500);
-        }
+        $this->sendWelcomeEmail($user, $otpCode);
 
         return response()->json([
             'success' => true,

@@ -1,5 +1,5 @@
 "use client";
-import React, { useActionState } from "react";
+import React, { useActionState, useState } from "react";
 import {
   Col,
   Container,
@@ -38,6 +38,26 @@ const SignUpPage = () => {
     INITIAL_STATE
   );
 
+  // Local form state to retain input values on validation errors.
+  const [formValues, setFormValues] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    phone: "",
+    terms: false,
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
+    const { name, type, value, checked } = e.target as HTMLInputElement;
+    setFormValues((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? (checked ?? false) : value,
+    }));
+  };
+
   return (
     <div className="sign-in-bg">
       <div className="app-wrapper d-block">
@@ -66,7 +86,10 @@ const SignUpPage = () => {
               </Col>
               <Col lg={6} className="form-contentbox">
                 <div className="form-container">
-                  <Form action={formAction} className="app-form rounded-control">
+                  <Form
+                    action={formAction}
+                    className="app-form rounded-control"
+                  >
                     <Row>
                       <Col xs={12}>
                         <div className="mb-5 mt-5 text-center text-lg-start">
@@ -78,12 +101,12 @@ const SignUpPage = () => {
                       </Col>
 
                        {state.error && (
-                         <Col xs={12}>
-                            <Alert color="danger" className="mb-3" dismissible={true}>
-                              {state.error}
-                            </Alert>
-                         </Col>
-                       )}
+                          <Col xs={12}>
+                             <Alert color="danger" className="mb-3">
+                               {state.error}
+                             </Alert>
+                          </Col>
+                        )}
 
                        <Col xs={12}>
                          <FormGroup className="mb-3">
@@ -92,6 +115,8 @@ const SignUpPage = () => {
                              type="text"
                              id="username"
                              name="username"
+                             value={formValues.username}
+                             onChange={handleChange}
                              placeholder="Enter Your Username"
                              required
                              autoComplete="username"
@@ -106,6 +131,8 @@ const SignUpPage = () => {
                              type="email"
                              id="email"
                              name="email"
+                             value={formValues.email}
+                             onChange={handleChange}
                              placeholder="Enter Your Email"
                              required
                              autoComplete="email"
@@ -120,6 +147,8 @@ const SignUpPage = () => {
                              type="password"
                              id="password"
                              name="password"
+                             value={formValues.password}
+                             onChange={handleChange}
                              placeholder="Enter Your Password"
                              required
                              autoComplete="new-password"
@@ -134,6 +163,8 @@ const SignUpPage = () => {
                              type="password"
                              id="confirmPassword"
                              name="confirmPassword"
+                             value={formValues.confirmPassword}
+                             onChange={handleChange}
                              placeholder="Enter Your Password"
                              required
                              autoComplete="new-password"
@@ -148,6 +179,8 @@ const SignUpPage = () => {
                              type="tel"
                              id="phone"
                              name="phone"
+                             value={formValues.phone}
+                             onChange={handleChange}
                              placeholder="Enter Your Phone"
                              autoComplete="tel"
                            />
@@ -159,7 +192,10 @@ const SignUpPage = () => {
                           <Input
                             type="checkbox"
                             id="checkDefault"
+                            name="terms"
                             className="form-check-input"
+                            checked={formValues.terms}
+                            onChange={handleChange}
                           />
                           <Label
                             check
