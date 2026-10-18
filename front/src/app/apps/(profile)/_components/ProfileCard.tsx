@@ -2,7 +2,25 @@ import React from "react";
 import { Card, CardBody, Row, Col, Button } from "reactstrap";
 import { IconPhotoHeart, IconUser } from "@tabler/icons-react";
 
-const ProfileCard = () => {
+interface ProfileCardProps {
+  user: {
+    name?: string;
+    email?: string;
+    avatar_url?: string | null;
+    profile?: {
+      company_name?: string | null;
+      phone_number?: string | null;
+      address?: string | null;
+      about_me?: string | null;
+    } | null;
+  } | null;
+}
+
+const ProfileCard = ({ user }: ProfileCardProps) => {
+  const name = user?.name || "User";
+  const company = user?.profile?.company_name || "Web designer & Developer";
+  const avatar = user?.profile?.avatar_url || null;
+
   return (
     <Card>
       <CardBody>
@@ -23,34 +41,28 @@ const ProfileCard = () => {
                   </label>
                 </div>
                 <div className="avatar-preview mt-3">
-                  <div id="imgPreview"></div>
+                  <div id="imgPreview">
+                    {avatar && <img src={avatar} alt="Avatar" className="img-fluid rounded-circle" style={{ width: 120, height: 120 }} />}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           <div className="person-details">
-            <h5 className="f-w-600">
-              Ninfa Monaldo
-              <img
-                width={20}
-                height={20}
-                src="/images/profile/01.png"
-                alt="instagram-check-mark"
-              />
-            </h5>
-            <p>Web designer &amp; Developer</p>
+            <h5 className="f-w-600">{name}</h5>
+            <p>{company}</p>
 
             <div className="details">
               <Col>
-                <h4 className="text-primary">10</h4>
+                <h4 className="text-primary">0</h4>
                 <p className="text-secondary">Post</p>
               </Col>
               <Col>
-                <h4 className="text-primary">3.4k</h4>
+                <h4 className="text-primary">0</h4>
                 <p className="text-secondary">Follower</p>
               </Col>
               <Col>
-                <h4 className="text-primary">1k</h4>
+                <h4 className="text-primary">0</h4>
                 <p className="text-secondary">Following</p>
               </Col>
             </div>
@@ -58,7 +70,7 @@ const ProfileCard = () => {
             <div className="my-2">
               <Button color="primary" className="b-r-22">
                 <IconUser size={16} className="me-1" />
-                Follow
+                Edit Profile
               </Button>
             </div>
           </div>
