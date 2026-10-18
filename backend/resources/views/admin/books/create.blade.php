@@ -59,9 +59,9 @@
                                 @error('author') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label">ISBN</label>
-                                <input type="text" name="isbn" class="form-control" value="{{ old('isbn') }}" placeholder="ISBN-13">
-                                @error('isbn') <span class="text-danger f-12">{{ $message }}</span> @enderror
+                                <label class="form-label">Author Name (Legacy String)</label>
+                                <input type="text" name="author" class="form-control" value="{{ old('author') }}" placeholder="e.g. J.K. Rowling">
+                                @error('author') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Publisher</label>
@@ -99,19 +99,9 @@
                                 @error('price') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">File Path</label>
-                                <input type="text" name="file_path" class="form-control" value="{{ old('file_path') }}" placeholder="books/file.pdf">
-                                @error('file_path') <span class="text-danger f-12">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Cover Image Path</label>
-                                <input type="text" name="cover_image_path" class="form-control" value="{{ old('cover_image_path') }}" placeholder="covers/cover.jpg">
-                                @error('cover_image_path') <span class="text-danger f-12">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Preview Path</label>
-                                <input type="text" name="preview_path" class="form-control" value="{{ old('preview_path') }}" placeholder="previews/sample.pdf">
-                                @error('preview_path') <span class="text-danger f-12">{{ $message }}</span> @enderror
+                                <label class="form-label">Upload PDF <span class="text-danger">*</span></label>
+                                <input type="file" name="file" class="form-control" accept="application/pdf" required>
+                                @error('file') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Description</label>

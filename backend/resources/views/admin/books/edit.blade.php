@@ -60,11 +60,6 @@
                                 @error('author') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label">ISBN</label>
-                                <input type="text" name="isbn" class="form-control" value="{{ old('isbn', $book->isbn) }}">
-                                @error('isbn') <span class="text-danger f-12">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="col-md-4">
                                 <label class="form-label">Publisher</label>
                                 <input type="text" name="publisher" class="form-control" value="{{ old('publisher', $book->publisher) }}">
                                 @error('publisher') <span class="text-danger f-12">{{ $message }}</span> @enderror
@@ -100,19 +95,10 @@
                                 @error('price') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">File Path</label>
-                                <input type="text" name="file_path" class="form-control" value="{{ old('file_path', $book->file_path) }}">
-                                @error('file_path') <span class="text-danger f-12">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Cover Image Path</label>
-                                <input type="text" name="cover_image_path" class="form-control" value="{{ old('cover_image_path', $book->cover_image_path) }}">
-                                @error('cover_image_path') <span class="text-danger f-12">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Preview Path</label>
-                                <input type="text" name="preview_path" class="form-control" value="{{ old('preview_path', $book->preview_path) }}">
-                                @error('preview_path') <span class="text-danger f-12">{{ $message }}</span> @enderror
+                                <label class="form-label">Upload PDF</label>
+                                <input type="file" name="file" class="form-control" accept="application/pdf">
+                                <small class="form-text text-muted">Leave empty to keep current file.</small>
+                                @error('file') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Description</label>
@@ -175,7 +161,6 @@
                             <li class="list-group-item"><strong>Title:</strong> {{ $book->title }}</li>
                             <li class="list-group-item"><strong>Slug:</strong> {{ $book->slug }}</li>
                             <li class="list-group-item"><strong>Author:</strong> @if($book->author){{ $book->author->name }}@elseif($book->getAttribute('author')){{ $book->getAttribute('author') }}@elseN/A@endif</li>
-                            <li class="list-group-item"><strong>ISBN:</strong> {{ $book->isbn ?? 'N/A' }}</li>
                             <li class="list-group-item"><strong>Publisher:</strong> {{ $book->publisher ?? 'N/A' }}</li>
                             <li class="list-group-item"><strong>Category:</strong> {{ $book->category ?? 'N/A' }}</li>
                             <li class="list-group-item"><strong>Language:</strong> {{ $book->language ?? 'N/A' }}</li>
