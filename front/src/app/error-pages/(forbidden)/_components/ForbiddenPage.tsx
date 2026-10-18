@@ -24,7 +24,7 @@ const ForbiddenPage = () => {
         </Row>
 
         <Link
-          href="/dashboard/ecommerce"
+          href="/dashboard"
           className="btn btn-lg btn-light-success mt-3 rounded-pill d-inline-flex align-items-center justify-content-center gap-1"
         >
           <IconHome size={18} />

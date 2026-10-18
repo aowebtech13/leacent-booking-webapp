@@ -24,11 +24,11 @@ import {
   Trash,
   UserCircleGear,
 } from "phosphor-react";
-import ActivityTimeline from "@/app/apps/(setting)/_components/ActivityTimeline";
 
 
 
-import Subscription from "@/app/apps/(setting)/_components/Subscription";
+
+
 
 import SettingProfile from "@/app/apps/(setting)/_components/SettingProfile";
 import Breadcrumbs from "@/Component/CommonElements/Breadcrumbs";
@@ -91,67 +91,16 @@ const Setting = () => {
                           size={20}
                           className="me-2"
                         />
-                        Profile
+                       My  Profile
                       </NavLink>
                     </NavItem>
-                    <NavItem className="cursor-pointer">
-                      <NavLink
-                        className={`nav-link ${activeTab === "2" ? "active" : ""}`}
-                        onClick={() => toggleTab("2")}
-                      >
-                        <Alarm weight="bold" size={20} className="me-2" />
-                        Activity
-                      </NavLink>
-                    </NavItem>
-                    <NavItem className="cursor-pointer">
-                      <NavLink
-                        className={`nav-link ${activeTab === "3" ? "active" : ""}`}
-                        onClick={() => toggleTab("3")}
-                      >
-                        <ShieldCheck weight="bold" size={20} className="me-2" />
-                        Security
-                      </NavLink>
-                    </NavItem>
-                    <NavItem className="cursor-pointer">
-                      <NavLink
-                        className={`nav-link ${activeTab === "4" ? "active" : ""}`}
-                        onClick={() => toggleTab("4")}
-                      >
-                        <LockOpen weight="bold" size={20} className="me-2" />
-                        Privacy
-                      </NavLink>
-                    </NavItem>
-                    <NavItem className="cursor-pointer">
-                      <NavLink
-                        className={`nav-link ${activeTab === "5" ? "active" : ""}`}
-                        onClick={() => toggleTab("5")}
-                      >
-                        <Notification
-                          weight="bold"
-                          size={20}
-                          className="me-2"
-                        />
-                        Notification
-                      </NavLink>
-                    </NavItem>
-                    <NavItem className="cursor-pointer">
-                      <NavLink
-                        className={`nav-link ${activeTab === "6" ? "active" : ""}`}
-                        onClick={() => toggleTab("6")}
-                      >
-                        <BellSimple weight="bold" size={20} className="me-2" />
-                        Subscription
-                      </NavLink>
-                    </NavItem>
-                    <NavItem className="cursor-pointer">
-                      <NavLink
-                        className={`nav-link ${activeTab === "7" ? "active" : ""}`}
-                        onClick={() => toggleTab("7")}
-                      >
-                        <Graph weight="bold" size={20} className="me-2" />
-                        Connection
-                      </NavLink>
-                    </NavItem>
+                    
+                 
+                  
+                 
+                 
+                 
+                    
                     <NavItem className="cursor-pointer">
                       <NavLink
                         className="nav-link"
@@ -159,7 +108,7 @@ const Setting = () => {
                         onClick={handleDeleteClick}
                       >
                         <Trash weight="bold" size={20} className="me-2" />
-                        Delete
+                        Delete Account
                       </NavLink>
                     </NavItem>
                   </Nav>
@@ -220,15 +169,7 @@ const Setting = () => {
               <TabPane tabId="1">
                 <SettingProfile />
               </TabPane>
-              <TabPane tabId="2">
-                <ActivityTimeline />
-              </TabPane>
              
-            
-            
-              <TabPane tabId="6">
-                <Subscription />
-              </TabPane>
             
             </TabContent>
           </Col>

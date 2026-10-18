@@ -44,7 +44,7 @@ const LandingDarkSection = () => {
             id="darkDemoBtn"
             onClick={() => {
               localStorage.setItem("theme-mode", "dark");
-              window.location.href = "/dashboard/ecommerce";
+              window.location.href = "/dashboard";
             }}
           >
             Check Now <i className="ti ti-chevrons-right ms-2"></i>

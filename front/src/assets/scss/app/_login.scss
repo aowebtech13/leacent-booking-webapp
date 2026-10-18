@@ -236,6 +236,88 @@
 
 /**=====================
     3.42 Login CSS Ends
-==========================**/
+==========================*/
+
+// >>-- OTP Verify Page CSS --<<
+.otp-verify-card {
+  .otp-verify-main {
+    width: 100%;
+    max-width: 520px;
+    padding: 60px 40px;
+    border-radius: 16px;
+    box-shadow: 0 0 45px rgba(8, 21, 66, 0.08);
+    background-color: var(--white);
+
+    .otp-theme-form {
+      h4 {
+        font-size: 28px;
+        margin-bottom: 8px;
+      }
+
+      p {
+        font-size: 16px;
+        margin-bottom: 30px !important;
+        color: var(--dark-gray);
+      }
+
+      img {
+        height: 48px;
+        margin-bottom: 20px;
+      }
+    }
+
+    .otp-auth-form {
+      .form-group {
+        margin-bottom: 30px;
+
+        .otp-inputs {
+          gap: 12px;
+        }
+
+        .otp-input-lg {
+          width: 60px;
+          height: 60px;
+          font-size: 24px;
+          font-weight: 600;
+          text-align: center;
+          border-radius: 10px;
+        }
+
+        .invalid-feedback {
+          margin-top: 12px;
+          font-size: 14px;
+        }
+      }
+
+      .otp-verify-btn {
+        font-size: 17px;
+        padding: 14px;
+        border-radius: 10px;
+        margin-top: 10px;
+      }
+    }
+
+    .text-center.mt-5,
+    .text-center.mt-4 {
+      p {
+        font-size: 15px;
+      }
+
+      button {
+        font-size: 15px;
+        font-weight: 600;
+      }
+
+      a {
+        font-size: 15px;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+/**=====================
+    OTP Verify Page CSS Ends
+==========================*/
 
 // >>-- 50 Login css end --<<

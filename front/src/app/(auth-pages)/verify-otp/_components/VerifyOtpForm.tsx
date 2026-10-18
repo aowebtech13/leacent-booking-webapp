@@ -128,22 +128,22 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
   };
 
   return (
-    <div className="login-card">
+    <div className="login-card otp-verify-card">
       
       
-      <div className="login-main">
-                          <img src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png" alt="Leacent Logo" height="40" />
+      <div className="login-main otp-verify-main">
+                      <img src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png" alt="Leacent Logo" height="48" />
 
         
-        <div className="theme-form">
+        <div className="theme-form otp-theme-form">
 
             <h4 className="f-w-700 text-primary-dark">Verify OTP</h4>
-            <p className="text-muted mt-2">
+            <p className="text-muted mt-3">
               Enter the 5-digit code sent to your email
             </p>
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="auth-form needs-validation" noValidate>
+          <form onSubmit={handleSubmit(onSubmit)} className="auth-form needs-validation otp-auth-form" noValidate>
             {error && (
               <div className="alert alert-danger alert-dismissible fade show" role="alert">
                 {error}
@@ -151,15 +151,15 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
               </div>
             )}
 
-            <div className="form-group mb-4">
-              <div className="d-flex justify-content-center gap-2 otp-inputs">
+            <div className="form-group mb-5">
+              <div className="d-flex justify-content-center gap-3 otp-inputs">
                 {otpFields.map((field, index) => (
                   <input
                       key={field}
                       type="text"
                       maxLength={1}
                       inputMode="numeric"
-                      className={`form-control text-center otp-input ${errors[field] ? "is-invalid" : ""}`}
+                      className={`form-control text-center otp-input ${errors[field] ? "is-invalid" : ""} otp-input-lg`}
                     {...register(field, {
                       required: "Required",
                       pattern: {
@@ -173,7 +173,7 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
                 ))}
               </div>
               {errors.otp0 && (
-                <div className="invalid-feedback d-block text-center mb-3">
+                <div className="invalid-feedback d-block text-center mb-4">
                   Please enter the complete 5-digit code
                 </div>
               )}
@@ -181,7 +181,7 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
 
             <button
               type="submit"
-              className="btn btn-primary w-100 py-2 f-w-600"
+              className="btn btn-primary w-100 py-3 f-w-600 fs-5 otp-verify-btn"
               disabled={isLoading}
             >
               {isLoading ? (
@@ -190,12 +190,12 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
                   Verifying...
                 </span>
               ) : (
-                "Verify"
+                "Verify Code"
               )}
             </button>
           </form>
 
-          <div className="text-center mt-4">
+          <div className="text-center mt-5">
             <p className="text-muted mb-0">
               Didn't receive the code?{" "}
               <button
@@ -209,8 +209,8 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
             </p>
           </div>
 
-          <div className="text-center mt-3">
-            <Link href="/auth-pages/sign-in" className="text-muted small">
+          <div className="text-center mt-4">
+            <Link href="/auth-pages/sign-in" className="text-muted small fw-bold">
               Back to Sign In
             </Link>
           </div>

@@ -264,42 +264,9 @@ const VerticalIconWizards: React.FC = () => {
                   <div className="wizard-fieldset show">
                     <Form className="app-form">
                       <Row>
-                        <Col xs={12}>
-                          <FormGroup>
-                            <Label for="facebookUrl">Facebook Url</Label>
-                            <Input
-                              type="url"
-                              id="facebookUrl"
-                              value={formData.facebookUrl}
-                              onChange={handleChange}
-                              placeholder="https://"
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col xs={12}>
-                          <FormGroup>
-                            <Label for="twitterUrl">Twitter Url</Label>
-                            <Input
-                              type="url"
-                              id="twitterUrl"
-                              value={formData.twitterUrl}
-                              onChange={handleChange}
-                              placeholder="https://"
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col xs={12}>
-                          <FormGroup>
-                            <Label for="githubUrl">Github Url</Label>
-                            <Input
-                              type="url"
-                              id="githubUrl"
-                              value={formData.githubUrl}
-                              onChange={handleChange}
-                              placeholder="https://"
-                            />
-                          </FormGroup>
-                        </Col>
+                       
+                        
+                        
                         <Col xs={12} className="text-end mb-3">
                           <Button
                             color="primary"

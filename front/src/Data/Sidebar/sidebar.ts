@@ -17,7 +17,7 @@ export const MenuList = [
     title: "Dashboard",
     iconClass: HomeAlt,
     name: "Dashboard",
-    path: "/dashboard/ecommerce",
+    path: "/dashboard",
   },
   {
     iconClass: Settings,

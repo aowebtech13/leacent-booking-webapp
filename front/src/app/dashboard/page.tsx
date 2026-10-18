@@ -30,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title: "E-commerce Dashboard -Leacent Book-App",
       description:
         "Monitor and manage your e-commerce operations with our comprehensive dashboard featuring real-time analytics and insights.",
-      url: "https://axelit-next.vercel.app/dashboard/ecommerce",
+      url: "https://axelit-next.vercel.app/dashboard",
       siteName: "Axelit-next",
       locale: "en_US",
       type: "website",

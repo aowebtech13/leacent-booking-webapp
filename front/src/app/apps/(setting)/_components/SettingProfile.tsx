@@ -214,54 +214,9 @@ function SettingProfile() {
                     />
                   </FormGroup>
                 </Col>
-                <Col md="6">
-                  <FormGroup>
-                    <Label>Phone Number</Label>
-                    <Input
-                      type="tel"
-                      name="phone_number"
-                      value={formData.phone_number}
-                      onChange={handleChange}
-                      placeholder="Enter phone number"
-                    />
-                  </FormGroup>
-                </Col>
-                <Col md="6">
-                  <FormGroup>
-                    <Label>Facebook URL</Label>
-                    <Input
-                      type="url"
-                      name="facebook_url"
-                      value={formData.facebook_url}
-                      onChange={handleChange}
-                      placeholder="https://facebook.com/username"
-                    />
-                  </FormGroup>
-                </Col>
-                <Col md="6">
-                  <FormGroup>
-                    <Label>Twitter URL</Label>
-                    <Input
-                      type="url"
-                      name="twitter_url"
-                      value={formData.twitter_url}
-                      onChange={handleChange}
-                      placeholder="https://twitter.com/username"
-                    />
-                  </FormGroup>
-                </Col>
-                <Col md="6">
-                  <FormGroup>
-                    <Label>LinkedIn URL</Label>
-                    <Input
-                      type="url"
-                      name="linkedin_url"
-                      value={formData.linkedin_url}
-                      onChange={handleChange}
-                      placeholder="https://linkedin.com/in/username"
-                    />
-                  </FormGroup>
-                </Col>
+              
+             
+               
                 <Col md="12">
                   <div className="text-end">
                     <Button color="primary" type="submit" disabled={saving}>

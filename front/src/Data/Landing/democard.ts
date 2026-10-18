@@ -2,14 +2,14 @@ export const demos = [
   {
     title: "Project",
     imgSrc: "/images/landing/project-dashboard.jpg",
-    link: "/dashboard/ecommerce",
+    link: "/dashboard",
     btnClass: "btn-success",
   },
 
   {
     title: "Ecommerce",
     imgSrc: "/images/landing/ecommerce-dashboard.jpg",
-    link: "/dashboard/ecommerce",
+    link: "/dashboard",
     btnClass: "btn-primary",
   },
 ];

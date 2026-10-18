@@ -26,7 +26,7 @@ const TwoStepVerificationImgPage: React.FC = () => {
         <Col xs="12" className="p-0">
           <div className="login-form-container">
             <div className="mb-4">
-              <Link href="/dashboard/ecommerce">
+              <Link href="/dashboard">
                 <Image
                   src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png"
                   width={250}
