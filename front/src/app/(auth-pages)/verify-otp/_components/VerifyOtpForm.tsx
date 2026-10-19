@@ -319,7 +319,7 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
 
         <div className="text-center mt-5">
           <p className="text-muted mb-0">
-            Didn't receive the code?{" "}
+            Didn&apos;t receive the code?{" "}
             <button
               type="button"
               className={`text-primary f-w-600 ${!canResend ? "text-muted" : ""}`}

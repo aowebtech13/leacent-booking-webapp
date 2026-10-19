@@ -145,7 +145,7 @@ const SignInPage = () => {
                       </Col>
 
                       <Col xs={12} className="text-center text-lg-start mt-3">
-                        Don't have an account?
+                        Don&apos;t have an account?
                         <Link
                           href="/auth-pages/sign-up"
                           className="link-primary text-decoration-underline ms-1"
