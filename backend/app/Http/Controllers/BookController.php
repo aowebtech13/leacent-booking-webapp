@@ -323,7 +323,6 @@ class BookController extends Controller
             'message' => 'Book deleted successfully.',
         ]);
     }
-}
 
     /**
      * GET /api/public/books/stats
@@ -340,3 +339,4 @@ class BookController extends Controller
             ],
         ]);
     }
+}
