@@ -3,7 +3,7 @@ declare module "react-book-reader" {
 
   export interface ReactReaderProps {
     url: string | File;
-    location?: string | number | null;
+    location: string | number | null | undefined;
     title?: string;
     showToc?: boolean;
     tocChanged?: (toc: any[]) => void;

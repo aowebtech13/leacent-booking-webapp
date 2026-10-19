@@ -60,7 +60,9 @@ const ForgotPasswordPage = () => {
                           <h2 className="text-primary-dark f-w-600">
                             Forgot Password?
                           </h2>
-                          <p>Enter your email to receive a password reset link</p>
+                          <p>
+                            Enter your email to receive a password reset link
+                          </p>
                         </div>
                       </Col>
 
@@ -84,7 +86,11 @@ const ForgotPasswordPage = () => {
                             type="submit"
                             className="w-100"
                           >
-                            {isSubmitting ? <Spinner size="sm" /> : "Send Reset Link"}
+                            {isSubmitting ? (
+                              <Spinner size="sm" />
+                            ) : (
+                              "Send Reset Link"
+                            )}
                           </Button>
                         </div>
                       </Col>

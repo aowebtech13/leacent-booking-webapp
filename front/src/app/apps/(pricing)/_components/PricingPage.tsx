@@ -18,8 +18,6 @@ const PricingPage = () => {
           Icon={IconStack2 as any}
         />
         <Row>
-        
-
           <Col xs={12}>
             <Card>
               <CardHeader>

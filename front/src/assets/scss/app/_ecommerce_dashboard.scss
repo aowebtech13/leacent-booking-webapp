@@ -289,10 +289,8 @@
   overflow: hidden;
 }
 .orders-provided-card {
-  background-image: linear-gradient(
-      rgba(var(--light), 0.2) 1.3px,
-      transparent 1.3px
-    ),
+  background-image:
+    linear-gradient(rgba(var(--light), 0.2) 1.3px, transparent 1.3px),
     linear-gradient(to right, rgba(var(--light), 0.2) 1.3px, transparent 1.3px);
   background-size: 45px 45px;
   position: relative;

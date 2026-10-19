@@ -5,17 +5,13 @@ import HeaderNotification from "@/Component/Layouts/Header/HeaderNotification";
 
 import HeaderApps from "@/Component/Layouts/Header/HeaderApps";
 
-
 const HeaderMenu = () => {
   return (
     <>
       <ul className="d-flex align-items-center">
-     
-
         <li className="header-apps">
           <HeaderApps />
         </li>
-
 
         <li className="header-dark">
           <HeaderMode />

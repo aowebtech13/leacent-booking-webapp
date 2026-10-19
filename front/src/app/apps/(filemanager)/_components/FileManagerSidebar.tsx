@@ -86,9 +86,6 @@ const FileManagerSidebar: React.FC<FileManagerSidebarProps> = ({
                 10+
               </li>
 
-           
-
-
               <li
                 className={`tab-link align-items-center ${activeTab === "4" ? "active" : ""}`}
                 onClick={() => handleTabClick("4")}
@@ -100,8 +97,6 @@ const FileManagerSidebar: React.FC<FileManagerSidebarProps> = ({
 
               <div className="app-divider-v dashed m-0 p-2"></div>
 
-            
-
               <li
                 className="tab-link align-items-center"
                 onClick={() => handleTabClick("6")}
@@ -109,7 +104,6 @@ const FileManagerSidebar: React.FC<FileManagerSidebarProps> = ({
                 <IconHelp size={28} className=" pe-2" />
                 <span className="flex-grow-1">Help</span>
               </li>
-
             </ul>
           </div>
         </CardBody>
@@ -203,7 +197,6 @@ const FileManagerSidebar: React.FC<FileManagerSidebarProps> = ({
           ))}
         </CardBody>
       </Card>
-    
     </>
   );
 };

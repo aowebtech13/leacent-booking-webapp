@@ -65,7 +65,6 @@ const DefaultLayout: React.FC<DefaultLayoutProps> = ({ children }) => {
           <TopGo />
           <Footer />
         </div>
-     
 
         <Modal
           isOpen={welcomeModal}

@@ -24,7 +24,7 @@ const PrivacyPolicyPage = () => {
                 <div className="mt-4">
                   <p className="text-dark f-s-16 mt-3">
                     <i className="ti ti-corner-down-right-double text-primary me-2"></i>
-                   Leacent Book-App Store (&#34;Company&#34;) is committed to
+                    Leacent Book-App Store (&#34;Company&#34;) is committed to
                     safeguarding your privacy. This Privacy Policy applies to
                     information we collect on our website located at
                     gragertsgrocerystore.com (the &#34;Website&#34;) our SMS
@@ -34,8 +34,8 @@ const PrivacyPolicyPage = () => {
                     program (the &#34;Loyalty Program&#34;) and our mobile
                     shopping app (the &#34;axe lit&#34;). In this Privacy
                     Policy, we refer to the Website, the SMS Service, the
-                    Digital Coupon Program, the Loyalty Program and theLeacent Book-App
-                    together as the together as the &#34;Services&#34;.
+                    Digital Coupon Program, the Loyalty Program and theLeacent
+                    Book-App together as the together as the &#34;Services&#34;.
                   </p>
                   <p className="text-dark f-s-16 mt-3">
                     <i className="ti ti-corner-down-right-double text-primary me-2"></i>
@@ -75,9 +75,9 @@ const PrivacyPolicyPage = () => {
                     </li>
                     <li className="diamond diamond-bullet-secondary f-s-14 text-secondary">
                       {" "}
-                      When you edit your profile on the Website or theLeacent Book-App or
-                      sign up for our loyalty program, we collect your mailing
-                      address and birthdate.
+                      When you edit your profile on the Website or theLeacent
+                      Book-App or sign up for our loyalty program, we collect
+                      your mailing address and birthdate.
                     </li>
                     <li className="diamond diamond-bullet-secondary f-s-14 text-secondary">
                       {" "}
@@ -115,10 +115,10 @@ const PrivacyPolicyPage = () => {
                       geographic location of your computer or device. This
                       location data is collected anonymously in a form that does
                       not personally identify you. We may obtain your consent on
-                      your first use of the service. On theLeacent Book-App, for example,
-                      we will use your location to associate you with our
-                      nearest store to you. You can change your preferences in
-                      your profile.
+                      your first use of the service. On theLeacent Book-App, for
+                      example, we will use your location to associate you with
+                      our nearest store to you. You can change your preferences
+                      in your profile.
                     </li>
                     <li className="diamond diamond-bullet-secondary f-s-14 text-secondary">
                       When you visit and navigate our site, use our applications
@@ -136,12 +136,12 @@ const PrivacyPolicyPage = () => {
                   <p className="text-dark f-s-16 corner-arrow mt-3">
                     <i className="ti ti-corner-down-right-double text-primary me-2"></i>
                     We collect much of the information listed above directly
-                    from you when you submit it on our Website or in theLeacent Book-App.
-                    This includes information such as registration information,
-                    contact information, and information used in our digital
-                    coupon and loyalty programs. If you do not want to share
-                    your information, you can choose not to participate in a
-                    particular service or activity.
+                    from you when you submit it on our Website or in theLeacent
+                    Book-App. This includes information such as registration
+                    information, contact information, and information used in
+                    our digital coupon and loyalty programs. If you do not want
+                    to share your information, you can choose not to participate
+                    in a particular service or activity.
                   </p>
                   <p className="text-primary text-end f-w-600 text-d-underline">
                     Last update: 11 Sep, 2024

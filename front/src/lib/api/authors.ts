@@ -39,7 +39,9 @@ export interface UpdateAuthorInput extends Partial<CreateAuthorInput> {}
 /**
  * List all authors with optional search and pagination.
  */
-export function getAuthors(query: AuthorQuery = {}): Promise<AuthorListResponse> {
+export function getAuthors(
+  query: AuthorQuery = {}
+): Promise<AuthorListResponse> {
   const params: Record<string, any> = {};
   if (query.search) params.search = query.search;
   if (query.is_active !== undefined) params.is_active = query.is_active;
@@ -72,7 +74,10 @@ export function createAuthor(data: CreateAuthorInput): Promise<Author> {
 /**
  * Update an author.
  */
-export function updateAuthor(id: number | string, data: UpdateAuthorInput): Promise<Author> {
+export function updateAuthor(
+  id: number | string,
+  data: UpdateAuthorInput
+): Promise<Author> {
   return api.put(`admin/authors/${id}`, data);
 }
 

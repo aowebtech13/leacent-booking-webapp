@@ -12,12 +12,7 @@ import {
   Col,
   Row,
 } from "reactstrap";
-import {
-  Trash,
-  UserCircleGear,
-} from "phosphor-react";
-
-
+import { Trash, UserCircleGear } from "phosphor-react";
 
 import SettingProfile from "@/app/apps/(setting)/_components/SettingProfile";
 import Breadcrumbs from "@/Component/CommonElements/Breadcrumbs";
@@ -80,16 +75,10 @@ const Setting = () => {
                           size={20}
                           className="me-2"
                         />
-                       My  Profile
+                        My Profile
                       </NavLink>
                     </NavItem>
-                    
-                  
-                  
-                 
-                 
-                 
-                     
+
                     <NavItem className="cursor-pointer">
                       <NavLink
                         className="nav-link"
@@ -148,8 +137,6 @@ const Setting = () => {
                     </div>
                   </CardBody>
                 </Card>
-              
-               
               </CardBody>
             </Card>
           </Col>
@@ -158,8 +145,6 @@ const Setting = () => {
               <TabPane tabId="1">
                 <SettingProfile />
               </TabPane>
-            
-            
             </TabContent>
           </Col>
         </Row>

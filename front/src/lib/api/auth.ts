@@ -75,7 +75,9 @@ export async function login(payload: LoginPayload): Promise<AuthResponse> {
 /**
  * Verify the OTP sent during registration / login.
  */
-export async function verifyOtp(payload: VerifyOtpPayload): Promise<AuthResponse> {
+export async function verifyOtp(
+  payload: VerifyOtpPayload
+): Promise<AuthResponse> {
   await ensureCsrf();
   const res = await api.post("auth/verify-otp", payload);
   const data = res.data as AuthResponse;
@@ -121,7 +123,6 @@ export async function updateProfile(data: {
   phone_number?: string;
   address?: string;
   about_me?: string;
-  
 }) {
   const res = await api.put("profile", data);
   return res.data;
@@ -130,7 +131,11 @@ export async function updateProfile(data: {
 /**
  * Change the currently authenticated user's password.
  */
-export async function changePassword(payload: { current_password: string; new_password: string; new_password_confirmation: string }) {
+export async function changePassword(payload: {
+  current_password: string;
+  new_password: string;
+  new_password_confirmation: string;
+}) {
   const res = await api.post("auth/change-password", payload);
   return res.data;
 }

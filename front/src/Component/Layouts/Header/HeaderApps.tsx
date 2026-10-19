@@ -1,8 +1,5 @@
 const HeaderApps: React.FC = () => {
-  return (
-    <>
-    </>
-  );
+  return <></>;
 };
 
 export default HeaderApps;

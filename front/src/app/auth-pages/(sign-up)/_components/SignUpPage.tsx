@@ -45,7 +45,9 @@ const SignUpPage = () => {
   });
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => {
     const { name, type, value, checked } = e.target as HTMLInputElement;
     setFormValues((prev) => ({
@@ -96,92 +98,92 @@ const SignUpPage = () => {
                         </div>
                       </Col>
 
-                       {state.error && (
-                          <Col xs={12}>
-                             <Alert color="danger" className="mb-3">
-                               {state.error}
-                             </Alert>
-                          </Col>
-                        )}
+                      {state.error && (
+                        <Col xs={12}>
+                          <Alert color="danger" className="mb-3">
+                            {state.error}
+                          </Alert>
+                        </Col>
+                      )}
 
-                       <Col xs={12}>
-                         <FormGroup className="mb-3">
-                           <Label for="username">Username</Label>
-                           <Input
-                             type="text"
-                             id="username"
-                             name="username"
-                             value={formValues.username}
-                             onChange={handleChange}
-                             placeholder="Enter Your Username"
-                             required
-                             autoComplete="username"
-                           />
-                         </FormGroup>
-                       </Col>
+                      <Col xs={12}>
+                        <FormGroup className="mb-3">
+                          <Label for="username">Username</Label>
+                          <Input
+                            type="text"
+                            id="username"
+                            name="username"
+                            value={formValues.username}
+                            onChange={handleChange}
+                            placeholder="Enter Your Username"
+                            required
+                            autoComplete="username"
+                          />
+                        </FormGroup>
+                      </Col>
 
-                       <Col xs={12}>
-                         <FormGroup className="mb-3">
-                           <Label for="email">Email</Label>
-                           <Input
-                             type="email"
-                             id="email"
-                             name="email"
-                             value={formValues.email}
-                             onChange={handleChange}
-                             placeholder="Enter Your Email"
-                             required
-                             autoComplete="email"
-                           />
-                         </FormGroup>
-                       </Col>
+                      <Col xs={12}>
+                        <FormGroup className="mb-3">
+                          <Label for="email">Email</Label>
+                          <Input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value={formValues.email}
+                            onChange={handleChange}
+                            placeholder="Enter Your Email"
+                            required
+                            autoComplete="email"
+                          />
+                        </FormGroup>
+                      </Col>
 
-                       <Col md={6}>
-                         <FormGroup className="mb-3">
-                           <Label for="password">Password</Label>
-                           <Input
-                             type="password"
-                             id="password"
-                             name="password"
-                             value={formValues.password}
-                             onChange={handleChange}
-                             placeholder="Enter Your Password"
-                             required
-                             autoComplete="new-password"
-                           />
-                         </FormGroup>
-                       </Col>
+                      <Col md={6}>
+                        <FormGroup className="mb-3">
+                          <Label for="password">Password</Label>
+                          <Input
+                            type="password"
+                            id="password"
+                            name="password"
+                            value={formValues.password}
+                            onChange={handleChange}
+                            placeholder="Enter Your Password"
+                            required
+                            autoComplete="new-password"
+                          />
+                        </FormGroup>
+                      </Col>
 
-                       <Col md={6}>
-                         <FormGroup className="mb-3">
-                           <Label for="confirmPassword">Confirm Password</Label>
-                           <Input
-                             type="password"
-                             id="confirmPassword"
-                             name="confirmPassword"
-                             value={formValues.confirmPassword}
-                             onChange={handleChange}
-                             placeholder="Enter Your Password"
-                             required
-                             autoComplete="new-password"
-                           />
-                         </FormGroup>
-                       </Col>
+                      <Col md={6}>
+                        <FormGroup className="mb-3">
+                          <Label for="confirmPassword">Confirm Password</Label>
+                          <Input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            value={formValues.confirmPassword}
+                            onChange={handleChange}
+                            placeholder="Enter Your Password"
+                            required
+                            autoComplete="new-password"
+                          />
+                        </FormGroup>
+                      </Col>
 
-                       <Col xs={12}>
-                         <FormGroup className="mb-3">
-                           <Label for="phone">Phone (Optional)</Label>
-                           <Input
-                             type="tel"
-                             id="phone"
-                             name="phone"
-                             value={formValues.phone}
-                             onChange={handleChange}
-                             placeholder="Enter Your Phone"
-                             autoComplete="tel"
-                           />
-                         </FormGroup>
-                       </Col>
+                      <Col xs={12}>
+                        <FormGroup className="mb-3">
+                          <Label for="phone">Phone (Optional)</Label>
+                          <Input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            value={formValues.phone}
+                            onChange={handleChange}
+                            placeholder="Enter Your Phone"
+                            autoComplete="tel"
+                          />
+                        </FormGroup>
+                      </Col>
 
                       <Col xs={12}>
                         <FormGroup check className="mb-3">
@@ -227,7 +229,6 @@ const SignUpPage = () => {
                           </Link>
                         </div>
                       </Col>
-
                     </Row>
                   </Form>
                 </div>

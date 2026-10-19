@@ -92,20 +92,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
   }, [refreshUser]);
 
-  const login = useCallback(
-    async (email: string, password: string) => {
-      setIsLoading(true);
-      try {
-        const res: AuthResponse = await apiLogin({ email, password });
-        setAuthToken(res.access_token);
-        storeToken(res.access_token);
-        setUser(res.user);
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    []
-  );
+  const login = useCallback(async (email: string, password: string) => {
+    setIsLoading(true);
+    try {
+      const res: AuthResponse = await apiLogin({ email, password });
+      setAuthToken(res.access_token);
+      storeToken(res.access_token);
+      setUser(res.user);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
   const logout = useCallback(async () => {
     await apiLogout();

@@ -74,7 +74,10 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
     e.target.value = digits;
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    index: number
+  ) => {
     if (e.key === "ArrowLeft" && index > 0) {
       e.preventDefault();
       inputsRef.current[index - 1]?.focus();
@@ -83,7 +86,10 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
       e.preventDefault();
       inputsRef.current[index + 1]?.focus();
     }
-    if ((e.key === "Backspace" || e.key === "Delete") && !(e.target as HTMLInputElement).value) {
+    if (
+      (e.key === "Backspace" || e.key === "Delete") &&
+      !(e.target as HTMLInputElement).value
+    ) {
       if (e.key === "Backspace" && index > 0) {
         e.preventDefault();
         inputsRef.current[index - 1]?.focus();
@@ -120,9 +126,15 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
     input?.select();
   };
 
-  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>, startIndex: number) => {
+  const handlePaste = (
+    e: React.ClipboardEvent<HTMLInputElement>,
+    startIndex: number
+  ) => {
     e.preventDefault();
-    const pastedData = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, 5);
+    const pastedData = e.clipboardData
+      .getData("text")
+      .replace(/\D/g, "")
+      .slice(0, 5);
     if (pastedData.length === 0) return;
 
     const digits = pastedData.split("");
@@ -151,7 +163,9 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
     setIsLoading(true);
     setError(null);
 
-    const code = otpFields.map((field) => data[field as keyof FormData]).join("");
+    const code = otpFields
+      .map((field) => data[field as keyof FormData])
+      .join("");
 
     if (!email) {
       setError("Missing email. Please go back and sign in again.");
@@ -191,121 +205,139 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
 
   return (
     <div className="login-card otp-verify-card">
-      
-      
-        <div className="login-main otp-verify-main">
-                      <img src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png" alt="Leacent Logo" className="otp-logo" height="48" />
+      <div className="login-main otp-verify-main">
+        <img
+          src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png"
+          alt="Leacent Logo"
+          className="otp-logo"
+          height="48"
+        />
 
-        
         <div className="theme-form otp-theme-form">
+          <h4 className="f-w-700 text-primary-dark">Verify OTP</h4>
+          <p className="text-muted mt-3 fw-bold">
+            Enter the 5-digit code sent to your email
+          </p>
+        </div>
 
-            <h4 className="f-w-700 text-primary-dark">Verify OTP</h4>
-            <p className="text-muted mt-3 fw-bold">
-              Enter the 5-digit code sent to your email
-            </p>
-          </div>
-
-          <form onSubmit={handleSubmit(onSubmit)} className="auth-form needs-validation otp-auth-form" noValidate>
-            {error && (
-              <div className="alert alert-danger alert-dismissible fade show" role="alert">
-                {error}
-                <button type="button" className="btn-close" onClick={() => setError(null)}></button>
-              </div>
-            )}
-
-              <div className="form-group mb-5">
-                {/* Hidden input to capture all codes typed at once */}
-                <input
-                  type="text"
-                  maxLength={5}
-                  inputMode="numeric"
-                  autoComplete="one-time-code"
-                  autoFocus
-                  style={{
-                    position: "absolute",
-                    opacity: 0,
-                    pointerEvents: "none",
-                    width: 0,
-                    height: 0,
-                    margin: 0,
-                    padding: 0,
-                    border: "none",
-                    outline: "none",
-                  }}
-                  onChange={handleAllCodesChange}
-                />
-                <div className="d-flex justify-content-center gap-3 otp-inputs">
-                {otpFields.map((field, index) => (
-                  <input
-                      key={field}
-                      type="text"
-                      maxLength={1}
-                      inputMode="numeric"
-                      className={`form-control text-center otp-input ${errors[field] ? "is-invalid" : ""} otp-input-lg`}
-                    {...register(field, {
-                      required: "Required",
-                      pattern: {
-                        value: new RegExp("^\\d$"),
-                        message: "Numbers only",
-                      },
-                    })}
-                    autoComplete="one-time-code"
-                    onFocus={() => handleFocus(index)}
-                    onKeyDown={(e) => handleKeyDown(e, index)}
-                    onPaste={(e) => handlePaste(e, index)}
-                    onChange={(e) => {
-                      const field = otpFields[index];
-                      if (field) {
-                        handleOtpChange(index, (e.target as HTMLInputElement).value);
-                      }
-                    }}
-                  />
-                ))}
-              </div>
-              {errors.otp0 && (
-                <div className="invalid-feedback d-block text-center text-dark mb-4">
-                  Typing........
-                </div>
-              )}
-            </div>
-
-            <button
-              type="submit"
-              className="btn btn-primary w-100 py-3 f-w-600 fs-5 otp-verify-btn"
-              disabled={isLoading}
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="auth-form needs-validation otp-auth-form"
+          noValidate
+        >
+          {error && (
+            <div
+              className="alert alert-danger alert-dismissible fade show"
+              role="alert"
             >
-              {isLoading ? (
-                <span className="d-flex align-items-center justify-content-center gap-2">
-                  <span className="spinner-border spinner-border-sm" role="status"></span>
-                  Verifying...
-                </span>
-              ) : (
-                "Verify Code"
-              )}
-            </button>
-          </form>
-
-          <div className="text-center mt-5">
-            <p className="text-muted mb-0">
-              Didn't receive the code?{" "}
+              {error}
               <button
                 type="button"
-                className={`text-primary f-w-600 ${!canResend ? "text-muted" : ""}`}
-                onClick={handleResend}
-                disabled={!canResend}
-              >
-                {canResend ? "Resend Code" : `Resend in ${resendTimer}s`}
-              </button>
-            </p>
+                className="btn-close"
+                onClick={() => setError(null)}
+              ></button>
+            </div>
+          )}
+
+          <div className="form-group mb-5">
+            {/* Hidden input to capture all codes typed at once */}
+            <input
+              type="text"
+              maxLength={5}
+              inputMode="numeric"
+              autoComplete="one-time-code"
+              autoFocus
+              style={{
+                position: "absolute",
+                opacity: 0,
+                pointerEvents: "none",
+                width: 0,
+                height: 0,
+                margin: 0,
+                padding: 0,
+                border: "none",
+                outline: "none",
+              }}
+              onChange={handleAllCodesChange}
+            />
+            <div className="d-flex justify-content-center gap-3 otp-inputs">
+              {otpFields.map((field, index) => (
+                <input
+                  key={field}
+                  type="text"
+                  maxLength={1}
+                  inputMode="numeric"
+                  className={`form-control text-center otp-input ${errors[field] ? "is-invalid" : ""} otp-input-lg`}
+                  {...register(field, {
+                    required: "Required",
+                    pattern: {
+                      value: new RegExp("^\\d$"),
+                      message: "Numbers only",
+                    },
+                  })}
+                  autoComplete="one-time-code"
+                  onFocus={() => handleFocus(index)}
+                  onKeyDown={(e) => handleKeyDown(e, index)}
+                  onPaste={(e) => handlePaste(e, index)}
+                  onChange={(e) => {
+                    const field = otpFields[index];
+                    if (field) {
+                      handleOtpChange(
+                        index,
+                        (e.target as HTMLInputElement).value
+                      );
+                    }
+                  }}
+                />
+              ))}
+            </div>
+            {errors.otp0 && (
+              <div className="invalid-feedback d-block text-center text-dark mb-4">
+                Typing........
+              </div>
+            )}
           </div>
 
-          <div className="text-center mt-4">
-            <Link href="/auth-pages/sign-in" className="text-muted small fw-bold">
-              Back to Sign In
-            </Link>
-          </div>
+          <button
+            type="submit"
+            className="btn btn-primary w-100 py-3 f-w-600 fs-5 otp-verify-btn"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <span className="d-flex align-items-center justify-content-center gap-2">
+                <span
+                  className="spinner-border spinner-border-sm"
+                  role="status"
+                ></span>
+                Verifying...
+              </span>
+            ) : (
+              "Verify Code"
+            )}
+          </button>
+        </form>
+
+        <div className="text-center mt-5">
+          <p className="text-muted mb-0">
+            Didn't receive the code?{" "}
+            <button
+              type="button"
+              className={`text-primary f-w-600 ${!canResend ? "text-muted" : ""}`}
+              onClick={handleResend}
+              disabled={!canResend}
+            >
+              {canResend ? "Resend Code" : `Resend in ${resendTimer}s`}
+            </button>
+          </p>
+        </div>
+
+        <div className="text-center mt-4">
+          <Link href="/auth-pages/sign-in" className="text-muted small fw-bold">
+            Back to Sign In
+          </Link>
         </div>
       </div>
+    </div>
   );
 };
 

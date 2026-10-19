@@ -81,7 +81,9 @@ const FlagIcons: React.FC = () => {
                         <strong className="text-uppercase">
                           {countryCode}
                         </strong>
-                        <code>{FlagData[countryCode as keyof typeof FlagData]}</code>
+                        <code>
+                          {FlagData[countryCode as keyof typeof FlagData]}
+                        </code>
                       </div>
                     </li>
                   );

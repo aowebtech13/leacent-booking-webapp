@@ -1,14 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import {
-  Col,
-  Container,
-  Row,
-  Button,
-  Spinner,
-  Alert,
-} from "reactstrap";
+import { Col, Container, Row, Button, Spinner, Alert } from "reactstrap";
 import Breadcrumbs from "@/Component/CommonElements/Breadcrumbs";
 import { useParams, useRouter } from "next/navigation";
 import { getBookRead, Book } from "@/lib/api/books";
@@ -25,10 +18,16 @@ const BookReaderPage = () => {
   const [fileUrl, setFileUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [readerLocation, setReaderLocation] = useState<string | number | null>(null);
+  const [readerLocation, setReaderLocation] = useState<string | number | null>(
+    null
+  );
 
-  const { progress, loadProgress, saveProgress, isLoading: isProgressLoading } =
-    useReadingProgress();
+  const {
+    progress,
+    loadProgress,
+    saveProgress,
+    isLoading: isProgressLoading,
+  } = useReadingProgress();
 
   const fetchBook = async () => {
     if (!bookId) {
@@ -50,7 +49,10 @@ const BookReaderPage = () => {
         setReaderLocation(saved.progress_percentage as any);
       }
     } catch (err: any) {
-      setError(err?.message || "Failed to load book. You may not have access to this book.");
+      setError(
+        err?.message ||
+          "Failed to load book. You may not have access to this book."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -74,9 +76,11 @@ const BookReaderPage = () => {
       // The onLocationChange already captures the CFI
       if (readerLocation) {
         await saveProgress(bookId, {
-          current_page: Math.round((progress?.progress_percentage as number) || 0),
+          current_page: Math.round(
+            (progress?.progress_percentage as number) || 0
+          ),
           total_pages: book.page_count || 0,
-          progress_percentage: progress?.progress_percentage as number || 0,
+          progress_percentage: (progress?.progress_percentage as number) || 0,
           is_completed: (progress?.progress_percentage as number) >= 100,
         });
       }
@@ -122,7 +126,9 @@ const BookReaderPage = () => {
             <Alert color="danger" className="text-center py-5">
               <IconBook size={48} className="mb-3" />
               <h4>Unable to Load Book</h4>
-              <p className="mb-3">{error || "Book not found or access denied."}</p>
+              <p className="mb-3">
+                {error || "Book not found or access denied."}
+              </p>
               <Button color="secondary" onClick={goBack}>
                 <IconArrowLeft size={16} className="me-1" />
                 Back to Library
@@ -139,9 +145,15 @@ const BookReaderPage = () => {
     : 0;
 
   return (
-    <div className="book-reader-page" style={{ height: "100vh", display: "flex", flexDirection: "column" }}>
+    <div
+      className="book-reader-page"
+      style={{ height: "100vh", display: "flex", flexDirection: "column" }}
+    >
       {/* Top Bar */}
-      <nav className="navbar navbar-light bg-white border-bottom px-3" style={{ zIndex: 100 }}>
+      <nav
+        className="navbar navbar-light bg-white border-bottom px-3"
+        style={{ zIndex: 100 }}
+      >
         <div className="d-flex align-items-center w-100">
           <Button
             color="link"
@@ -152,10 +164,20 @@ const BookReaderPage = () => {
             <IconArrowLeft size={20} />
           </Button>
           <div className="flex-grow-1 text-center">
-            <h5 className="mb-0 fw-medium" style={{ maxWidth: "600px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+            <h5
+              className="mb-0 fw-medium"
+              style={{
+                maxWidth: "600px",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
+            >
               {book.title}
             </h5>
-            <small className="text-muted">{book.author || "Unknown Author"}</small>
+            <small className="text-muted">
+              {book.author || "Unknown Author"}
+            </small>
           </div>
           <div className="d-flex align-items-center gap-2">
             {progressPercent > 0 && (
@@ -163,8 +185,16 @@ const BookReaderPage = () => {
                 {progressPercent}% read
               </span>
             )}
-            <Button color="outline-secondary" size="sm" onClick={handleSaveProgress} disabled={isProgressLoading}>
-              <IconRefresh size={16} className={isProgressLoading ? "fa-spin" : ""} />
+            <Button
+              color="outline-secondary"
+              size="sm"
+              onClick={handleSaveProgress}
+              disabled={isProgressLoading}
+            >
+              <IconRefresh
+                size={16}
+                className={isProgressLoading ? "fa-spin" : ""}
+              />
               Save Progress
             </Button>
           </div>
@@ -192,7 +222,9 @@ const BookReaderPage = () => {
               : "First time reading"}
           </span>
           {book.page_count && (
-            <span>Page {progress?.current_page || 1} of {book.page_count}</span>
+            <span>
+              Page {progress?.current_page || 1} of {book.page_count}
+            </span>
           )}
         </div>
         {progressPercent > 0 && (

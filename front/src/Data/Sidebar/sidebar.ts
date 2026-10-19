@@ -2,7 +2,6 @@ import {
   AppleShortcuts,
   Archive,
   Book,
-  BookmarkBook,
   ChatBubbleQuestion,
   HomeAlt,
   Settings,
@@ -57,17 +56,14 @@ export const MenuList: MenuItemProps[] = [
       {
         name: "Library",
         path: "/level",
-        iconClass: BookmarkBook,
       },
       {
         name: "Settings",
         path: "/level",
-        iconClass: Settings,
       },
       {
         name: "WhatsApp",
         path: "/level",
-        iconClass: ChatBubbleQuestion,
       },
     ],
   },

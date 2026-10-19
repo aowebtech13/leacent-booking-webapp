@@ -217,31 +217,42 @@ const BookLibraryPage = () => {
                   >
                     <button
                       className="page-link"
-                      onClick={() => fetchBooks(currentPage - 1)}
+                      onClick={() => {
+                        setCurrentPage(currentPage - 1);
+                        fetchBooks();
+                      }}
                       disabled={currentPage === 1}
                     >
                       Previous
                     </button>
                   </li>
-                  {Array.from({ length: lastPage }, (_, i) => i + 1).map((page) => (
-                    <li
-                      key={page}
-                      className={`page-item ${page === currentPage ? "active" : ""}`}
-                    >
-                      <button
-                        className="page-link"
-                        onClick={() => fetchBooks(page)}
+                  {Array.from({ length: lastPage }, (_, i) => i + 1).map(
+                    (page) => (
+                      <li
+                        key={page}
+                        className={`page-item ${page === currentPage ? "active" : ""}`}
                       >
-                        {page}
-                      </button>
-                    </li>
-                  ))}
+                        <button
+                          className="page-link"
+                          onClick={() => {
+                            setCurrentPage(page);
+                            fetchBooks();
+                          }}
+                        >
+                          {page}
+                        </button>
+                      </li>
+                    )
+                  )}
                   <li
                     className={`page-item ${currentPage === lastPage ? "disabled" : ""}`}
                   >
                     <button
                       className="page-link"
-                      onClick={() => fetchBooks(currentPage + 1)}
+                      onClick={() => {
+                        setCurrentPage(currentPage + 1);
+                        fetchBooks();
+                      }}
                       disabled={currentPage === lastPage}
                     >
                       Next

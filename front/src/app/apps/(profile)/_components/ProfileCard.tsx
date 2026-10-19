@@ -42,7 +42,14 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
                 </div>
                 <div className="avatar-preview mt-3">
                   <div id="imgPreview">
-                    {avatar && <img src={avatar} alt="Avatar" className="img-fluid rounded-circle" style={{ width: 120, height: 120 }} />}
+                    {avatar && (
+                      <img
+                        src={avatar}
+                        alt="Avatar"
+                        className="img-fluid rounded-circle"
+                        style={{ width: 120, height: 120 }}
+                      />
+                    )}
                   </div>
                 </div>
               </div>
@@ -50,8 +57,6 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
           </div>
           <div className="person-details">
             <h5 className="f-w-600 mt-3">{name}</h5>
-        
-            
 
             <div className="my-2">
               <Link href="/apps/setting">

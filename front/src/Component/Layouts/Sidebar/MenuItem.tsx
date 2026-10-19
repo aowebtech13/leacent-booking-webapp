@@ -105,7 +105,10 @@ const MenuItem: React.FC<MenuItemProps> = ({
                 {(links || []).map((link, index: number) => (
                   <Fragment key={index}>
                     {link.children ? (
-                      <li className="another-level" style={{ marginBottom: "0.25rem" }}>
+                      <li
+                        className="another-level"
+                        style={{ marginBottom: "0.25rem" }}
+                      >
                         <Link
                           href={`#${link.collapseId}`}
                           onClick={(e) => {

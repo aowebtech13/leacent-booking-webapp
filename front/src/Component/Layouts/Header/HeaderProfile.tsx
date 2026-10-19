@@ -45,7 +45,6 @@ const menuItems: MenuItem[] = [
     icon: <Dollar height={24} width={24} className="pe-1 f-s-20" />,
     external: true,
   },
- 
 ];
 
 const HeaderProfile: React.FC = () => {
@@ -57,19 +56,21 @@ const HeaderProfile: React.FC = () => {
   const userName = user?.name || "User";
   const userEmail = user?.email || "";
   const userAvatar = user?.profile?.avatar || "/images/avatar/woman.jpg";
-  const isVerified = user?.profile?.email_verified_at !== null && user?.profile?.email_verified_at !== undefined;
+  const isVerified =
+    user?.profile?.email_verified_at !== null &&
+    user?.profile?.email_verified_at !== undefined;
 
   return (
     <>
-<a role="button" className="d-block head-icon" onClick={toggleCanvas}>
-          <Image
-            src={userAvatar}
-            alt="avatar"
-            width={35}
-            height={35}
-            className="rounded-2"
-          />
-        </a>
+      <a role="button" className="d-block head-icon" onClick={toggleCanvas}>
+        <Image
+          src={userAvatar}
+          alt="avatar"
+          width={35}
+          height={35}
+          className="rounded-2"
+        />
+      </a>
 
       <Offcanvas
         direction="end"
@@ -109,9 +110,7 @@ const HeaderProfile: React.FC = () => {
                     />
                   )}
                 </h6>
-                <p className="f-s-12 mb-0 text-secondary">
-                  {userEmail}
-                </p>
+                <p className="f-s-12 mb-0 text-secondary">{userEmail}</p>
               </div>
             </li>
 
@@ -130,9 +129,6 @@ const HeaderProfile: React.FC = () => {
 
             <li className="app-divider-v dotted py-1" />
 
-       
-          
-
             {/* Notification Toggle */}
             <li className="d-flex align-items-center justify-content-between">
               <a className="f-w-500" href="#">
@@ -147,8 +143,6 @@ const HeaderProfile: React.FC = () => {
                 <Input type="switch" role="switch" id="basicSwitch" />
               </FormGroup>
             </li>
-
-         
 
             <li className="app-divider-v dotted py-1" />
 

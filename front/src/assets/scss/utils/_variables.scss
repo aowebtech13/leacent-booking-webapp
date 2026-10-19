@@ -15,9 +15,9 @@ $danger-color: #f00ac8;
 $light-color: #d7d0c8;
 $badge-light-color: #52526c;
 $light-gray: #f4f7f8;
-$light-widget-border: #EFEEFF;
+$light-widget-border: #efeeff;
 $light-semi-gray: #efefef;
-$font-gray-color: #6C757D;
+$font-gray-color: #6c757d;
 $dark-light: #282632;
 $dark-gray: #898989;
 $dark-color: #282632;
@@ -29,7 +29,7 @@ $auth-bg-color: #fafafa;
 $light: #fdfeff;
 $semi-dark: #59667a;
 $light-text: #999999;
-$light-paragraph: #8F8F8F;
+$light-paragraph: #8f8f8f;
 $light-background: #d7e2e9;
 $light-font: rgba(27, 49, 85, 0.4);
 $light-semi-font: $semi-dark;
@@ -40,39 +40,48 @@ $color-fiord: #455a64;
 $black: #000;
 $white: #fff;
 $ps-light-border: #ddd;
-$off-white: #F7F6FF;
+$off-white: #f7f6ff;
 $lighter-white: #e9e9e9;
 $theme-medium-color: #eae8ff;
-$dropdown-border-color: #918E99;
+$dropdown-border-color: #918e99;
 $light-primary: #e8e5ff;
 $light-secondary: #f2f2f2;
 $light-success: #dcf1da;
-$light-info: #D5F5FE;
+$light-info: #d5f5fe;
 $light-warning: #fff7e5;
 $light-danger: #ffe8e6;
-$light-white: #F9F9FB;
-$light-dark: #EAEBF2;
+$light-white: #f9f9fb;
+$light-dark: #eaebf2;
 $folder-color: #efa000;
 
 // Social colors
 $fb: #50598e;
 $twitter: #000c;
 $google-plus: #c64e40;
-$linkedin: #0073B1;
+$linkedin: #0073b1;
 
 // Social table
-$fb-color: #2F84F4;
-$insta-color: #FC971E;
-$pintrest-color: #FF3364;
+$fb-color: #2f84f4;
+$insta-color: #fc971e;
+$pintrest-color: #ff3364;
 $twitter-color: #231915;
-$youtube-color: #F42F2F;
-$instagram-color: linear-gradient(45deg, #FEE411 11.93%, #FEDB16 15.61%, #FEC125 21.74%, #FE983D 29.56%, #FE5F5E 38.66%, #FE2181 47.46%, #9000DC 82.98%);
+$youtube-color: #f42f2f;
+$instagram-color: linear-gradient(
+  45deg,
+  #fee411 11.93%,
+  #fedb16 15.61%,
+  #fec125 21.74%,
+  #fe983d 29.56%,
+  #fe5f5e 38.66%,
+  #fe2181 47.46%,
+  #9000dc 82.98%
+);
 
 // Fonts
 $font-rubik: "Rubik", sans-serif;
 $font-roboto: "Roboto", sans-serif;
 $font-serif: sans-serif;
-$landing-cursive: 'Caveat', cursive;
+$landing-cursive: "Caveat", cursive;
 $font-themify: themify;
 $font-awesome: "Font Awesome 6 Free";
 $font-ICO: IcoFont;
@@ -135,16 +144,16 @@ $table-hover-color: $light;
 $table-padding: 0.75rem;
 $table-xl-padding: 1.25rem 2rem;
 $table-xl-font: 120%;
-$table-lg-padding: .9rem 2rem;
+$table-lg-padding: 0.9rem 2rem;
 $table-lg-font: 110%;
-$table-de-padding: .75rem 2rem;
+$table-de-padding: 0.75rem 2rem;
 $table-de-font: 100%;
-$table-sm-padding: .5rem 2rem;
+$table-sm-padding: 0.5rem 2rem;
 $table-sm-font: 90%;
 $table-xs-padding: 0.2rem 2rem;
 $table-xs-font: 80%;
 $horizontal-border-color: #f2f4ff;
-$horizontal-padding: .75rem 2rem;
+$horizontal-padding: 0.75rem 2rem;
 $table-inverse-bg-color: #292b2c;
 
 // According setting
@@ -198,7 +207,7 @@ $card-header-span-size: 12px;
 $card-header-span-color: $theme-body-sub-title-color;
 $card-body-bg-color: $transparent-color;
 $card-footer-bg-color: $white;
-$card-hover-box-shadow: 0 0 40px rgba(8, 21, 66, .05);
+$card-hover-box-shadow: 0 0 40px rgba(8, 21, 66, 0.05);
 
 // According settings
 $card-border-width: 0px;

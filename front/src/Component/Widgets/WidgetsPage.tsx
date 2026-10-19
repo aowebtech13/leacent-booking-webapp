@@ -1,8 +1,6 @@
 import React, { useState, ChangeEvent, useEffect } from "react";
 import EcommerceCard from "@/Component/Dashboard/EcommerceDashboard/EcommerceCard";
 
-
-
 import {
   Card,
   CardBody,
@@ -166,10 +164,6 @@ const WidgetsPage: React.FC = () => {
             </CardBody>
           </Card>
         </Col>
-
-
-
-
       </Row>
     </Container>
   );

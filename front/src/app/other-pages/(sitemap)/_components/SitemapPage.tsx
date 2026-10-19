@@ -32,7 +32,7 @@ const SitemapPage = () => {
                     <ul className="list-unstyled mb-0">
                       <li className="p-0 parent-title">
                         <a href="#" className="fw-medium fs-14">
-                         Leacent Book-App-next
+                          Leacent Book-App-next
                         </a>
                       </li>
                       <li>
@@ -69,7 +69,6 @@ const SitemapPage = () => {
                                 Apps
                               </a>
                               <ul className="second-part list-unstyled">
-                               
                                 <li>
                                   <a href="#"> pricing </a>
                                 </li>
@@ -82,9 +81,6 @@ const SitemapPage = () => {
                                 <li>
                                   <a href="#"> Chat </a>
                                 </li>
-                              
-                               
-                           
                               </ul>
                             </li>
                             <li>
@@ -659,7 +655,7 @@ const SitemapPage = () => {
                     <ul className="list-unstyled">
                       <li className="p-0 parent-title">
                         <a href="#" className="fw-medium fs-14">
-                         Leacent Book-App-next
+                          Leacent Book-App-next
                         </a>
                       </li>
                       <li>

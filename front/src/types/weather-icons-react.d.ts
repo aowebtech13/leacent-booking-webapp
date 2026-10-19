@@ -12,5 +12,4 @@ declare module "weather-icons-react" {
 }
 
 type IconComponent =
-  | FC<PhosphorIconProps>
-  | React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  FC<PhosphorIconProps> | React.ComponentType<React.SVGProps<SVGSVGElement>>;

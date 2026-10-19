@@ -8,8 +8,9 @@ import "toastify-js/src/toastify.css";
 import * as TablerIcons from "@tabler/icons-react";
 import { Icon, IconIcons } from "@tabler/icons-react";
 
-interface IconProps
-  extends Partial<Omit<React.ComponentPropsWithoutRef<"svg">, "stroke">> {
+interface IconProps extends Partial<
+  Omit<React.ComponentPropsWithoutRef<"svg">, "stroke">
+> {
   size?: string | number;
   stroke?: string | number;
   title?: string;

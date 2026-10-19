@@ -5,7 +5,6 @@ import { Offcanvas, OffcanvasHeader, OffcanvasBody } from "reactstrap";
 import {
   fetchNotifications,
   fetchUnreadCount,
-  markAsRead,
   deleteNotification,
   type Notification,
 } from "@/lib/api";

@@ -77,10 +77,8 @@
     top: 0;
     left: 0;
 
-    background-image: linear-gradient(
-        rgb(110 110 110 / 10%) 2px,
-        transparent 2px
-      ),
+    background-image:
+      linear-gradient(rgb(110 110 110 / 10%) 2px, transparent 2px),
       linear-gradient(90deg, rgb(110 110 110 / 10%) 2px, transparent 2px),
       linear-gradient(rgba(var(--dark), 0.1) 1px, transparent 1px),
       linear-gradient(
@@ -1085,7 +1083,8 @@
       width: 100%;
       //z-index: 0;
       top: 0;
-      background-image: linear-gradient(#e9cb64 1px, transparent 1px),
+      background-image:
+        linear-gradient(#e9cb64 1px, transparent 1px),
         linear-gradient(to right, #e9cb64 1px, #f5edd2 1px);
       background-size: 50px 50px;
       opacity: 0.2;

@@ -1,14 +1,10 @@
 import {
   AppWindow,
- 
   Gear,
   ProjectorScreenChart,
   ShieldCheck,
   Table,
 } from "phosphor-react";
-
-
-
 
 export const cartData = [
   {

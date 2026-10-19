@@ -252,7 +252,12 @@ const EcommerceSale = () => {
         <Card className="transaction-card">
           <CardBody>
             <div className="text-center">
-              <Image alt="logo-img" src="/images/form/done.png" width={64} height={64} />
+              <Image
+                alt="logo-img"
+                src="/images/form/done.png"
+                width={64}
+                height={64}
+              />
               <h6 className="text-success-dark mb-0">Thank You!</h6>
               <p className="mb-0 f-w-600 text-success d-inline transaction-txt">
                 Your transaction was successful

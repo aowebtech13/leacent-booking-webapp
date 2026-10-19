@@ -99,7 +99,9 @@ export async function bootstrapCsrf(): Promise<void> {
   csrfBootstrapped = true;
   try {
     await axios.get("/sanctum/csrf-cookie", {
-      baseURL: process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/api$/, "") || "http://127.0.0.1:8000",
+      baseURL:
+        process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/api$/, "") ||
+        "http://127.0.0.1:8000",
       withCredentials: true,
     });
   } catch {
