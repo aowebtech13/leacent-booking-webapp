@@ -13,7 +13,7 @@ const SpinnersPage = () => {
           mainTitle="Spinners"
           title="Advance Ui"
           path={["Spinners"]}
-          Icon={IconBriefcase}
+          Icon={IconBriefcase as any}
         />
 
         <Row>

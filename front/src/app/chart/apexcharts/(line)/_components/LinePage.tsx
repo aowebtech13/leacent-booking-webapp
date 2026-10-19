@@ -27,7 +27,7 @@ const LinePage = () => {
           mainTitle="Line"
           title="Chart"
           path={["Apexcharts", "Line"]}
-          Icon={IconChartPie}
+          Icon={IconChartPie as any}
         />
         <Row>
           <Col md="6">

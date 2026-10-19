@@ -40,7 +40,7 @@ const TextareaPage: React.FC = () => {
           mainTitle="Textarea"
           title="Forms Elements"
           path={["Textarea"]}
-          Icon={IconCreditCard}
+          Icon={IconCreditCard as any}
         />
         <Row>
           <Col md="12">

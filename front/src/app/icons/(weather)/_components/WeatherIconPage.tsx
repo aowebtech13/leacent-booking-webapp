@@ -50,7 +50,7 @@ const WeatherIconPage = () => {
           mainTitle="Weather"
           title="Icons"
           path={["Weather"]}
-          Icon={IconIcons}
+          Icon={IconIcons as any}
         />
         <Row>
           <Col xs="12">

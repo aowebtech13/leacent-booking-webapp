@@ -90,7 +90,7 @@ const AreaChartPage = () => {
           mainTitle="Area"
           title="Chart"
           path={["Apexcharts", "Area"]}
-          Icon={IconChartPie}
+          Icon={IconChartPie as any}
         />
         <Row>
           <Col lg="6">

@@ -27,7 +27,7 @@ const BubblePage = () => {
           mainTitle="Bubble"
           title="Chart"
           path={["Apexcharts", "Bubble"]}
-          Icon={IconChartPie}
+          Icon={IconChartPie as any}
         />
         <Row>
           <Col xs="12">

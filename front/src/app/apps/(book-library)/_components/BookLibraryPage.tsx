@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import {
   Card,
   CardBody,
-  CardHeader,
   Col,
   Container,
   Row,
@@ -15,7 +14,6 @@ import {
   FormGroup,
   Label,
 } from "reactstrap";
-import Link from "next/link";
 import Breadcrumbs from "@/Component/CommonElements/Breadcrumbs";
 import { getBooks, Book } from "@/lib/api/books";
 import { IconBook, IconSearch, IconFileText } from "@tabler/icons-react";
@@ -37,12 +35,12 @@ const BookLibraryPage = () => {
       const res = await getBooks({
         search: searchQuery || undefined,
         per_page: 12,
-        page,
+        page: currentPage,
       });
-      setBooks(res.data.data);
-      if (res.data.meta) {
-        setCurrentPage(res.data.meta.current_page);
-        setLastPage(res.data.meta.last_page);
+      setBooks(res.data);
+      if (res.meta) {
+        setCurrentPage(res.meta.current_page);
+        setLastPage(res.meta.last_page);
       }
     } catch (err: any) {
       setError(err?.message || "Failed to load books");
@@ -76,7 +74,7 @@ const BookLibraryPage = () => {
           mainTitle="Book Library"
           title="Apps"
           path={["Book Library"]}
-          Icon={IconBook}
+          Icon={IconBook as any}
         />
 
         <Row className="mb-4">

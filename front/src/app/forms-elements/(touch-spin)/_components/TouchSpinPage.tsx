@@ -60,7 +60,7 @@ const TouchSpinPage = () => {
           mainTitle="Touch spin"
           title="Forms elements"
           path={["Touch spin"]}
-          Icon={IconCreditCard}
+          Icon={IconCreditCard as any}
         />
         <Row className="main-touchspin">
           {/* First Card */}

@@ -95,7 +95,7 @@ const TypeaheadPage: React.FC = () => {
           mainTitle="Typeahead"
           title="Forms Elements"
           path={["Typeahead"]}
-          Icon={IconCreditCard}
+          Icon={IconCreditCard as any}
         />
         <Row className="app-typeahead typeahead-demo">
           {/* The Basics */}

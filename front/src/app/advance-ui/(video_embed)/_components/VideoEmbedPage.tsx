@@ -55,7 +55,7 @@ const VideoEmbedPage: React.FC = () => {
           mainTitle="Video Embed"
           title="Advance Ui"
           path={["Video Embed"]}
-          Icon={IconBriefcase}
+          Icon={IconBriefcase as any}
         />
         <Row>
           <Col md="6">

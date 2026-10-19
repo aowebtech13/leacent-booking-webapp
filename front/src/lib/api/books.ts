@@ -121,6 +121,7 @@ export interface BooksQuery {
   sort?: string;
   direction?: "asc" | "desc";
   per_page?: number;
+  page?: number;
 }
 
 /**

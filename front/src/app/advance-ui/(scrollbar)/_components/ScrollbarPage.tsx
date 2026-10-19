@@ -72,7 +72,7 @@ const ScrollbarPage = () => {
           mainTitle="Scrollbar"
           title="Advance UI"
           path={["Scrollbar"]}
-          Icon={IconBriefcase}
+          Icon={IconBriefcase as any}
         />
 
         <Row>

@@ -11,7 +11,7 @@ const PrivacyPolicyPage = () => {
           mainTitle="Privacy Policy"
           title=" Other Pages"
           path={["Privacy Policy"]}
-          Icon={IconNews}
+          Icon={IconNews as any}
         />
         <Row>
           <Col xs={12}>

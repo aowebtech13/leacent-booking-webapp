@@ -1,7 +1,6 @@
 import { useCallback, useState } from "react";
 import { useAuth } from "@/lib/contexts/AuthContext";
 import { api } from "@/lib/api";
-import { Book } from "@/lib/api/books";
 
 export interface ReadingProgress {
   id: number;

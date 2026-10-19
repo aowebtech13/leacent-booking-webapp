@@ -28,7 +28,7 @@ const ColumnPage = () => {
           mainTitle="column"
           title="Chart"
           path={["Apexcharts", "column"]}
-          Icon={IconChartPie}
+          Icon={IconChartPie as any}
         />
         <Row>
           <Col lg="6">

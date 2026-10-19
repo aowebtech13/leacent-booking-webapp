@@ -94,7 +94,7 @@ for (var i = 0; i < sources.length; i++) {
           mainTitle="Prismjs"
           title="Advance Ui"
           path={["Prismjs"]}
-          Icon={IconBriefcase}
+          Icon={IconBriefcase as any}
         />
 
         <PrismCodeWrapper>

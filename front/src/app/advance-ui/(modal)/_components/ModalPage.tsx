@@ -45,7 +45,7 @@ const ModalPage: React.FC = () => {
           mainTitle="Modals"
           title="Advance Ui"
           path={["Modals"]}
-          Icon={IconBriefcase}
+          Icon={IconBriefcase as any}
         />
         <Row>
           <Col sm="12" md="6">

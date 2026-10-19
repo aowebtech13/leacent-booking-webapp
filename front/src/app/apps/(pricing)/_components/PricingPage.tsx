@@ -8,70 +8,6 @@ import ComparePricing from "@/app/apps/(pricing)/_components/ComparePricing";
 import { IconStack2 } from "@tabler/icons-react";
 
 const PricingPage = () => {
-  const plans = [
-    {
-      plan: "Basic Plans",
-      price: 20,
-      yearlyPrice: 80,
-      features: [
-        "5 Free Websites",
-        "1 GB Hard disk Storage",
-        "1 field",
-        "10 Users",
-        "Email Support",
-      ],
-      imgSrc: "/images/pricing/1.png",
-      imgSrcBack: "/images/pricing/9.png",
-      bgColor: "secondary",
-    },
-    {
-      plan: "Business Plans",
-      price: 80,
-      yearlyPrice: 100,
-      features: [
-        "40 Free Websites",
-        "20 GB Hard disk Storage",
-        "50 fields",
-        "30 Users",
-        "Email Support",
-      ],
-      imgSrc: "/images/pricing/2.png",
-      imgSrcBack: "/images/pricing/8.png",
-      isBest: true,
-      bgColor: "primary",
-    },
-    {
-      plan: "Premium Plans",
-      price: 200,
-      yearlyPrice: 500,
-      features: [
-        "Unlimited Websites",
-        "40 GB Hard disk Storage",
-        "Unlimited fields",
-        "40 Users",
-        "Email Support",
-      ],
-      imgSrc: "/images/pricing/3.png",
-      imgSrcBack: "/images/pricing/7.png",
-      bgColor: "secondary",
-    },
-    {
-      plan: "Golden Premium Plans",
-      price: 500,
-      yearlyPrice: 1000,
-      features: [
-        "Unlimited Websites",
-        "40 GB Hard disk Storage",
-        "Unlimited fields",
-        "Unlimited Users",
-        "Email Support",
-      ],
-      imgSrc: "/images/pricing/15.png",
-      imgSrcBack: "/images/pricing/14.png",
-      isBest: true,
-      bgColor: "primary",
-    },
-  ];
   return (
     <div>
       <Container fluid>
@@ -79,7 +15,7 @@ const PricingPage = () => {
           mainTitle="Pricing"
           title="Apps"
           path={["Pricing"]}
-          Icon={IconStack2}
+          Icon={IconStack2 as any}
         />
         <Row>
         

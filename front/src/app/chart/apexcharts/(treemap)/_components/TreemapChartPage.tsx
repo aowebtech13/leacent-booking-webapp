@@ -28,7 +28,7 @@ const TreemapChartPage = () => {
           mainTitle="Treemap"
           title="Chart"
           path={["Apexcharts", "Treemap"]}
-          Icon={IconChartPie}
+          Icon={IconChartPie as any}
         />
         <Row>
           <Col sm="12">

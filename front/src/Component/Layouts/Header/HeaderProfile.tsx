@@ -4,9 +4,7 @@ import { Offcanvas, OffcanvasBody, FormGroup, Input } from "reactstrap";
 import {
   BellNotification,
   Dollar,
-  EyeClosed,
   HelpCircle,
-  Plus,
   UserLove,
   Settings,
 } from "iconoir-react";

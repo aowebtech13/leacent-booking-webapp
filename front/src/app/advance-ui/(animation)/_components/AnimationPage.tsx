@@ -258,7 +258,7 @@ const AnimationPage = () => {
           mainTitle="Animation"
           title="Advance Ui"
           path={["Animation"]}
-          Icon={IconBriefcase}
+          Icon={IconBriefcase as any}
         />
 
         <Row>

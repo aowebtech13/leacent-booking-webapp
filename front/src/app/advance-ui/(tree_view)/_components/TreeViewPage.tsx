@@ -115,7 +115,7 @@ const TreeViewPage = () => {
         mainTitle="Tree View"
         title="Advance Ui"
         path={["Tree View"]}
-        Icon={IconBriefcase}
+        Icon={IconBriefcase as any}
       />
       <Row className="tree-view">
         <Col lg="6">

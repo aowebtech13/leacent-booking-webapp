@@ -13,11 +13,6 @@ import {
   Alert,
 } from "reactstrap";
 import Link from "next/link";
-import {
-  IconBrandFacebook,
-  IconBrandGithub,
-  IconBrandGoogle,
-} from "@tabler/icons-react";
 import { loginUser } from "@/lib/auth/action";
 
 const INITIAL_STATE = { error: null as string | null };

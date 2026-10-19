@@ -43,7 +43,7 @@ const FloatingLabels = () => {
           mainTitle="Floating Labels"
           title="Forms elements"
           path={["Floating labels"]}
-          Icon={IconCreditCard}
+          Icon={IconCreditCard as any}
         />
         <Row>
           {/* Custom Floating Labels */}

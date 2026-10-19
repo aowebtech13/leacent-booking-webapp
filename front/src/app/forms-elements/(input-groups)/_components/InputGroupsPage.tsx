@@ -36,7 +36,7 @@ const InputGroupsPage = () => {
           mainTitle="Input Groups"
           title="Forms elements"
           path={["Input groups"]}
-          Icon={IconCreditCard}
+          Icon={IconCreditCard as any}
         />
         <Row>
           <Col xs="12">

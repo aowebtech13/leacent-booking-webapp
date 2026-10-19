@@ -48,7 +48,7 @@ const SweetAlertPage = () => {
           mainTitle="Sweet Alert"
           title="Advance Ui"
           path={["Sweet Alert"]}
-          Icon={IconBriefcase}
+          Icon={IconBriefcase as any}
         />
 
         <Row>

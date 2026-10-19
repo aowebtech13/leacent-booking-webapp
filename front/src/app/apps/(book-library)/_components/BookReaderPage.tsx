@@ -2,8 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import {
-  Card,
-  CardBody,
   Col,
   Container,
   Row,
@@ -15,8 +13,8 @@ import Breadcrumbs from "@/Component/CommonElements/Breadcrumbs";
 import { useParams, useRouter } from "next/navigation";
 import { getBookRead, Book } from "@/lib/api/books";
 import { BookReader } from "@/Component/BookReader/BookReader";
-import { useReadingProgress, ReadingProgress } from "@/hooks/useReadingProgress";
-import { IconBook, IconArrowLeft, IconDownload, IconRefresh } from "@tabler/icons-react";
+import { useReadingProgress } from "@/hooks/useReadingProgress";
+import { IconBook, IconArrowLeft, IconRefresh } from "@tabler/icons-react";
 
 interface BookReadResponse {
   book: Book;
@@ -54,7 +52,7 @@ const BookReaderPage = () => {
     setError(null);
     try {
       const res = await getBookRead(bookId);
-      const data = res.data as BookReadResponse;
+      const data = res;
       setBook(data.book);
       setFileUrl(data.file_url);
       // Load saved progress
@@ -110,7 +108,7 @@ const BookReaderPage = () => {
           mainTitle="Loading..."
           title="Apps"
           path={["Book Library", "Reading"]}
-          Icon={IconBook}
+          Icon={IconBook as any}
         />
         <Row className="justify-content-center mt-5">
           <Col xs={12} className="text-center">
@@ -129,7 +127,7 @@ const BookReaderPage = () => {
           mainTitle="Error"
           title="Apps"
           path={["Book Library", "Error"]}
-          Icon={IconBook}
+          Icon={IconBook as any}
         />
         <Row className="justify-content-center mt-5">
           <Col md={8}>
@@ -201,7 +199,9 @@ const BookReaderPage = () => {
       <div className="bg-light border-top px-3 py-2">
         <div className="d-flex align-items-center justify-content-between small text-muted">
           <span>
-            {progress ? `Last read: ${new Date(progress.last_read_at).toLocaleDateString()}` : "First time reading"}
+            {progress
+              ? `Last read: ${new Date(progress.last_read_at ?? "").toLocaleDateString()}`
+              : "First time reading"}
           </span>
           {book.page_count && (
             <span>Page {progress?.current_page || 1} of {book.page_count}</span>

@@ -11,7 +11,7 @@ const TermsPage = () => {
           mainTitle="Terms & Conditions"
           title=" Other Pages"
           path={["Terms & Conditions"]}
-          Icon={IconNews}
+          Icon={IconNews as any}
         />
         <Row className="terms-condition-container">
           <Col>

@@ -118,7 +118,7 @@ const SliderPage = () => {
         mainTitle="Slider"
         title="Advance Ui"
         path={["Slider"]}
-        Icon={IconBriefcase}
+        Icon={IconBriefcase as any}
       />
       <Row className="app-slick-sliders">
         <Col lg="6">

@@ -138,7 +138,7 @@ const MiscPage = () => {
           mainTitle="Misc"
           title="Misc Pages"
           path={["Misc"]}
-          Icon={AppleShortcuts}
+          Icon={AppleShortcuts as any}
         />
 
         <Row>

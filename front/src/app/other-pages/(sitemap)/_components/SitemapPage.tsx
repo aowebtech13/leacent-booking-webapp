@@ -18,7 +18,7 @@ const SitemapPage = () => {
           mainTitle="Sitemap"
           title=" Other Pages"
           path={["Sitemap"]}
-          Icon={IconNews}
+          Icon={IconNews as any}
         />
         <Row>
           <Col>

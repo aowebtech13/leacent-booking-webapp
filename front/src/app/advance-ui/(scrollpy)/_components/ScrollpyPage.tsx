@@ -41,7 +41,7 @@ const ScrollpyPage = () => {
           mainTitle="Scrollpy"
           title="Advance Ui"
           path={["Scrollpy"]}
-          Icon={IconBriefcase}
+          Icon={IconBriefcase as any}
         />
 
         <Row>

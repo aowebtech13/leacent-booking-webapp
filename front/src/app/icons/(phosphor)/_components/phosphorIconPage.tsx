@@ -38,7 +38,7 @@ const PhosphorIconPage: React.FC = () => {
           mainTitle="Phosphor"
           title="Icons"
           path={["Phosphor"]}
-          Icon={IconIcons}
+          Icon={IconIcons as any}
         />
 
         <Row>

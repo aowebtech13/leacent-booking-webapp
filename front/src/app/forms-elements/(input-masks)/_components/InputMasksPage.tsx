@@ -21,7 +21,7 @@ const InputMasksPage = () => {
           mainTitle="Input Masks"
           title="Forms elements"
           path={["Input Masks"]}
-          Icon={IconCreditCard}
+          Icon={IconCreditCard as any}
         />
         <Row>
           <Col md="12">

@@ -63,7 +63,7 @@ const FileManagerPage = () => {
         mainTitle="File Manager"
         title="Apps"
         path={["File Manager"]}
-        Icon={IconStack2}
+        Icon={IconStack2 as any}
       />
       <Row>
         <Col lg={4} xxl={3}>

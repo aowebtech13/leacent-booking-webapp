@@ -80,7 +80,7 @@ const Team = () => {
         mainTitle="Team"
         title="Apps"
         path={["Team"]}
-        Icon={IconStack2}
+        Icon={IconStack2 as any}
       />
       <div className="tab-wrapper">
         <Nav tabs className="d-flex align-items-center tab-wrapper tabs">

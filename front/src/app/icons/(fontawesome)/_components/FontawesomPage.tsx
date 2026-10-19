@@ -63,7 +63,7 @@ const Fontawesome: React.FC = () => {
         mainTitle="Fontawesome"
         title="Icons"
         path={["Fontawesome"]}
-        Icon={IconIcons}
+        Icon={IconIcons as any}
       />
       <Row>
         <Col xs="12">

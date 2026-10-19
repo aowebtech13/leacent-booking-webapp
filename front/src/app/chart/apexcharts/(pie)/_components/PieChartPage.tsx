@@ -27,7 +27,7 @@ const PieChartPage = () => {
           mainTitle="pie"
           title="Chart"
           path={["Apexcharts", "pie"]}
-          Icon={IconChartPie}
+          Icon={IconChartPie as any}
         />
         <Row>
           <Col lg="6" xl="4">

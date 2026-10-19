@@ -54,7 +54,7 @@ const ChartPage = () => {
           mainTitle="Chart js"
           title="Chart"
           path={["Chart Js"]}
-          Icon={IconChartPie}
+          Icon={IconChartPie as any}
         />
         <Row>
           <Row className=" chart-js-chart">

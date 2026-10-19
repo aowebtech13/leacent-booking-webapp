@@ -18,7 +18,7 @@ const DraggablePage = () => {
           mainTitle="Draggable"
           title="Advance Ui"
           path={["Draggable"]}
-          Icon={IconBriefcase}
+          Icon={IconBriefcase as any}
         />
         <Row className="share-list-responsive">
           <DraggableList />

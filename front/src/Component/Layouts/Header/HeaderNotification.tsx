@@ -47,11 +47,11 @@ const HeaderNotification: React.FC = () => {
     }
   };
 
-  const handleMarkAsRead = async (id: number) => {
+  const handleMarkAsRead = async (_id: number) => {
     try {
-      await markAsRead(id);
+      await markAsRead(_id);
       const updated = notifications.map((n) =>
-        n.id === id ? { ...n, read_at: new Date().toISOString() } : n
+        n.id === _id ? { ...n, read_at: new Date().toISOString() } : n
       );
       setNotifications(updated);
       if (unreadCount > 0) setUnreadCount(unreadCount - 1);

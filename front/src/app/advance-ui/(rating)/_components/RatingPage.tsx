@@ -45,7 +45,7 @@ const Rating = () => {
           mainTitle="Rating"
           title="Advance Ui"
           path={["Rating"]}
-          Icon={IconBriefcase}
+          Icon={IconBriefcase as any}
         />
         <Row>
           <Col md="3" xl="3">

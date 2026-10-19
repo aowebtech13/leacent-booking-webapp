@@ -13,7 +13,7 @@ export default function CountDownPage() {
         mainTitle="count-down"
         title="Advance Ui"
         path={["count-down"]}
-        Icon={IconBriefcase}
+        Icon={IconBriefcase as any}
       />
 
       <Row>

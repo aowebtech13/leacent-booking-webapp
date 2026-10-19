@@ -29,7 +29,7 @@ const BaseInputPage = () => {
           mainTitle="Base Input"
           title="Forms Elements"
           path={["Base Input"]}
-          Icon={IconCreditCard}
+          Icon={IconCreditCard as any}
         />
         <Row>
           <Col md="6">

@@ -27,7 +27,7 @@ const RadarChartPage = () => {
           mainTitle="Radar"
           title="Chart"
           path={["Apexcharts", "Radar"]}
-          Icon={IconChartPie}
+          Icon={IconChartPie as any}
         />
         <Row>
           <Col sm="12" md="6" xl="6">

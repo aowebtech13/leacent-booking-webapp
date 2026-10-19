@@ -64,7 +64,7 @@ const SwitchPage = () => {
           mainTitle="switch"
           title="Forms elements"
           path={["switch"]}
-          Icon={IconCreditCard}
+          Icon={IconCreditCard as any}
         />
         <Row>
           <Col sm="12">

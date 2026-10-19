@@ -272,7 +272,7 @@ const FaqPage = () => {
           mainTitle="FAQ"
           title="Apps"
           path={["FAQ"]}
-          Icon={IconStack2}
+          Icon={IconStack2 as any}
         />
         <div className="faq-header text-center my-4">
           <img src="/images/logo/3.png" alt="Logo" />

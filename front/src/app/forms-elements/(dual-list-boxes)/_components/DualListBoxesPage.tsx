@@ -40,7 +40,7 @@ const DualListBoxesPage: React.FC = () => {
           mainTitle="Dual List Boxes"
           title="Forms elements"
           path={["Dual list boxes"]}
-          Icon={IconCreditCard}
+          Icon={IconCreditCard as any}
         />
         <Row>
           <div className="col-xxl-6">

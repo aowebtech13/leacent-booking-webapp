@@ -27,7 +27,7 @@ const MixedPage = () => {
           mainTitle="Mixed"
           title="Chart"
           path={["Apexcharts", "Mixed"]}
-          Icon={IconChartPie}
+          Icon={IconChartPie as any}
         />
         <Row>
           <Col lg="6">

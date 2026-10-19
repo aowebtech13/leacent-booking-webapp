@@ -140,7 +140,7 @@ const BootstrapSliderPage: React.FC = () => {
           mainTitle="React Carousel"
           title="Advance Ui"
           path={["React Carousel"]}
-          Icon={IconBriefcase}
+          Icon={IconBriefcase as any}
         />
 
         <Row>

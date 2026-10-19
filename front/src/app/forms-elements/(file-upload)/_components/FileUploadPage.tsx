@@ -17,7 +17,7 @@ const FileUploadPage = () => {
           mainTitle="File Upload"
           title="Forms elements"
           path={["File Upload"]}
-          Icon={IconCreditCard}
+          Icon={IconCreditCard as any}
         />
         <Row>
           <Col xs="12">

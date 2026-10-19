@@ -27,7 +27,7 @@ const RadialbarChartPage = () => {
           mainTitle="Radialbar"
           title="Chart"
           path={["Apexcharts", "Radialbar"]}
-          Icon={IconChartPie}
+          Icon={IconChartPie as any}
         />
         <Row>
           <Col lg="6" xxl="4">

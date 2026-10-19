@@ -4,10 +4,7 @@ import {
   Book,
   BookmarkBook,
   ChatBubbleQuestion,
-  Dashboard,
-  Folder,
   HomeAlt,
-  LogOut,
   Settings,
   User,
 } from "iconoir-react";

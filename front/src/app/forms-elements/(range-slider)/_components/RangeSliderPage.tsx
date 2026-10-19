@@ -89,7 +89,7 @@ const RangeSliderPage = () => {
           mainTitle="Range Slider"
           title="Forms elements"
           path={["Range slider"]}
-          Icon={IconCreditCard}
+          Icon={IconCreditCard as any}
         />
         <Col>
           <Col className="container-fluid">

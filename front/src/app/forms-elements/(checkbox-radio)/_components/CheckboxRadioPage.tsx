@@ -121,7 +121,7 @@ const CheckboxRadioPage = () => {
           mainTitle="Checkbox & Radio"
           title="Forms elements"
           path={["Checkbox & Radio"]}
-          Icon={IconCreditCard}
+          Icon={IconCreditCard as any}
         />
         <Row>
           <Col md="6">

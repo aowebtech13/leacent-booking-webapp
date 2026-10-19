@@ -94,7 +94,7 @@ const SimpleCounterSection = () => {
           mainTitle="Count Up"
           title="Advance Ui"
           path={["Count Up"]}
-          Icon={IconBriefcase}
+          Icon={IconBriefcase as any}
         />
 
         <SimpleCounter />

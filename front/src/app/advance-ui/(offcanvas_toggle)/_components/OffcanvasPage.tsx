@@ -28,7 +28,7 @@ const OffcanvasPage: React.FC = () => {
           mainTitle="OffCanvas Toggle"
           title="Advance Ui"
           path={["OffCanvas Toggle"]}
-          Icon={IconBriefcase}
+          Icon={IconBriefcase as any}
         />
         <Row>
           <Col xs={12}>

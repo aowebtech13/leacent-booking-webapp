@@ -28,7 +28,7 @@ const HeatmapChartPage = () => {
           mainTitle="Heatmap"
           title="Chart"
           path={["Apexcharts", "Heatmap"]}
-          Icon={IconChartPie}
+          Icon={IconChartPie as any}
         />
         <Row>
           <Col xl="6">

@@ -37,7 +37,7 @@ const TimelineChartPage = () => {
           mainTitle="Timeline & Range Charts"
           title="Chart"
           path={["Apexcharts", "Timeline & Range Charts"]}
-          Icon={IconChartPie}
+          Icon={IconChartPie as any}
         />
         <Row>
           <Col xs="12">

@@ -75,7 +75,7 @@ const AnimatedPage: React.FC = () => {
         mainTitle="Animated"
         title="Icons"
         path={["Animated"]}
-        Icon={IconIcons}
+        Icon={IconIcons as any}
       />
 
       <Row>

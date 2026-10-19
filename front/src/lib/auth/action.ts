@@ -32,24 +32,15 @@ async function clearPendingEmail() {
   cookieStore.delete(PENDING_EMAIL_COOKIE);
 }
 
-export async function unlockScreen(formData: FormData): Promise<void> {
-  const password = formData.get("password");
-  const remember = formData.get("rememberMe");
-
+export async function unlockScreen(_formData: FormData): Promise<void> {
   redirect("/");
 }
 
-export async function unlockScreenImg(formData: FormData): Promise<void> {
-  const password = formData.get("password") as string;
-
+export async function unlockScreenImg(_formData: FormData): Promise<void> {
   redirect("/");
 }
 
-export async function createPassword(formData: FormData): Promise<void> {
-  const current = formData.get("currentPassword")?.toString();
-  const newPass = formData.get("newPassword")?.toString();
-  const confirm = formData.get("confirmPassword")?.toString();
-
+export async function createPassword(_formData: FormData): Promise<void> {
   await new Promise((res) => setTimeout(res, 500));
 
   redirect("/auth-pages/sign-in");

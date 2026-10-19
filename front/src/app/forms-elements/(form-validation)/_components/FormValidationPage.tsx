@@ -16,7 +16,7 @@ const FormValidationPage = () => {
           mainTitle="Form Validation"
           title="Forms Elements"
           path={["Form validation"]}
-          Icon={IconCreditCard}
+          Icon={IconCreditCard as any}
         />
         <Row>
           <Col xs="12">

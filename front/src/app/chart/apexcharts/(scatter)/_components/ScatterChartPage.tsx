@@ -28,7 +28,7 @@ const ScatterChartPage = () => {
           mainTitle="Scatter"
           title="Chart"
           path={["Apexcharts", "Scatter"]}
-          Icon={IconChartPie}
+          Icon={IconChartPie as any}
         />
         <Row>
           <Col xs="12">

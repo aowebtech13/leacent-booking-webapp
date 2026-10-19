@@ -28,7 +28,7 @@ const CandlestickChartPage = () => {
           mainTitle="Candlestick"
           title="Chart"
           path={["Apexcharts", "Candlestick"]}
-          Icon={IconChartPie}
+          Icon={IconChartPie as any}
         />
         <Row>
           <Col xs="12">

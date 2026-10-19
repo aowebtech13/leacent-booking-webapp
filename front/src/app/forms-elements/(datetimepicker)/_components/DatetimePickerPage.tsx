@@ -33,7 +33,7 @@ const DatetimePickerPage: React.FC = () => {
           mainTitle="Datetimepicker"
           title="Forms elements"
           path={["Datetimepicker"]}
-          Icon={IconCreditCard}
+          Icon={IconCreditCard as any}
         />
         <Row>
           <Col md="6">

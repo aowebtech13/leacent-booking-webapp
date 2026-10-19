@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { ReactReader } from "react-book-reader";
-import { Alert, Spinner } from "reactstrap";
+import { Spinner } from "reactstrap";
 import { IconAlertCircle } from "@tabler/icons-react";
 
 /**

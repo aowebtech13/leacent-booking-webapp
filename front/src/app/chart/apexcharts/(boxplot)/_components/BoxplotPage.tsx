@@ -35,7 +35,7 @@ const BoxplotPage = () => {
           mainTitle="Boxplot"
           title="Chart"
           path={["Apexcharts", "Boxplot"]}
-          Icon={IconChartPie}
+          Icon={IconChartPie as any}
         />
         <Row>
           <Col xs="12">

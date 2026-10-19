@@ -14,7 +14,7 @@ const TimelinePage: React.FC = () => {
           mainTitle="Timeline"
           title="Apps"
           path={["Timeline"]}
-          Icon={IconStack2}
+          Icon={IconStack2 as any}
         />
         <Row className="row">
           <Col lg={6}>

@@ -19,7 +19,6 @@ interface ProfileCardProps {
 
 const ProfileCard = ({ user }: ProfileCardProps) => {
   const name = user?.name || "User";
-  const company = user?.profile?.company_name || null;
   const avatar = user?.profile?.avatar_url || null;
 
   return (

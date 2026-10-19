@@ -46,7 +46,7 @@ const FlagIcons: React.FC = () => {
         mainTitle="Flags"
         title="Icons"
         path={["Flags"]}
-        Icon={IconIcons}
+        Icon={IconIcons as any}
       />
       <Row>
         <Col xs="12">

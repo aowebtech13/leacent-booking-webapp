@@ -53,7 +53,7 @@ const TodoPage = () => {
           mainTitle="Todo"
           title="Apps"
           path={["Todo"]}
-          Icon={IconStack2}
+          Icon={IconStack2 as any}
         />
         <Row>
           <div className="col-xl-3">

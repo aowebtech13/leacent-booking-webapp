@@ -69,7 +69,7 @@ const ClipboardPage: React.FC = () => {
           mainTitle="Clipboard"
           title="Forms elements"
           path={["Clipboard"]}
-          Icon={IconCreditCard}
+          Icon={IconCreditCard as any}
         />
         <Row>
           {/* Copy to Text Input */}

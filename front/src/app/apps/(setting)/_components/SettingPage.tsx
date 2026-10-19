@@ -12,15 +12,7 @@ import {
   Col,
   Row,
 } from "reactstrap";
-import Link from "next/link";
 import {
-  Alarm,
-  ArrowSquareOut,
-  BellSimple,
-  Graph,
-  LockOpen,
-  Notification,
-  ShieldCheck,
   Trash,
   UserCircleGear,
 } from "phosphor-react";
@@ -67,7 +59,7 @@ const Setting = () => {
           mainTitle="Setting"
           title=""
           path={["Complete Pofile", ""]}
-          Icon={IconStack2}
+          Icon={IconStack2 as any}
         />
         <Row className="row m-1">
           <Col lg={4} xxl={3}>

@@ -85,7 +85,7 @@ const TablerIconsComponent: React.FC = () => {
         mainTitle="Tabler"
         title="Icons"
         path={["Tabler"]}
-        Icon={IconIcons}
+        Icon={IconIcons as any}
       />
       <Row>
         <Col xs="12">

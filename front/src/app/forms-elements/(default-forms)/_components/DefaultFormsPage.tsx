@@ -43,7 +43,7 @@ const DefaultFormsPage = () => {
           mainTitle="Default Forms"
           title="Forms elements"
           path={["Default forms"]}
-          Icon={IconCreditCard}
+          Icon={IconCreditCard as any}
         />
         <Row>
           <Col lg="6">

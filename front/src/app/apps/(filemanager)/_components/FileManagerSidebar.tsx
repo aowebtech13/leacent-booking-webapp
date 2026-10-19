@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardBody, CardHeader, Progress } from "reactstrap";
+import { Card, CardBody, CardHeader } from "reactstrap";
 import {
-  IconAdjustmentsAlt,
   IconFolderOpen,
   IconHelp,
   IconRotateClockwise2,
-  IconSend,
-  IconStar,
-  IconTrash,
 } from "@tabler/icons-react";
 import { Files, Image } from "phosphor-react";
 import { FileArchive, Video } from "@phosphor-icons/react";

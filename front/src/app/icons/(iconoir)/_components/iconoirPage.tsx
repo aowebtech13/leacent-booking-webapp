@@ -61,7 +61,7 @@ const IconoirPage = () => {
           mainTitle="Iconoir"
           title="Icons"
           path={["Iconoir"]}
-          Icon={IconIcons}
+          Icon={IconIcons as any}
         />
         <Row>
           <Col xs={12}>

@@ -71,7 +71,7 @@ const TooltipPopoverPage = () => {
           mainTitle="Tooltip & Popovers"
           title="Advance Ui"
           path={["Tooltip & Popovers"]}
-          Icon={IconBriefcase}
+          Icon={IconBriefcase as any}
         />
 
         <Row>
