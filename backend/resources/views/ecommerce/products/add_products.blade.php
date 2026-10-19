@@ -143,7 +143,7 @@
                                             </div>
                                             <div class="product-tab-content">
                                                 <h6>Product Categories</h6>
-                                                <p>Add product category, status and tags</p>
+                                                <p>Add Book Category, status and tags</p>
                                             </div>
                                         </a></li>
                                     <li class="nav-item"><a class="nav-link" id="pricings-tab" data-bs-toggle="pill"

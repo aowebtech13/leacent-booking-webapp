@@ -1,11 +1,19 @@
 "use client";
-import NotFoundPage from "@/app/error-pages/(not-found)/_components/NotFoundPage";
-import { useEffect } from "react";
 
-export default function Error({ error }: { error: Error; reset: () => void }) {
-  useEffect(() => {
-    console.error(error);
-  }, [error]);
-
-  return <NotFoundPage />;
+export default function Error({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) {
+  return (
+    <div className="d-flex flex-column align-items-center justify-content-center min-vh-100 text-center p-4">
+      <h2 className="mb-3">Something went wrong</h2>
+      <p className="text-muted mb-4">An unexpected error occurred. Please try again.</p>
+      <button className="btn btn-primary" onClick={() => reset()}>
+        Try again
+      </button>
+    </div>
+  );
 }

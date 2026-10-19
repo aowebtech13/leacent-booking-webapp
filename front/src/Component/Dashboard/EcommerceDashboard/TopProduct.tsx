@@ -231,7 +231,7 @@ const TopProduct = () => {
       </Col>
       <Col md="7" xxl="5">
         <div className="p-3">
-          <h5>Sales by Country</h5>
+          <h5>Books By Country</h5>
         </div>
         <Row>
           {countriesData.map((country, index) => (

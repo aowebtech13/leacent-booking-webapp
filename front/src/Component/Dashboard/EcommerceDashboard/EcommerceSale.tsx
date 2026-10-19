@@ -91,7 +91,7 @@ const EcommerceSale = () => {
     <>
       <Col md={6} xxl={3}>
         <div className="p-3">
-          <h5>Sale Report</h5>
+          <h5>Book Reports</h5>
         </div>
 
         <Card>
@@ -113,7 +113,7 @@ const EcommerceSale = () => {
       </Col>
       <Col md={6} xxl={3}>
         <div className="p-3">
-          <h5>Product Category</h5>
+          <h5>Book Category</h5>
         </div>
         <Card className="product-category-card">
           <CardBody>

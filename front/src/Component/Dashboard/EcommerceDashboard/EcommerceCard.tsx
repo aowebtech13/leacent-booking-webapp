@@ -29,9 +29,9 @@ const EcommerceCard = () => {
                 <i className="ph-bold ph-circle circle-bg-img"></i>
                 <div>
                   <p className="f-s-18 f-w-600 text-dark txt-ellipsis-1">
-                    📈 Orders Provided
+                    📈 leacent Book Points
                   </p>
-                  <h2 className="text-secondary-dark mb-0">2.36k</h2>
+                  <h2 className="text-secondary-dark mb-0">200.36k</h2>
                 </div>
               </CardBody>
             </Card>
@@ -40,7 +40,7 @@ const EcommerceCard = () => {
             <Card className="bg-primary-300 product-sold-card">
               <CardBody>
                 <div>
-                  <h5 className="text-primary-dark f-w-600">Order Import</h5>
+                  <h5 className="text-primary-dark f-w-600">Book Progress</h5>
                   <p className="text-dark f-w-600 mb-0 mt-2 txt-ellipsis-1">
                     <Calendar
                       height={16}
@@ -51,7 +51,7 @@ const EcommerceCard = () => {
                   </p>
                 </div>
                 <div className="my-4">
-                  <h4 className="text-primary-dark">2,450</h4>
+                  <h4 className="text-primary-dark">Name of Book</h4>
                 </div>
                 <div className="custom-progress-container">
                   <div className="progress-bar productive"></div>
@@ -59,9 +59,9 @@ const EcommerceCard = () => {
                   <div className="progress-bar idle"></div>
                 </div>
                 <div className="progress-labels">
-                  <span>Productive</span>
-                  <span>Middle</span>
-                  <span>Idle</span>
+                  <span>25 %</span>
+                  <span>45%</span>
+                  <span>100%</span>
                 </div>
               </CardBody>
             </Card>
@@ -74,7 +74,7 @@ const EcommerceCard = () => {
             <Card className="bg-danger-300 product-sold-card">
               <CardBody>
                 <div>
-                  <h5 className="text-danger-dark f-w-600">Product Sold</h5>
+                  <h5 className="text-danger-dark f-w-600">Books Read</h5>
                   {Chart ? (
                     <Chart
                       options={EcommerceChartData}
@@ -119,7 +119,7 @@ const EcommerceCard = () => {
                 <i className="ph-bold ph-circle circle-bg-img"></i>
                 <div>
                   <p className="text-success f-s-18 f-w-600 txt-ellipsis-1">
-                    📝 Store Product
+                    📝 Books in Store
                   </p>
                   <h2 className="text-success-dark mb-0">-6,876</h2>
                 </div>

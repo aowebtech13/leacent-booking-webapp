@@ -314,7 +314,7 @@
                                                         <p class="fst-italic c-o-light">*Enable the
                                                             functionality to apply commissions based on
                                                             product categories. To configure, navigate to
-                                                            the Product Category module and set the
+                                                            the Book Category module and set the
                                                             respective commission rates.</p>
                                                     </div>
                                                 </div>
