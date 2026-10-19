@@ -13,6 +13,7 @@ import {
   Col,
   Spinner,
   Alert,
+  Progress,
 } from "reactstrap";
 import { IconPhotoHeart } from "@tabler/icons-react";
 import { useAuth } from "@/lib/contexts/AuthContext";
@@ -24,6 +25,8 @@ function SettingProfile() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [imageUploading, setImageUploading] = useState(false);
+  const [imageProgress, setImageProgress] = useState(0);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -57,11 +60,44 @@ function SettingProfile() {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith("image/")) {
+      setError("Please upload a valid image file.");
+      return;
+    }
+
+    // Validate file size (max 2MB)
+    if (file.size > 2 * 1024 * 1024) {
+      setError("Image size must be less than 2MB.");
+      return;
+    }
+
+    setImageUploading(true);
+    setImageProgress(0);
+
     const reader = new FileReader();
+    reader.onloadstart = () => {
+      setImageProgress(10);
+    };
+    reader.onprogress = (event) => {
+      if (event.lengthComputable) {
+        setImageProgress(Math.round((event.loaded / event.total) * 90) + 10);
+      }
+    };
     reader.onload = () => {
       const dataUrl = reader.result as string;
+      setImageProgress(100);
       setFormData((prev) => ({ ...prev, avatar_url: dataUrl }));
-      document.getElementById("imgPreview")!.innerHTML = `<img src="${dataUrl}" alt="Avatar" className="img-fluid rounded-circle" style={{ width: 120, height: 120 }} />`;
+      setTimeout(() => {
+        setImageUploading(false);
+        setImageProgress(0);
+      }, 500);
+    };
+    reader.onerror = () => {
+      setImageUploading(false);
+      setImageProgress(0);
+      setError("Failed to read image file.");
     };
     reader.readAsDataURL(file);
   };
@@ -109,13 +145,27 @@ function SettingProfile() {
                     </Label>
                   </div>
                   <div className="avatar-preview">
-                    <div id="imgPreview">
-                      {formData.avatar_url ? (
-                        <img src={formData.avatar_url} alt="Avatar" className="img-fluid rounded-circle" style={{ width: 120, height: 120 }} />
-                      ) : (
-                        <img src={user?.profile?.avatar_url} alt="Avatar" className="img-fluid rounded-circle" style={{ width: 120, height: 120 }} />
-                      )}
-                    </div>
+                    {imageUploading ? (
+                      <div className="d-flex align-items-center justify-content-center" style={{ width: 120, height: 120, borderRadius: "50%", backgroundColor: "#f8f9fa" }}>
+                        <Progress value={imageProgress} striped animated className="w-75" />
+                      </div>
+                    ) : (
+                      <div id="imgPreview" style={{ width: 120, height: 120, borderRadius: "50%", overflow: "hidden", backgroundColor: "#f8f9fa" }}>
+                        {formData.avatar_url ? (
+                          <img
+                            src={formData.avatar_url}
+                            alt="Avatar"
+                            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                          />
+                        ) : (
+                          <img
+                            src={user?.profile?.avatar_url}
+                            alt="Avatar"
+                            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                          />
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -218,9 +268,7 @@ function SettingProfile() {
                     />
                   </FormGroup>
                 </Col>
-              
-             
-               
+
                 <Col md="12">
                   <div className="text-end">
                     <Button color="primary" type="submit" disabled={saving}>

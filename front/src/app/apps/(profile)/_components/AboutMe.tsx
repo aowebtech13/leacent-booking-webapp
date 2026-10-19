@@ -21,41 +21,45 @@ interface AboutMeProps {
 }
 
 const AboutMe = ({ profile }: AboutMeProps) => {
-  const company = profile?.company_name || "IT Section";
-  const email = profile?.email || "Ninfa@gmail.com";
-  const phone = profile?.phone_number || "0364 4559103";
-  const address = profile?.address || "Via Partenope, 117";
   const about = profile?.about_me || null;
 
-  const aboutItems = [
+  const aboutItems: Array<{
+    icon: React.ReactNode;
+    label: string;
+    value: string | null;
+  }> = [
     {
       icon: <IconBriefcase size={18} />,
       label: "Work passion",
-      value: company,
+      value: profile?.company_name || null,
     },
     {
       icon: <IconMail size={18} />,
       label: "Email",
-      value: email,
+      value: profile?.email || null,
     },
     {
       icon: <IconPhone size={18} />,
       label: "Contact",
-      value: phone,
+      value: profile?.phone_number || null,
     },
-    
     {
       icon: <IconMapPin size={18} />,
       label: "Location",
-      value: address,
+      value: profile?.address || null,
     },
     {
       icon: <IconDeviceLaptop size={18} />,
       label: "Website",
-      value: "Ninfa_devWWW.com",
+      value: null,
     },
-   
   ];
+
+  const hasData = aboutItems.some((item) => item.value) || about;
+
+  if (!hasData) {
+    return null;
+  }
 
   return (
     <Card>
@@ -67,18 +71,20 @@ const AboutMe = ({ profile }: AboutMeProps) => {
           <p className="text-muted f-s-13 mb-4">{about}</p>
         )}
         <div className="about-list">
-          {aboutItems.map((item, idx) => (
-            <Row key={idx} className="mb-2 align-items-center">
-              <Col xs="6">
-                <span className="fw-semibold d-flex align-items-center gap-2">
-                  {item.icon} {item.label}
-                </span>
-              </Col>
-              <Col xs="6" className="text-end text-secondary small">
-                {item.value}
-              </Col>
-            </Row>
-          ))}
+          {aboutItems
+            .filter((item) => item.value)
+            .map((item, idx) => (
+              <Row key={idx} className="mb-2 align-items-center">
+                <Col xs="6">
+                  <span className="fw-semibold d-flex align-items-center gap-2">
+                    {item.icon} {item.label}
+                  </span>
+                </Col>
+                <Col xs="6" className="text-end text-secondary small">
+                  {item.value}
+                </Col>
+              </Row>
+            ))}
         </div>
       </CardBody>
     </Card>

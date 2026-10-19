@@ -19,7 +19,7 @@ interface ProfileCardProps {
 
 const ProfileCard = ({ user }: ProfileCardProps) => {
   const name = user?.name || "User";
-  const company = user?.profile?.company_name || "Web designer & Developer";
+  const company = user?.profile?.company_name || null;
   const avatar = user?.profile?.avatar_url || null;
 
   return (
@@ -51,19 +51,7 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
           </div>
           <div className="person-details">
             <h5 className="f-w-600">{name}</h5>
-            <p>{company}</p>
-
-            <div className="details">
-              <Col>
-                <h4 className="text-primary">0</h4>
-                <p className="text-secondary">Books Read</p>
-              </Col>
-              <Col>
-                <h4 className="text-primary">0</h4>
-                <p className="text-secondary">Follower</p>
-              </Col>
-            
-            </div>
+            {company && <p>{company}</p>}
 
             <div className="my-2">
               <Link href="/apps/setting">
