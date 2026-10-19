@@ -101,7 +101,7 @@ export const BookReader: React.FC<BookReaderProps> = ({
       <ReactReader
         url={url}
         location={location ?? undefined}
-        title={title}
+        title={title ?? ""}
         showToc={showToc}
         tocChanged={handleTocChange}
         onUpdateLocation={handleLocationChange}
