@@ -4,7 +4,9 @@
 // >>-- 51 Alert css start --<<
 
 @mixin alert_mixin($name, $color, $light-color: null) {
-  $light-color: if($light-color == null, $color, $light-color);
+  @if $light-color == null {
+    $light-color: $color;
+  }
 
   .alert-#{$name} {
     background-color: rgba(#{$color}, 1);

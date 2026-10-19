@@ -257,7 +257,9 @@
 }
 
 @mixin country_card_mixin($name, $color, $light-color: null) {
-  $light-color: if($light-color == null, $color, $light-color);
+  @if $light-color == null {
+    $light-color: $color;
+  }
 
   .country-card-#{$name} {
     overflow: hidden;

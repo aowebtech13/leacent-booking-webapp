@@ -50,7 +50,9 @@
   width: 250px;
 }
 @mixin dropdown($name, $color, $light-color: null) {
-  $light-color: if($light-color == null, $color, $light-color);
+  @if $light-color == null {
+    $light-color: $color;
+  }
   .dropdown-menu {
     &.menu-#{$name} {
       background-color: rgba(#{$color}, 0.3);
