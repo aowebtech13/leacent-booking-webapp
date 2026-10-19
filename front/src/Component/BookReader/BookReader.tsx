@@ -143,5 +143,4 @@ export const BookReader: React.FC<BookReaderProps> = ({
     </div>
   );
 };
-
 export default BookReader;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardBody, Row, Col, Button } from "reactstrap";
+import { Card, CardBody, Row, Button } from "reactstrap";
 import { IconPhotoHeart, IconUser } from "@tabler/icons-react";
 import Link from "next/link";
 
@@ -50,8 +50,9 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
             </div>
           </div>
           <div className="person-details">
-            <h5 className="f-w-600">{name}</h5>
-            {company && <p>{company}</p>}
+            <h5 className="f-w-600 mt-3">{name}</h5>
+        
+            
 
             <div className="my-2">
               <Link href="/apps/setting">

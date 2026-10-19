@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import {
   EcommerceOverviewReport,
   EcommerceSaleReport,
@@ -251,15 +252,17 @@ const EcommerceSale = () => {
         <Card className="transaction-card">
           <CardBody>
             <div className="text-center">
-              <img alt="logo-img" src="/images/form/done.png" />
+              <Image alt="logo-img" src="/images/form/done.png" width={64} height={64} />
               <h6 className="text-success-dark mb-0">Thank You!</h6>
               <p className="mb-0 f-w-600 text-success d-inline transaction-txt">
                 Your transaction was successful
               </p>
-              <img
+              <Image
                 alt="gif"
                 className="w-30 d-inline align-text-bottom"
                 src="/images/dashboard/ecommerce-dashboard/celebration.gif"
+                width={100}
+                height={100}
               />
             </div>
 

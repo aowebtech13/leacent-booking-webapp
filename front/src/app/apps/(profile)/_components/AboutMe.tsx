@@ -1,8 +1,6 @@
 import React from "react";
 import {
-  IconBrandGithub,
   IconBriefcase,
-  IconCake,
   IconDeviceLaptop,
   IconMail,
   IconMapPin,
@@ -30,22 +28,22 @@ const AboutMe = ({ profile }: AboutMeProps) => {
   }> = [
     {
       icon: <IconBriefcase size={18} />,
-      label: "Work passion",
+      label: "Company Name",
       value: profile?.company_name || null,
     },
     {
       icon: <IconMail size={18} />,
-      label: "Email",
+      label: "Email Address",
       value: profile?.email || null,
     },
     {
       icon: <IconPhone size={18} />,
-      label: "Contact",
+      label: "Contact Number",
       value: profile?.phone_number || null,
     },
     {
       icon: <IconMapPin size={18} />,
-      label: "Location",
+      label: "My Location",
       value: profile?.address || null,
     },
     {
