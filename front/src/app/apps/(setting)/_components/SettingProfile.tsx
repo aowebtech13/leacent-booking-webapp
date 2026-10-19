@@ -17,9 +17,11 @@ import {
 import { IconPhotoHeart } from "@tabler/icons-react";
 import { useAuth } from "@/lib/contexts/AuthContext";
 import { updateProfile } from "@/lib/api";
+import { useRouter } from "next/navigation";
 
 function SettingProfile() {
   const { user, refreshUser } = useAuth();
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -32,9 +34,6 @@ function SettingProfile() {
     phone_number: "",
     address: "",
     about_me: "",
-    facebook_url: "",
-    twitter_url: "",
-    linkedin_url: "",
   });
 
   useEffect(() => {
@@ -46,9 +45,6 @@ function SettingProfile() {
         phone_number: user.profile?.phone_number || "",
         address: user.profile?.address || "",
         about_me: user.profile?.about_me || "",
-        facebook_url: user.profile?.facebook_url || "",
-        twitter_url: user.profile?.twitter_url || "",
-        linkedin_url: user.profile?.linkedin_url || "",
       });
     }
   }, [user]);
@@ -80,6 +76,7 @@ function SettingProfile() {
       await updateProfile(formData);
       setSuccess(true);
       await refreshUser();
+      router.push("/apps/profile");
     } catch (err: any) {
       setError(err?.message || "Failed to update profile");
     } finally {

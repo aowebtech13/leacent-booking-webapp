@@ -1021,9 +1021,7 @@ class AdminWebController extends Controller
 
     public function affiliates(Request $request)
     {
-        $query = User::whereHas('referrals')
-            ->with(['profile', 'activeSubscription'])
-            ->withCount('referrals');
+        $query = User::with(['profile', 'activeSubscription']);
 
         if ($request->filled('search')) {
             $search = $request->search;

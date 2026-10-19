@@ -9,7 +9,7 @@ class ProfileController extends Controller
 {
     public function show(Request $request)
     {
-        $user = $request->user()->load(['profile', 'roles', 'referral']);
+        $user = $request->user()->load(['profile', 'roles']);
 
         return response()->json([
             'success' => true,
@@ -50,7 +50,7 @@ class ProfileController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => $user->load(['profile', 'roles', 'referral']),
+            'data' => $user->load(['profile', 'roles']),
             'message' => 'Profile updated successfully',
         ]);
     }

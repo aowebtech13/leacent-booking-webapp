@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, CardBody, Row, Col, Button } from "reactstrap";
 import { IconPhotoHeart, IconUser } from "@tabler/icons-react";
+import Link from "next/link";
 
 interface ProfileCardProps {
   user: {
@@ -65,10 +66,12 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
             </div>
 
             <div className="my-2">
-              <Button color="primary" className="b-r-22">
-                <IconUser size={16} className="me-1" />
-                Edit Profile
-              </Button>
+              <Link href="/apps/setting">
+                <Button color="primary" className="b-r-22">
+                  <IconUser size={16} className="me-1" />
+                  Edit Profile
+                </Button>
+              </Link>
             </div>
           </div>
         </Row>

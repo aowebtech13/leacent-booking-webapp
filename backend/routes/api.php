@@ -43,9 +43,6 @@ Route::prefix('auth')->group(function () {
 // Payment webhook (must be outside auth middleware)
 Route::post('payment/webhook', [PaymentController::class, 'webhook']);
 
-// Public referral tracking
-Route::get('referral/track/{code}', [ProfileController::class, 'trackReferralClick']);
-
 // Protected routes
 Route::middleware('auth:sanctum')->group(function () {
     // Auth routes
@@ -60,7 +57,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('profile')->group(function () {
         Route::get('/', [ProfileController::class, 'show']);
         Route::put('/', [ProfileController::class, 'update']);
-        Route::get('referral', [ProfileController::class, 'getReferralInfo']);
         Route::get('transactions', [ProfileController::class, 'getWalletTransactions']);
         Route::get('book-plan-transaction', [ProfileController::class, 'getLatestBookPlanTransaction']);
     });

@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Profile;
-use App\Models\Referral;
-use App\Models\ReferralClick;
 use App\Models\User;
 use App\Models\UserRole;
 use App\Models\UserLog;
@@ -41,7 +39,7 @@ class AdminController extends Controller
      */
     public function getUsers(Request $request)
     {
-        $query = User::with(['profile', 'roles', 'activeSubscription', 'referrals']);
+        $query = User::with(['profile', 'roles', 'activeSubscription']);
 
         // Search functionality
         if ($request->has('search') && $request->search) {
@@ -64,12 +62,6 @@ class AdminController extends Controller
         }
 
         $users = $query->paginate($request->get('per_page', 15));
-
-        $users->getCollection()->transform(function ($user) {
-            $user->referral_count = $user->referrals()->where('status', 'completed')->count();
-
-            return $user;
-        });
 
         return response()->json([
             'success' => true,
