@@ -321,14 +321,14 @@ const Select2Page = () => {
                       placeholder="Select an option"
                       classNamePrefix="custom-select"
                       className="select2-icons w-100"
-                      getOptionLabel={(e: unknown) => {
+                      getOptionLabel={((e: unknown) => {
                         const option = e as { value: string; label: string };
                         return (
                           <div className="d-flex align-center g-10">
                             <span className={option.value} /> {option.label}
                           </div>
                         );
-                      }}
+                      }) as any}
                     />
                   </div>
                 </div>

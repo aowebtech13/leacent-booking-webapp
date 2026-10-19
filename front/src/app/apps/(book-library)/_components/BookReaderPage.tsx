@@ -16,18 +16,6 @@ import { BookReader } from "@/Component/BookReader/BookReader";
 import { useReadingProgress } from "@/hooks/useReadingProgress";
 import { IconBook, IconArrowLeft, IconRefresh } from "@tabler/icons-react";
 
-interface BookReadResponse {
-  book: Book;
-  file_url: string;
-  access: {
-    id: number;
-    access_type: string;
-    granted_at: string;
-    expires_at: string | null;
-    is_active: boolean;
-  };
-}
-
 const BookReaderPage = () => {
   const params = useParams();
   const router = useRouter();

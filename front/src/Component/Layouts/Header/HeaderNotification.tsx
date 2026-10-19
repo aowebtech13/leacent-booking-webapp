@@ -47,19 +47,6 @@ const HeaderNotification: React.FC = () => {
     }
   };
 
-  const handleMarkAsRead = async (_id: number) => {
-    try {
-      await markAsRead(_id);
-      const updated = notifications.map((n) =>
-        n.id === _id ? { ...n, read_at: new Date().toISOString() } : n
-      );
-      setNotifications(updated);
-      if (unreadCount > 0) setUnreadCount(unreadCount - 1);
-    } catch {
-      // Ignore errors
-    }
-  };
-
   const formatNotification = (notification: Notification) => {
     const data = notification.data;
     return {

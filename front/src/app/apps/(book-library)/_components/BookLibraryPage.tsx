@@ -28,15 +28,13 @@ const BookLibraryPage = () => {
   const [lastPage, setLastPage] = useState(1);
   const router = useRouter();
 
-  const fetchBooks = async (page = 1) => {
+  const fetchBooks = async () => {
     setIsLoading(true);
     setError(null);
     try {
-      const res = await getBooks({
-        search: searchQuery || undefined,
-        per_page: 12,
-        page: currentPage,
-      });
+      const query: any = { per_page: 12, page: currentPage };
+      if (searchQuery) query.search = searchQuery;
+      const res = await getBooks(query);
       setBooks(res.data);
       if (res.meta) {
         setCurrentPage(res.meta.current_page);
@@ -50,7 +48,7 @@ const BookLibraryPage = () => {
   };
 
   useEffect(() => {
-    fetchBooks(1);
+    fetchBooks();
   }, [searchQuery]);
 
   const handleRead = (book: Book) => {

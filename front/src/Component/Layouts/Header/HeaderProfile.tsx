@@ -8,7 +8,7 @@ import {
   UserLove,
   Settings,
 } from "iconoir-react";
-import { Detective, SignOut } from "phosphor-react";
+import { SignOut } from "phosphor-react";
 import Image from "next/image";
 import { useAuth } from "@/lib/contexts/AuthContext";
 

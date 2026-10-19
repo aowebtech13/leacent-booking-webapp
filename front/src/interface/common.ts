@@ -55,7 +55,8 @@ export interface LinkInterface {
   path: string;
   name: string;
   collapseId?: string | undefined;
-  children?: LinkInterface[] | undefined; // Recursive type for nested links
+  iconClass?: React.ComponentType | string | undefined;
+  children?: LinkInterface[] | undefined;
 }
 
 interface Badge {
