@@ -324,3 +324,19 @@ class BookController extends Controller
         ]);
     }
 }
+
+    /**
+     * GET /api/public/books/stats
+     * Public stats for books.
+     */
+    public function getPublicStats()
+    {
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'total_books' => Book::where('is_active', true)->count(),
+                'total_premium_books' => Book::where('is_active', true)->where('is_premium', true)->count(),
+                'total_free_books' => Book::where('is_active', true)->where('is_premium', false)->count(),
+            ],
+        ]);
+    }

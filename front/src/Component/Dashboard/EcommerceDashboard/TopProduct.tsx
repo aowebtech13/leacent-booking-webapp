@@ -1,16 +1,32 @@
 import React, { useState, useEffect } from "react";
-import { Badge, Card, CardBody, Col, Row, Table, Tooltip } from "reactstrap";
-import { Language, Minus, Plus, StarSolid } from "iconoir-react";
-import { AU, DE, CA, FR, US, ES } from "country-flag-icons/react/1x1";
-import { getBooks, Book } from "@/lib/api/books";
+import { Badge, Card, CardBody, Col, Row, Table } from "reactstrap";
+import { Language, StarSolid } from "iconoir-react";
+import { getBooks, Book, Author } from "@/lib/api/books";
+import { getPublicAuthors } from "@/lib/api/authors";
 
-interface TooltipState {
-  [key: number]: boolean;
-}
+const authorCardClasses = [
+  "country-card-warning",
+  "bg-primary-300",
+  "country-card-danger",
+  "country-card-info",
+  "country-card-danger",
+  "country-card-warning",
+];
+
+const authorAvatar = (author: Author) => {
+  if (!author.avatar) return "/images/avatar/1.png";
+  if (/^https?:\/\//.test(author.avatar)) return author.avatar;
+  const base =
+    process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8000/api";
+  return `${base.replace(/\/api$/, "")}/storage/${author.avatar}`;
+};
+
 const TopProduct = () => {
   const [topProducts, setTopProducts] = useState<Book[]>([]);
   const [topProductsLoading, setTopProductsLoading] = useState(true);
   const [topProductsError, setTopProductsError] = useState<string | null>(null);
+  const [authors, setAuthors] = useState<Author[]>([]);
+  const [authorsLoading, setAuthorsLoading] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
@@ -40,115 +56,38 @@ const TopProduct = () => {
       cancelled = true;
     };
   }, []);
-  const countriesData = [
-    {
-      name: "Germany",
-      sales: "3.8k",
-      flag: <DE className="w-30 h-30 b-r-20" />,
-      cardClass: "country-card-warning",
-    },
-    {
-      name: "Australia",
-      sales: "3.8k",
-      flag: <AU className="w-30 h-30 b-r-20" />,
-      cardClass: "bg-primary-300",
-      iconClass: "text-primary",
-    },
-    {
-      name: "Canada",
-      sales: "3.8k",
-      flag: <CA className="w-30 h-30 b-r-20" />,
-      cardClass: "country-card-danger",
-    },
-    {
-      name: "France",
-      sales: "3.8k",
-      flag: <FR className="w-30 h-30 b-r-20" />,
-      cardClass: "country-card-info",
-    },
-    {
-      name: "USA",
-      sales: "3.8k",
-      flag: <US className="w-30 h-30 b-r-20" />,
-      cardClass: "country-card-danger",
-    },
-    {
-      name: "Spain",
-      sales: "3.8k",
-      flag: <ES className="w-30 h-30 b-r-20" />,
-      cardClass: "country-card-warning",
-    },
-  ];
-  const customerData = [
-    {
-      id: 1,
-      name: "Emily Johnson",
-      avatar: "D",
-      status: "Added",
-      iconClass: <Plus height={16} width={16} className="f-s-20" />,
-      tooltip: "Added",
-    },
-    {
-      id: 2,
-      name: "Emily Johnson",
-      avatar: "AD",
-      status: "Removed",
-      iconClass: <Minus height={16} width={16} className="f-s-20" />,
-      tooltip: "Removed",
-    },
-    {
-      id: 3,
-      name: "Emily Johnson",
-      avatar: "AD",
-      status: "Added",
-      iconClass: <Plus height={16} width={16} className="f-s-20" />,
-      tooltip: "Added",
-    },
-    {
-      id: 4,
-      name: "Emily Johnson",
-      avatar: "AD",
-      status: "Added",
-      iconClass: <Plus height={16} width={16} className="f-s-20" />,
-      tooltip: "Added",
-    },
-    {
-      id: 5,
-      name: "Emily Johnson",
-      avatar: "AD",
-      status: "Removed",
-      iconClass: <Minus height={16} width={16} className="f-s-20" />,
-      tooltip: "Removed",
-    },
-  ];
-  const [tooltipOpen, setTooltipOpen] = useState<TooltipState>({});
 
-  const toggleTooltip = (id: number) => {
-    setTooltipOpen((prevState) => ({
-      ...prevState,
-      [id]: !prevState[id],
-    }));
-  };
-
-  const handleButtonClick = (index: number) => {
-    const newCustomerData = [...customerData];
-    const customer = newCustomerData[index];
-
-    if (customer) {
-      if (customer.status === "Added") {
-        customer.status = "Removed";
-        customer.iconClass = (
-          <Minus height={16} width={16} className="f-s-20" />
-        );
-        customer.tooltip = "Removed";
-      } else {
-        customer.status = "Added";
-        customer.iconClass = <Plus height={16} width={16} className="f-s-20" />;
-        customer.tooltip = "Added";
+  useEffect(() => {
+    let cancelled = false;
+    const fetchAuthors = async () => {
+      setAuthorsLoading(true);
+      try {
+        const data = await getPublicAuthors();
+        if (!cancelled) setAuthors(data ?? []);
+      } catch {
+        if (!cancelled) setAuthors([]);
+      } finally {
+        if (!cancelled) setAuthorsLoading(false);
       }
-      customerData[index] = customer;
-    }
-  };
+    };
+    fetchAuthors();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const authorsData = authors
+    .slice()
+    .sort((a, b) => (b.books_count ?? 0) - (a.books_count ?? 0))
+    .slice(0, authorCardClasses.length)
+    .map((author, index) => ({
+      id: author.id,
+      name: author.name,
+      books: author.books_count ?? 0,
+      avatar: authorAvatar(author),
+      cardClass: authorCardClasses[index],
+      isOnline: index === 1,
+    }));
 
   return (
     <>
@@ -231,73 +170,49 @@ const TopProduct = () => {
       </Col>
       <Col md="7" xxl="5">
         <div className="p-3">
-          <h5>Books By Country</h5>
+          <h5>Books By Authors</h5>
         </div>
         <Row>
-          {countriesData.map((country, index) => (
-            <Col key={index} xs="6" sm="4">
-              <Card className={country.cardClass}>
-                <CardBody>
-                  {country.flag}
-                  <div className="mt-3">
-                    <h6 className="mb-0">{country.name}</h6>
-                    <p className="f-w-600 mb-0">{country.sales}</p>
-                  </div>
-                  <Language
-                    height={70}
-                    width={70}
-                    className="icon-bg text-white"
-                  />
-                  {country.iconClass && (
-                    <span
-                      className={`position-absolute top-0 end-0 pa-6 bg-success b-2-white border-light rounded-circle animate__animated animate__heartBeat animate__infinite animate__fast`}
-                    ></span>
-                  )}
-                </CardBody>
-              </Card>
+          {authorsLoading ? (
+            <Col xs="12" className="text-muted text-center py-4">
+              Loading authors…
             </Col>
-          ))}
+          ) : authorsData.length === 0 ? (
+            <Col xs="12" className="text-muted text-center py-4">
+              No authors available.
+            </Col>
+          ) : (
+            authorsData.map((author) => (
+              <Col key={author.id} xs="6" sm="4">
+                <Card className={author.cardClass}>
+                  <CardBody>
+                    <img
+                      src={author.avatar}
+                      className="w-30 h-30 b-r-20"
+                      alt={author.name}
+                    />
+                    <div className="mt-3">
+                      <h6 className="mb-0">{author.name}</h6>
+                      <p className="f-w-600 mb-0">
+                        {author.books} {author.books === 1 ? "Book" : "Books"}
+                      </p>
+                    </div>
+                    <Language
+                      height={70}
+                      width={70}
+                      className="icon-bg text-white"
+                    />
+                    {author.isOnline && (
+                      <span
+                        className={`position-absolute top-0 end-0 pa-6 bg-success b-2-white border-light rounded-circle animate__animated animate__heartBeat animate__infinite animate__fast`}
+                      ></span>
+                    )}
+                  </CardBody>
+                </Card>
+              </Col>
+            ))
+          )}
         </Row>
-      </Col>
-      <Col md="5" xxl="3">
-        <div className="p-3">
-          <h5>Leacent Authors</h5>
-        </div>
-        <Card>
-          <CardBody>
-            <ul className="customer-list">
-              {customerData.map((customer, index) => (
-                <li key={customer.id} className="customer-list-item">
-                  <span
-                    className={`text-light-primary f-w-600 h-35 w-35 d-flex-center b-r-50 customer-list-avatar`}
-                  >
-                    {customer.avatar}
-                  </span>
-                  <div className="customer-list-content">
-                    <h6 className="mb-0">{customer.name}</h6>
-                  </div>
-                  <div>
-                    <button
-                      id={`toggleCustomerButton-${customer.id}`}
-                      className={`toggleCustomerButton text-light-${customer.status === "Added" ? "primary" : "danger"} h-35 w-35 d-flex-center b-r-50`}
-                      onClick={() => handleButtonClick(index)}
-                      title={customer.tooltip}
-                    >
-                      {customer.iconClass}
-                    </button>
-                    <Tooltip
-                      isOpen={tooltipOpen[customer.id] ?? false}
-                      target={`toggleCustomerButton-${customer.id}`}
-                      toggle={() => toggleTooltip(customer.id)}
-                    >
-                      {customer.tooltip}
-                    </Tooltip>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </CardBody>
-        </Card>
       </Col>
     </>
   );

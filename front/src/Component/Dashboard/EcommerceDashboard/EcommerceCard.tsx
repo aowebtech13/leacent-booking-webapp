@@ -127,11 +127,11 @@ const EcommerceCard = () => {
                   <p className="f-s-18 f-w-600 text-dark txt-ellipsis-1">
                     📈 leacent Book Points
                   </p>
-                    <h2 className="text-secondary-dark mb-0">
-                      {booksTotalLoading
-                        ? "..."
-                        : (booksTotal?.total ?? 0).toLocaleString()}
-                    </h2>
+                  <h2 className="text-secondary-dark mb-0">
+                    {booksTotalLoading
+                      ? "..."
+                      : (booksTotal?.total ?? 0).toLocaleString()}
+                  </h2>
                 </div>
               </CardBody>
             </Card>
@@ -194,12 +194,16 @@ const EcommerceCard = () => {
                   </h4>
                   <p className="mb-0 text-dark f-w-500 txt-ellipsis-1">
                     Last Week
-                    {spending?.change_percent != null && (
+                    {spending?.change_percent != null ? (
                       <span className="badge bg-white-300 text-danger-dark ms-2">
                         {spending.change_percent > 0 ? "+" : ""}
                         {spending.change_percent}%
                       </span>
-                    )}
+                    ) : (spending?.last_week ?? 0) > 0 ? (
+                      <span className="badge bg-white-300 text-danger-dark ms-2">
+                        New
+                      </span>
+                    ) : null}
                   </p>
                 </div>
                 <Link

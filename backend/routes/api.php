@@ -185,3 +185,7 @@ Route::get('health', function () {
         'timestamp' => now()->toISOString(),
     ]);
 });
+
+Route::prefix('public')->group(function () {
+    Route::get('books/stats', [BookController::class, 'getPublicStats']);
+});
