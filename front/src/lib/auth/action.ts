@@ -86,7 +86,8 @@ export async function loginUser(formData: FormData): Promise<void> {
     redirect("/");
   } catch (error: any) {
     const actionError = toActionError(error);
-    // Backend returns 422 for unverified-email logins.
+    // 401 = invalid credentials (unregistered user or wrong password)
+    // 422 = unverified email (registered but not verified)
     if (actionError.status === 422) {
       await setPendingEmail(email);
       redirect("/verify-otp");
