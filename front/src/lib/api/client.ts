@@ -3,13 +3,13 @@ import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse 
 /**
  * Base axios instance configured to talk to the Laravel backend.
  *
- * The backend is served at `http://127.0.0.1:8001` (see `NEXT_PUBLIC_API_BASE_URL`).
+ * The backend is served at `http://127.0.0.1:8000` (see `NEXT_PUBLIC_API_BASE_URL`).
  * All API routes are namespaced under `/api` (Laravel route prefix), so the
  * base URL already includes `/api` and individual modules use relative paths
  * such as `auth/login`.
  */
 const api: AxiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8001/api",
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8000/api",
   withCredentials: true, // required for Sanctum stateful cookies (CSRF + session)
   headers: {
     "Content-Type": "application/json",
@@ -99,7 +99,7 @@ export async function bootstrapCsrf(): Promise<void> {
   csrfBootstrapped = true;
   try {
     await axios.get("/sanctum/csrf-cookie", {
-      baseURL: process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/api$/, "") || "http://127.0.0.1:8001",
+      baseURL: process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/api$/, "") || "http://127.0.0.1:8000",
       withCredentials: true,
     });
   } catch {

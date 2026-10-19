@@ -45,7 +45,7 @@ const Team = () => {
     if (!author.avatar) return "/images/avatar/1.png";
     if (/^https?:\/\//.test(author.avatar)) return author.avatar;
     const base =
-      process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8001/api";
+      process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8000/api";
     return `${base.replace(/\/api$/, "")}/storage/${author.avatar}`;
   };
 
