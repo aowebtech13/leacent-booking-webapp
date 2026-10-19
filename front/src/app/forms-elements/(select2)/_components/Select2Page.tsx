@@ -45,11 +45,11 @@ const Select2Page = () => {
     }
   }, []);
 
-  const handleStateChange = (selected: { value: string; label: string }[]) => {
-    setSelectedStates(selected);
+  const handleStateChange = (selected: unknown) => {
+    setSelectedStates(selected as { value: string; label: string }[]);
   };
-  const handleDarkChange = (selected: { value: string; label: string }[]) => {
-    setSelectedDark(selected);
+  const handleDarkChange = (selected: unknown) => {
+    setSelectedDark(selected as { value: string; label: string }[]);
   };
 
   return (
@@ -321,11 +321,14 @@ const Select2Page = () => {
                       placeholder="Select an option"
                       classNamePrefix="custom-select"
                       className="select2-icons w-100"
-                      getOptionLabel={(e: { value: string; label: string }) => (
-                        <div className="d-flex align-center g-10">
-                          <span className={e.value} /> {e.label}
-                        </div>
-                      )}
+                      getOptionLabel={(e: unknown) => {
+                        const option = e as { value: string; label: string };
+                        return (
+                          <div className="d-flex align-center g-10">
+                            <span className={option.value} /> {option.label}
+                          </div>
+                        );
+                      }}
                     />
                   </div>
                 </div>

@@ -53,7 +53,9 @@ const TwoStepVerificationImgPage: React.FC = () => {
                           key={index}
                           type="text"
                           maxLength={1}
-                          innerRef={(el) => (inputsRef.current[index] = el)}
+                           innerRef={((el: HTMLInputElement | null) => {
+                             inputsRef.current[index] = el as HTMLInputElement | HTMLTextAreaElement | null;
+                           }) as React.Ref<HTMLInputElement>}
                           className="form-control h-60 w-60 text-center"
                           onInput={(e: ChangeEvent<HTMLInputElement>) =>
                             digitValidate(e, index)

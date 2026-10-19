@@ -61,7 +61,7 @@ export function useReadingProgress(): UseReadingProgressResult {
       setError(null);
       try {
         const res = await api.get<ProgressResponse>(`books/${bookId}/progress`);
-        const data = res.data;
+        const data = (res.data as ProgressResponse).data ?? null;
         setProgress(data);
         return data;
       } catch (err: any) {
@@ -92,7 +92,7 @@ export function useReadingProgress(): UseReadingProgressResult {
           `books/${bookId}/progress`,
           data
         );
-        const saved = res.data;
+        const saved = (res.data as SaveProgressResponse).data;
         setProgress(saved);
         return saved;
       } catch (err: any) {

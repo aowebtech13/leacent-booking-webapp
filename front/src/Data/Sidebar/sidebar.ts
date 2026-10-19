@@ -8,8 +8,9 @@ import {
   Settings,
   User,
 } from "iconoir-react";
+import { MenuItemProps } from "@/interface/common";
 
-export const MenuList = [
+export const MenuList: MenuItemProps[] = [
   {
     title: "Dashboard",
     iconClass: HomeAlt,
