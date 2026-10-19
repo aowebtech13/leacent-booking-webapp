@@ -121,9 +121,7 @@ export async function updateProfile(data: {
   phone_number?: string;
   address?: string;
   about_me?: string;
-  facebook_url?: string;
-  twitter_url?: string;
-  linkedin_url?: string;
+  
 }) {
   const res = await api.put("profile", data);
   return res.data;

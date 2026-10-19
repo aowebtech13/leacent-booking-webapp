@@ -136,11 +136,12 @@ export async function registerUser(formData: FormData): Promise<void> {
 
   try {
     await register(payload);
-    await setPendingEmail(email);
-    redirect("/verify-otp");
   } catch (error: any) {
     throw toActionError(error);
   }
+
+  await setPendingEmail(email);
+  redirect("/verify-otp");
 }
 
 export async function forgotPasswordAction(formData: FormData): Promise<void> {

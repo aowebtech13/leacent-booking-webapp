@@ -27,7 +27,8 @@ function SettingProfile() {
 
   const [formData, setFormData] = useState({
     full_name: "",
-    company_name: "",
+    avatar_url: "",
+    company_name: "Web designer & Developer",
     phone_number: "",
     address: "",
     about_me: "",
@@ -40,7 +41,8 @@ function SettingProfile() {
     if (user) {
       setFormData({
         full_name: user.name || "",
-        company_name: user.profile?.company_name || "",
+        avatar_url: user.profile?.avatar_url || "",
+        company_name: user.profile?.company_name || "Web designer & Developer",
         phone_number: user.profile?.phone_number || "",
         address: user.profile?.address || "",
         about_me: user.profile?.about_me || "",
@@ -54,6 +56,18 @@ function SettingProfile() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = reader.result as string;
+      setFormData((prev) => ({ ...prev, avatar_url: dataUrl }));
+      document.getElementById("imgPreview")!.innerHTML = `<img src="${dataUrl}" alt="Avatar" className="img-fluid rounded-circle" style={{ width: 120, height: 120 }} />`;
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -91,13 +105,20 @@ function SettingProfile() {
                       type="file"
                       id="imageUpload"
                       accept=".png, .jpg, .jpeg"
+                      onChange={handleImageChange}
                     />
                     <Label htmlFor="imageUpload">
                       <IconPhotoHeart size={16} />
                     </Label>
                   </div>
                   <div className="avatar-preview">
-                    <div id="imgPreview"></div>
+                    <div id="imgPreview">
+                      {formData.avatar_url ? (
+                        <img src={formData.avatar_url} alt="Avatar" className="img-fluid rounded-circle" style={{ width: 120, height: 120 }} />
+                      ) : (
+                        <img src={user?.profile?.avatar_url} alt="Avatar" className="img-fluid rounded-circle" style={{ width: 120, height: 120 }} />
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -141,7 +162,7 @@ function SettingProfile() {
                       type="text"
                       name="full_name"
                       value={formData.full_name}
-                      onChange={handleChange}
+                      readOnly
                       placeholder="Enter your name"
                     />
                   </FormGroup>

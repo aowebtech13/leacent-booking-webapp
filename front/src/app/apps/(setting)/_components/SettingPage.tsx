@@ -65,8 +65,8 @@ const Setting = () => {
       <div className="container-fluid">
         <Breadcrumbs
           mainTitle="Setting"
-          title="Apps"
-          path={["Profile Page", "Setting"]}
+          title=""
+          path={["Complete Pofile", ""]}
           Icon={IconStack2}
         />
         <Row className="row m-1">

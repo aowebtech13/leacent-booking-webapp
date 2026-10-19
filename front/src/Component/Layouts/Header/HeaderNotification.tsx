@@ -76,7 +76,7 @@ const HeaderNotification: React.FC = () => {
     };
   };
 
-  const formattedNotifications = notifications.map(formatNotification);
+  const formattedNotifications = (notifications ?? []).map(formatNotification);
 
   return (
     <div>
