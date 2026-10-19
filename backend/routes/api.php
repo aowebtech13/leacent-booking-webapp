@@ -58,6 +58,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/', [ProfileController::class, 'show']);
         Route::put('/', [ProfileController::class, 'update']);
         Route::get('transactions', [ProfileController::class, 'getWalletTransactions']);
+        Route::get('books-spending', [ProfileController::class, 'getBooksSpending']);
+        Route::get('money-spent', [ProfileController::class, 'getMoneySpent']);
+        Route::get('book-reading-stats', [ProfileController::class, 'getBookReadingStats']);
         Route::get('book-plan-transaction', [ProfileController::class, 'getLatestBookPlanTransaction']);
     });
 

@@ -1,14 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Row, Col, Card, CardBody } from "reactstrap";
 import { EcommerceChartData } from "@/Data/Charts/ApexCharts/ApexChart";
 import { ArrowRight, Calendar } from "iconoir-react";
 import Link from "next/link";
-import { getBooksTotal, BookTotalResponse } from "@/lib/api/books";
+import {
+  getBooksTotal,
+  getBooksSpending,
+  BookTotalResponse,
+  BooksSpendingResponse,
+} from "@/lib/api/books";
+
+const formatMoney = (amount: number, currency?: string) => {
+  const value = Number.isFinite(amount) ? amount : 0;
+
+  if (!currency) {
+    return value.toLocaleString(undefined, { maximumFractionDigits: 2 });
+  }
+
+  try {
+    return new Intl.NumberFormat("en-NG", {
+      style: "currency",
+      currency,
+      maximumFractionDigits: Number.isInteger(value) ? 0 : 2,
+    }).format(value);
+  } catch {
+    return `${currency} ${value.toLocaleString(undefined, {
+      maximumFractionDigits: 2,
+    })}`;
+  }
+};
 
 const EcommerceCard = () => {
   const [Chart, setChart] = useState<any>(null);
   const [booksTotal, setBooksTotal] = useState<BookTotalResponse | null>(null);
   const [booksTotalLoading, setBooksTotalLoading] = useState(true);
+  const [spending, setSpending] = useState<BooksSpendingResponse | null>(null);
+  const [spendingLoading, setSpendingLoading] = useState(true);
 
   useEffect(() => {
     const loadModules = async () => {
@@ -40,6 +67,53 @@ const EcommerceCard = () => {
       cancelled = true;
     };
   }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    const loadSpending = async () => {
+      setSpendingLoading(true);
+      try {
+        const data = await getBooksSpending();
+        if (!cancelled) setSpending(data);
+      } catch {
+        if (!cancelled) setSpending(null);
+      } finally {
+        if (!cancelled) setSpendingLoading(false);
+      }
+    };
+    loadSpending();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const spendingChartOptions = useMemo(() => {
+    const points = spending?.series ?? [];
+    const values = points.map((point) => point.amount);
+    const peak = values.length ? Math.max(...values) : 0;
+    const base = EcommerceChartData as any;
+
+    return {
+      ...base,
+      series: [{ name: "Money Spent", data: values }],
+      xaxis: {
+        ...base.xaxis,
+        categories: points.map((point) => point.date),
+      },
+      yaxis: {
+        ...base.yaxis,
+        min: 0,
+        max: peak > 0 ? peak * 1.2 : 1,
+      },
+      tooltip: {
+        ...base.tooltip,
+        x: { show: true },
+        y: {
+          formatter: (value: number) => formatMoney(value, spending?.currency),
+        },
+      },
+    };
+  }, [spending]);
 
   return (
     <>
@@ -100,11 +174,11 @@ const EcommerceCard = () => {
             <Card className="bg-danger-300 product-sold-card">
               <CardBody>
                 <div>
-                  <h5 className="text-danger-dark f-w-600">Books Read</h5>
+                  <h5 className="text-danger-dark f-w-600">Money Spent</h5>
                   {Chart ? (
                     <Chart
-                      options={EcommerceChartData}
-                      series={EcommerceChartData.series}
+                      options={spendingChartOptions}
+                      series={spendingChartOptions.series}
                       type="line"
                       height={75}
                     />
@@ -113,15 +187,19 @@ const EcommerceCard = () => {
                   )}
                 </div>
                 <div>
-                  <h4>$6.56k</h4>
+                  <h4>
+                    {spendingLoading
+                      ? "..."
+                      : formatMoney(spending?.total ?? 0, spending?.currency)}
+                  </h4>
                   <p className="mb-0 text-dark f-w-500 txt-ellipsis-1">
                     Last Week
-                    <span
-                      color="white"
-                      className="badge bg-white-300 text-danger-dark ms-2"
-                    >
-                      -45%
-                    </span>
+                    {spending?.change_percent != null && (
+                      <span className="badge bg-white-300 text-danger-dark ms-2">
+                        {spending.change_percent > 0 ? "+" : ""}
+                        {spending.change_percent}%
+                      </span>
+                    )}
                   </p>
                 </div>
                 <Link

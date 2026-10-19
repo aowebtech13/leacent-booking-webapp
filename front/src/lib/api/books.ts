@@ -75,6 +75,33 @@ export interface BookTotalResponse {
 }
 
 /* ------------------------------------------------------------------ */
+/* Spending                                                           */
+/* ------------------------------------------------------------------ */
+
+export interface BooksSpendingPoint {
+  date: string;
+  amount: number;
+}
+
+export interface BooksSpendingResponse {
+  total: number;
+  currency: string;
+  purchases: number;
+  last_week: number;
+  previous_week: number;
+  change_percent: number | null;
+  series: BooksSpendingPoint[];
+}
+
+/**
+ * Money the authenticated user spent on books, plus a daily breakdown
+ * used by the dashboard "Money Spent" chart.
+ */
+export function getBooksSpending(): Promise<BooksSpendingResponse> {
+  return api.get("profile/books-spending");
+}
+
+/* ------------------------------------------------------------------ */
 /* Categories                                                         */
 /* ------------------------------------------------------------------ */
 
