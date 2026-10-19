@@ -3,9 +3,12 @@ import { Row, Col, Card, CardBody } from "reactstrap";
 import { EcommerceChartData } from "@/Data/Charts/ApexCharts/ApexChart";
 import { ArrowRight, Calendar } from "iconoir-react";
 import Link from "next/link";
+import { getBooksTotal, BookTotalResponse } from "@/lib/api/books";
 
 const EcommerceCard = () => {
   const [Chart, setChart] = useState<any>(null);
+  const [booksTotal, setBooksTotal] = useState<BookTotalResponse | null>(null);
+  const [booksTotalLoading, setBooksTotalLoading] = useState(true);
 
   useEffect(() => {
     const loadModules = async () => {
@@ -17,6 +20,25 @@ const EcommerceCard = () => {
     if (typeof window !== "undefined") {
       loadModules();
     }
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    const loadBooksTotal = async () => {
+      setBooksTotalLoading(true);
+      try {
+        const data = await getBooksTotal();
+        if (!cancelled) setBooksTotal(data);
+      } catch {
+        if (!cancelled) setBooksTotal(null);
+      } finally {
+        if (!cancelled) setBooksTotalLoading(false);
+      }
+    };
+    loadBooksTotal();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return (
@@ -31,7 +53,11 @@ const EcommerceCard = () => {
                   <p className="f-s-18 f-w-600 text-dark txt-ellipsis-1">
                     📈 leacent Book Points
                   </p>
-                  <h2 className="text-secondary-dark mb-0">200.36k</h2>
+                    <h2 className="text-secondary-dark mb-0">
+                      {booksTotalLoading
+                        ? "..."
+                        : (booksTotal?.total ?? 0).toLocaleString()}
+                    </h2>
                 </div>
               </CardBody>
             </Card>
@@ -121,7 +147,11 @@ const EcommerceCard = () => {
                   <p className="text-success f-s-18 f-w-600 txt-ellipsis-1">
                     📝 Books in Store
                   </p>
-                  <h2 className="text-success-dark mb-0">-6,876</h2>
+                  <h2 className="text-success-dark mb-0">
+                    {booksTotalLoading
+                      ? "..."
+                      : (booksTotal?.total ?? 0).toLocaleString()}
+                  </h2>
                 </div>
               </CardBody>
             </Card>
