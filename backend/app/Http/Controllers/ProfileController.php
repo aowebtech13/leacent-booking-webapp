@@ -80,7 +80,7 @@ class ProfileController extends Controller
         $days = 30;
 
         $payments = BookPayment::where('user_id', $request->user()->id)
-            ->where('status', BookPayment::STATUS_ACTIVE)
+            ->whereIn('status', [BookPayment::STATUS_ACTIVE])
             ->get(['amount', 'currency', 'paid_at', 'created_at']);
 
         $currency = $payments->first()?->currency ?: 'NGN';
@@ -167,7 +167,7 @@ class ProfileController extends Controller
     public function getMoneySpent(Request $request)
     {
         $totalSpent = BookPayment::where('user_id', $request->user()->id)
-            ->where('status', BookPayment::STATUS_ACTIVE)
+            ->whereIn('status', [BookPayment::STATUS_ACTIVE])
             ->where('amount', '>', 0)
             ->sum('amount');
 
