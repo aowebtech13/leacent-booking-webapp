@@ -18,7 +18,7 @@ const Profile = () => {
         mainTitle="Profile"
         title="Apps"
         path={["Profile Page", "Profile"]}
-        Icon={IconStack2}
+        Icon={IconStack2 as any}
       />
       <Row>
         <Col lg="12" className="order--1-lg col-box-4">

@@ -65,9 +65,7 @@ const AboutMe = ({ profile }: AboutMeProps) => {
         <h5>About Me</h5>
       </CardHeader>
       <CardBody>
-        {about && (
-          <p className="text-muted f-s-13 mb-4">{about}</p>
-        )}
+        {about && <p className="text-muted f-s-13 mb-4">{about}</p>}
         <div className="about-list">
           {aboutItems
             .filter((item) => item.value)

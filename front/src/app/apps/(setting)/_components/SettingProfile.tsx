@@ -23,7 +23,6 @@ import { useRouter } from "next/navigation";
 function SettingProfile() {
   const { user, refreshUser } = useAuth();
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [imageUploading, setImageUploading] = useState(false);
   const [imageProgress, setImageProgress] = useState(0);
@@ -52,7 +51,11 @@ function SettingProfile() {
     }
   }, [user]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -146,22 +149,54 @@ function SettingProfile() {
                   </div>
                   <div className="avatar-preview">
                     {imageUploading ? (
-                      <div className="d-flex align-items-center justify-content-center" style={{ width: 120, height: 120, borderRadius: "50%", backgroundColor: "#f8f9fa" }}>
-                        <Progress value={imageProgress} striped animated className="w-75" />
+                      <div
+                        className="d-flex align-items-center justify-content-center"
+                        style={{
+                          width: 120,
+                          height: 120,
+                          borderRadius: "50%",
+                          backgroundColor: "#f8f9fa",
+                        }}
+                      >
+                        <Progress
+                          value={imageProgress}
+                          striped
+                          animated
+                          className="w-75"
+                        />
                       </div>
                     ) : (
-                      <div id="imgPreview" style={{ width: 120, height: 120, borderRadius: "50%", overflow: "hidden", backgroundColor: "#f8f9fa" }}>
+                      <div
+                        id="imgPreview"
+                        style={{
+                          width: 120,
+                          height: 120,
+                          borderRadius: "50%",
+                          overflow: "hidden",
+                          backgroundColor: "#f8f9fa",
+                        }}
+                      >
                         {formData.avatar_url ? (
                           <img
                             src={formData.avatar_url}
                             alt="Avatar"
-                            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "cover",
+                              display: "block",
+                            }}
                           />
                         ) : (
                           <img
                             src={user?.profile?.avatar_url}
                             alt="Avatar"
-                            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "cover",
+                              display: "block",
+                            }}
                           />
                         )}
                       </div>
