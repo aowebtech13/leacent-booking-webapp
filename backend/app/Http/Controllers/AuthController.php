@@ -173,16 +173,34 @@ class AuthController extends Controller
 
     public function sendPasswordResetEmail(Request $request)
     {
-        $request->validate([
-            'email' => 'required|email|exists:users,email',
-        ]);
+        $request->validate(
+            [
+                'email' => ['required', 'string', 'email'],
+            ],
+            [
+                'email.required' => 'Please enter the email address for your account.',
+                'email.email' => 'Please enter a valid email address.',
+            ]
+        );
 
-        $user = User::where('email', $request->email)->first();
+        $email = trim((string) $request->get('email'));
+
+        // Look the account up case-insensitively: SQLite compares strings
+        // case-sensitively, so a differently typed address would otherwise
+        // not be found.
+        $user = User::whereRaw('LOWER(email) = ?', [mb_strtolower($email)])->first();
+
+        if (! $user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No account was found with that email address. Please check it or create a new account.',
+            ], 404);
+        }
 
         $token = $user->createToken('password_reset', ['password-reset'], now()->addMinutes(30))->plainTextToken;
 
         try {
-            Mail::to($user->email)->send(new PasswordResetMail($user, config('app.frontend_url') . '/reset-password?token=' . $token));
+            Mail::to($user->email)->send(new PasswordResetMail($user, $this->passwordResetUrl($token)));
 
             return response()->json([
                 'success' => true,
@@ -198,12 +216,29 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * The frontend URL a password reset link points to.
+     */
+    private function passwordResetUrl(string $token): string
+    {
+        return rtrim((string) config('app.frontend_url'), '/')
+            . '/auth-pages/reset-password?token=' . $token;
+    }
+
     public function resetPassword(Request $request)
     {
-        $data = $request->validate([
-            'token' => 'required|string',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
+        $data = $request->validate(
+            [
+                'token' => 'required|string',
+                'password' => 'required|string|min:8|confirmed',
+            ],
+            [
+                'token.required' => 'The reset link is missing its token. Please request a new one.',
+                'password.required' => 'Please enter a new password.',
+                'password.min' => 'Your new password must be at least 8 characters long.',
+                'password.confirmed' => 'The password confirmation does not match.',
+            ]
+        );
 
         $token = PersonalAccessToken::findToken($data['token']);
 

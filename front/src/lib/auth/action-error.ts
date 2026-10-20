@@ -19,6 +19,15 @@ export class ActionError extends Error {
  */
 export function toActionError(error: any): ActionError {
   if (error instanceof ActionError) return error;
+
+  // Next.js implements redirects by throwing an error with a NEXT_REDIRECT
+  // digest. It must be re-thrown as-is, otherwise a successful action that
+  // redirects would be reported to the user as a failure.
+  const digest = error?.digest ?? error?.cause?.digest;
+  if (typeof digest === "string" && digest.startsWith("NEXT_REDIRECT")) {
+    throw error;
+  }
+
   const hasResponse = Boolean(error?.response);
   const message = hasResponse
     ? error?.message ||

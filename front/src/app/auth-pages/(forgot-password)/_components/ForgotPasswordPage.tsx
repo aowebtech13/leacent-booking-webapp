@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useActionState } from "react";
 import {
   Col,
   Container,
@@ -10,16 +10,28 @@ import {
   Input,
   Button,
   Spinner,
+  Alert,
 } from "reactstrap";
 import Link from "next/link";
 import { forgotPasswordAction } from "@/lib/auth/action";
 
-const ForgotPasswordPage = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+const INITIAL_STATE = { error: null as string | null };
 
-  const handleSubmit = () => {
-    setIsSubmitting(true);
-  };
+const ForgotPasswordPage = () => {
+  const [state, formAction, isPending] = useActionState(
+    async (_prev: { error: string | null }, formData: FormData) => {
+      try {
+        await forgotPasswordAction(formData);
+      } catch (err: any) {
+        if (err?.name === "ActionError") {
+          return { error: err.message };
+        }
+        return { error: err?.message || "Unable to send the reset link." };
+      }
+      return INITIAL_STATE;
+    },
+    INITIAL_STATE
+  );
 
   return (
     <div className="sign-in-bg">
@@ -50,13 +62,12 @@ const ForgotPasswordPage = () => {
               <Col lg={6} className="form-contentbox">
                 <div className="form-container">
                   <Form
-                    action={forgotPasswordAction}
-                    onSubmit={handleSubmit}
+                    action={formAction}
                     className="app-form rounded-control"
                   >
                     <Row>
                       <Col xs={12}>
-                        <div className="mb-5 text-center text-lg-start">
+                        <div className="mb-5 mt-5 text-center text-lg-start">
                           <h2 className="text-primary-dark f-w-600">
                             Forgot Password?
                           </h2>
@@ -65,6 +76,14 @@ const ForgotPasswordPage = () => {
                           </p>
                         </div>
                       </Col>
+
+                      {state.error && (
+                        <Col xs={12}>
+                          <Alert color="danger" className="mb-3">
+                            {state.error}
+                          </Alert>
+                        </Col>
+                      )}
 
                       <Col xs={12}>
                         <FormGroup className="mb-3">
@@ -85,8 +104,9 @@ const ForgotPasswordPage = () => {
                             color="light-primary"
                             type="submit"
                             className="w-100"
+                            disabled={isPending}
                           >
-                            {isSubmitting ? (
+                            {isPending ? (
                               <Spinner size="sm" />
                             ) : (
                               "Send Reset Link"

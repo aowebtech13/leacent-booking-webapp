@@ -16,6 +16,7 @@ import ComparePricing from "@/app/apps/(pricing)/_components/ComparePricing";
 import SubscribePlanModal from "@/app/apps/(pricing)/_components/SubscribePlanModal";
 
 import { IconStack2 } from "@tabler/icons-react";
+import { useRouter } from "next/navigation";
 import {
   BookPlan,
   SubscriptionPayment,
@@ -26,6 +27,7 @@ import { useAuth } from "@/lib/contexts/AuthContext";
 
 const PricingPage = () => {
   const { isAuthenticated, isLoading: authLoading } = useAuth();
+  const router = useRouter();
 
   const [plans, setPlans] = useState<BookPlan[]>([]);
   const [plansLoading, setPlansLoading] = useState(true);
@@ -72,6 +74,7 @@ const PricingPage = () => {
 
   const handleSubscribe = (plan: BookPlan) => {
     if (!isAuthenticated) {
+      router.push("/sign-in");
       return;
     }
     setSelectedPlan(plan);
