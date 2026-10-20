@@ -111,6 +111,9 @@ class DatabaseSeeder extends Seeder
 
         // Seed categories
         $this->call(CategorySeeder::class);
+
+        // Seed subscription plans
+        $this->call(BookPlanSeeder::class);
     }
 }
 

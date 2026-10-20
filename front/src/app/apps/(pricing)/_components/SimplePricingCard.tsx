@@ -2,63 +2,53 @@ import React from "react";
 import Slider from "react-slick";
 import { Check } from "phosphor-react";
 import { Button, Card, CardBody } from "reactstrap";
+import { BookPlan } from "@/lib/api";
 
-const SimplePricingCard = () => {
-  const pricingPlans = [
-    {
-      title: "Daily",
-      price: "#500",
-      period: "per day",
-      features: [
-        "100 requests per day",
-        "Free trial features access",
-        "Limited API access",
-      ],
-      buttonClass: "btn-success",
-    },
-    {
-      title: "Premium",
-      price: "$19.99",
-      period: "per month",
-      features: [
-        "Unlimited AI generation",
-        "Full new features access",
-        "Priority support",
-      ],
-      buttonClass: "btn-secondary",
-    },
-    {
-      title: "Enterprise",
-      price: "$9.99",
-      period: "pricing",
-      features: ["Custom deployment", "Comprehensive usage", "Training models"],
-      buttonClass: "btn-success",
-    },
-    {
-      title: "Professional",
-      price: "$49.99",
-      period: "per month",
-      features: [
-        "Access to all features",
-        "Priority email support",
-        "Weekly backups",
-      ],
-      buttonClass: "btn-secondary",
-    },
-  ];
+interface SimplePricingCardProps {
+  plans: BookPlan[];
+  loading?: boolean;
+  onSubscribe: (plan: BookPlan) => void;
+}
+
+const formatMoney = (amount: number, currency?: string) => {
+  const value = Number.isFinite(amount) ? amount : 0;
+
+  try {
+    return new Intl.NumberFormat("en-NG", {
+      style: "currency",
+      currency: currency || "NGN",
+      maximumFractionDigits: Number.isInteger(value) ? 0 : 2,
+    }).format(value);
+  } catch {
+    return `${currency || "NGN"} ${value.toLocaleString()}`;
+  }
+};
+
+const periodLabel = (plan: BookPlan) => {
+  if (plan.billing_cycle === "yearly") return "per year";
+  if (plan.billing_cycle === "one_time") return "one time";
+  return "per month";
+};
+
+const SimplePricingCard: React.FC<SimplePricingCardProps> = ({
+  plans,
+  loading = false,
+  onSubscribe,
+}) => {
+  const slidesToShow = plans.length ? Math.min(4, plans.length) : 1;
 
   const sliderSettings = {
     infinite: true,
-    slidesToShow: 4,
+    slidesToShow,
     slidesToScroll: 1,
     responsive: [
       {
         breakpoint: 1440,
-        settings: { slidesToShow: 3 },
+        settings: { slidesToShow: Math.min(3, slidesToShow) },
       },
       {
         breakpoint: 991,
-        settings: { slidesToShow: 2 },
+        settings: { slidesToShow: Math.min(2, slidesToShow) },
       },
       {
         breakpoint: 600,
@@ -74,58 +64,74 @@ const SimplePricingCard = () => {
 
   return (
     <div className="simple-pricing-container">
-      <Slider {...sliderSettings}>
-        {pricingPlans.map((plan) => (
-          <div key={plan.title} className="p-3">
-            <Card className="simple-pricing-card">
-              <CardBody>
-                <div className="simple-price-header text-center mb-3">
-                  <h4 className="mb-0">{plan.title}</h4>
-                </div>
-
-                <div className="simple-price-body">
-                  <div
-                    className={`simple-price-value text-center rounded bg-light-${
-                      plan.buttonClass.includes("success")
-                        ? "success"
-                        : "secondary"
-                    } d-block py-3 mb-3`}
-                  >
-                    <span className="f-s-24 f-w-600 d-block">
-                      {plan.price}/
-                    </span>
-                    <span className="f-s-12 f-w-600">{plan.period}</span>
+      {loading ? (
+        <div className="text-center py-4 text-muted">Loading plans…</div>
+      ) : plans.length === 0 ? (
+        <div className="text-center py-4 text-muted">
+          No subscription plans available right now.
+        </div>
+      ) : (
+        <Slider {...sliderSettings}>
+          {plans.map((plan) => (
+            <div key={plan.id} className="p-3">
+              <Card className="simple-pricing-card">
+                <CardBody>
+                  <div className="simple-price-header text-center mb-3">
+                    <h4 className="mb-0">{plan.name}</h4>
+                    {plan.description && (
+                      <p className="f-s-13 text-muted mt-1 mb-0">
+                        {plan.description}
+                      </p>
+                    )}
                   </div>
 
-                  <div className="simple-price-content">
-                    {plan.features.map((feature, i) => (
-                      <div key={i}>
-                        <div className="d-flex align-items-start mb-2">
-                          <Check
-                            size={20}
-                            weight="duotone"
-                            className="bg-success p-1 b-r-100"
-                          />
-                          <p className="ms-2 mb-0">{feature}</p>
-                        </div>
-                        <div className="app-divider-v px-2" />
-                      </div>
-                    ))}
-
-                    <Button
-                      color=""
-                      className={`${plan.buttonClass} rounded w-100 p-2 mt-3`}
-                      type="button"
+                  <div className="simple-price-body">
+                    <div
+                      className={`simple-price-value text-center rounded bg-light-${
+                        plan.is_featured ? "success" : "secondary"
+                      } d-block py-3 mb-3`}
                     >
-                      Get Started
-                    </Button>
+                      <span className="f-s-24 f-w-600 d-block">
+                        {formatMoney(plan.price, plan.currency)}/
+                      </span>
+                      <span className="f-s-12 f-w-600">
+                        {periodLabel(plan)}
+                      </span>
+                    </div>
+
+                    <div className="simple-price-content">
+                      {(plan.features ?? []).map((feature, i) => (
+                        <div key={i}>
+                          <div className="d-flex align-items-start mb-2">
+                            <Check
+                              size={20}
+                              weight="duotone"
+                              className="bg-success p-1 b-r-100"
+                            />
+                            <p className="ms-2 mb-0">{feature}</p>
+                          </div>
+                          <div className="app-divider-v px-2" />
+                        </div>
+                      ))}
+
+                      <Button
+                        color=""
+                        className={`${
+                          plan.is_featured ? "btn-success" : "btn-secondary"
+                        } rounded w-100 p-2 mt-3`}
+                        type="button"
+                        onClick={() => onSubscribe(plan)}
+                      >
+                        Subscribe
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              </CardBody>
-            </Card>
-          </div>
-        ))}
-      </Slider>
+                </CardBody>
+              </Card>
+            </div>
+          ))}
+        </Slider>
+      )}
     </div>
   );
 };

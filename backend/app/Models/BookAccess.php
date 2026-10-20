@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class BookAccess extends Model
 {
+    /**
+     * The migration created the table in its singular form.
+     */
+    protected $table = 'book_access';
+
     protected $fillable = [
         'user_id',
         'book_id',

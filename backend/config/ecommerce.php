@@ -45,6 +45,26 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Bank Transfer Details
+    |--------------------------------------------------------------------------
+    |
+    | Where subscribers send their manual (bank transfer) payments. Payments
+    | are verified manually from the admin area, so the account details
+    | shown to the customer must match the account we watch.
+    |
+    */
+    'bank_transfer' => [
+        'account_name' => env('BANK_ACCOUNT_NAME', 'Firstborn Publishing'),
+        'account_number' => env('BANK_ACCOUNT_NUMBER', '1013019164'),
+        'bank_name' => env('BANK_NAME', 'Zenith Bank'),
+        'instructions' => env(
+            'BANK_TRANSFER_INSTRUCTIONS',
+            'Transfer the exact amount to the account below, then upload your payment receipt. Our team verifies the payment and activates your access.'
+        ),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Order Lifecycle
     |--------------------------------------------------------------------------
     */

@@ -7,6 +7,8 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  console.error(error);
+
   return (
     <div className="d-flex flex-column align-items-center justify-content-center min-vh-100 text-center p-4">
       <h2 className="mb-3">Something went wrong</h2>

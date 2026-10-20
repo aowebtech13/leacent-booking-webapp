@@ -1,27 +1,56 @@
 import React from "react";
 import { CheckCircle, XCircle } from "phosphor-react";
+import { BookPlan } from "@/lib/api";
 
-const ComparePricing = () => {
-  const plans = [
-    { name: "Free", features: ["check", "x", "check", "x", "x", "x"] },
-    {
-      name: "Pro",
-      features: ["check", "check", "check", "check", "check", "x"],
-    },
-    {
-      name: "Enterprise",
-      features: ["check", "check", "check", "check", "check", "check"],
-    },
-  ];
+interface ComparePricingProps {
+  plans: BookPlan[];
+}
 
+const formatMoney = (amount: number, currency?: string) => {
+  const value = Number.isFinite(amount) ? amount : 0;
+
+  try {
+    return new Intl.NumberFormat("en-NG", {
+      style: "currency",
+      currency: currency || "NGN",
+      maximumFractionDigits: Number.isInteger(value) ? 0 : 2,
+    }).format(value);
+  } catch {
+    return `${currency || "NGN"} ${value.toLocaleString()}`;
+  }
+};
+
+const ComparePricing: React.FC<ComparePricingProps> = ({ plans }) => {
   const featureList = [
-    "Public",
-    "Private",
-    "Permissions",
-    "Sharing",
-    "Unlimited members",
-    "Extra security",
+    {
+      label: "Unlimited books",
+      value: (plan: BookPlan) => (plan.unlimited_books ? "check" : "x"),
+    },
+    {
+      label: "Download books",
+      value: (plan: BookPlan) => (plan.can_download ? "check" : "x"),
+    },
+    {
+      label: "Read offline",
+      value: (plan: BookPlan) => (plan.can_read_offline ? "check" : "x"),
+    },
+    {
+      label: "Access period",
+      value: (plan: BookPlan) => `${plan.access_duration_days} days`,
+    },
+    {
+      label: "Price",
+      value: (plan: BookPlan) => formatMoney(plan.price, plan.currency),
+    },
   ];
+
+  if (!plans.length) {
+    return (
+      <div className="text-center py-4 text-muted">
+        No subscription plans available right now.
+      </div>
+    );
+  }
 
   return (
     <div className="pricing-table table-responsive">
@@ -29,8 +58,8 @@ const ComparePricing = () => {
         <thead>
           <tr>
             <th></th>
-            {plans.map((plan, index) => (
-              <th key={index}>{plan.name}</th>
+            {plans.map((plan) => (
+              <th key={plan.id}>{plan.name}</th>
             ))}
           </tr>
         </thead>
@@ -38,25 +67,31 @@ const ComparePricing = () => {
           {featureList.map((feature, featureIndex) => (
             <tr key={featureIndex}>
               <th scope="row" className="text-start f-w-500">
-                {feature}
+                {feature.label}
               </th>
-              {plans.map((plan, planIndex) => (
-                <td key={planIndex}>
-                  {plan.features[featureIndex] === "check" ? (
-                    <CheckCircle
-                      size={20}
-                      weight="duotone"
-                      className="text-success"
-                    />
-                  ) : (
-                    <XCircle
-                      size={20}
-                      weight="duotone"
-                      className="text-danger"
-                    />
-                  )}
-                </td>
-              ))}
+              {plans.map((plan) => {
+                const value = feature.value(plan);
+
+                return (
+                  <td key={plan.id}>
+                    {value === "check" ? (
+                      <CheckCircle
+                        size={20}
+                        weight="duotone"
+                        className="text-success"
+                      />
+                    ) : value === "x" ? (
+                      <XCircle
+                        size={20}
+                        weight="duotone"
+                        className="text-danger"
+                      />
+                    ) : (
+                      <span className="f-w-600">{value}</span>
+                    )}
+                  </td>
+                );
+              })}
             </tr>
           ))}
         </tbody>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BookPlanController;
 use App\Http\Controllers\BookReadingProgressController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PaymentController;
@@ -167,6 +168,17 @@ Route::get('books', [BookController::class, 'index']);
 Route::get('books/total', [BookController::class, 'total']);
 Route::get('books/{id}', [BookController::class, 'show']);
 Route::get('books/{id}/preview', [BookController::class, 'preview']);
+
+// Subscription plans (public read)
+Route::get('book-plans', [BookPlanController::class, 'index']);
+Route::get('book-plans/bank-details', [BookPlanController::class, 'bankDetailsEndpoint']);
+
+// Subscription payments (manual bank transfer, verified in the admin area)
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('book-plans/payments', [BookPlanController::class, 'myPayments']);
+    Route::post('book-plans/{bookPlan}/subscribe', [BookPlanController::class, 'subscribe']);
+    Route::post('book-plans/payments/{payment}/receipt', [BookPlanController::class, 'uploadReceipt']);
+});
 
 // Protected book reading (requires active access)
 Route::middleware('auth:sanctum')->group(function () {

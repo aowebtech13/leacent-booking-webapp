@@ -15,6 +15,8 @@ use App\Models\UserLog;
 use App\Models\UserRole;
 use App\Notifications\ManualPaymentRejectedNotification;
 use App\Notifications\ManualPaymentVerifiedNotification;
+use App\Notifications\SubscriptionActivatedNotification;
+use App\Notifications\SubscriptionPaymentRejectedNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -589,6 +591,214 @@ class AdminWebController extends Controller
         return redirect()
             ->route('admin.orders.show', $order)
             ->with('success', 'Payment rejected for Order #'.$order->id.'.');
+    }
+
+    /**
+     * GET /admin/book-payments
+     * Subscription (plan) payments awaiting manual verification.
+     */
+    public function bookPayments(Request $request)
+    {
+        $query = BookPayment::with(['user.profile', 'bookPlan'])
+            ->whereIn('payment_type', [BookPayment::TYPE_PLAN, BookPayment::TYPE_SUBSCRIPTION]);
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('payment_reference', 'like', "%{$search}%")
+                    ->orWhereHas('user', function ($userQuery) use ($search) {
+                        $userQuery->where('name', 'like', "%{$search}%")
+                            ->orWhere('email', 'like', "%{$search}%");
+                    });
+            });
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $payments = $query->orderByDesc('created_at')->paginate(20)->withQueryString();
+
+        return view('admin.book-payments.index', [
+            'payments' => $payments,
+            'statuses' => BookPayment::validStatuses(),
+        ]);
+    }
+
+    /**
+     * GET /admin/book-payments/{payment}
+     */
+    public function showBookPayment(BookPayment $payment)
+    {
+        $payment->load(['user.profile', 'bookPlan', 'verifier']);
+
+        return view('admin.book-payments.show', compact('payment'));
+    }
+
+    /**
+     * GET /admin/book-payments/{payment}/receipt
+     */
+    public function viewBookPaymentReceipt(BookPayment $payment)
+    {
+        if (! $payment->payment_receipt || ! Storage::disk('public')->exists($payment->payment_receipt)) {
+            return back()->with('error', 'Receipt not found for this payment.');
+        }
+
+        $payment->load(['user.profile', 'bookPlan', 'verifier']);
+
+        return view('admin.book-payments.receipt', compact('payment'));
+    }
+
+    /**
+     * POST /admin/book-payments/{payment}/verify
+     * Accept the manual bank transfer and activate the subscription.
+     */
+    public function verifyBookPayment(Request $request, BookPayment $payment)
+    {
+        $request->validate([
+            'notes' => 'nullable|string|max:2000',
+        ]);
+
+        if ($payment->status !== BookPayment::STATUS_PENDING) {
+            return back()->with('error', 'This payment is not awaiting verification.');
+        }
+
+        $plan = $payment->bookPlan;
+
+        if (! $plan) {
+            return back()->with('error', 'The plan for this payment no longer exists.');
+        }
+
+        $admin = $request->user();
+
+        $payment->status = BookPayment::STATUS_ACTIVE;
+        $payment->payment_method = $payment->payment_method ?: 'bank_transfer';
+        $payment->paid_at = $payment->paid_at ?: now();
+        $payment->verified_by = $admin->id;
+        $payment->verified_at = now();
+
+        if ($request->filled('notes')) {
+            $payment->notes = $request->get('notes');
+        }
+
+        $payment->save();
+
+        $this->activateSubscription($payment, $plan);
+
+        $payment->user->notify(new SubscriptionActivatedNotification(
+            planName: $plan->name,
+            amount: (float) $payment->amount,
+            currency: $payment->currency,
+            accessEndsAt: $this->subscriptionEndDate($plan)->format('d M, Y'),
+        ));
+
+        return redirect()
+            ->route('admin.book-payments.show', $payment)
+            ->with('success', 'Payment verified. Subscription activated for '.$payment->user->name.'.');
+    }
+
+    /**
+     * POST /admin/book-payments/{payment}/reject
+     */
+    public function rejectBookPayment(Request $request, BookPayment $payment)
+    {
+        $request->validate([
+            'rejection_reason' => 'required|string|max:2000',
+            'notes' => 'nullable|string|max:2000',
+        ]);
+
+        if ($payment->status !== BookPayment::STATUS_PENDING) {
+            return back()->with('error', 'This payment is not awaiting verification.');
+        }
+
+        $admin = $request->user();
+
+        $payment->status = BookPayment::STATUS_FAILED;
+        $payment->rejection_reason = $request->get('rejection_reason');
+        $payment->verified_by = $admin->id;
+        $payment->verified_at = now();
+
+        if ($request->filled('notes')) {
+            $payment->notes = $request->get('notes');
+        }
+
+        $payment->save();
+
+        $payment->user->notify(new SubscriptionPaymentRejectedNotification(
+            planName: $payment->bookPlan?->name ?? 'Subscription',
+            amount: (float) $payment->amount,
+            currency: $payment->currency,
+            reason: $request->get('rejection_reason'),
+        ));
+
+        return redirect()
+            ->route('admin.book-payments.show', $payment)
+            ->with('success', 'Payment rejected for '.$payment->user->name.'.');
+    }
+
+    /**
+     * Create/refresh the subscription for a verified plan payment and
+     * grant the user access to the books included in the plan.
+     */
+    private function activateSubscription(BookPayment $payment, \App\Models\BookPlan $plan): Subscription
+    {
+        $start = now();
+        $end = $this->subscriptionEndDate($plan, $start);
+
+        $subscription = Subscription::updateOrCreate(
+            [
+                'user_id' => $payment->user_id,
+                'book_plan_id' => $plan->id,
+            ],
+            [
+                'plan' => $plan->slug,
+                'status' => Subscription::STATUS_ACTIVE,
+                'billing_cycle' => $plan->billing_cycle === 'yearly' ? Subscription::BILLING_YEARLY : Subscription::BILLING_MONTHLY,
+                'amount' => $payment->amount,
+                'currency' => $payment->currency,
+                'start_date' => $start,
+                'end_date' => $end,
+                'auto_renew' => false,
+            ]
+        );
+
+        $books = $plan->unlimited_books
+            ? Book::where('is_active', true)->orderByDesc('id')->get()
+            : Book::where('is_active', true)->orderByDesc('id')->limit($plan->book_limit)->get();
+
+        foreach ($books as $book) {
+            // firstOrCreate keeps a permanent purchase access untouched.
+            BookAccess::firstOrCreate(
+                ['user_id' => $payment->user_id, 'book_id' => $book->id],
+                [
+                    'subscription_id' => $subscription->id,
+                    'book_payment_id' => $payment->id,
+                    'access_type' => 'subscription',
+                    'granted_at' => now(),
+                    'expires_at' => $end,
+                    'is_active' => true,
+                ]
+            );
+        }
+
+        $meta = $payment->meta ?: [];
+        $meta['subscription_id'] = $subscription->id;
+        $meta['access_ends_at'] = $end->toIso8601String();
+        $payment->meta = $meta;
+        $payment->save();
+
+        return $subscription;
+    }
+
+    /**
+     * The date a plan's access expires.
+     */
+    private function subscriptionEndDate(\App\Models\BookPlan $plan, ?Carbon $start = null): Carbon
+    {
+        $start = $start ?: now();
+        $days = $plan->access_duration_days ?: 30;
+
+        return $start->copy()->addDays($days);
     }
 
     public function exportTransactions(Request $request)

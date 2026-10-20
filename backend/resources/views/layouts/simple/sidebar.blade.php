@@ -28,6 +28,11 @@
                             <li><a href="{{ route('admin.orders.index') }}">Order History</a></li>
                         </ul>
                     </li>
+                    <li class="sidebar-list"><i class="fa-solid fa-thumbtack"></i><a class="sidebar-link sidebar-title" href="javascript:void(0)"><svg class="stroke-icon"><use href="{{ asset('assets/svg/icon-sprite.svg#stroke-bookmark') }}"></use></svg><svg class="fill-icon"><use href="{{ asset('assets/svg/icon-sprite.svg#fill-bookmark') }}"></use></svg><span>Subscriptions</span></a>
+                        <ul class="sidebar-submenu">
+                            <li><a href="{{ route('admin.book-payments.index') }}">Subscription Payments</a></li>
+                        </ul>
+                    </li>
                     <li class="sidebar-list"><i class="fa-solid fa-thumbtack"></i><a class="sidebar-link sidebar-title" href="javascript:void(0)"><svg class="stroke-icon"><use href="{{ asset('assets/svg/icon-sprite.svg#stroke-bookmark') }}"></use></svg><svg class="fill-icon"><use href="{{ asset('assets/svg/icon-sprite.svg#fill-bookmark') }}"></use></svg><span>Books</span></a>
                         <ul class="sidebar-submenu">
                             <li><a href="{{ route('admin.books.index') }}">All Books</a></li>

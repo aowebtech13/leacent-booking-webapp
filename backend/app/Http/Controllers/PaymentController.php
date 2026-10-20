@@ -20,6 +20,8 @@ class PaymentController extends Controller
      */
     public function methods(Request $request)
     {
+        $bank = config('ecommerce.bank_transfer');
+
         $methods = [
             [
                 'id' => 'bank_transfer',
@@ -31,9 +33,9 @@ class PaymentController extends Controller
                     'Bank transfer verification',
                     'Payment tracking',
                 ],
-                'bank_account_number' => '5066678144',
-                'bank_account_name' => 'LVS Synergy Global Ventures',
-                'bank_name' => 'Moniepoint MFB',
+                'bank_account_number' => $bank['account_number'],
+                'bank_account_name' => $bank['account_name'],
+                'bank_name' => $bank['bank_name'],
             ],
             [
                 'id' => 'cash_on_delivery',
@@ -45,9 +47,9 @@ class PaymentController extends Controller
                     'No upfront payment',
                     'Inspect before paying',
                 ],
-                'bank_account_number' => '5066678144',
-                'bank_account_name' => 'LVS Synergy Global Ventures',
-                'bank_name' => 'Moniepoint MFB',
+                'bank_account_number' => $bank['account_number'],
+                'bank_account_name' => $bank['account_name'],
+                'bank_name' => $bank['bank_name'],
             ],
         ];
 

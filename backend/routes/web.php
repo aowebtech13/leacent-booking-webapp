@@ -43,6 +43,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('orders/{order}/verify', [AdminWebController::class, 'verifyPayment'])->name('orders.verify');
          Route::post('orders/{order}/reject', [AdminWebController::class, 'rejectPayment'])->name('orders.reject');
 
+        // Subscription payments (manual bank transfer verification)
+        Route::get('book-payments', [AdminWebController::class, 'bookPayments'])->name('book-payments.index');
+        Route::get('book-payments/{payment}', [AdminWebController::class, 'showBookPayment'])->name('book-payments.show');
+        Route::get('book-payments/{payment}/receipt', [AdminWebController::class, 'viewBookPaymentReceipt'])->name('book-payments.receipt');
+        Route::post('book-payments/{payment}/verify', [AdminWebController::class, 'verifyBookPayment'])->name('book-payments.verify');
+        Route::post('book-payments/{payment}/reject', [AdminWebController::class, 'rejectBookPayment'])->name('book-payments.reject');
+
 
         // Books management
         Route::prefix('books')->name('books.')->group(function () {
