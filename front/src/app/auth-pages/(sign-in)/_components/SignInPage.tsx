@@ -1,5 +1,5 @@
 "use client";
-import React, { useActionState } from "react";
+import React, { useActionState, useEffect } from "react";
 import {
   Container,
   Row,
@@ -13,25 +13,40 @@ import {
   Alert,
 } from "reactstrap";
 import Link from "next/link";
-import { loginUser } from "@/lib/auth/action";
+import { useRouter } from "next/navigation";
+import { loginUser, POST_LOGIN_PATH } from "@/lib/auth/action";
+import { useAuth } from "@/lib/contexts/AuthContext";
 
 const INITIAL_STATE = { error: null as string | null };
 
 const SignInPage = () => {
+  const router = useRouter();
+  const { isAuthenticated, isLoading: authLoading, setAuth } = useAuth();
+
   const [state, formAction, isPending] = useActionState(
     async (_prev: { error: string | null }, formData: FormData) => {
       try {
-        await loginUser(formData);
+        const res = await loginUser(formData);
+        // Store the session (token + user) before leaving the auth page,
+        // otherwise the app renders as if the user was never signed in.
+        setAuth(res);
+        return INITIAL_STATE;
       } catch (err: any) {
         if (err?.name === "ActionError") {
           return { error: err.message };
         }
         return { error: err?.message || "Invalid credentials" };
       }
-      return INITIAL_STATE;
     },
     INITIAL_STATE
   );
+
+  // Send signed in users to the app instead of the sign in form.
+  useEffect(() => {
+    if (!authLoading && isAuthenticated) {
+      router.replace(POST_LOGIN_PATH);
+    }
+  }, [authLoading, isAuthenticated, router]);
 
   return (
     <div className="sign-in-bg">

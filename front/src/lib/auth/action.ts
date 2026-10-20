@@ -9,6 +9,7 @@ import {
   forgotPassword,
   resetPassword,
   resendOtp,
+  type AuthResponse,
 } from "@/lib/api/auth";
 import { ActionError, toActionError } from "./action-error";
 
@@ -16,6 +17,12 @@ export { ActionError };
 
 const PENDING_EMAIL_COOKIE = "pending_email";
 const PENDING_EMAIL_MAX_AGE = 300;
+
+/**
+ * Landing page for a user that just signed in. It lives inside the
+ * authenticated part of the app, so it renders with the sidebar/header.
+ */
+export const POST_LOGIN_PATH = "/dashboard";
 
 async function setPendingEmail(email: string) {
   const cookieStore = await cookies();
@@ -67,14 +74,16 @@ export async function resetPasswordAction(formData: FormData): Promise<void> {
  * verify. In that case we redirect to the verify-otp page so the
  * user can complete the OTP flow (the backend has already emailed a fresh
  * code for the unverified account).
+ *
+ * On success the auth payload (access token + user) is returned to the
+ * caller so the browser can store the session before navigating to the app.
  */
-export async function loginUser(formData: FormData): Promise<void> {
+export async function loginUser(formData: FormData): Promise<AuthResponse> {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
   try {
-    await login({ email, password });
-    redirect("/");
+    return await login({ email, password });
   } catch (error: any) {
     const actionError = toActionError(error);
     // 401 = invalid credentials (unregistered user or wrong password)
@@ -87,13 +96,12 @@ export async function loginUser(formData: FormData): Promise<void> {
   }
 }
 
-export async function loginUserImg(formData: FormData): Promise<void> {
+export async function loginUserImg(formData: FormData): Promise<AuthResponse> {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
   try {
-    await login({ email, password });
-    redirect("/");
+    return await login({ email, password });
   } catch (error: any) {
     const actionError = toActionError(error);
     if (actionError.status === 422) {
