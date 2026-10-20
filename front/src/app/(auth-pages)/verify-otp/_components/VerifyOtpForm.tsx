@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/contexts/AuthContext";
 import { verifyOtp as apiVerifyOtp, AuthResponse } from "@/lib/api";
@@ -206,11 +207,14 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
   return (
     <div className="login-card otp-verify-card">
       <div className="login-main otp-verify-main">
-        <img
+        <Image
           src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png"
           alt="Leacent Logo"
           className="otp-logo"
-          height="48"
+          width={87}
+          height={48}
+          sizes="87px"
+          priority
         />
 
         <div className="theme-form otp-theme-form">

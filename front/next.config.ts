@@ -13,6 +13,16 @@ const nextConfig: NextConfig = {
     includePaths: [path.join(__dirname, "styles")],
   },
 
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        pathname: "/**",
+      },
+    ],
+  },
+
   experimental: {
     serverActions: {}, // ✅ Fixed shape
   },

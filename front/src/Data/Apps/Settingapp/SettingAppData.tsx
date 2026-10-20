@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export const activities = [
   {
     id: 1,
@@ -362,10 +364,13 @@ export interface SecurityItem {
 export const securityItems: SecurityItem[] = [
   {
     icon: (
-      <img
-        src="/images/setting/google.png"
+      <Image
+        src="/images/setting-app/google.png"
         alt="Google"
         className="w-35 h-35"
+        width={48}
+        height={48}
+        sizes="35px"
       />
     ),
     title: "Authentication",

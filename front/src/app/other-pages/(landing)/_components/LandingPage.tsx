@@ -199,7 +199,7 @@ const LandingPage = () => {
         >
           <Container fluid>
             <NavbarBrand className="logo" tag={Link} href="/dashboard">
-              <img alt="logo" src="/images/logo/axelit-white.png" />
+              <img alt="logo" src="http://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png" />
             </NavbarBrand>
 
             <NavbarToggler onClick={toggle} aria-label="Toggle navigation" />
@@ -290,14 +290,7 @@ const LandingPage = () => {
                     >
                       Check Now
                     </Button>
-                    <Button
-                      color="danger"
-                      className="py-3 px-4 rounded-pill btn-lg ms-2"
-                      href="https://phpstack-1384472-5121645.cloudwaysapps.com/document/next-ts/axelit/index.html"
-                      target="_blank"
-                    >
-                      Document
-                    </Button>
+                  
                   </div>
                 </div>
               </Col>

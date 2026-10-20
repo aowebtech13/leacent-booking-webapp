@@ -1,6 +1,7 @@
 import Scrollbar from "simplebar-react";
 import MenuItem from "./MenuItem";
 import Link from "next/link";
+import Image from "next/image";
 import { MenuList } from "@/Data/Sidebar/sidebar";
 import React, { Fragment, useState, useRef, useEffect } from "react";
 import { SidebarProps } from "@/interface/common";
@@ -44,10 +45,14 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
     >
       <div className="app-logo">
         <Link className="logo d-inline-block" href="/dashboard">
-          <img
+          <Image
             src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png"
             alt="#"
             className="dark-logo"
+            width={201}
+            height={111}
+            sizes="140px"
+            priority
           />
         </Link>
         <span

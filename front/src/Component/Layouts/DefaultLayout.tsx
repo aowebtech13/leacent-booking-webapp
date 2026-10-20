@@ -7,6 +7,7 @@ import Sidebar from "@/Component/Layouts/Sidebar";
 import Header from "@/Component/Layouts/Header";
 import Footer from "@/Component/Layouts/Footer";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 import { Modal, ModalBody, ModalFooter } from "reactstrap";
 
@@ -85,18 +86,25 @@ const DefaultLayout: React.FC<DefaultLayoutProps> = ({ children }) => {
                 </div>
                 <h2 className="f-w-700 text-primary-dark mb-0">
                   <span>Welcome!</span>{" "}
-                  <img
+                  <Image
                     alt="gif"
                     className="w-45 d-inline align-baseline"
                     src="/images/dashboard/ecommerce-dashboard/celebration.gif"
+                    width={512}
+                    height={512}
+                    sizes="45px"
                   />
                 </h2>
 
                 <div className="modal-img-box">
-                  <img
+                  <Image
                     alt="img"
                     className="img-fluid"
                     src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791754748/pexels-sahfy-lenz-2153643467-36895469_q1rtht.jpg"
+                    width={1280}
+                    height={1600}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    priority
                   />
                 </div>
                 <ModalFooter className="modal-btn mb-4 justify-content-center">

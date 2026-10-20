@@ -12,6 +12,7 @@ import {
   Spinner,
 } from "reactstrap";
 import { unlockScreen } from "@/lib/auth/action";
+import Image from "next/image";
 
 const LockScreenPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -31,18 +32,25 @@ const LockScreenPage = () => {
                   <div className="signup-content mt-4">
                     <span>
                       {" "}
-                      <img
+                      <Image
                         src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png"
                         alt="logo"
                         className="img-fluid"
+                        width={201}
+                        height={111}
+                        priority
                       />
                     </span>
                   </div>
                   <div className="signup-bg-img">
-                    <img
+                    <Image
                       src="/images/login/06.png"
                       alt="background"
                       className="img-fluid"
+                      width={648}
+                      height={625}
+                      sizes="(max-width: 992px) 100vw, 50vw"
+                      priority
                     />
                   </div>
                 </div>
@@ -58,10 +66,13 @@ const LockScreenPage = () => {
                       <Col xs={12}>
                         <div className="mb-3 user-screen">
                           <div className="w-90 h-90 b-r-15 d-flex-center overflow-hidden text-bg-primary">
-                            <img
+                            <Image
                               src="/images/avatar/14.png"
                               alt="avatar"
                               className="img-fluid"
+                              width={143}
+                              height={145}
+                              sizes="90px"
                             />
                           </div>
                         </div>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { Badge, Card, CardBody, Col, Row, Table } from "reactstrap";
 import { Language, StarSolid } from "iconoir-react";
 import { getBooks, Book, Author } from "@/lib/api/books";
@@ -186,10 +187,14 @@ const TopProduct = () => {
               <Col key={author.id} xs="6" sm="4">
                 <Card className={author.cardClass}>
                   <CardBody>
-                    <img
+                    <Image
                       src={author.avatar}
                       className="w-30 h-30 b-r-20"
                       alt={author.name}
+                      width={30}
+                      height={30}
+                      sizes="30px"
+                      unoptimized
                     />
                     <div className="mt-3">
                       <h6 className="mb-0">{author.name}</h6>
