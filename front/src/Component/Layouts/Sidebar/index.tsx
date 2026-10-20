@@ -8,18 +8,15 @@ import { IconChevronsRight } from "@tabler/icons-react";
 import HorizontalNav from "@/Component/Layouts/Sidebar/HorizontalNav";
 import { LogOut } from "iconoir-react";
 import { useAuth } from "@/lib/contexts/AuthContext";
-import { useRouter } from "next/navigation";
 
 const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
   const [navTranslateX, setNavTranslateX] = useState(0);
   const [isHorizontal, setIsHorizontal] = useState(false);
   const navRef = useRef<HTMLUListElement>(null);
   const { logout, isAuthenticated } = useAuth();
-  const router = useRouter();
 
   const handleLogout = async () => {
     await logout();
-    router.push("/auth-pages/sign-in");
   };
 
   useEffect(() => {

@@ -153,10 +153,10 @@ const HeaderProfile: React.FC = () => {
 
             {/* Logout Button */}
             <li>
-              <Link
-                className="mb-0 btn btn-light-danger btn-sm d-flex align-items-center justify-content-center"
-                href="/auth-pages/sign-in"
-                role="button"
+              <button
+                type="button"
+                className="mb-0 btn btn-light-danger btn-sm d-flex align-items-center justify-content-center w-100"
+                onClick={handleLogout}
               >
                 <SignOut
                   weight="duotone"
@@ -165,7 +165,7 @@ const HeaderProfile: React.FC = () => {
                   className="pe-1 f-s-20"
                 />
                 Log Out
-              </Link>
+              </button>
             </li>
           </ul>
         </OffcanvasBody>
