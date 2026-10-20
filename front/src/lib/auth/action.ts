@@ -12,6 +12,7 @@ import {
   type AuthResponse,
 } from "@/lib/api/auth";
 import { ActionError, toActionError } from "./action-error";
+import { POST_LOGIN_PATH } from "./constants";
 
 export { ActionError };
 
@@ -34,11 +35,11 @@ async function clearPendingEmail() {
 }
 
 export async function unlockScreen(_formData: FormData): Promise<void> {
-  redirect("/");
+  redirect(POST_LOGIN_PATH);
 }
 
 export async function unlockScreenImg(_formData: FormData): Promise<void> {
-  redirect("/");
+  redirect(POST_LOGIN_PATH);
 }
 
 export async function createPassword(_formData: FormData): Promise<void> {
