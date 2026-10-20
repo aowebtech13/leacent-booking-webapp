@@ -4,11 +4,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Premium bespoke tailoring services specializing in corporate wear, native attire, and custom uniforms.">
-    <meta name="keywords" content="admin template, Cuba admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="description" content="If you are looking for a creative or speculative fiction series, you might be looking for leacent books">
+    <meta name="keywords" content="books,  web app">
     <meta name="author" content="aowebtech">
-    <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
+    <link rel="icon" href="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png" type="image/x-icon">
+    <link rel="shortcut icon" href="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png" type="image/x-icon">
     <title>@yield('title')  | Leacent BookApp -Admin Area By aowebtech</title>
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&amp;display=swap" rel="stylesheet">
