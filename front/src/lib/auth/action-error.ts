@@ -14,6 +14,18 @@ export class ActionError extends Error {
 }
 
 /**
+ * Next.js implements redirects by throwing an error with a NEXT_REDIRECT
+ * digest. When a server action redirects, the promise of the action rejects
+ * with that error so the framework can navigate. UI code that wraps a server
+ * action (for example inside `useActionState`) has to re-throw it, otherwise
+ * the redirect is swallowed and the user stays on the current page.
+ */
+export function isRedirectError(error: any): boolean {
+  const digest = error?.digest ?? error?.cause?.digest;
+  return typeof digest === "string" && digest.startsWith("NEXT_REDIRECT");
+}
+
+/**
  * Wrap an unknown error thrown by the API layer into an ActionError so the
  * UI layer can reliably read `error.message`.
  */
@@ -23,8 +35,7 @@ export function toActionError(error: any): ActionError {
   // Next.js implements redirects by throwing an error with a NEXT_REDIRECT
   // digest. It must be re-thrown as-is, otherwise a successful action that
   // redirects would be reported to the user as a failure.
-  const digest = error?.digest ?? error?.cause?.digest;
-  if (typeof digest === "string" && digest.startsWith("NEXT_REDIRECT")) {
+  if (isRedirectError(error)) {
     throw error;
   }
 

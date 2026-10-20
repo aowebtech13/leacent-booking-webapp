@@ -15,6 +15,7 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { loginUser } from "@/lib/auth/action";
+import { isRedirectError } from "@/lib/auth/action-error";
 import { POST_LOGIN_PATH } from "@/lib/auth/constants";
 import { useAuth } from "@/lib/contexts/AuthContext";
 
@@ -33,6 +34,7 @@ const SignInPage = () => {
         setAuth(res);
         return INITIAL_STATE;
       } catch (err: any) {
+        if (isRedirectError(err)) throw err;
         if (err?.name === "ActionError") {
           return { error: err.message };
         }

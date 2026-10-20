@@ -20,6 +20,7 @@ import {
   IconBrandGoogle,
 } from "@tabler/icons-react";
 import { loginUserImg } from "@/lib/auth/action";
+import { isRedirectError } from "@/lib/auth/action-error";
 import { POST_LOGIN_PATH } from "@/lib/auth/constants";
 import { useAuth } from "@/lib/contexts/AuthContext";
 
@@ -34,6 +35,7 @@ const SignInBgImgPage = () => {
         setAuth(res);
         return { error: null };
       } catch (err: any) {
+        if (isRedirectError(err)) throw err;
         if (err?.name === "ActionError") {
           return { error: err.message };
         }

@@ -15,6 +15,7 @@ import {
 import Link from "next/link";
 
 import { registerUser } from "@/lib/auth/action";
+import { isRedirectError } from "@/lib/auth/action-error";
 
 const INITIAL_STATE = { error: null as string | null };
 
@@ -24,6 +25,7 @@ const SignUpPage = () => {
       try {
         await registerUser(formData);
       } catch (err: any) {
+        if (isRedirectError(err)) throw err;
         if (err?.name === "ActionError") {
           return { error: err.message };
         }

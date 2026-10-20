@@ -14,6 +14,7 @@ import {
 } from "reactstrap";
 import Link from "next/link";
 import { forgotPasswordAction } from "@/lib/auth/action";
+import { isRedirectError } from "@/lib/auth/action-error";
 
 const INITIAL_STATE = { error: null as string | null };
 
@@ -23,6 +24,7 @@ const ForgotPasswordPage = () => {
       try {
         await forgotPasswordAction(formData);
       } catch (err: any) {
+        if (isRedirectError(err)) throw err;
         if (err?.name === "ActionError") {
           return { error: err.message };
         }
