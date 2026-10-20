@@ -11,6 +11,7 @@ import {
   Button,
 } from "reactstrap";
 import Link from "next/link";
+import Image from "next/image";
 import {
   IconBrandFacebook,
   IconBrandGithub,
@@ -26,10 +27,14 @@ const SignUpBgImgPage = () => {
             <div className="login-form-container">
               <div className="mb-4">
                 <Link className="logo d-inline-block" href="/">
-                  <img
+                  <Image
                     src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png"
                     className="w-250"
                     alt="logo"
+                    width={201}
+                    height={111}
+                    sizes="250px"
+                    priority
                   />
                 </Link>
               </div>

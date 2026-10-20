@@ -13,6 +13,7 @@ import {
   Alert,
 } from "reactstrap";
 import Link from "next/link";
+import Image from "next/image";
 
 import { registerUser } from "@/lib/auth/action";
 import { isRedirectError } from "@/lib/auth/action-error";
@@ -68,18 +69,25 @@ const SignUpPage = () => {
                 <div className="form-container">
                   <div className="signup-content mt-4">
                     <span>
-                      <img
+                      <Image
                         src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png"
                         alt="logo"
                         className="img-fluid"
+                        width={201}
+                        height={111}
+                        priority
                       />
                     </span>
                   </div>
                   <div className="signup-bg-img">
-                    <img
+                    <Image
                       src="/images/login/02.png"
                       alt="signup"
                       className="img-fluid"
+                      width={648}
+                      height={624}
+                      sizes="(max-width: 992px) 100vw, 50vw"
+                      priority
                     />
                   </div>
                 </div>
