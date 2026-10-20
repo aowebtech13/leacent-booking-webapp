@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Ecommerce;
 
+use App\Models\Book;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -12,7 +13,18 @@ class CategoryController
     {
         $perPage = (int) $request->get('per_page', 15);
 
-        $query = Category::query()->withCount('products');
+        // Books reference their category by name (or slug) in a free text
+        // column, so the count is resolved with a sub-query.
+        $query = Category::query()
+            ->select('categories.*')
+            ->addSelect([
+                'products_count' => Book::query()
+                    ->selectRaw('count(*)')
+                    ->where(function ($q) {
+                        $q->whereColumn('books.category', 'categories.name')
+                            ->orWhereColumn('books.category', 'categories.slug');
+                    }),
+            ]);
 
         if ($request->filled('search')) {
             $query->where('name', 'like', '%' . $request->get('search') . '%');

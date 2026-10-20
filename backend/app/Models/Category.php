@@ -19,9 +19,14 @@ class Category extends Model
         'status',
     ];
 
+    /**
+     * Books filed under this category. `books.category` stores the category
+     * name (or slug) as free text, so the count is resolved by the
+     * controller sub-query.
+     */
     public function products(): HasMany
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Book::class, 'category', 'name');
     }
 
     public function childs(): HasMany

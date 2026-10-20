@@ -51,9 +51,9 @@ export const metadata: Metadata = {
     "web app",
   ],
   icons: {
-    icon: "/images/logo/favicon.png",
-    shortcut: "/images/logo/favicon.png",
-    apple: "/images/logo/favicon.png",
+    icon: "https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png",
+    shortcut: "https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png",
+    apple: "https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png",
   },
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
@@ -95,7 +95,7 @@ export default function RootLayout({
           <DefaultLayout>
             <DocumentTitleManager
               defaultTitle="Leacent - Bookstore"
-              blurTitle="👋🏻 Come Back..."
+              blurTitle="👋🏻 Let's Study..."
             />
             {children}
           </DefaultLayout>
