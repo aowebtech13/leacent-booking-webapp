@@ -10,15 +10,11 @@ const nextConfig: NextConfig = {
   experimental: {
     serverActions: {}, // ✅ Fixed shape
   },
-  async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/auth-pages/sign-in",
-        permanent: true,
-      },
-    ];
-  },
+  // NOTE: the "/" route is handled by `src/app/page.tsx` (server redirect to
+  // the sign in page). A redirect declared here would be resolved at the HTTP
+  // layer, which the Next.js client router follows transparently while keeping
+  // the original URL - the app chrome would then wrap the auth page.
+};
   // async headers() {
   //   return [
   //     {

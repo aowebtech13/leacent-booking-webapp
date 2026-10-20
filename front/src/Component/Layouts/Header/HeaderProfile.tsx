@@ -49,9 +49,14 @@ const menuItems: MenuItem[] = [
 
 const HeaderProfile: React.FC = () => {
   const [isCanvasOpen, setCanvasOpen] = useState(false);
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   const toggleCanvas = () => setCanvasOpen(!isCanvasOpen);
+
+  const handleLogout = async () => {
+    setCanvasOpen(false);
+    await logout();
+  };
 
   const userName = user?.name || "User";
   const userEmail = user?.email || "";

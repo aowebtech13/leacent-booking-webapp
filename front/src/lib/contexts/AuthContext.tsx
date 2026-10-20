@@ -109,7 +109,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setAuthToken(null);
     storeToken(null);
     setUser(null);
-    router.push("/sign-in");
+    router.push("/auth-pages/sign-in");
   }, [router]);
 
   const setAuth = useCallback((res: AuthResponse) => {

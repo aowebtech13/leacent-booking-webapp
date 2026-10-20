@@ -74,7 +74,7 @@ const PricingPage = () => {
 
   const handleSubscribe = (plan: BookPlan) => {
     if (!isAuthenticated) {
-      router.push("/sign-in");
+      router.push("/auth-pages/sign-in");
       return;
     }
     setSelectedPlan(plan);
@@ -102,7 +102,7 @@ const PricingPage = () => {
 
         {!isAuthenticated && !authLoading && (
           <Alert color="info" className="mx-3">
-            <Link href="/sign-in" className="f-w-600">
+            <Link href="/auth-pages/sign-in" className="f-w-600">
               Sign in
             </Link>{" "}
             to subscribe. Payments are made by bank transfer and verified

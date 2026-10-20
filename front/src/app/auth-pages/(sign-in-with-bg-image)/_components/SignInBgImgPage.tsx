@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useActionState, useEffect, useState } from "react";
 import {
   Container,
   Row,
@@ -10,21 +10,44 @@ import {
   Input,
   Button,
   Spinner,
+  Alert,
 } from "reactstrap";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   IconBrandFacebook,
   IconBrandGithub,
   IconBrandGoogle,
 } from "@tabler/icons-react";
-import { loginUserImg } from "@/lib/auth/action";
+import { loginUserImg, POST_LOGIN_PATH } from "@/lib/auth/action";
+import { useAuth } from "@/lib/contexts/AuthContext";
 
 const SignInBgImgPage = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
+  const { isAuthenticated, isLoading: authLoading, setAuth } = useAuth();
 
-  const handleSubmit = () => {
-    setIsSubmitting(true);
-  };
+  const [state, formAction, isPending] = useActionState(
+    async (_prev: { error: string | null }, formData: FormData) => {
+      try {
+        const res = await loginUserImg(formData);
+        setAuth(res);
+        return { error: null };
+      } catch (err: any) {
+        if (err?.name === "ActionError") {
+          return { error: err.message };
+        }
+        return { error: err?.message || "Invalid credentials" };
+      }
+    },
+    { error: null as string | null }
+  );
+
+  // Send signed in users to the app instead of the sign in form.
+  useEffect(() => {
+    if (!authLoading && isAuthenticated) {
+      router.replace(POST_LOGIN_PATH);
+    }
+  }, [authLoading, isAuthenticated, router]);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -56,11 +79,7 @@ const SignInBgImgPage = () => {
             </div>
 
             <div className="form_container">
-              <Form
-                action={loginUserImg}
-                onSubmit={handleSubmit}
-                className="app-form rounded-control"
-              >
+              <Form action={formAction} className="app-form rounded-control">
                 <div className="mb-3 text-center">
                   <h3 className="text-primary-dark">Login to your Account</h3>
                   <p className="f-s-12 text-secondary">
@@ -68,6 +87,12 @@ const SignInBgImgPage = () => {
                     the experience.
                   </p>
                 </div>
+
+                {state.error && (
+                  <Alert color="danger" className="mb-3">
+                    {state.error}
+                  </Alert>
+                )}
 
                 <FormGroup className="mb-">
                   <Label for="email">Email address</Label>
@@ -109,8 +134,9 @@ const SignInBgImgPage = () => {
                   type="submit"
                   color="light-primary"
                   className="w-100 mb-3 rounded"
+                  disabled={isPending}
                 >
-                  {isSubmitting ? <Spinner size="sm" /> : "Submit"}
+                  {isPending ? <Spinner size="sm" /> : "Submit"}
                 </Button>
 
                 <div className="app-divider-v justify-content-center">
