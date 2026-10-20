@@ -19,7 +19,8 @@ import {
   IconBrandGithub,
   IconBrandGoogle,
 } from "@tabler/icons-react";
-import { loginUserImg, POST_LOGIN_PATH } from "@/lib/auth/action";
+import { loginUserImg } from "@/lib/auth/action";
+import { POST_LOGIN_PATH } from "@/lib/auth/constants";
 import { useAuth } from "@/lib/contexts/AuthContext";
 
 const SignInBgImgPage = () => {

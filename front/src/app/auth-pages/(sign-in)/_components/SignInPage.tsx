@@ -14,7 +14,8 @@ import {
 } from "reactstrap";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { loginUser, POST_LOGIN_PATH } from "@/lib/auth/action";
+import { loginUser } from "@/lib/auth/action";
+import { POST_LOGIN_PATH } from "@/lib/auth/constants";
 import { useAuth } from "@/lib/contexts/AuthContext";
 
 const INITIAL_STATE = { error: null as string | null };
