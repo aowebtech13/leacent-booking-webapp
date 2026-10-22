@@ -199,7 +199,10 @@ const LandingPage = () => {
         >
           <Container fluid>
             <NavbarBrand className="logo" tag={Link} href="/dashboard">
-              <img alt="logo" src="http://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png" />
+              <img
+                alt="logo"
+                src="http://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png"
+              />
             </NavbarBrand>
 
             <NavbarToggler onClick={toggle} aria-label="Toggle navigation" />
@@ -290,7 +293,6 @@ const LandingPage = () => {
                     >
                       Check Now
                     </Button>
-                  
                   </div>
                 </div>
               </Col>
