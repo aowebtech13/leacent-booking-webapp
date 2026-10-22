@@ -52,8 +52,10 @@ export const metadata: Metadata = {
   ],
   icons: {
     icon: "https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png",
-    shortcut: "https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png",
-    apple: "https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png",
+    shortcut:
+      "https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png",
+    apple:
+      "https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png",
   },
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
