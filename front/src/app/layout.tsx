@@ -41,14 +41,14 @@ export const metadata: Metadata = {
     template: "%s |Business Labs - Books & Movies",
   },
   description:
-    "Multipurpose, super flexible, powerful, clean modern responsive bootstrap 5 admin template",
+    " The Business Lab aims to build the capacity, competence, and confidence of business managers, potential entrepreneurs, and practicing small and medium-sized enterprises (SMEs)",
   keywords: [
-    "admin template",
-    "Leacent admin template",
-    "dashboard template",
-    "flat admin template",
-    "responsive admin template",
-    "web app",
+    "Leacent Business Lab",
+    "Project Diamond",
+    "Leacent Entrepreneurial Movement",
+    "• Leacent Incorporated",
+    "Entrepreneurship Training Nigeria",
+    "Enterprise Development Portal",
   ],
   icons: {
     icon: "https://res.cloudinary.com/dqi7g7lky/image/upload/v1793002438/WhatsApp_Image_0008-10-26_at_01.07.28-removebg-preview-removebg-preview_giyzud.png",
@@ -68,13 +68,13 @@ export const metadata: Metadata = {
     siteName: "Leacent",
     title: "Business Labs - Books & Movies",
     description:
-      "Multipurpose, super flexible, powerful, clean modern responsive bootstrap 5 admin template",
+      "The Business Lab aims to build the capacity, competence, and confidence of business managers, potential entrepreneurs, and practicing small and medium-sized enterprises (SMEs)",
   },
   twitter: {
     card: "summary_large_image",
     title: "Business Labs - Books & Movies",
     description:
-      "Multipurpose, super flexible, powerful, clean modern responsive bootstrap 5 admin template",
+      "The Business Lab aims to build the capacity, competence, and confidence of business managers, potential entrepreneurs, and practicing small and medium-sized enterprises (SMEs)",
   },
 };
 
