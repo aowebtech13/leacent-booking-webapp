@@ -51,11 +51,11 @@ export const metadata: Metadata = {
     "web app",
   ],
   icons: {
-    icon: "https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png",
+    icon: "https://res.cloudinary.com/dqi7g7lky/image/upload/v1793002438/WhatsApp_Image_0008-10-26_at_01.07.28-removebg-preview-removebg-preview_giyzud.png",
     shortcut:
-      "https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png",
+      "https://res.cloudinary.com/dqi7g7lky/image/upload/v1793002438/WhatsApp_Image_0008-10-26_at_01.07.28-removebg-preview-removebg-preview_giyzud.png",
     apple:
-      "https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png",
+      "https://res.cloudinary.com/dqi7g7lky/image/upload/v1793002438/WhatsApp_Image_0008-10-26_at_01.07.28-removebg-preview-removebg-preview_giyzud.png",
   },
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"

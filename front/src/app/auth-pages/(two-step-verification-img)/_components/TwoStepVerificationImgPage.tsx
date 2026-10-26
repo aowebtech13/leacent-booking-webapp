@@ -28,7 +28,7 @@ const TwoStepVerificationImgPage: React.FC = () => {
             <div className="mb-4">
               <Link href="/dashboard">
                 <Image
-                  src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png"
+                  src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1793002438/WhatsApp_Image_0008-10-26_at_01.07.28-removebg-preview-removebg-preview_giyzud.png"
                   width={250}
                   height={65}
                   alt="Logo"

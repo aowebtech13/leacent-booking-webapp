@@ -30,8 +30,8 @@
                     <div class="login-card login-dark">
                         <div>
                             <div><a class="logo" href="{{ route('admin.dashboard') }}"><img class="img-fluid for-light"
-                                        src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png" alt="looginpage"><img
-                                        class="img-fluid for-dark" src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png"
+                                        src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1793002438/WhatsApp_Image_0008-10-26_at_01.07.28-removebg-preview-removebg-preview_giyzud.png" alt="looginpage"><img
+                                        class="img-fluid for-dark" src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1793002438/WhatsApp_Image_0008-10-26_at_01.07.28-removebg-preview-removebg-preview_giyzud.png"
                                         alt="looginpage"></a></div>
                             <div class="login-main">
                                 @if (session('status'))
