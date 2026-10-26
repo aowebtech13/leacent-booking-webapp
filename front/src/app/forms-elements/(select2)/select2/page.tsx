@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Select2 Forms -Leacent Book-App",
+    title: "Select2 Forms -Business Labs - Books & Movies",
     description:
       "Explore Select2 components for enhanced dropdown and selection functionality in your React forms.",
     keywords: [
@@ -24,11 +24,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "multiple selection",
     ],
     openGraph: {
-      title: "Select2 Forms -Leacent Book-App",
+      title: "Select2 Forms -Business Labs - Books & Movies",
       description:
         "Explore Select2 components for enhanced dropdown and selection functionality in your React forms.",
-      url: "https://axelit-next.vercel.app/forms-elements/select2",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/forms-elements/select2",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

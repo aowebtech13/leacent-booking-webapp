@@ -17,13 +17,13 @@ const HorizontalNav: React.FC<HorizontalNavProps> = ({ navRef, onScroll }) => {
 
   const getLayout = () => {
     if (!isClient) return "ltr";
-    const layout = localStorage.getItem("Axelit-Next-Theme-layout-option");
+    const layout = localStorage.getItem("Leacent-Next-Theme-layout-option");
     return layout || "ltr";
   };
 
   const getSidebarOption = () => {
     if (typeof window === "undefined") return "vertical-sidebar";
-    return localStorage.getItem("Axelit-Next-Theme-sidebar-option");
+    return localStorage.getItem("Leacent-Next-Theme-sidebar-option");
   };
 
   const [sidebarOption, setSidebarOption] = useState(() => getSidebarOption());

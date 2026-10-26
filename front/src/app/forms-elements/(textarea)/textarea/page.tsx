@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Textarea Forms -Leacent Book-App",
+    title: "Textarea Forms -Business Labs - Books & Movies",
     description:
       "Explore textarea components for multi-line text input in your React forms.",
     keywords: [
@@ -24,11 +24,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "input customization",
     ],
     openGraph: {
-      title: "Textarea Forms -Leacent Book-App",
+      title: "Textarea Forms -Business Labs - Books & Movies",
       description:
         "Explore textarea components for multi-line text input in your React forms.",
-      url: "https://axelit-next.vercel.app/forms-elements/textarea",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/forms-elements/textarea",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

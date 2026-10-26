@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Scrollpy -Leacent Book-App",
+    title: "Scrollpy -Business Labs - Books & Movies",
     description:
       "Explore advanced scroll effects and animations for your web applications.",
     keywords: [
@@ -26,11 +26,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "scroll optimization",
     ],
     openGraph: {
-      title: "Scrollpy -Leacent Book-App",
+      title: "Scrollpy -Business Labs - Books & Movies",
       description:
         "Explore advanced scroll effects and animations for your web applications.",
-      url: "https://axelit-next.vercel.app/advance-ui/scrollpy",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

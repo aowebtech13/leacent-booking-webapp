@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Iconoir Icons -Leacent Book-App",
+    title: "Iconoir Icons -Business Labs - Books & Movies",
     description:
       "Explore the Iconoir icon library for your React applications.",
     keywords: [
@@ -23,11 +23,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "icon customization",
     ],
     openGraph: {
-      title: "Iconoir Icons -Leacent Book-App",
+      title: "Iconoir Icons -Business Labs - Books & Movies",
       description:
         "Explore the Iconoir icon library for your React applications.",
-      url: "https://axelit-next.vercel.app/icons/iconoir",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/icons/iconoir",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

@@ -7,7 +7,7 @@ export const revalidate = false;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "To-Do -Leacent Book-App",
+    title: "To-Do -Business Labs - Books & Movies",
     description:
       "Manage your tasks and to-do list with our task management system.",
     keywords: [
@@ -28,16 +28,16 @@ export async function generateMetadata(): Promise<Metadata> {
       "task reporting",
     ],
     openGraph: {
-      title: "To-Do -Leacent Book-App",
+      title: "To-Do -Business Labs - Books & Movies",
       description:
         "Manage your tasks and to-do list with our task management system.",
-      url: "https://axelit-next.vercel.app/apps/todo",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/apps/todo",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },
     alternates: {
-      canonical: "https://axelit-next.vercel.app/apps/todo",
+      canonical: "https://businesslab.leacent.org/apps/todo",
     },
     other: {
       "Cache-Control": "public, max-age=31536000, immutable",

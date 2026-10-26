@@ -19,7 +19,7 @@ const TermsPage = () => {
               <CardBody>
                 <h4 className="text-primary">
                   <i className="ti ti-north-star text-primary me-2"></i>Welcome
-                  ToLeacent Book-App
+                  ToBusiness Labs - Books & Movies
                 </h4>
                 <div className="mt-4">
                   <p className="text-dark f-s-16 corner-arrow">

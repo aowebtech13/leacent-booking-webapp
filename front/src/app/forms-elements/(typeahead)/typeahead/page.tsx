@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Typeahead Forms -Leacent Book-App",
+    title: "Typeahead Forms -Business Labs - Books & Movies",
     description:
       "Explore typeahead components for autocomplete functionality in your React forms.",
     keywords: [
@@ -24,11 +24,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "search suggestions",
     ],
     openGraph: {
-      title: "Typeahead Forms -Leacent Book-App",
+      title: "Typeahead Forms -Business Labs - Books & Movies",
       description:
         "Explore typeahead components for autocomplete functionality in your React forms.",
-      url: "https://axelit-next.vercel.app/forms-elements/typeahead",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/forms-elements/typeahead",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

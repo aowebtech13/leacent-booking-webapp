@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Scrollbar -Leacent Book-App",
+    title: "Scrollbar -Business Labs - Books & Movies",
     description:
       "Explore advanced scrollbar components and custom scrollbars for your web applications.",
     keywords: [
@@ -25,11 +25,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "scroll customization",
     ],
     openGraph: {
-      title: "Scrollbar -Leacent Book-App",
+      title: "Scrollbar -Business Labs - Books & Movies",
       description:
         "Explore advanced scrollbar components and custom scrollbars for your web applications.",
-      url: "https://axelit-next.vercel.app/advance-ui/scrollbar",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

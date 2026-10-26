@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Treemap Chart - ApexCharts -Leacent Book-App",
+    title: "Treemap Chart - ApexCharts -Business Labs - Books & Movies",
     description:
       "Explore interactive treemap charts using ApexCharts for hierarchical data visualization.",
     keywords: [
@@ -27,11 +27,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "data representation",
     ],
     openGraph: {
-      title: "Treemap Chart - ApexCharts -Leacent Book-App",
+      title: "Treemap Chart - ApexCharts -Business Labs - Books & Movies",
       description:
         "Explore interactive treemap charts using ApexCharts for hierarchical data visualization.",
-      url: "https://axelit-next.vercel.app/chart/apexcharts/treemap",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/chart/apexcharts/treemap",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

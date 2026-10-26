@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Book Library -Leacent Book-App",
+    title: "Book Library -Business Labs - Books & Movies",
     description:
       "Browse and read your e-book library. Access EPUB, MOBI, KF8 (AZW3), FB2, CBZ, and PDF formats.",
     keywords: [
@@ -20,11 +20,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "books",
     ],
     openGraph: {
-      title: "Book Library -Leacent Book-App",
+      title: "Book Library -Business Labs - Books & Movies",
       description:
         "Browse and read your e-book library with our built-in reader.",
-      url: "https://axelit-next.vercel.app/apps/book-library",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/apps/book-library",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

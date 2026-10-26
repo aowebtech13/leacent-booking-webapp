@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Chart.js -Leacent Book-App",
+    title: "Chart.js -Business Labs - Books & Movies",
     description:
       "Explore interactive and customizable charts using Chart.js library for data visualization.",
     keywords: [
@@ -25,11 +25,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "data representation",
     ],
     openGraph: {
-      title: "Chart.js -Leacent Book-App",
+      title: "Chart.js -Business Labs - Books & Movies",
       description:
         "Explore interactive and customizable charts using Chart.js library for data visualization.",
-      url: "https://axelit-next.vercel.app/chart/chart-js",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/chart/chart-js",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

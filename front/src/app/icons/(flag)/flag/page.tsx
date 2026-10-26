@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Flag Icons -Leacent Book-App",
+    title: "Flag Icons -Business Labs - Books & Movies",
     description:
       "Explore flag icons for country and region representation in your React applications.",
     keywords: [
@@ -25,11 +25,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "icon customization",
     ],
     openGraph: {
-      title: "Flag Icons -Leacent Book-App",
+      title: "Flag Icons -Business Labs - Books & Movies",
       description:
         "Explore flag icons for country and region representation in your React applications.",
-      url: "https://axelit-next.vercel.app/icons/flag",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/icons/flag",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

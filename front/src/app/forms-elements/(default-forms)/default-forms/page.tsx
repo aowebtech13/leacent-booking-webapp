@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Default Forms -Leacent Book-App",
+    title: "Default Forms -Business Labs - Books & Movies",
     description:
       "Explore default form components and layouts for your React applications.",
     keywords: [
@@ -24,11 +24,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "form handling",
     ],
     openGraph: {
-      title: "Default Forms -Leacent Book-App",
+      title: "Default Forms -Business Labs - Books & Movies",
       description:
         "Explore default form components and layouts for your React applications.",
-      url: "https://axelit-next.vercel.app/forms-elements/default-forms",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/forms-elements/default-forms",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

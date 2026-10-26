@@ -31,7 +31,7 @@ interface CheckboxTreeNodeProps {
 const TreeViewPage = () => {
   const basicTreeData: TreeNodeData[] = [
     {
-      name: "axelit",
+      name: "Leacent",
       children: [
         {
           name: "assets",
@@ -73,7 +73,7 @@ const TreeViewPage = () => {
 
   const checkboxTreeData: TreeNodeData[] = [
     {
-      name: "axelit",
+      name: "Leacent",
       children: [
         {
           name: "App",
@@ -234,7 +234,7 @@ const TreeViewPage = () => {
           margin-left: 8px;
         }
 
-        .icon-axelit {
+        .icon-Leacent {
           color: #8c76f0;
           font-size: 16px;
         }
@@ -326,8 +326,8 @@ const CheckboxTreeNode: React.FC<CheckboxTreeNodeProps> = ({
   };
 
   const getIcon = () => {
-    if (node.name.toLowerCase() === "axelit") {
-      return <IconLayoutGrid size={16} className="icon-axelit" />;
+    if (node.name.toLowerCase() === "Leacent") {
+      return <IconLayoutGrid size={16} className="icon-Leacent" />;
     } else if (node.name.toLowerCase() === "app") {
       return <IconServer size={16} className="icon-app" />;
     } else if (

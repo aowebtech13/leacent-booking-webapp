@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Terms & Conditions -Leacent Book-App",
+    title: "Terms & Conditions -Business Labs - Books & Movies",
     description:
       "Terms and conditions page template for your React application's legal terms and user agreements.",
     keywords: [
@@ -25,11 +25,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "legal terms",
     ],
     openGraph: {
-      title: "Terms & Conditions -Leacent Book-App",
+      title: "Terms & Conditions -Business Labs - Books & Movies",
       description:
         "Terms and conditions page template for your React application's legal terms and user agreements.",
-      url: "https://axelit-next.vercel.app/other-pages/terms-condition",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/other-pages/terms-condition",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

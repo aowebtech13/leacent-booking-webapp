@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Input Masks Forms -Leacent Book-App",
+    title: "Input Masks Forms -Business Labs - Books & Movies",
     description:
       "Explore input mask components for formatting and validating input data in your React forms.",
     keywords: [
@@ -25,11 +25,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "data validation",
     ],
     openGraph: {
-      title: "Input Masks Forms -Leacent Book-App",
+      title: "Input Masks Forms -Business Labs - Books & Movies",
       description:
         "Explore input mask components for formatting and validating input data in your React forms.",
-      url: "https://axelit-next.vercel.app/forms-elements/input-masks",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/forms-elements/input-masks",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

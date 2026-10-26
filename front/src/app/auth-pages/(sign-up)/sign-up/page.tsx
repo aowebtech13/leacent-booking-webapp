@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Sign Up - Leacent Book-App",
+    title: "Sign Up - Business Labs - Books & Movies",
     description:
       "Create your account with our user-friendly registration system.",
     keywords: [
@@ -26,11 +26,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "user registration",
     ],
     openGraph: {
-      title: "Sign Up - Leacent Book-App",
+      title: "Sign Up - Business Labs - Books & Movies",
       description:
         "Create your account with our user-friendly registration system.",
-      url: "https://axelit-next.vercel.app/auth/sign-up",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/auth/sign-up",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

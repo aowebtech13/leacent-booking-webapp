@@ -24,7 +24,7 @@ const PrivacyPolicyPage = () => {
                 <div className="mt-4">
                   <p className="text-dark f-s-16 mt-3">
                     <i className="ti ti-corner-down-right-double text-primary me-2"></i>
-                    Leacent Book-App Store (&#34;Company&#34;) is committed to
+                    Business Labs - Books & Movies Store (&#34;Company&#34;) is committed to
                     safeguarding your privacy. This Privacy Policy applies to
                     information we collect on our website located at
                     gragertsgrocerystore.com (the &#34;Website&#34;) our SMS
@@ -65,7 +65,7 @@ const PrivacyPolicyPage = () => {
                   <ul className="px-5 py-3">
                     <li className="diamond diamond-bullet-secondary f-s-14 text-secondary">
                       {" "}
-                      During registration on the Website or theaxelit, we ask
+                      During registration on the Website or theLeacent, we ask
                       for your name and email address
                     </li>
                     <li className="diamond diamond-bullet-secondary f-s-14 text-secondary">
@@ -115,7 +115,7 @@ const PrivacyPolicyPage = () => {
                       geographic location of your computer or device. This
                       location data is collected anonymously in a form that does
                       not personally identify you. We may obtain your consent on
-                      your first use of the service. On theLeacent Book-App, for
+                      your first use of the service. On theBusiness Labs - Books & Movies, for
                       example, we will use your location to associate you with
                       our nearest store to you. You can change your preferences
                       in your profile.

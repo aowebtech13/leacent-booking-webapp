@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Clipboard Forms -Leacent Book-App",
+    title: "Clipboard Forms -Business Labs - Books & Movies",
     description:
       "Explore clipboard integration components for copying and pasting text in your React forms.",
     keywords: [
@@ -25,11 +25,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "text copying",
     ],
     openGraph: {
-      title: "Clipboard Forms -Leacent Book-App",
+      title: "Clipboard Forms -Business Labs - Books & Movies",
       description:
         "Explore clipboard integration components for copying and pasting text in your React forms.",
-      url: "https://axelit-next.vercel.app/forms-elements/clipboard",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/forms-elements/clipboard",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

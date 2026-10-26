@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Input Groups Forms -Leacent Book-App",
+    title: "Input Groups Forms -Business Labs - Books & Movies",
     description:
       "Explore input group components for combining form controls with text and icons in your React forms.",
     keywords: [
@@ -25,11 +25,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "form controls",
     ],
     openGraph: {
-      title: "Input Groups Forms -Leacent Book-App",
+      title: "Input Groups Forms -Business Labs - Books & Movies",
       description:
         "Explore input group components for combining form controls with text and icons in your React forms.",
-      url: "https://axelit-next.vercel.app/forms-elements/input-groups",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/forms-elements/input-groups",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

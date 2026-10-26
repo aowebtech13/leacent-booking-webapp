@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "FontAwesome Icons -Leacent Book-App",
+    title: "FontAwesome Icons -Business Labs - Books & Movies",
     description:
       "Explore the comprehensive FontAwesome icon library for your React applications.",
     keywords: [
@@ -24,11 +24,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "icon customization",
     ],
     openGraph: {
-      title: "FontAwesome Icons -Leacent Book-App",
+      title: "FontAwesome Icons -Business Labs - Books & Movies",
       description:
         "Explore the comprehensive FontAwesome icon library for your React applications.",
-      url: "https://axelit-next.vercel.app/icons/fontawesome",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/icons/fontawesome",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

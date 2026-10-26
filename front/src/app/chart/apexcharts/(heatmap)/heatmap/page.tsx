@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Heatmap Chart - ApexCharts -Leacent Book-App",
+    title: "Heatmap Chart - ApexCharts -Business Labs - Books & Movies",
     description:
       "Explore interactive heatmap charts using ApexCharts for data visualization.",
     keywords: [
@@ -27,11 +27,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "data representation",
     ],
     openGraph: {
-      title: "Heatmap Chart - ApexCharts -Leacent Book-App",
+      title: "Heatmap Chart - ApexCharts -Business Labs - Books & Movies",
       description:
         "Explore interactive heatmap charts using ApexCharts for data visualization.",
-      url: "https://axelit-next.vercel.app/chart/apexcharts/heatmap",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/chart/apexcharts/heatmap",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

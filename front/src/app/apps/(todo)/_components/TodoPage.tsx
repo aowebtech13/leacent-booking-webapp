@@ -17,7 +17,7 @@ import { IconPlus, IconStack2, IconTrash } from "@tabler/icons-react";
 import ToDoTable from "@/app/apps/(todo)/_components/ToDoTable";
 
 const defaultTasks = [
-  "axelit & Dashboard",
+  "Leacent & Dashboard",
   "Project Management",
   "Chat Application",
   "Todo App",

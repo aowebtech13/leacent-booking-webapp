@@ -6,7 +6,7 @@ export const dynamic = "force-static";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Pricing -Leacent Book-App",
+    title: "Pricing -Business Labs - Books & Movies",
     description:
       "Discover our flexible pricing plans and features tailored for your needs.",
     keywords: [
@@ -27,11 +27,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "pricing benefits",
     ],
     openGraph: {
-      title: "Pricing -Leacent Book-App",
+      title: "Pricing -Business Labs - Books & Movies",
       description:
         "Discover our flexible pricing plans and features tailored for your needs.",
-      url: "https://axelit-next.vercel.app/apps/pricing",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/apps/pricing",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

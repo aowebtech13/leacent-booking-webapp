@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Modal -Leacent Book-App",
+    title: "Modal -Business Labs - Books & Movies",
     description:
       "Explore advanced modal components and dialog boxes for your web applications.",
     keywords: [
@@ -25,11 +25,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "react dialog",
     ],
     openGraph: {
-      title: "Modal -Leacent Book-App",
+      title: "Modal -Business Labs - Books & Movies",
       description:
         "Explore advanced modal components and dialog boxes for your web applications.",
-      url: "https://axelit-next.vercel.app/advance-ui/modal",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

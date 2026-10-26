@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Sweet Alert -Leacent Book-App",
+    title: "Sweet Alert -Business Labs - Books & Movies",
     description:
       "Explore advanced alert components and notifications for your web applications.",
     keywords: [
@@ -25,11 +25,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "alert performance",
     ],
     openGraph: {
-      title: "Sweet Alert -Leacent Book-App",
+      title: "Sweet Alert -Business Labs - Books & Movies",
       description:
         "Explore advanced alert components and notifications for your web applications.",
-      url: "https://axelit-next.vercel.app/advance-ui/sweet-alert",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

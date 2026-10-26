@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Boxplot Chart - ApexCharts -Leacent Book-App",
+    title: "Boxplot Chart - ApexCharts -Business Labs - Books & Movies",
     description:
       "Explore interactive boxplot charts using ApexCharts for statistical data visualization.",
     keywords: [
@@ -27,11 +27,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "data representation",
     ],
     openGraph: {
-      title: "Boxplot Chart - ApexCharts -Leacent Book-App",
+      title: "Boxplot Chart - ApexCharts -Business Labs - Books & Movies",
       description:
         "Explore interactive boxplot charts using ApexCharts for statistical data visualization.",
-      url: "https://axelit-next.vercel.app/chart/apexcharts/boxplot",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/chart/apexcharts/boxplot",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

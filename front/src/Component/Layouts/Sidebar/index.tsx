@@ -23,7 +23,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
   useEffect(() => {
     const getSidebarOption = () => {
       if (typeof window === "undefined") return "vertical-sidebar";
-      return localStorage.getItem("Axelit-Next-Theme-sidebar-option");
+      return localStorage.getItem("Leacent-Next-Theme-sidebar-option");
     };
 
     const checkSidebarOption = () => {

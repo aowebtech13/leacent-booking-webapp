@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Animated Icons -Leacent Book-App",
+    title: "Animated Icons -Business Labs - Books & Movies",
     description:
       "Explore animated icons for enhanced UI interactions in your React applications.",
     keywords: [
@@ -24,11 +24,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "icon customization",
     ],
     openGraph: {
-      title: "Animated Icons -Leacent Book-App",
+      title: "Animated Icons -Business Labs - Books & Movies",
       description:
         "Explore animated icons for enhanced UI interactions in your React applications.",
-      url: "https://axelit-next.vercel.app/icons/animated",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/icons/animated",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

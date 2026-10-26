@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Phosphor Icons -Leacent Book-App",
+    title: "Phosphor Icons -Business Labs - Books & Movies",
     description:
       "Explore the Phosphor icon library for your React applications.",
     keywords: [
@@ -23,11 +23,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "icon customization",
     ],
     openGraph: {
-      title: "Phosphor Icons -Leacent Book-App",
+      title: "Phosphor Icons -Business Labs - Books & Movies",
       description:
         "Explore the Phosphor icon library for your React applications.",
-      url: "https://axelit-next.vercel.app/icons/phosphor",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/icons/phosphor",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Datetime Picker Forms -Leacent Book-App",
+    title: "Datetime Picker Forms -Business Labs - Books & Movies",
     description:
       "Explore datetime picker components for selecting dates and times in your React forms.",
     keywords: [
@@ -27,11 +27,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "calendar integration",
     ],
     openGraph: {
-      title: "Datetime Picker Forms -Leacent Book-App",
+      title: "Datetime Picker Forms -Business Labs - Books & Movies",
       description:
         "Explore datetime picker components for selecting dates and times in your React forms.",
-      url: "https://axelit-next.vercel.app/forms-elements/datetimepicker",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/forms-elements/datetimepicker",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

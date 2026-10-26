@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Dual List Boxes Forms -Leacent Book-App",
+    title: "Dual List Boxes Forms -Business Labs - Books & Movies",
     description:
       "Explore dual list box components for managing and transferring items between lists in your React forms.",
     keywords: [
@@ -26,11 +26,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "item transfer",
     ],
     openGraph: {
-      title: "Dual List Boxes Forms -Leacent Book-App",
+      title: "Dual List Boxes Forms -Business Labs - Books & Movies",
       description:
         "Explore dual list box components for managing and transferring items between lists in your React forms.",
-      url: "https://axelit-next.vercel.app/forms-elements/dual-list-boxes",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/forms-elements/dual-list-boxes",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

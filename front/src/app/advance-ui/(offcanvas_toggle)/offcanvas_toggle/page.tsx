@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Offcanvas Toggle -Leacent Book-App",
+    title: "Offcanvas Toggle -Business Labs - Books & Movies",
     description:
       "Explore advanced offcanvas components and navigation toggles for your web applications.",
     keywords: [
@@ -25,11 +25,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "react navigation",
     ],
     openGraph: {
-      title: "Offcanvas Toggle -Leacent Book-App",
+      title: "Offcanvas Toggle -Business Labs - Books & Movies",
       description:
         "Explore advanced offcanvas components and navigation toggles for your web applications.",
-      url: "https://axelit-next.vercel.app/advance-ui/offcanvas-toggle",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

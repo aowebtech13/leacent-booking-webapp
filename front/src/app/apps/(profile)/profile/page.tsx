@@ -6,25 +6,25 @@ export const dynamic = "force-static";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Profile -Leacent Book-App",
+    title: "Profile -Business Labs - Books & Movies",
     description:
       "Manage your profile settings, update personal information, and customize your dashboard preferences.",
     keywords: [
       "profile settings",
       "user management",
       "dashboard customization",
-      "Axelit",
+      "Leacent",
       "user profile",
       "account settings",
       "personal information",
       "preferences",
     ],
     openGraph: {
-      title: "Profile -Leacent Book-App",
+      title: "Profile -Business Labs - Books & Movies",
       description:
-        "Manage your profile settings and preferences inLeacent Book-App dashboard.",
-      url: "https://axelit-next.vercel.app/apps/profile",
-      siteName: "Axelit-next",
+        "Manage your profile settings and preferences inBusiness Labs - Books & Movies dashboard.",
+      url: "https://businesslab.leacent.org/apps/profile",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

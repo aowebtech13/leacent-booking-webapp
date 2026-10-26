@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Spinners -Leacent Book-App",
+    title: "Spinners -Business Labs - Books & Movies",
     description:
       "Explore advanced spinner components and loading indicators for your web applications.",
     keywords: [
@@ -25,11 +25,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "spinner performance",
     ],
     openGraph: {
-      title: "Spinners -Leacent Book-App",
+      title: "Spinners -Business Labs - Books & Movies",
       description:
         "Explore advanced spinner components and loading indicators for your web applications.",
-      url: "https://axelit-next.vercel.app/advance-ui/spinners",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

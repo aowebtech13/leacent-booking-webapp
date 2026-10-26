@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Forgot Password -Leacent Book-App",
+    title: "Forgot Password -Business Labs - Books & Movies",
     description:
       "Request a password reset link to be sent to your email address.",
     keywords: [
@@ -18,11 +18,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "user authentication",
     ],
     openGraph: {
-      title: "Forgot Password -Leacent Book-App",
+      title: "Forgot Password -Business Labs - Books & Movies",
       description:
         "Request a password reset link to be sent to your email address.",
-      url: "https://axelit-next.vercel.app/auth/forgot-password",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/auth/forgot-password",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

@@ -6,7 +6,7 @@ export const dynamic = "force-static";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Team -Leacent Book-App",
+    title: "Team -Business Labs - Books & Movies",
     description:
       "Manage your team members and collaborate effectively with our team management system.",
     keywords: [
@@ -27,11 +27,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "team analytics",
     ],
     openGraph: {
-      title: "Team -Leacent Book-App",
+      title: "Team -Business Labs - Books & Movies",
       description:
         "Manage your team members and collaborate effectively with our team management system.",
-      url: "https://axelit-next.vercel.app/apps/team",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/apps/team",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

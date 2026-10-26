@@ -46,7 +46,7 @@ const languageItems: LanguageItem[] = [
   {
     title: "Figma",
     iconClass: <IconBrandFigma size={26} className="text-white" />,
-    link: "https://www.figma.com/design/Xmv0dYJsGQClbLD79TwrWk/axelit-figma-screenshot?node",
+    link: "https://www.figma.com/design/Xmv0dYJsGQClbLD79TwrWk/Leacent-figma-screenshot?node",
     bgClass: "danger-box bg-danger",
   },
 ];
@@ -273,7 +273,7 @@ const LandingPage = () => {
                   <h1>
                     Power Up Your <br />
                     <span ref={typedRef} id="highlight-typed"></span> With
-                    Leacent Book-App <br />
+                    Business Labs - Books & Movies <br />
                   </h1>
                   <img
                     alt="shape"
@@ -281,7 +281,7 @@ const LandingPage = () => {
                     src="/images/landing/vector-shaps.png"
                   />
                   <p className="text-white">
-                    Leacent Book-App Comes with so many sidebar options, <br />{" "}
+                    Business Labs - Books & Movies Comes with so many sidebar options, <br />{" "}
                     layouts like RTL & many more ...!
                   </p>
                   <div className="mt-5">

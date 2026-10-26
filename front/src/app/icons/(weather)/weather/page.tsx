@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Weather Icons -Leacent Book-App",
+    title: "Weather Icons -Business Labs - Books & Movies",
     description:
       "Explore weather icons for weather and climate representation in your React applications.",
     keywords: [
@@ -24,11 +24,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "icon customization",
     ],
     openGraph: {
-      title: "Weather Icons -Leacent Book-App",
+      title: "Weather Icons -Business Labs - Books & Movies",
       description:
         "Explore weather icons for weather and climate representation in your React applications.",
-      url: "https://axelit-next.vercel.app/icons/weather",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/icons/weather",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

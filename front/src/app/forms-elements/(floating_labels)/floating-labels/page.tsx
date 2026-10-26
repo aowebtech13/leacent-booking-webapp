@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Floating Labels Forms -Leacent Book-App",
+    title: "Floating Labels Forms -Business Labs - Books & Movies",
     description:
       "Explore floating label components for enhanced form input UX in your React applications.",
     keywords: [
@@ -25,11 +25,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "input feedback",
     ],
     openGraph: {
-      title: "Floating Labels Forms -Leacent Book-App",
+      title: "Floating Labels Forms -Business Labs - Books & Movies",
       description:
         "Explore floating label components for enhanced form input UX in your React applications.",
-      url: "https://axelit-next.vercel.app/forms-elements/floating-labels",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/forms-elements/floating-labels",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

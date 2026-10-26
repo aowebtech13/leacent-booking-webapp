@@ -39,7 +39,7 @@ const FaqContentSection = () => {
                       <Button
                         color="primary"
                         target="_blank"
-                        href="https://phpstack-1384472-5121645.cloudwaysapps.com/document/next-ts/axelit/index.html"
+                        href="https://phpstack-1384472-5121645.cloudwaysapps.com/document/next-ts/Leacent/index.html"
                       >
                         Check Document
                       </Button>

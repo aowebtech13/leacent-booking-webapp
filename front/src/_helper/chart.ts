@@ -17,7 +17,7 @@ export function getLocalStorageItem<T>(
   defaultValue: string = ""
 ): T | string {
   if (typeof window !== "undefined") {
-    const item = localStorage.getItem(`Axelit-Next-Theme-${key}`);
+    const item = localStorage.getItem(`Leacent-Next-Theme-${key}`);
     return item !== null ? item : defaultValue;
   }
   return defaultValue;

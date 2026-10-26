@@ -6,7 +6,7 @@ export const dynamic = "force-static";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Miscellaneous -Leacent Book-App",
+    title: "Miscellaneous -Business Labs - Books & Movies",
     description:
       "Explore a collection of miscellaneous React components and utilities for various use cases in your application.",
     keywords: [
@@ -26,11 +26,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "various components",
     ],
     openGraph: {
-      title: "Miscellaneous -Leacent Book-App",
+      title: "Miscellaneous -Business Labs - Books & Movies",
       description:
         "Explore a collection of miscellaneous React components and utilities for various use cases in your application.",
-      url: "https://axelit-next.vercel.app/misc",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/misc",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

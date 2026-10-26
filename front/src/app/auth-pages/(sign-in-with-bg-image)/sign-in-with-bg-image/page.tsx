@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Sign In with Background - Axelit",
+    title: "Sign In with Background - Leacent",
     description:
       "Securely sign in to your account with our visually appealing authentication system featuring a background image.",
     keywords: [
@@ -28,11 +28,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "user login",
     ],
     openGraph: {
-      title: "Sign In with Background - Axelit",
+      title: "Sign In with Background - Leacent",
       description:
         "Securely sign in to your account with our visually appealing authentication system featuring a background image.",
-      url: "https://axelit-next.vercel.app/auth/sign-in-with-bg-image",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/auth/sign-in-with-bg-image",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

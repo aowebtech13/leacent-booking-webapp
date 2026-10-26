@@ -6,7 +6,7 @@ export const dynamic = "force-static";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Settings -Leacent Book-App",
+    title: "Settings -Business Labs - Books & Movies",
     description:
       "Configure and customize your application settings with our advanced settings management system.",
     keywords: [
@@ -28,11 +28,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "configuration management",
     ],
     openGraph: {
-      title: "Settings -Leacent Book-App",
+      title: "Settings -Business Labs - Books & Movies",
       description:
         "Configure and customize your application settings with our advanced settings management system.",
-      url: "https://axelit-next.vercel.app/apps/settings",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/apps/settings",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Widgets -Leacent Book-App",
+    title: "Widgets -Business Labs - Books & Movies",
     description:
       "Explore a collection of reusable widget components for your React application, including charts, statistics, and interactive elements.",
     keywords: [
@@ -24,11 +24,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "interactive components",
     ],
     openGraph: {
-      title: "Widgets -Leacent Book-App",
+      title: "Widgets -Business Labs - Books & Movies",
       description:
         "Explore a collection of reusable widget components for your React application, including charts, statistics, and interactive elements.",
-      url: "https://axelit-next.vercel.app/widgets",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/widgets",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Bubble Chart - ApexCharts -Leacent Book-App",
+    title: "Bubble Chart - ApexCharts -Business Labs - Books & Movies",
     description:
       "Explore interactive bubble charts using ApexCharts for data visualization.",
     keywords: [
@@ -27,11 +27,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "data representation",
     ],
     openGraph: {
-      title: "Bubble Chart - ApexCharts -Leacent Book-App",
+      title: "Bubble Chart - ApexCharts -Business Labs - Books & Movies",
       description:
         "Explore interactive bubble charts using ApexCharts for data visualization.",
-      url: "https://axelit-next.vercel.app/chart/apexcharts/bubble",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/chart/apexcharts/bubble",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

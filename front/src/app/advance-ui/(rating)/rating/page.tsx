@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Rating -Leacent Book-App",
+    title: "Rating -Business Labs - Books & Movies",
     description:
       "Explore advanced rating components and star rating systems for your web applications.",
     keywords: [
@@ -25,11 +25,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "rating customization",
     ],
     openGraph: {
-      title: "Rating -Leacent Book-App",
+      title: "Rating -Business Labs - Books & Movies",
       description:
         "Explore advanced rating components and star rating systems for your web applications.",
-      url: "https://axelit-next.vercel.app/advance-ui/rating",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

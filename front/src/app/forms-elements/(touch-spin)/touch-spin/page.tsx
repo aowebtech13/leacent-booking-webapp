@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Touch Spin Forms -Leacent Book-App",
+    title: "Touch Spin Forms -Business Labs - Books & Movies",
     description:
       "Explore touch spin components for numeric input with increment/decrement functionality in your React forms.",
     keywords: [
@@ -24,11 +24,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "numeric controls",
     ],
     openGraph: {
-      title: "Touch Spin Forms -Leacent Book-App",
+      title: "Touch Spin Forms -Business Labs - Books & Movies",
       description:
         "Explore touch spin components for numeric input with increment/decrement functionality in your React forms.",
-      url: "https://axelit-next.vercel.app/forms-elements/touch-spin",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/forms-elements/touch-spin",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

@@ -4,7 +4,7 @@ import VerifyOtpForm from "./_components/VerifyOtpForm";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Verify OTP - Axelit",
+    title: "Verify OTP - Leacent",
     description: "Verify your OTP to complete the process",
   };
 }

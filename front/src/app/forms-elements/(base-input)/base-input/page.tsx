@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Base Input Forms -Leacent Book-App",
+    title: "Base Input Forms -Business Labs - Books & Movies",
     description:
       "Explore various types of input fields and form controls for your React applications.",
     keywords: [
@@ -27,11 +27,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "input validation",
     ],
     openGraph: {
-      title: "Base Input Forms -Leacent Book-App",
+      title: "Base Input Forms -Business Labs - Books & Movies",
       description:
         "Explore various types of input fields and form controls for your React applications.",
-      url: "https://axelit-next.vercel.app/forms-elements/base-input",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/forms-elements/base-input",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

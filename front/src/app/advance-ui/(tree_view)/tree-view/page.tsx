@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Tree View -Leacent Book-App",
+    title: "Tree View -Business Labs - Books & Movies",
     description:
       "Explore advanced tree view components and hierarchical data visualization for your web applications.",
     keywords: [
@@ -25,11 +25,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "tree performance",
     ],
     openGraph: {
-      title: "Tree View -Leacent Book-App",
+      title: "Tree View -Business Labs - Books & Movies",
       description:
         "Explore advanced tree view components and hierarchical data visualization for your web applications.",
-      url: "https://axelit-next.vercel.app/advance-ui/tree-view",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

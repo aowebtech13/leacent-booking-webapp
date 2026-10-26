@@ -37,14 +37,14 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "Leacent - Bookstore",
-    template: "%s |Leacent Book-App",
+    default: "Business Labs - Books & Movies",
+    template: "%s |Business Labs - Books & Movies",
   },
   description:
     "Multipurpose, super flexible, powerful, clean modern responsive bootstrap 5 admin template",
   keywords: [
     "admin template",
-    "AXELIT admin template",
+    "Leacent admin template",
     "dashboard template",
     "flat admin template",
     "responsive admin template",
@@ -65,14 +65,14 @@ export const metadata: Metadata = {
     locale: "en_US",
 
     url: "/",
-    siteName: "Axelit",
-    title: "Leacent - Bookstore",
+    siteName: "Leacent",
+    title: "Business Labs - Books & Movies",
     description:
       "Multipurpose, super flexible, powerful, clean modern responsive bootstrap 5 admin template",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Leacent - Bookstore",
+    title: "Business Labs - Books & Movies",
     description:
       "Multipurpose, super flexible, powerful, clean modern responsive bootstrap 5 admin template",
   },
@@ -96,7 +96,7 @@ export default function RootLayout({
         <AuthProvider>
           <DefaultLayout>
             <DocumentTitleManager
-              defaultTitle="Leacent - Bookstore"
+              defaultTitle="Business Labs - Books & Movies"
               blurTitle="👋🏻 Let's Study..."
             />
             {children}

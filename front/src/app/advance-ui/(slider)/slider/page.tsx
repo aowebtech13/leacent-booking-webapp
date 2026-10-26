@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Slider -Leacent Book-App",
+    title: "Slider -Business Labs - Books & Movies",
     description:
       "Explore advanced slider components and image galleries for your web applications.",
     keywords: [
@@ -25,11 +25,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "slider performance",
     ],
     openGraph: {
-      title: "Slider -Leacent Book-App",
+      title: "Slider -Business Labs - Books & Movies",
       description:
         "Explore advanced slider components and image galleries for your web applications.",
-      url: "https://axelit-next.vercel.app/advance-ui/slider",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

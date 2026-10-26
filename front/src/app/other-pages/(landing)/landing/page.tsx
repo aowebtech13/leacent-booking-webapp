@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Landing Page -Leacent Book-App",
+    title: "Landing Page -Business Labs - Books & Movies",
     description:
       "Modern and responsive landing page template for your React application.",
     keywords: [
@@ -24,11 +24,11 @@ export async function generateMetadata(): Promise<Metadata> {
       "marketing page",
     ],
     openGraph: {
-      title: "Landing Page -Leacent Book-App",
+      title: "Landing Page -Business Labs - Books & Movies",
       description:
         "Modern and responsive landing page template for your React application.",
-      url: "https://axelit-next.vercel.app/other-pages/landing",
-      siteName: "Axelit-next",
+      url: "https://businesslab.leacent.org/other-pages/landing",
+      siteName: "Leacent-next",
       locale: "en_US",
       type: "website",
     },

@@ -1,6 +1,6 @@
 export const basicView = [
   {
-    text: "axelit",
+    text: "Leacent",
     icon: "fa fa-folder text-warning",
     state: {
       selected: false,
@@ -144,7 +144,7 @@ export const basicView = [
 
 export const checkBox = [
   {
-    text: "axelit",
+    text: "Leacent",
     icon: "ti ti-category",
     state: {
       selected: false,
