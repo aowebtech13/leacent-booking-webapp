@@ -202,7 +202,10 @@ const BookReaderPage = () => {
       </nav>
 
       {/* Reader */}
-      <main style={{ flex: 1, overflow: "hidden" }}>
+      <main
+        style={{ flex: 1, overflow: "hidden" }}
+        onContextMenu={(e) => e.preventDefault()}
+      >
         <BookReader
           url={fileUrl}
           location={readerLocation}
