@@ -36,7 +36,7 @@ const AuthorListPage = () => {
       const query: any = { per_page: 12, page: currentPage };
       if (searchQuery) query.search = searchQuery;
       const res = await getPublicAuthors();
-      const list = Array.isArray(res) ? res : (res.data ?? []);
+      const list = Array.isArray(res) ? res : [];
       setAuthors(list);
       if (res && (res as any).meta) {
         setCurrentPage((res as any).meta.current_page);

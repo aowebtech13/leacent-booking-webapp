@@ -1,5 +1,6 @@
 import api from "./client";
 import type { Author } from "./books";
+export type { Author };
 
 export interface AuthorListResponse {
   data: Author[];

@@ -94,7 +94,7 @@ export async function uploadSubscriptionReceipt(
   formData: FormData
 ): Promise<SubscriptionPayment> {
   const instance = (await import("axios")).default.create({
-    baseURL: api.defaults.baseURL,
+    baseURL: api.defaults.baseURL ?? "",
     withCredentials: true,
     headers: {
       Accept: "application/json",
