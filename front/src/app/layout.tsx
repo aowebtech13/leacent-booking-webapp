@@ -37,18 +37,18 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "Business Labs - Books & Movies",
-    template: "%s |Business Labs - Books & Movies",
+    default: "The Business Lab",
+    template: "%s | The Business Lab",
   },
   description:
-    " The Business Lab aims to build the capacity, competence, and confidence of business managers, potential entrepreneurs, and practicing small and medium-sized enterprises (SMEs)",
+    "The Business Lab empowers entrepreneurs with strategic business development, technology integration, branding, and innovative solutions. Business Lab dedicated to transforming the capacity, competence, and confidence of entrepreneurs and business managers.",
   keywords: [
-    "Leacent Business Lab",
-    "Project Diamond",
-    "Leacent Entrepreneurial Movement",
-    "• Leacent Incorporated",
-    "Entrepreneurship Training Nigeria",
-    "Enterprise Development Portal",
+    "The Business Lab",
+    "Business Development",
+    "Entrepreneurship",
+    "Technology Integration",
+    "Branding",
+    "Strategic Solutions",
   ],
   icons: {
     icon: "https://res.cloudinary.com/dqi7g7lky/image/upload/v1793002438/WhatsApp_Image_0008-10-26_at_01.07.28-removebg-preview-removebg-preview_giyzud.png",
@@ -65,16 +65,16 @@ export const metadata: Metadata = {
     locale: "en_US",
 
     url: "/",
-    siteName: "Leacent",
-    title: "Business Labs - Books & Movies",
+    siteName: "The Business Lab",
+    title: "The Business Lab",
     description:
-      "The Business Lab aims to build the capacity, competence, and confidence of business managers, potential entrepreneurs, and practicing small and medium-sized enterprises (SMEs)",
+      "The Business Lab empowers entrepreneurs with strategic business development, technology integration, branding, and innovative solutions. Business Lab dedicated to transforming the capacity, competence, and confidence of entrepreneurs and business managers.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Business Labs - Books & Movies",
+    title: "The Business Lab",
     description:
-      "The Business Lab aims to build the capacity, competence, and confidence of business managers, potential entrepreneurs, and practicing small and medium-sized enterprises (SMEs)",
+      "The Business Lab empowers entrepreneurs with strategic business development, technology integration, branding, and innovative solutions. Business Lab dedicated to transforming the capacity, competence, and confidence of entrepreneurs and business managers.",
   },
 };
 
@@ -96,7 +96,7 @@ export default function RootLayout({
         <AuthProvider>
           <DefaultLayout>
             <DocumentTitleManager
-              defaultTitle="Business Labs - Books & Movies"
+              defaultTitle="The Business Lab"
               blurTitle="👋🏻 Let's Study..."
             />
             {children}
