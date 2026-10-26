@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Card,
   CardBody,
@@ -14,6 +14,7 @@ import {
   FormGroup,
   Label,
 } from "reactstrap";
+import Image from "next/image";
 import Breadcrumbs from "@/Component/CommonElements/Breadcrumbs";
 import { getPublicAuthors, Author } from "@/lib/api/authors";
 import { IconUser, IconSearch, IconBook } from "@tabler/icons-react";
@@ -28,14 +29,14 @@ const AuthorListPage = () => {
   const [lastPage, setLastPage] = useState(1);
   const router = useRouter();
 
-  const fetchAuthors = async () => {
+  const fetchAuthors = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     try {
       const query: any = { per_page: 12, page: currentPage };
       if (searchQuery) query.search = searchQuery;
       const res = await getPublicAuthors();
-      const list = Array.isArray(res) ? res : res.data ?? [];
+      const list = Array.isArray(res) ? res : (res.data ?? []);
       setAuthors(list);
       if (res && (res as any).meta) {
         setCurrentPage((res as any).meta.current_page);
@@ -46,11 +47,11 @@ const AuthorListPage = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [searchQuery, currentPage]);
 
   useEffect(() => {
     fetchAuthors();
-  }, [searchQuery]);
+  }, [fetchAuthors]);
 
   const handleViewAuthor = (author: Author) => {
     router.push(`/apps/authors/${author.slug || author.id}`);
@@ -113,12 +114,14 @@ const AuthorListPage = () => {
                   <Card className="h-100 author-card">
                     <CardBody className="d-flex flex-column text-center">
                       {author.avatar ? (
-                        <img
+                        <Image
                           src={author.avatar}
                           alt={author.name}
                           className="author-avatar img-fluid mx-auto mb-3 rounded-circle"
                           width={120}
                           height={120}
+                          priority
+                          sizes="120px"
                         />
                       ) : (
                         <div className="author-avatar-placeholder d-flex align-items-center justify-content-center bg-light mx-auto mb-3 rounded-circle">
@@ -136,9 +139,9 @@ const AuthorListPage = () => {
                         {author.books_count && (
                           <span className="me-3">
                             <IconBook size={14} className="me-1" />
-                            {author.books_count} book{
+                            {`${author.books_count} book${
                               author.books_count !== 1 ? "s" : ""
-                            }
+                            }`}
                           </span>
                         )}
                       </div>

@@ -11,6 +11,8 @@ import {
   Spinner,
   Alert,
   Input,
+  InputGroup,
+  InputGroupText,
   FormGroup,
   Label,
 } from "reactstrap";
@@ -35,10 +37,20 @@ const BookLibraryPage = () => {
       const query: any = { per_page: 12, page: currentPage };
       if (searchQuery) query.search = searchQuery;
       const res = await getBooks(query);
-      setBooks(res.data);
-      if (res.meta) {
-        setCurrentPage(res.meta.current_page);
-        setLastPage(res.meta.last_page);
+      const payload = (res as any).data ?? res;
+      const booksData = Array.isArray(payload)
+        ? payload
+        : Array.isArray((payload as any).data)
+          ? (payload as any).data
+          : [];
+      setBooks(booksData);
+      const meta = (payload as any).meta ?? (res as any).meta;
+      if (meta) {
+        setCurrentPage(meta.current_page);
+        setLastPage(meta.last_page);
+      } else if ((payload as any).current_page) {
+        setCurrentPage((payload as any).current_page);
+        setLastPage((payload as any).last_page);
       }
     } catch (err: any) {
       setError(err?.message || "Failed to load books");
@@ -79,14 +91,18 @@ const BookLibraryPage = () => {
           <Col lg={6} className="mb-3 mb-lg-0">
             <FormGroup>
               <Label for="searchBooks">Search Books</Label>
-              <Input
-                id="searchBooks"
-                type="text"
-                placeholder="Search by title, author, or ISBN..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                addonAfter={<IconSearch size={18} />}
-              />
+              <InputGroup>
+                <Input
+                  id="searchBooks"
+                  type="text"
+                  placeholder="Search by title, author, or ISBN..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <InputGroupText>
+                  <IconSearch size={18} />
+                </InputGroupText>
+              </InputGroup>
             </FormGroup>
           </Col>
         </Row>
