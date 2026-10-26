@@ -8,9 +8,8 @@ import Loading from "@/app/loading";
 import { IconChartPie } from "@tabler/icons-react";
 
 const AreaChartPage = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [ApexCharts, setApexCharts] = useState<any>(null);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+
   useEffect(() => {
     const loadModules = async () => {
       const [chartModule] = await Promise.all([import("react-apexcharts")]);
