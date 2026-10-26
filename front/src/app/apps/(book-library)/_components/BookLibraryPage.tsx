@@ -33,7 +33,7 @@ const BookLibraryPage = () => {
   const [lastPage, setLastPage] = useState(1);
   const router = useRouter();
 
-  const fetchBooks = async () => {
+  const fetchBooks = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     try {
@@ -60,11 +60,11 @@ const BookLibraryPage = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [currentPage, searchQuery]);
 
   useEffect(() => {
     fetchBooks();
-  }, [searchQuery]);
+  }, [fetchBooks]);
 
   const handleRead = (book: Book) => {
     if (!book.file_url && !book.can_access) {
