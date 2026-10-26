@@ -28,7 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Explore animated icons for enhanced UI interactions in your React applications.",
       url: "https://businesslab.leacent.org/icons/animated",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

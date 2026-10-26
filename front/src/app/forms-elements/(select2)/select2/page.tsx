@@ -28,7 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Explore Select2 components for enhanced dropdown and selection functionality in your React forms.",
       url: "https://businesslab.leacent.org/forms-elements/select2",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

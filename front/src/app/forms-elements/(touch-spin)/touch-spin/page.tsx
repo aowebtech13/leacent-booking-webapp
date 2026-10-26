@@ -28,7 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Explore touch spin components for numeric input with increment/decrement functionality in your React forms.",
       url: "https://businesslab.leacent.org/forms-elements/touch-spin",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

@@ -29,7 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Explore advanced draggable components and drag-and-drop functionality for your web applications.",
       url: "https://businesslab.leacent.org/",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

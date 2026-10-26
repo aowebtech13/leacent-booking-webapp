@@ -28,7 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Modern and responsive landing page template for your React application.",
       url: "https://businesslab.leacent.org/other-pages/landing",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

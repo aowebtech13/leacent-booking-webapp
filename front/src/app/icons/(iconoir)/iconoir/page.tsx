@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Explore the Iconoir icon library for your React applications.",
       url: "https://businesslab.leacent.org/icons/iconoir",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

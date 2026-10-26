@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Explore various types of input fields and form controls for your React applications.",
       url: "https://businesslab.leacent.org/forms-elements/base-input",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

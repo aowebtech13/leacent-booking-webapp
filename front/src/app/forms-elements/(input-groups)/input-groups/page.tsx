@@ -29,7 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Explore input group components for combining form controls with text and icons in your React forms.",
       url: "https://businesslab.leacent.org/forms-elements/input-groups",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

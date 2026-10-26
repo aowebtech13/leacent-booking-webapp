@@ -32,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Enhance your account security with our visually appealing two-step verification system featuring a background image.",
       url: "https://businesslab.leacent.org/auth/two-step-verification-img",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

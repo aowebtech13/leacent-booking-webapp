@@ -29,7 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Terms and conditions page template for your React application's legal terms and user agreements.",
       url: "https://businesslab.leacent.org/other-pages/terms-condition",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

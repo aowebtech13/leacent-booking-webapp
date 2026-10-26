@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title: "Reset Password - Business Labs - Books & Movies",
       description: "Choose a new password for your Leacent account.",
       url: "https://businesslab.leacent.org/auth-pages/reset-password",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

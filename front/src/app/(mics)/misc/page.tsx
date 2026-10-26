@@ -30,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Explore a collection of miscellaneous React components and utilities for various use cases in your application.",
       url: "https://businesslab.leacent.org/misc",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

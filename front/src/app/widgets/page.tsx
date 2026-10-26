@@ -28,7 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Explore a collection of reusable widget components for your React application, including charts, statistics, and interactive elements.",
       url: "https://businesslab.leacent.org/widgets",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

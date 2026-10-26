@@ -22,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Request a password reset link to be sent to your email address.",
       url: "https://businesslab.leacent.org/auth/forgot-password",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

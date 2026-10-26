@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Explore the Tabler icon library for your React applications.",
       url: "https://businesslab.leacent.org/icons/tabler",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

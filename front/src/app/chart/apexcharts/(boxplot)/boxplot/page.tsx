@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Explore interactive boxplot charts using ApexCharts for statistical data visualization.",
       url: "https://businesslab.leacent.org/chart/apexcharts/boxplot",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

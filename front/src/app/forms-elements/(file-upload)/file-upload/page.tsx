@@ -29,7 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Explore file upload components for handling file uploads in your React forms.",
       url: "https://businesslab.leacent.org/forms-elements/file-upload",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

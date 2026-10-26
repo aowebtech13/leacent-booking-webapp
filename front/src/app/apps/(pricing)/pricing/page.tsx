@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Discover our flexible pricing plans and features tailored for your needs.",
       url: "https://businesslab.leacent.org/apps/pricing",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

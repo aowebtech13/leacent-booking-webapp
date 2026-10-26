@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Explore datetime picker components for selecting dates and times in your React forms.",
       url: "https://businesslab.leacent.org/forms-elements/datetimepicker",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

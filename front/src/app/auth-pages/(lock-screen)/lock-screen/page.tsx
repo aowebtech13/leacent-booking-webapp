@@ -30,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Secure your session with our user-friendly lock screen interface.",
       url: "https://businesslab.leacent.org/auth/lock-screen",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

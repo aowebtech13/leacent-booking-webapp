@@ -30,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Explore dual list box components for managing and transferring items between lists in your React forms.",
       url: "https://businesslab.leacent.org/forms-elements/dual-list-boxes",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

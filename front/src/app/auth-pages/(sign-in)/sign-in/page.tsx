@@ -30,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Securely sign in to your account with our user-friendly authentication system.",
       url: "https://businesslab.leacent.org/auth/sign-in",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Track your activities and progress with our interactive timeline visualization.",
       url: "https://businesslab.leacent.org/apps/timeline",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

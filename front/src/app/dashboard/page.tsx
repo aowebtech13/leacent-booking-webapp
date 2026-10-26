@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Monitor and manage your e-commerce operations with our comprehensive dashboard featuring real-time analytics and insights.",
       url: "https://businesslab.leacent.org/dashboard",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

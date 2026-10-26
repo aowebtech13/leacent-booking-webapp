@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Manage your profile settings and preferences inBusiness Labs - Books & Movies dashboard.",
       url: "https://businesslab.leacent.org/apps/profile",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

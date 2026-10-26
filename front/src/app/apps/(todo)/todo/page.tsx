@@ -32,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Manage your tasks and to-do list with our task management system.",
       url: "https://businesslab.leacent.org/apps/todo",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

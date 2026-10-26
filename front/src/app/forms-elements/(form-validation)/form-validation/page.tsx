@@ -29,7 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Explore form validation components and techniques for ensuring data integrity in your React forms.",
       url: "https://businesslab.leacent.org/forms-elements/form-validation",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

@@ -32,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Explore interactive candlestick charts using ApexCharts for financial data visualization.",
       url: "https://businesslab.leacent.org/chart/apexcharts/candlestick",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

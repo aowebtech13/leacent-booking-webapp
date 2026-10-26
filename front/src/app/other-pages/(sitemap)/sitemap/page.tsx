@@ -29,7 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Sitemap page template for organizing and displaying your React application's content structure.",
       url: "https://businesslab.leacent.org/other-pages/sitemap",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

@@ -30,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Explore various types of checkbox and radio button components for your React forms.",
       url: "https://businesslab.leacent.org/forms-elements/checkbox-radio",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

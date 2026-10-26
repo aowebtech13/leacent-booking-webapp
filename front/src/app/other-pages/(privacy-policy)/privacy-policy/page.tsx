@@ -29,7 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Privacy policy page template for your React application's data protection and user privacy information.",
       url: "https://businesslab.leacent.org/other-pages/privacy-policy",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

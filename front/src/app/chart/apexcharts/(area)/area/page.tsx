@@ -30,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Explore interactive area charts using ApexCharts for data visualization.",
       url: "https://businesslab.leacent.org/chart/apexcharts/area",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },

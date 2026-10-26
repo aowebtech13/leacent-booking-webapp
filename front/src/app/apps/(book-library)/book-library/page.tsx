@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "Browse and read your e-book library with our built-in reader.",
       url: "https://businesslab.leacent.org/apps/book-library",
-      siteName: "Leacent-next",
+      siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",
       type: "website",
     },
