@@ -281,7 +281,8 @@ const LandingPage = () => {
                     src="/images/landing/vector-shaps.png"
                   />
                   <p className="text-white">
-                    Business Labs - Books & Movies Comes with so many sidebar options, <br />{" "}
+                    Business Labs - Books & Movies Comes with so many sidebar
+                    options, <br />
                     layouts like RTL & many more ...!
                   </p>
                   <div className="mt-5">

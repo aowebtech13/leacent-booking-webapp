@@ -110,7 +110,8 @@ export async function uploadSubscriptionReceipt(
   );
   const body = res.data;
   if (body && typeof body === "object" && "success" in body) {
-    if (body.success === false) throw new Error(body.message || "Request failed");
+    if (body.success === false)
+      throw new Error(body.message || "Request failed");
     return body.data ?? body;
   }
   return body;
