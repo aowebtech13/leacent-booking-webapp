@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import {
   Card,
   CardBody,
@@ -21,6 +21,7 @@ import BookLibrarySidebar from "@/app/apps/(book-library)/_components/BookLibrar
 import { getBooks, Book } from "@/lib/api/books";
 import { IconBook, IconSearch, IconFileText } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const BookLibraryPage = () => {
   const [activeTab, setActiveTab] = useState("1");
@@ -89,11 +90,17 @@ const BookLibraryPage = () => {
       />
       <Row>
         <Col lg={4} xxl={3}>
-          <BookLibrarySidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+          <BookLibrarySidebar
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+          />
         </Col>
         <Col lg={8} xxl={9}>
           <div className="content-wrapper">
-            <div id="tab-1" className={`tabs-content ${activeTab === "1" ? "active" : ""}`}>
+            <div
+              id="tab-1"
+              className={`tabs-content ${activeTab === "1" ? "active" : ""}`}
+            >
               <Row className="mb-4">
                 <Col lg={6} className="mb-3 mb-lg-0">
                   <FormGroup>
@@ -145,11 +152,15 @@ const BookLibraryPage = () => {
                         <Card className="h-100 book-card">
                           <div className="book-cover-wrapper position-relative">
                             {book.cover_url ? (
-                              <img
-                                src={book.cover_url}
-                                alt={book.title}
-                                className="book-cover img-fluid w-100"
-                              />
+                              <div className="book-cover position-relative w-100" style={{ aspectRatio: "2 / 3" }}>
+                                <Image
+                                  src={book.cover_url}
+                                  alt={book.title}
+                                  fill
+                                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+                                  style={{ objectFit: "cover" }}
+                                />
+                              </div>
                             ) : (
                               <div className="book-cover-placeholder d-flex align-items-center justify-content-center bg-light">
                                 <IconFileText size={64} color="#ccc" />
@@ -235,7 +246,9 @@ const BookLibraryPage = () => {
                   {lastPage > 1 && (
                     <nav className="mt-4" aria-label="Books pagination">
                       <ul className="pagination justify-content-center">
-                        <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+                        <li
+                          className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
+                        >
                           <button
                             className="page-link"
                             onClick={() => {
@@ -248,7 +261,10 @@ const BookLibraryPage = () => {
                           </button>
                         </li>
                         {Array.from({ length: lastPage }, (_, i) => i + 1).map((page) => (
-                          <li key={page} className={`page-item ${page === currentPage ? "active" : ""}`}>
+                          <li
+                            key={page}
+                            className={`page-item ${page === currentPage ? "active" : ""}`}
+                          >
                             <button
                               className="page-link"
                               onClick={() => {
@@ -260,7 +276,9 @@ const BookLibraryPage = () => {
                             </button>
                           </li>
                         ))}
-                        <li className={`page-item ${currentPage === lastPage ? "disabled" : ""}`}>
+                        <li
+                          className={`page-item ${currentPage === lastPage ? "disabled" : ""}`}
+                        >
                           <button
                             className="page-link"
                             onClick={() => {
