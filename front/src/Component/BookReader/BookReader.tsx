@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { ReactReader } from "react-book-reader";
 import { Spinner } from "reactstrap";
 import { IconAlertCircle } from "@tabler/icons-react";
@@ -46,16 +46,6 @@ export const BookReader: React.FC<BookReaderProps> = ({
   style,
   className,
 }) => {
-  const [hasError, setHasError] = useState(false);
-  const [errorMessage] = useState<string>(
-    "Failed to load book. The format may not be supported or the file is unavailable."
-  );
-
-  // Reset error state when url changes.
-  useEffect(() => {
-    setHasError(false);
-  }, [url]);
-
   const handleTocChange = (toc: any[]) => {
     onTocChange?.(toc);
   };

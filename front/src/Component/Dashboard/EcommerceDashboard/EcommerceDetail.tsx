@@ -6,7 +6,7 @@ import { Badge } from "reactstrap";
 import Loading from "@/app/loading";
 import { getOrders, Order } from "@/lib/api/orders";
 import { useAuth } from "@/lib/contexts/AuthContext";
-import { getMySubscriptionPayments, SubscriptionPayment } from "@/lib/api";
+import { getMySubscriptionPayments } from "@/lib/api";
 
 const getStatusInfo = (order: Order) => {
   const status = (order.status || "").toLowerCase();
