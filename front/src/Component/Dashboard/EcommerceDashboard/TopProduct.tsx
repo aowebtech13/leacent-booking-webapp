@@ -132,7 +132,12 @@ const TopProduct = () => {
                       <tr key={product.id ?? index}>
                         <td>
                           <div className="d-flex align-items-center">
-                            <h6 className="mb-0 text-truncate" style={{ maxWidth: "150px" }}>{product.title}</h6>
+                            <h6
+                              className="mb-0 text-truncate"
+                              style={{ maxWidth: "150px" }}
+                            >
+                              {product.title}
+                            </h6>
                           </div>
                         </td>
                         <td>

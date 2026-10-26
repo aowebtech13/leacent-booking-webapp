@@ -133,7 +133,11 @@ const EcommerceDetail = () => {
           const mapped = orderList.slice(0, 6).map((order: Order) => {
             const info = getStatusInfo(order);
             const dateStr = order.created_at
-              ? new Date(order.created_at).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })
+              ? new Date(order.created_at).toLocaleDateString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                })
               : "";
             return {
               id: order.id,
@@ -235,14 +239,18 @@ const EcommerceDetail = () => {
                 {loading && (
                   <ul className="order-content-list">
                     <li className="bg-light">
-                      <div className="text-center text-muted py-3">Loading orders...</div>
+                      <div className="text-center text-muted py-3">
+                        Loading orders...
+                      </div>
                     </li>
                   </ul>
                 )}
                 {!loading && orders.length === 0 && (
                   <ul className="order-content-list">
                     <li className="bg-light">
-                      <div className="text-center text-muted py-3">No orders found</div>
+                      <div className="text-center text-muted py-3">
+                        No orders found
+                      </div>
                     </li>
                   </ul>
                 )}

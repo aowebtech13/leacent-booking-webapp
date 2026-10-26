@@ -86,7 +86,6 @@ const DefaultLayout: React.FC<DefaultLayoutProps> = ({ children }) => {
                 </div>
                 <h2 className="f-w-700 text-primary-dark mb-0">
                   <span>Welcome!</span>{" "}
-                
                 </h2>
 
                 <div className="modal-img-box">

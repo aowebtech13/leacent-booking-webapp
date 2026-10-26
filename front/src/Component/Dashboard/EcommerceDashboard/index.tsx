@@ -5,7 +5,6 @@ import EcommerceDetail from "./EcommerceDetail";
 import TopProduct from "./TopProduct";
 import EcommerceCard from "./EcommerceCard";
 
-
 const EcommerceDashboard = () => {
   return (
     <Container fluid className="mt-3">
@@ -13,7 +12,6 @@ const EcommerceDashboard = () => {
         <EcommerceCard />
         <EcommerceDetail />
         <TopProduct />
-  
       </Row>
     </Container>
   );
