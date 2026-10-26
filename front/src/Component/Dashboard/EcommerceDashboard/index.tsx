@@ -4,7 +4,7 @@ import { Container, Row } from "reactstrap";
 import EcommerceDetail from "./EcommerceDetail";
 import TopProduct from "./TopProduct";
 import EcommerceCard from "./EcommerceCard";
-import EcommerceSale from "./EcommerceSale";
+
 
 const EcommerceDashboard = () => {
   return (
@@ -13,7 +13,7 @@ const EcommerceDashboard = () => {
         <EcommerceCard />
         <EcommerceDetail />
         <TopProduct />
-        <EcommerceSale />
+  
       </Row>
     </Container>
   );

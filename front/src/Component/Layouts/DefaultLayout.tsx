@@ -86,14 +86,7 @@ const DefaultLayout: React.FC<DefaultLayoutProps> = ({ children }) => {
                 </div>
                 <h2 className="f-w-700 text-primary-dark mb-0">
                   <span>Welcome!</span>{" "}
-                  <Image
-                    alt="gif"
-                    className="w-45 d-inline align-baseline"
-                    src="/images/dashboard/ecommerce-dashboard/celebration.gif"
-                    width={512}
-                    height={512}
-                    sizes="45px"
-                  />
+                
                 </h2>
 
                 <div className="modal-img-box">

@@ -132,7 +132,7 @@ const TopProduct = () => {
                       <tr key={product.id ?? index}>
                         <td>
                           <div className="d-flex align-items-center">
-                            <h6 className="mb-0">{product.title}</h6>
+                            <h6 className="mb-0 text-truncate" style={{ maxWidth: "150px" }}>{product.title}</h6>
                           </div>
                         </td>
                         <td>
@@ -169,7 +169,7 @@ const TopProduct = () => {
           </CardBody>
         </Card>
       </Col>
-      <Col md="7" xxl="5">
+      <Col lg="5" xxl="8">
         <div className="p-3">
           <h5>Books By Authors</h5>
         </div>
@@ -184,7 +184,7 @@ const TopProduct = () => {
             </Col>
           ) : (
             authorsData.map((author) => (
-              <Col key={author.id} xs="6" sm="4">
+              <Col key={author.id} xs="6" sm="4" md="3" lg="2" xl="2" xxl="2">
                 <Card className={author.cardClass}>
                   <CardBody>
                     <Image
@@ -197,8 +197,8 @@ const TopProduct = () => {
                       unoptimized
                     />
                     <div className="mt-3">
-                      <h6 className="mb-0">{author.name}</h6>
-                      <p className="f-w-600 mb-0">
+                      <h6 className="mb-0 text-truncate">{author.name}</h6>
+                      <p className="f-w-600 mb-0 text-truncate">
                         {author.books} {author.books === 1 ? "Book" : "Books"}
                       </p>
                     </div>

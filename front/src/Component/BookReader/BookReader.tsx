@@ -64,25 +64,31 @@ export const BookReader: React.FC<BookReaderProps> = ({
     onLocationChange?.(locationDetail);
   };
 
-  if (hasError) {
+  const isPdf = typeof url === "string" && url.toLowerCase().includes(".pdf");
+
+  if (isPdf) {
     return (
       <div
         className={className}
         style={{
           height: "100%",
           width: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: "#fafafa",
+          overflow: "hidden",
+          background: "#fff",
           ...style,
         }}
       >
-        <div style={{ textAlign: "center", maxWidth: 420, padding: 24 }}>
-          <IconAlertCircle size={56} color="red" style={{ marginBottom: 16 }} />
-          <h5 className="mb-2">Unable to load book</h5>
-          <p className="text-muted mb-0">{errorMessage}</p>
-        </div>
+        <iframe
+          src={`${url}#toolbar=0&navpanes=0&scrollbar=0`}
+          title={title ?? "Book Reader"}
+          style={{
+            width: "100%",
+            height: "100%",
+            border: "none",
+            pointerEvents: "auto",
+          }}
+          onContextMenu={(e) => e.preventDefault()}
+        />
       </div>
     );
   }
