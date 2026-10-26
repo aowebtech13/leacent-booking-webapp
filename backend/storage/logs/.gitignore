@@ -1,2 +1,5 @@
-*
-!.gitignore
+backend.zip
+*.zip
+node_modules/
+vendor/
+.env
