@@ -92,7 +92,7 @@ const TopProduct = () => {
 
   return (
     <>
-      <Col lg="7" xxl="4">
+      <Col lg="6" xxl="5">
         <div className="p-3">
           <h5>Top Books List</h5>
         </div>
@@ -174,7 +174,7 @@ const TopProduct = () => {
           </CardBody>
         </Card>
       </Col>
-      <Col lg="5" xxl="8">
+      <Col lg="6" xxl="7">
         <div className="p-3">
           <h5>Books By Authors</h5>
         </div>
@@ -189,7 +189,7 @@ const TopProduct = () => {
             </Col>
           ) : (
             authorsData.map((author) => (
-              <Col key={author.id} xs="6" sm="4" md="3" lg="2" xl="2" xxl="2">
+              <Col key={author.id} xs="6" sm="4" md="3" lg="3" xl="3" xxl="3">
                 <Card className={author.cardClass}>
                   <CardBody>
                     <Image
@@ -201,7 +201,7 @@ const TopProduct = () => {
                       sizes="30px"
                       unoptimized
                     />
-                    <div className="mt-3">
+                    <div className="mt-6">
                       <h6 className="mb-0 text-truncate">{author.name}</h6>
                       <p className="f-w-600 mb-0 text-truncate">
                         {author.books} {author.books === 1 ? "Book" : "Books"}
@@ -209,7 +209,7 @@ const TopProduct = () => {
                     </div>
                     <Language
                       height={70}
-                      width={70}
+                      width={120}
                       className="icon-bg text-white"
                     />
                     {author.isOnline && (

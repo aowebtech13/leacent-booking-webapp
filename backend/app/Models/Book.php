@@ -33,8 +33,9 @@ class Book extends Model
         'tags',
     ];
 
+    protected $appends = ['file_url', 'cover_url', 'preview_url'];
+
     protected $casts = [
-        'price' => 'decimal:2',
         'is_premium' => 'boolean',
         'is_active' => 'boolean',
         'is_featured' => 'boolean',

@@ -86,6 +86,15 @@ const SignInPage = () => {
                 </div>
               </Col>
               <Col lg={6} className="form-contentbox">
+                <div className="d-lg-none text-center mb-3">
+                  <Image
+                    src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1793002438/WhatsApp_Image_0008-10-26_at_01.07.28-removebg-preview-removebg-preview_giyzud.png"
+                    alt="logo"
+                    width={160}
+                    height={93}
+                    priority
+                  />
+                </div>
                 <div className="form-container">
                   <Form
                     action={formAction}
@@ -97,7 +106,7 @@ const SignInPage = () => {
                         className="mb-5 mt-5 text-center text-lg-start"
                       >
                         <h2 className="text-primary-dark f-w-600">
-                          Welcome To Bookstore!
+                          Login To Bookstore!
                         </h2>
                         <p>
                           Sign in with your data that you entered during your

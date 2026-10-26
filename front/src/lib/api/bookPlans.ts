@@ -89,11 +89,29 @@ export function getMySubscriptionPayments(): Promise<SubscriptionPayment[]> {
 /**
  * Upload the bank transfer receipt for a pending subscription payment.
  */
-export function uploadSubscriptionReceipt(
+export async function uploadSubscriptionReceipt(
   paymentId: number,
   formData: FormData
 ): Promise<SubscriptionPayment> {
-  return api
-    .post(`book-plans/payments/${paymentId}/receipt`, formData)
-    .then((res) => res.data);
+  const instance = (await import("axios")).default.create({
+    baseURL: api.defaults.baseURL,
+    withCredentials: true,
+    headers: {
+      Accept: "application/json",
+      ...(api.defaults.headers.common?.Authorization
+        ? { Authorization: api.defaults.headers.common.Authorization as string }
+        : {}),
+    },
+    timeout: 30000,
+  });
+  const res = await instance.post(
+    `book-plans/payments/${paymentId}/receipt`,
+    formData
+  );
+  const body = res.data;
+  if (body && typeof body === "object" && "success" in body) {
+    if (body.success === false) throw new Error(body.message || "Request failed");
+    return body.data ?? body;
+  }
+  return body;
 }
