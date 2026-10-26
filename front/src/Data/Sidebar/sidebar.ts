@@ -28,17 +28,12 @@ export const MenuList: MenuItemProps[] = [
   },
   {
     name: "Book Library",
-    path: "/apps/file-manager",
-    iconClass: Book,
-  },
-  {
-    name: "Books",
-    path: "/admin/books",
+    path: "/apps/book-library",
     iconClass: Book,
   },
   {
     name: "Authors",
-    path: "/admin/authors",
+    path: "/apps/authors",
     iconClass: User,
   },
   {
