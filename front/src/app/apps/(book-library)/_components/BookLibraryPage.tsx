@@ -152,7 +152,10 @@ const BookLibraryPage = () => {
                         <Card className="h-100 book-card">
                           <div className="book-cover-wrapper position-relative">
                             {book.cover_url ? (
-                              <div className="book-cover position-relative w-100" style={{ aspectRatio: "2 / 3" }}>
+                              <div
+                                className="book-cover position-relative w-100"
+                                style={{ aspectRatio: "2 / 3" }}
+                              >
                                 <Image
                                   src={book.cover_url}
                                   alt={book.title}
@@ -260,22 +263,24 @@ const BookLibraryPage = () => {
                             Previous
                           </button>
                         </li>
-                        {Array.from({ length: lastPage }, (_, i) => i + 1).map((page) => (
-                          <li
-                            key={page}
-                            className={`page-item ${page === currentPage ? "active" : ""}`}
-                          >
-                            <button
-                              className="page-link"
-                              onClick={() => {
-                                setCurrentPage(page);
-                                fetchBooks();
-                              }}
+                        {Array.from({ length: lastPage }, (_, i) => i + 1).map(
+                          (page) => (
+                            <li
+                              key={page}
+                              className={`page-item ${page === currentPage ? "active" : ""}`}
                             >
-                              {page}
-                            </button>
-                          </li>
-                        ))}
+                              <button
+                                className="page-link"
+                                onClick={() => {
+                                  setCurrentPage(page);
+                                  fetchBooks();
+                                }}
+                              >
+                                {page}
+                              </button>
+                            </li>
+                          )
+                        )}
                         <li
                           className={`page-item ${currentPage === lastPage ? "disabled" : ""}`}
                         >
