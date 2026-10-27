@@ -5,8 +5,8 @@ import {
   IconHelp,
   IconRotateClockwise2,
 } from "@tabler/icons-react";
-import { Files, Image } from "phosphor-react";
-import { FileArchive, Video } from "@phosphor-icons/react";
+import { Image } from "phosphor-react";
+import { Video } from "@phosphor-icons/react";
 import Loading from "@/app/loading";
 
 type FileManagerSidebarProps = {
