@@ -15,7 +15,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { forgotPasswordAction } from "@/lib/auth/action";
-import { isRedirectError } from "next/navigation";
+import { isRedirectError } from "next/dist/client/components/redirect-error";
 
 const INITIAL_STATE = { error: null as string | null };
 
