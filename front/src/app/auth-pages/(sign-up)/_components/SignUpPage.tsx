@@ -16,7 +16,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { registerUser } from "@/lib/auth/action";
-import { isRedirectError } from "@/lib/auth/action-error";
+import { isRedirectError } from "next/navigation";
 
 const INITIAL_STATE = { error: null as string | null };
 
