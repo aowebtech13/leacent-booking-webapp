@@ -34,23 +34,20 @@ async function clearPendingEmail() {
   cookieStore.delete(PENDING_EMAIL_COOKIE);
 }
 
-export async function unlockScreen(_formData: FormData): Promise<{ error: string | null }> {
+export async function unlockScreen(_formData: FormData): Promise<void> {
   redirect(POST_LOGIN_PATH);
-  return { error: null };
 }
 
-export async function unlockScreenImg(_formData: FormData): Promise<{ error: string | null }> {
+export async function unlockScreenImg(_formData: FormData): Promise<void> {
   redirect(POST_LOGIN_PATH);
-  return { error: null };
 }
 
-export async function createPassword(_formData: FormData): Promise<{ error: string | null }> {
+export async function createPassword(_formData: FormData): Promise<void> {
   await new Promise((res) => setTimeout(res, 500));
   redirect("/auth-pages/sign-in");
-  return { error: null };
 }
 
-export async function resetPasswordAction(formData: FormData): Promise<{ error: string | null }> {
+export async function resetPasswordAction(formData: FormData): Promise<void> {
   const token = formData.get("token") as string;
   const password = formData.get("password") as string;
   const password_confirmation = formData.get("password_confirmation") as string;
@@ -58,41 +55,36 @@ export async function resetPasswordAction(formData: FormData): Promise<{ error: 
   try {
     await resetPassword({ token, password, password_confirmation });
   } catch (error: any) {
-    const actionError = toActionError(error);
-    return { error: actionError.message };
+    throw toActionError(error);
   }
 
   redirect("/auth-pages/sign-in");
-  return { error: null };
 }
 
-export async function loginUser(formData: FormData): Promise<AuthResponse | { error: string | null }> {
+export async function loginUser(formData: FormData): Promise<AuthResponse> {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
   try {
-    const response = await login({ email, password });
-    return response;
+    return await login({ email, password });
   } catch (error: any) {
     const actionError = toActionError(error);
     
-    // 422 = unverified email
     if (actionError.status === 422) {
       await setPendingEmail(email);
       redirect("/verify-otp");
     }
 
-    return { error: actionError.message };
+    throw actionError;
   }
 }
 
-export async function loginUserImg(formData: FormData): Promise<AuthResponse | { error: string | null }> {
+export async function loginUserImg(formData: FormData): Promise<AuthResponse> {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
   try {
-    const response = await login({ email, password });
-    return response;
+    return await login({ email, password });
   } catch (error: any) {
     const actionError = toActionError(error);
     
@@ -101,13 +93,13 @@ export async function loginUserImg(formData: FormData): Promise<AuthResponse | {
       redirect("/verify-otp");
     }
 
-    return { error: actionError.message };
+    throw actionError;
   }
 }
 
 export async function registerUser(
   formData: FormData
-): Promise<{ error: string | null }> {
+): Promise<void> {
   const name = formData.get("username") as string;
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
@@ -131,31 +123,27 @@ export async function registerUser(
   try {
     await register(payload);
   } catch (error: any) {
-    const actionError = toActionError(error);
-    return { error: actionError.message };
+    throw toActionError(error);
   }
 
   await setPendingEmail(email);
   redirect("/verify-otp");
-  return { error: null };
 }
 
-export async function forgotPasswordAction(formData: FormData): Promise<{ error: string | null }> {
+export async function forgotPasswordAction(formData: FormData): Promise<void> {
   const email = formData.get("email") as string;
 
   try {
     await forgotPassword({ email });
   } catch (error: any) {
-    const actionError = toActionError(error);
-    return { error: actionError.message };
+    throw toActionError(error);
   }
 
   await setPendingEmail(email);
   redirect("/verify-otp");
-  return { error: null };
 }
 
-export async function verifyOtp(formData: FormData): Promise<{ error: string | null }> {
+export async function verifyOtp(formData: FormData): Promise<void> {
   const email = formData.get("email") as string;
   const otpDigits = [
     formData.get("otp0"),
@@ -167,25 +155,22 @@ export async function verifyOtp(formData: FormData): Promise<{ error: string | n
   try {
     await apiVerifyOtp({ email, code: otpDigits });
   } catch (error: any) {
-    const actionError = toActionError(error);
-    return { error: actionError.message };
+    throw toActionError(error);
   }
 
   await clearPendingEmail();
   redirect("/apps/setting");
-  return { error: null };
 }
 
 export async function resendOtpAction(
   formData: FormData
-): Promise<{ success: boolean; message: string; error?: string | null }> {
+): Promise<{ success: boolean; message: string }> {
   const email = formData.get("email") as string;
 
   try {
     await resendOtp({ email });
     return { success: true, message: "Verification code resent." };
   } catch (error: any) {
-    const actionError = toActionError(error);
-    return { success: false, message: "", error: actionError.message };
+    throw toActionError(error);
   }
 }

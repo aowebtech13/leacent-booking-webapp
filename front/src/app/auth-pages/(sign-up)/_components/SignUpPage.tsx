@@ -24,8 +24,8 @@ const SignUpPage = () => {
   const [state, formAction, isPending] = useActionState(
     async (_prev: { error: string | null }, formData: FormData) => {
       try {
-        const res = await registerUser(formData);
-        if (res?.error) return { error: res.error };
+        await registerUser(formData);
+        return INITIAL_STATE;
       } catch (err: any) {
         if (isRedirectError(err)) throw err;
 
@@ -42,7 +42,6 @@ const SignUpPage = () => {
 
         return { error: "Registration failed. Please try again." };
       }
-      return INITIAL_STATE;
     },
     INITIAL_STATE
   );

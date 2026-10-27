@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useActionState } from "react";
 import {
   Col,
   Container,
@@ -13,13 +13,23 @@ import {
 } from "reactstrap";
 import { unlockScreen } from "@/lib/auth/action";
 import Image from "next/image";
+import { isRedirectError } from "next/dist/client/components/redirect-error";
+
+const INITIAL_STATE = { error: null as string | null };
 
 const LockScreenPage = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleSubmit = () => {
-    setIsSubmitting(true);
-  };
+  const [_state, formAction, isPending] = useActionState(
+    async (_prev: { error: string | null }, formData: FormData) => {
+      try {
+        await unlockScreen(formData);
+        return INITIAL_STATE;
+      } catch (err: any) {
+        if (isRedirectError(err)) throw err;
+        return { error: err?.message || "Something went wrong" };
+      }
+    },
+    INITIAL_STATE
+  );
 
   return (
     <div className="sign-in-bg">
@@ -59,8 +69,7 @@ const LockScreenPage = () => {
                 <div className="form-container">
                   <Form
                     className="app-form rounded-control"
-                    action={unlockScreen}
-                    onSubmit={handleSubmit}
+                    action={formAction}
                   >
                     <Row>
                       <Col xs={12}>
@@ -124,8 +133,9 @@ const LockScreenPage = () => {
                             type="submit"
                             color="light-primary"
                             className="w-100 mb-3"
+                            disabled={isPending}
                           >
-                            {isSubmitting ? <Spinner size="sm" /> : "Unlock"}
+                            {isPending ? <Spinner size="sm" /> : "Unlock"}
                           </Button>
                         </div>
                       </Col>
