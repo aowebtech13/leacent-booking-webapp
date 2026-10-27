@@ -107,7 +107,9 @@ export async function loginUserImg(formData: FormData): Promise<AuthResponse> {
   }
 }
 
-export async function registerUser(formData: FormData): Promise<void> {
+export async function registerUser(
+  formData: FormData
+): Promise<{ error: string | null }> {
   const name = formData.get("username") as string;
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
@@ -131,11 +133,13 @@ export async function registerUser(formData: FormData): Promise<void> {
   try {
     await register(payload);
   } catch (error: any) {
-    throw toActionError(error);
+    const actionError = toActionError(error);
+    return { error: actionError.message };
   }
 
   await setPendingEmail(email);
   redirect("/verify-otp");
+  return { error: null };
 }
 
 export async function forgotPasswordAction(formData: FormData): Promise<void> {

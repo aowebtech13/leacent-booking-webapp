@@ -37,10 +37,19 @@ const SignInPage = () => {
         return INITIAL_STATE;
       } catch (err: any) {
         if (isRedirectError(err)) throw err;
-        if (err?.name === "ActionError") {
-          return { error: err.message };
+
+        // Robust error extraction for production builds where 
+        // class names like "ActionError" might get minified or stripped.
+        const errorMessage =
+          err?.message ||
+          err?.data?.message ||
+          (typeof err === "string" ? err : null);
+
+        if (errorMessage) {
+          return { error: errorMessage };
         }
-        return { error: err?.message || "Invalid credentials" };
+
+        return { error: "Invalid credentials. Please try again." };
       }
     },
     INITIAL_STATE
@@ -143,6 +152,8 @@ const SignInPage = () => {
                             name="email"
                             placeholder="Enter Your Email"
                             type="email"
+                            required
+                            autoComplete="email"
                           />
                         </FormGroup>
                       </Col>
@@ -161,6 +172,8 @@ const SignInPage = () => {
                             name="password"
                             placeholder="Enter Your Password"
                             type="password"
+                            required
+                            autoComplete="current-password"
                           />
                         </FormGroup>
                       </Col>
