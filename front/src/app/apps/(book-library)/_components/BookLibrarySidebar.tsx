@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardBody, CardHeader } from "reactstrap";
 import { IconBook, IconHelp, IconRotateClockwise2 } from "@tabler/icons-react";
-import { Files, Image } from "phosphor-react";
+import { Image } from "phosphor-react";
 import { FileArchive, Video } from "@phosphor-icons/react";
 import Loading from "@/app/loading";
 
