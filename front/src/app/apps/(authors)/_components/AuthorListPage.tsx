@@ -11,6 +11,8 @@ import {
   Spinner,
   Alert,
   Input,
+  InputGroup,
+  InputGroupText,
   FormGroup,
   Label,
 } from "reactstrap";
@@ -71,14 +73,18 @@ const AuthorListPage = () => {
           <Col lg={6} className="mb-3 mb-lg-0">
             <FormGroup>
               <Label for="searchAuthors">Search Authors</Label>
-              <Input
-                id="searchAuthors"
-                type="text"
-                placeholder="Search by author name..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                addonAfter={<IconSearch size={18} />}
-              />
+              <InputGroup>
+                <Input
+                  id="searchAuthors"
+                  type="text"
+                  placeholder="Search by author name..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <InputGroupText>
+                  <IconSearch size={18} />
+                </InputGroupText>
+              </InputGroup>
             </FormGroup>
           </Col>
         </Row>

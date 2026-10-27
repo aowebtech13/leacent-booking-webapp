@@ -124,7 +124,12 @@ export async function updateProfile(data: {
   address?: string;
   about_me?: string;
 }) {
-  const res = await api.put("profile", data);
+  // Strip empty strings so Laravel's `sometimes` validation skips them;
+  // an empty avatar_url would fail the URL regex validation.
+  const payload = Object.fromEntries(
+    Object.entries(data).filter(([, v]) => v !== "" && v !== undefined)
+  );
+  const res = await api.put("profile", payload);
   return res.data;
 }
 
