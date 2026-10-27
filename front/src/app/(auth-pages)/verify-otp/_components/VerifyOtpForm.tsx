@@ -12,8 +12,6 @@ type FormData = {
   code: string;
 };
 
-const otpFields = ["otp0", "otp1", "otp2", "otp3", "otp4"] as const;
-
 const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -21,7 +19,6 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
   const [canResend, setCanResend] = useState(false);
   const [email] = useState<string | null>(initialEmail);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
   const router = useRouter();
   const { setAuth } = useAuth();
 
@@ -29,8 +26,6 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
     register,
     handleSubmit,
     setValue,
-    getValues,
-    formState: { errors },
   } = useForm<FormData>();
 
   useEffect(() => {
@@ -74,7 +69,6 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
       setError(err?.message || "Invalid OTP. Please try again.");
       setIsLoading(false);
       setValue("code", "");
-      inputsRef.current[0]?.focus();
     }
   };
 
