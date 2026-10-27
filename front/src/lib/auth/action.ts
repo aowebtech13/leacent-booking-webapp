@@ -147,7 +147,8 @@ export async function forgotPasswordAction(formData: FormData): Promise<void> {
 
   try {
     await forgotPassword({ email });
-    redirect("/auth-pages/sign-in?reset=sent");
+    await setPendingEmail(email);
+    redirect("/verify-otp");
   } catch (error: any) {
     throw toActionError(error);
   }

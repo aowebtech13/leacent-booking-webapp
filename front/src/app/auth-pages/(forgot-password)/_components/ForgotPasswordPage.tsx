@@ -38,7 +38,7 @@ const ForgotPasswordPage = () => {
           return { error: errorMessage };
         }
 
-        return { error: "Unable to send the reset link. Please try again." };
+        return { error: "Unable to send the reset code. Please try again." };
       }
       return INITIAL_STATE;
     },
@@ -100,8 +100,7 @@ const ForgotPasswordPage = () => {
                             Forgot Password?
                           </h2>
                           <p>
-                            Enter your email to receive a password reset link
-                          </p>
+                            Enter your email to receive a password reset code                          </p>
                         </div>
                       </Col>
 
@@ -138,7 +137,7 @@ const ForgotPasswordPage = () => {
                             {isPending ? (
                               <Spinner size="sm" />
                             ) : (
-                              "Send Reset Link"
+                               "Send Reset Code"
                             )}
                           </Button>
                         </div>

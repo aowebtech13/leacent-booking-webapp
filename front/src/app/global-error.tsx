@@ -10,9 +10,9 @@ export default function GlobalError({
   console.error(error);
 
   return (
-    <html>
+    <html lang="en">
       <head>
-        <title>Error</title>
+        <title>Something went wrong</title>
       </head>
       <body>
         <div className="d-flex flex-column align-items-center justify-content-center min-vh-100 text-center p-4">
@@ -20,7 +20,9 @@ export default function GlobalError({
           <p className="text-muted mb-4">
             {error.message || "An unexpected error occurred. Please try again."}
           </p>
-          <div className="mb-4 text-muted small">{error.digest}</div>
+          {error.digest && (
+            <div className="mb-4 text-muted small">Error ID: {error.digest}</div>
+          )}
           <button className="btn btn-primary" onClick={() => reset()}>
             Try again
           </button>
