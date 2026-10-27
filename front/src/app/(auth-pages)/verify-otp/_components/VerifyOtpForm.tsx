@@ -175,9 +175,7 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
     } catch (err: any) {
       setError(err?.message || "Invalid OTP. Please try again.");
       setIsLoading(false);
-      otpFields.forEach((field) => {
-        setValue(field, "");
-      });
+      setValue("code", "");
       inputsRef.current[0]?.focus();
     }
   };
