@@ -26,10 +26,19 @@ const ForgotPasswordPage = () => {
         await forgotPasswordAction(formData);
       } catch (err: any) {
         if (isRedirectError(err)) throw err;
-        if (err?.name === "ActionError") {
-          return { error: err.message };
+
+        // Robust error extraction for production builds where 
+        // class names like "ActionError" might get minified or stripped.
+        const errorMessage =
+          err?.message ||
+          err?.data?.message ||
+          (typeof err === "string" ? err : null);
+
+        if (errorMessage) {
+          return { error: errorMessage };
         }
-        return { error: err?.message || "Unable to send the reset link." };
+
+        return { error: "Unable to send the reset link. Please try again." };
       }
       return INITIAL_STATE;
     },
@@ -113,6 +122,7 @@ const ForgotPasswordPage = () => {
                             name="email"
                             placeholder="Enter Your Email"
                             required
+                            autoComplete="email"
                           />
                         </FormGroup>
                       </Col>
