@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Badge, Card, CardBody, Col, Row, Table } from "reactstrap";
@@ -40,8 +42,6 @@ const TopProduct = () => {
           direction: "desc",
           per_page: 4,
         });
-        // The API response wraps a paginator: res.data may be the paginator
-        // object { data: Book[] } or, when unwrapped, the array itself.
         const payload = (res.data as any) ?? [];
         const books = Array.isArray(payload) ? payload : (payload.data ?? []);
         if (!cancelled) setTopProducts(books);
@@ -143,15 +143,15 @@ const TopProduct = () => {
                         <td>
                           <Badge
                             color={
-                              product.read_count > 200
+                              (product.read_count ?? 0) > 200
                                 ? "light-success"
-                                : product.read_count > 150
+                                : (product.read_count ?? 0) > 150
                                   ? "light-primary"
                                   : "light-danger"
                             }
                             className="f-s-12 f-w-700"
                           >
-                            {product.read_count}
+                            {product.read_count ?? 0}
                           </Badge>
                         </td>
                         <td className="f-w-600 text-dark">

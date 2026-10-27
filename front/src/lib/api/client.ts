@@ -3,7 +3,7 @@ import axios, { type AxiosInstance, type AxiosResponse } from "axios";
 /**
  * Base axios instance configured to talk to the Laravel backend.
  *
- * The backend is served at `http://127.0.0.1:8000` (see `NEXT_PUBLIC_API_BASE_URL`).
+ * The backend is served at the API base URL (see `NEXT_PUBLIC_API_BASE_URL`).
  * All API routes are namespaced under `/api` (Laravel route prefix), so the
  * base URL already includes `/api` and individual modules use relative paths
  * such as `auth/login`.
@@ -101,7 +101,7 @@ export async function bootstrapCsrf(): Promise<void> {
     await axios.get("/sanctum/csrf-cookie", {
       baseURL:
         process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/api$/, "") ||
-        "http://127.0.0.1:8000",
+        "https://leacentbooks-enterpise.lexicron.org",
       withCredentials: true,
     });
   } catch {
