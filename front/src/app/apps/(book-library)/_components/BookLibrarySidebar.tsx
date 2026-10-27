@@ -14,7 +14,7 @@ type BookLibrarySidebarProps = {
 const bookCategories = [
   {
     label: "E-Books",
-    icon: <Image size={18} weight="duotone" />,
+    icon: <Image size={18} weight="duotone" alt="" />,
     colorClass: "text-light-primary",
     files: "1.195 Files",
     size: "37.2GB",

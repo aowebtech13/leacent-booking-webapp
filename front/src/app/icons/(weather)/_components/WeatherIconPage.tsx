@@ -22,7 +22,7 @@ const WeatherIconPage = () => {
       );
       setIconList(filteredIcons);
     }
-  }, [searchValue]);
+  }, [searchValue, icons]);
 
   const searchWeatherIcons = (iconName: keyof typeof WeatherIcons) => {
     const iconTag = `<${iconName} size={${size}} color="${color}" />`;
