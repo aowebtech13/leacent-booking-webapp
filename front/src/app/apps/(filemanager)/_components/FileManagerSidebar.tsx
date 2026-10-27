@@ -29,20 +29,8 @@ const fileCategories = [
     files: "53 Files",
     size: "19.1 GB",
   },
-  {
-    label: "Documents",
-    icon: <FileArchive size={18} weight="duotone" />,
-    colorClass: "text-light-danger",
-    files: "486 Files",
-    size: "23.5 MB",
-  },
-  {
-    label: "Others",
-    icon: <Files size={18} weight="duotone" />,
-    colorClass: "text-light-warning",
-    files: "32 Files",
-    size: "13 MB",
-  },
+  
+ 
 ];
 
 const FileManagerSidebar: React.FC<FileManagerSidebarProps> = ({
