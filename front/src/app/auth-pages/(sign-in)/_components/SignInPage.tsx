@@ -31,13 +31,12 @@ const SignInPage = () => {
     async (_prev: { error: string | null }, formData: FormData) => {
       try {
         const res = await loginUser(formData);
-        if ((res as any)?.error) {
-          return { error: (res as any).error };
+        if (res && 'access_token' in res) {
+          // Store the session (token + user) before leaving the auth page,
+          setAuth(res);
+          return INITIAL_STATE;
         }
-        // Store the session (token + user) before leaving the auth page,
-        // otherwise the app renders as if the user was never signed in.
-        setAuth(res as any);
-        return INITIAL_STATE;
+        return { error: "Invalid credentials. Please try again." };
       } catch (err: any) {
         if (isRedirectError(err)) throw err;
 
