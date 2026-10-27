@@ -14,7 +14,7 @@ import {
 } from "reactstrap";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { loginUser } from "@/lib/auth/action";
 import { isRedirectError } from "@/lib/auth/action-error";
 import { POST_LOGIN_PATH } from "@/lib/auth/constants";
@@ -24,6 +24,7 @@ const INITIAL_STATE = { error: null as string | null };
 
 const SignInPage = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { isAuthenticated, isLoading: authLoading, setAuth } = useAuth();
 
   const [state, formAction, isPending] = useActionState(
@@ -44,6 +45,8 @@ const SignInPage = () => {
     },
     INITIAL_STATE
   );
+
+  const resetSent = searchParams.get("reset") === "sent";
 
   // Send signed in users to the app instead of the sign in form.
   useEffect(() => {
@@ -113,6 +116,15 @@ const SignInPage = () => {
                           registration
                         </p>
                       </Col>
+
+                      {resetSent && (
+                        <Col xs={12}>
+                          <Alert color="success" className="mb-3">
+                            Password reset link sent. Check your email and
+                            follow the link to set a new password.
+                          </Alert>
+                        </Col>
+                      )}
 
                       {state.error && (
                         <Col xs={12}>
