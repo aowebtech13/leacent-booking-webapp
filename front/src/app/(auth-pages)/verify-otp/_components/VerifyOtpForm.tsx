@@ -9,11 +9,7 @@ import { useAuth } from "@/lib/contexts/AuthContext";
 import { verifyOtp as apiVerifyOtp, AuthResponse } from "@/lib/api";
 
 type FormData = {
-  otp0: string;
-  otp1: string;
-  otp2: string;
-  otp3: string;
-  otp4: string;
+  code: string;
 };
 
 const otpFields = ["otp0", "otp1", "otp2", "otp3", "otp4"] as const;
@@ -164,9 +160,7 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
     setIsLoading(true);
     setError(null);
 
-    const code = otpFields
-      .map((field) => data[field as keyof FormData])
-      .join("");
+    const code = data.code;
 
     if (!email) {
       setError("Missing email. Please go back and sign in again.");
@@ -243,64 +237,17 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
             </div>
           )}
 
-          <div className="form-group mb-5">
-            {/* Hidden input to capture all codes typed at once */}
-            <input
-              type="text"
-              maxLength={5}
-              inputMode="numeric"
-              autoComplete="one-time-code"
-              autoFocus
-              style={{
-                position: "absolute",
-                opacity: 0,
-                pointerEvents: "none",
-                width: 0,
-                height: 0,
-                margin: 0,
-                padding: 0,
-                border: "none",
-                outline: "none",
-              }}
-              onChange={handleAllCodesChange}
-            />
-            <div className="d-flex justify-content-center gap-3 otp-inputs">
-              {otpFields.map((field, index) => (
-                <input
-                  key={field}
-                  type="text"
-                  maxLength={1}
-                  inputMode="numeric"
-                  className={`form-control text-center otp-input ${errors[field] ? "is-invalid" : ""} otp-input-lg`}
-                  {...register(field, {
-                    required: "Required",
-                    pattern: {
-                      value: new RegExp("^\\d$"),
-                      message: "Numbers only",
-                    },
-                  })}
-                  autoComplete="one-time-code"
-                  onFocus={() => handleFocus(index)}
-                  onKeyDown={(e) => handleKeyDown(e, index)}
-                  onPaste={(e) => handlePaste(e, index)}
-                  onChange={(e) => {
-                    const field = otpFields[index];
-                    if (field) {
-                      handleOtpChange(
-                        index,
-                        (e.target as HTMLInputElement).value
-                      );
-                    }
-                  }}
-                />
-              ))}
-            </div>
-            {errors.otp0 && (
-              <div className="invalid-feedback d-block text-center text-dark mb-4">
-                Typing........
-              </div>
-            )}
-          </div>
+           <div className="form-group mb-5">
+             <input
+               type="text"
+               maxLength={5}
+               inputMode="numeric"
+               autoComplete="one-time-code"
+               autoFocus
+               className="form-control text-center otp-input-lg"
+               {...register("code", { required: "Required" })}
+             />
+           </div>
 
           <button
             type="submit"
