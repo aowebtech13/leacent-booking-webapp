@@ -154,6 +154,8 @@ export async function fetchUser(): Promise<AuthUser> {
 export async function logout() {
   try {
     await api.post("auth/logout");
+  } catch {
+    // Token may already be invalid/expired; clear it regardless.
   } finally {
     setAuthToken(null);
   }
