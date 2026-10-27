@@ -276,17 +276,40 @@
       .form-group {
         margin-bottom: 30px;
 
-        .otp-inputs {
-          gap: 12px;
+        .otp-input-wrapper {
+          position: relative;
+          width: 100%;
+          max-width: 320px;
+          margin: 0 auto;
         }
 
-        .otp-input-lg {
-          width: 60px;
-          height: 60px;
-          font-size: 24px;
+        .otp-input-with-divider {
+          width: 100%;
+          height: 70px;
+          font-size: 32px;
+          letter-spacing: 36px;
+          padding-left: 28px;
           font-weight: 600;
-          text-align: center;
-          border-radius: 10px;
+          text-align: left;
+        }
+
+        .otp-divider {
+          position: absolute;
+          top: 50%;
+          left: 0;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          padding: 0 38px 0 74px;
+          transform: translateY(-50%);
+          pointer-events: none;
+          color: var(--dark-gray);
+          font-size: 28px;
+          font-weight: 600;
+        }
+
+        .otp-divider span {
+          display: inline-block;
         }
 
         .invalid-feedback {

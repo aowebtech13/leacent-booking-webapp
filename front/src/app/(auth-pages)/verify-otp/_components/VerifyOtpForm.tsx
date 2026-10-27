@@ -128,15 +128,23 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
           )}
 
            <div className="form-group mb-5">
-             <input
-               type="text"
-               maxLength={5}
-               inputMode="numeric"
-               autoComplete="one-time-code"
-               autoFocus
-               className="form-control text-center otp-input-lg"
-               {...register("code", { required: "Required" })}
-             />
+             <div className="otp-input-wrapper">
+               <input
+                 type="text"
+                 maxLength={5}
+                 inputMode="numeric"
+                 autoComplete="one-time-code"
+                 autoFocus
+                 className="form-control text-center otp-input-lg otp-input-with-divider"
+                 {...register("code", { required: "Required" })}
+               />
+               <div className="otp-divider">
+                 <span>-</span>
+                 <span>-</span>
+                 <span>-</span>
+                 <span>-</span>
+               </div>
+             </div>
            </div>
 
           <button
