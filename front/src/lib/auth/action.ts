@@ -36,15 +36,18 @@ async function clearPendingEmail() {
 
 export async function unlockScreen(_formData: FormData): Promise<{ error: string | null }> {
   redirect(POST_LOGIN_PATH);
+  return { error: null };
 }
 
 export async function unlockScreenImg(_formData: FormData): Promise<{ error: string | null }> {
   redirect(POST_LOGIN_PATH);
+  return { error: null };
 }
 
 export async function createPassword(_formData: FormData): Promise<{ error: string | null }> {
   await new Promise((res) => setTimeout(res, 500));
   redirect("/auth-pages/sign-in");
+  return { error: null };
 }
 
 export async function resetPasswordAction(formData: FormData): Promise<{ error: string | null }> {
