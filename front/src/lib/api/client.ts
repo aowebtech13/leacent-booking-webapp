@@ -9,7 +9,9 @@ import axios, { type AxiosInstance, type AxiosResponse } from "axios";
  * such as `auth/login`.
  */
 const api: AxiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || "https://leacentbooks-enterpise.lexicron.org/api",
+  baseURL:
+    process.env.NEXT_PUBLIC_API_BASE_URL ||
+    "https://leacentbooks-enterpise.lexicron.org/api",
   withCredentials: true, // required for Sanctum stateful cookies (CSRF + session)
   headers: {
     "Content-Type": "application/json",
