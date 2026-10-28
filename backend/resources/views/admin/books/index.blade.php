@@ -89,13 +89,21 @@
                                         </td>
                                         <td>
                                             @php
-                                                $authorRel = $book->author;
+                                                $authorRel = $book->relationLoaded('author') ? $book->getRelation('author') : ($book->author_id ? $book->author : null);
+                                                if (is_string($authorRel) || is_null($authorRel)) {
+                                                    $authorRel = null;
+                                                }
                                                 $authorStr = $book->getAttribute('author');
+                                                if (is_object($authorStr)) {
+                                                    $authorStr = null;
+                                                }
                                             @endphp
-                                            @if($authorRel)
+                                            @if($authorRel && is_object($authorRel) && isset($authorRel->name))
                                                 <span class="badge bg-light-info">{{ $authorRel->name }}</span>
-                                            @elseif($authorStr)
+                                            @elseif(is_string($authorStr) && $authorStr)
                                                 {{ $authorStr }}
+                                            @elseif($book->author_id && $book->author && is_object($book->author) && isset($book->author->name))
+                                                <span class="badge bg-light-info">{{ $book->author->name }}</span>
                                             @else
                                                 <span class="text-muted f-light">No Author</span>
                                             @endif

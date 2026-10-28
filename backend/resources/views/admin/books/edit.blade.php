@@ -160,7 +160,14 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><strong>Title:</strong> {{ $book->title }}</li>
                             <li class="list-group-item"><strong>Slug:</strong> {{ $book->slug }}</li>
-                            <li class="list-group-item"><strong>Author:</strong> @if($book->author){{ $book->author->name }}@elseif($book->getAttribute('author')){{ $book->getAttribute('author') }}@elseN/A@endif</li>
+                            <li class="list-group-item"><strong>Author:</strong> 
+                                @php
+                                    $authorRel = is_object($book->author) && !is_string($book->author) ? $book->author : null;
+                                    $authorStr = $book->getAttribute('author');
+                                    if (is_object($authorStr)) $authorStr = null;
+                                @endphp
+                                @if($authorRel && isset($authorRel->name)){{ $authorRel->name }}@elseif(is_string($authorStr) && $authorStr){{ $authorStr }}@elseN/A@endif
+                            </li>
                             <li class="list-group-item"><strong>Publisher:</strong> {{ $book->publisher ?? 'N/A' }}</li>
                             <li class="list-group-item"><strong>Category:</strong> {{ $book->category ?? 'N/A' }}</li>
                             <li class="list-group-item"><strong>Language:</strong> {{ $book->language ?? 'N/A' }}</li>
