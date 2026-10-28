@@ -9,10 +9,15 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-const Page = async () => {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
   const cookieStore = await cookies();
   const email = cookieStore.get("pending_email")?.value ?? null;
-  return <VerifyOtpForm email={email} />;
-};
+  const params = await searchParams;
+  const purpose = (params.purpose as string) | undefined;
 
-export default Page;
+  return <VerifyOtpForm email={email} purpose={purpose} />;
+}

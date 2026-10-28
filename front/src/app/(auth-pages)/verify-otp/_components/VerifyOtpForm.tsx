@@ -12,7 +12,13 @@ type FormData = {
   code: string;
 };
 
-const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
+const VerifyOtpForm = ({
+  email: initialEmail,
+  purpose,
+}: {
+  email: string | null;
+  purpose?: string;
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [resendMessage, setResendMessage] = useState<string | null>(null);
@@ -74,8 +80,12 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
     }
 
     try {
-      const res: AuthResponse = await apiVerifyOtp({ email, code });
+      const res: AuthResponse = await apiVerifyOtp({ email, code, purpose });
       setAuth(res);
+      if (purpose === 'password-reset') {
+        router.push(`/auth-pages/reset-password?token=${res.access_token}`);
+        return;
+      }
       router.push("/apps/setting");
     } catch (err: any) {
       verifyingRef.current = null;

@@ -44,6 +44,17 @@
             border-radius: 4px;
             margin: 10px 0;
         }
+        .otp-code {
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 8px;
+            color: #7366ff;
+            text-align: center;
+            padding: 20px;
+            margin: 20px 0;
+            background-color: #f6f7fb;
+            border-radius: 8px;
+        }
         p {
             line-height: 1.6;
             margin: 0 0 15px;
@@ -65,10 +76,8 @@
         <div class="content">
             <p>Hi {{ $user->name ?? 'there' }},</p>
             <p>You are receiving this email because we received a password reset request for your account.</p>
-            <p style="text-align: center;">
-                <a href="{{ $resetUrl }}" class="btn">Reset Password</a>
-            </p>
-            <p>This password reset link will expire in 30 minutes. If you did not request a password reset, no further action is required.</p>
+            <div class="otp-code">{{ $otpCode }}</div>
+            <p>Use this verification code to reset your password. This code will expire in 10 minutes. If you did not request a password reset, no further action is required.</p>
         </div>
         <div class="footer">
             <p>&copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.</p>

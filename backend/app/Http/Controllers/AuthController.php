@@ -197,21 +197,21 @@ class AuthController extends Controller
             ], 404);
         }
 
-        $token = $user->createToken('password_reset', ['password-reset'], now()->addMinutes(30))->plainTextToken;
+        $otpCode = $this->assignOtp($user);
 
         try {
-            Mail::to($user->email)->send(new PasswordResetMail($user, $this->passwordResetUrl($token)));
+            Mail::to($user->email)->send(new PasswordResetMail($user, $otpCode));
 
             return response()->json([
                 'success' => true,
-                'message' => 'Password reset email sent successfully',
+                'message' => 'Password reset code sent successfully',
             ]);
         } catch (\Exception $e) {
-            Log::error('Failed to send password reset email: ' . $e->getMessage());
+            Log::error('Failed to send password reset code: ' . $e->getMessage());
 
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to send password reset email. Please try again later.',
+                'message' => 'Failed to send password reset code. Please try again later.',
             ], 500);
         }
     }
@@ -300,6 +300,7 @@ class AuthController extends Controller
         $data = $request->validate([
             'email' => 'required|email',
             'code' => 'required|string|size:5',
+            'purpose' => 'nullable|string|in:password-reset',
         ]);
 
         $user = User::where('email', $data['email'])->first();
@@ -307,19 +308,6 @@ class AuthController extends Controller
         if (!$user) {
             throw ValidationException::withMessages([
                 'code' => ['Invalid verification code.'],
-            ]);
-        }
-
-        if ($user->email_verified_at) {
-            $token = $this->issueSanctumToken($user);
-
-            return response()->json([
-                'success' => true,
-                'data' => [
-                    'access_token' => $token,
-                    'token_type' => 'Bearer',
-                    'user' => $user->load(['profile', 'roles']),
-                ],
             ]);
         }
 
@@ -344,14 +332,31 @@ class AuthController extends Controller
         }
 
         $user->forceFill([
-            'email_verified_at' => now(),
             'otp_verified_at' => now(),
             'otp_code' => null,
             'otp_expires_at' => null,
             'otp_attempts' => 0,
         ])->save();
 
-        event(new Verified($user));
+        if ($data['purpose'] === 'password-reset') {
+            $token = $user->createToken('password_reset', ['password-reset'], now()->addMinutes(30))->plainTextToken;
+
+            return response()->json([
+                'success' => true,
+                'access_token' => $token,
+                'token_type' => 'Bearer',
+                'email' => $user->email,
+                'purpose' => 'password-reset',
+            ]);
+        }
+
+        if (!$user->email_verified_at) {
+            $user->forceFill([
+                'email_verified_at' => now(),
+            ])->save();
+
+            event(new Verified($user));
+        }
 
         $token = $this->issueSanctumToken($user);
 
