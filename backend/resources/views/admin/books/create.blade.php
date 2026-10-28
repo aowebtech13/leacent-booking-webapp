@@ -31,7 +31,7 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('admin.books.store') }}" method="POST" class="row g-3">
+                        <form action="{{ route('admin.books.store') }}" method="POST" class="row g-3" enctype="multipart/form-data">
                             @csrf
                             <div class="col-md-6">
                                 <label class="form-label">Book Title <span class="text-danger">*</span></label>
@@ -53,17 +53,7 @@
                                 </select>
                                 @error('author_id') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Author Name (Legacy String)</label>
-                                <input type="text" name="author" class="form-control" value="{{ old('author') }}" placeholder="e.g. J.K. Rowling">
-                                @error('author') <span class="text-danger f-12">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Author Name (Legacy String)</label>
-                                <input type="text" name="author" class="form-control" value="{{ old('author') }}" placeholder="e.g. J.K. Rowling">
-                                @error('author') <span class="text-danger f-12">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="col-md-4">
+<div class="col-md-4">
                                 <label class="form-label">Publisher</label>
                                 <input type="text" name="publisher" class="form-control" value="{{ old('publisher') }}">
                                 @error('publisher') <span class="text-danger f-12">{{ $message }}</span> @enderror
@@ -73,12 +63,7 @@
                                 <input type="text" name="category" class="form-control" value="{{ old('category') }}" placeholder="e.g. Fiction">
                                 @error('category') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Language</label>
-                                <input type="text" name="language" class="form-control" value="{{ old('language', 'en') }}">
-                                @error('language') <span class="text-danger f-12">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="col-md-4">
+<div class="col-md-4">
                                 <label class="form-label">Format</label>
                                 <input type="text" name="format" class="form-control" value="{{ old('format', 'pdf') }}" placeholder="pdf, epub, audio">
                                 @error('format') <span class="text-danger f-12">{{ $message }}</span> @enderror
@@ -93,15 +78,16 @@
                                 <input type="number" name="page_count" class="form-control" value="{{ old('page_count') }}" min="1">
                                 @error('page_count') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Price ($)</label>
-                                <input type="number" name="price" class="form-control" value="{{ old('price', 0) }}" min="0" step="0.01">
-                                @error('price') <span class="text-danger f-12">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="col-md-6">
+<div class="col-md-6">
                                 <label class="form-label">Upload PDF <span class="text-danger">*</span></label>
                                 <input type="file" name="file" class="form-control" accept="application/pdf" required>
                                 @error('file') <span class="text-danger f-12">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Cover Image</label>
+                                <input type="file" name="cover_image" class="form-control" accept="image/*">
+                                <small class="form-text text-muted">Upload a featured cover image.</small>
+                                @error('cover_image') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Description</label>
@@ -120,19 +106,7 @@
                                     <label class="form-check-label" for="is_active">Active</label>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-check mt-5">
-                                    <input class="form-check-input" type="checkbox" name="is_featured" value="1" {{ old('is_featured') ? 'checked' : '' }} id="is_featured">
-                                    <label class="form-check-label" for="is_featured">Featured</label>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">Tags</label>
-                                <input type="text" name="tags" class="form-control" value="{{ old('tags') }}" placeholder="tag1, tag2, tag3">
-                                <small class="form-text text-muted">Comma separated tags.</small>
-                                @error('tags') <span class="text-danger f-12">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="col-12">
+<div class="col-12">
                                 <hr>
                                 <button type="submit" class="btn btn-primary">Create Book</button>
                                 <a href="{{ route('admin.books.index') }}" class="btn btn-secondary">Cancel</a>

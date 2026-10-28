@@ -31,7 +31,7 @@
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('admin.books.update', $book) }}" method="POST" class="row g-3">
+                        <form action="{{ route('admin.books.update', $book) }}" method="POST" class="row g-3" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="col-md-6">
@@ -54,11 +54,7 @@
                                 </select>
                                 @error('author_id') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Author Name (Legacy String)</label>
-                                <input type="text" name="author" class="form-control" value="{{ old('author', $book->getAttribute('author')) }}">
-                                @error('author') <span class="text-danger f-12">{{ $message }}</span> @enderror
-                            </div>
+
                             <div class="col-md-4">
                                 <label class="form-label">Publisher</label>
                                 <input type="text" name="publisher" class="form-control" value="{{ old('publisher', $book->publisher) }}">
@@ -79,16 +75,7 @@
                                 <input type="text" name="format" class="form-control" value="{{ old('format', $book->format) }}">
                                 @error('format') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Publication Year</label>
-                                <input type="number" name="publication_year" class="form-control" value="{{ old('publication_year', $book->publication_year) }}" min="1000" max="9999">
-                                @error('publication_year') <span class="text-danger f-12">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Page Count</label>
-                                <input type="number" name="page_count" class="form-control" value="{{ old('page_count', $book->page_count) }}" min="1">
-                                @error('page_count') <span class="text-danger f-12">{{ $message }}</span> @enderror
-                            </div>
+
                             <div class="col-md-4">
                                 <label class="form-label">Price ($)</label>
                                 <input type="number" name="price" class="form-control" value="{{ old('price', $book->price) }}" min="0" step="0.01">
@@ -105,30 +92,14 @@
                                 <textarea name="description" class="form-control" rows="3">{{ old('description', $book->description) }}</textarea>
                                 @error('description') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-check mt-5">
-                                    <input class="form-check-input" type="checkbox" name="is_premium" value="1" {{ old('is_premium', $book->is_premium) ? 'checked' : '' }} id="is_premium">
-                                    <label class="form-check-label" for="is_premium">Premium Book</label>
-                                </div>
-                            </div>
+
                             <div class="col-md-3">
                                 <div class="form-check mt-5">
                                     <input class="form-check-input" type="checkbox" name="is_active" value="1" {{ old('is_active', $book->is_active) ? 'checked' : '' }} id="is_active">
                                     <label class="form-check-label" for="is_active">Active</label>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-check mt-5">
-                                    <input class="form-check-input" type="checkbox" name="is_featured" value="1" {{ old('is_featured', $book->is_featured) ? 'checked' : '' }} id="is_featured">
-                                    <label class="form-check-label" for="is_featured">Featured</label>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">Tags</label>
-                                <input type="text" name="tags" class="form-control" value="{{ old('tags', is_array($book->tags) ? implode(', ', $book->tags) : $book->tags) }}">
-                                <small class="form-text text-muted">Comma separated tags.</small>
-                                @error('tags') <span class="text-danger f-12">{{ $message }}</span> @enderror
-                            </div>
+
                             <div class="col-12">
                                 <hr>
                                 <button type="submit" class="btn btn-primary">Update Book</button>
@@ -179,15 +150,13 @@
                                     N/A
                                 @endif
                             </li>
-                            <li class="list-group-item"><strong>Publisher:</strong> {{ $book->publisher ?? 'N/A' }}</li>
+
                             <li class="list-group-item"><strong>Category:</strong> {{ $book->category ?? 'N/A' }}</li>
-                            <li class="list-group-item"><strong>Language:</strong> {{ $book->language ?? 'N/A' }}</li>
+
                             <li class="list-group-item"><strong>Format:</strong> {{ $book->format ?? 'N/A' }}</li>
-                            <li class="list-group-item"><strong>Price:</strong> ${{ number_format($book->price, 2) }}</li>
-                            <li class="list-group-item"><strong>Pages:</strong> {{ $book->page_count ?? 'N/A' }}</li>
-                            <li class="list-group-item"><strong>Published:</strong> {{ $book->publication_year ?? 'N/A' }}</li>
+
                             <li class="list-group-item"><strong>Status:</strong> <span class="badge bg-{{ $book->is_active ? 'success' : 'danger' }}">{{ $book->is_active ? 'Active' : 'Inactive' }}</span></li>
-                            <li class="list-group-item"><strong>Premium:</strong> @if($book->is_premium)Yes @else No @endif</li>
+
                             <li class="list-group-item"><strong>Read Count:</strong> {{ $book->read_count }}</li>
                             <li class="list-group-item"><strong>Created:</strong> {{ $book->created_at->format('d M, Y h:i A') }}</li>
                         </ul>
