@@ -343,10 +343,13 @@ class AuthController extends Controller
 
             return response()->json([
                 'success' => true,
-                'access_token' => $token,
-                'token_type' => 'Bearer',
-                'email' => $user->email,
-                'purpose' => 'password-reset',
+                'data' => [
+                    'access_token' => $token,
+                    'token_type' => 'Bearer',
+                    'user' => $user->load(['profile', 'roles']),
+                    'email' => $user->email,
+                    'purpose' => 'password-reset',
+                ],
             ]);
         }
 
