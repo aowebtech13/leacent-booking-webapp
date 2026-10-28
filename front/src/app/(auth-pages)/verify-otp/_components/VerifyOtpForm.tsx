@@ -78,6 +78,7 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
       setAuth(res);
       router.push("/apps/setting");
     } catch (err: any) {
+      verifyingRef.current = null;
       setError(err?.message || "Invalid OTP. Please try again.");
       setIsLoading(false);
       setValue("code", "");
@@ -176,25 +177,7 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
                </div>
              </div>
            </div>
-
-          <button
-            type="submit"
-            className="btn btn-primary w-100 py-3 f-w-600 fs-5 otp-verify-btn"
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <span className="d-flex align-items-center justify-content-center gap-2">
-                <span
-                  className="spinner-border spinner-border-sm"
-                  role="status"
-                ></span>
-                Verifying...
-              </span>
-            ) : (
-              "Verify Code"
-            )}
-          </button>
-        </form>
+         </form>
 
         <div className="text-center mt-5">
           {resendMessage && (
