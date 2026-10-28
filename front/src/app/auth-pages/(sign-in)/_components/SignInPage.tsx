@@ -29,30 +29,16 @@ const SignInPage = () => {
 
   const [state, formAction, isPending] = useActionState(
     async (_prev: { error: string | null }, formData: FormData) => {
-      try {
-        const res = await loginUser(formData);
-        if (res && 'access_token' in res) {
-          // Store the session (token + user) before leaving the auth page,
-          setAuth(res);
-          return INITIAL_STATE;
-        }
-        return { error: "Invalid credentials. Please try again." };
-      } catch (err: any) {
-        if (isRedirectError(err)) throw err;
-
-        // Robust error extraction for production builds where 
-        // class names like "ActionError" might get minified or stripped.
-        const errorMessage =
-          err?.message ||
-          err?.data?.message ||
-          (typeof err === "string" ? err : null);
-
-        if (errorMessage) {
-          return { error: errorMessage };
-        }
-
-        return { error: "Invalid credentials. Please try again." };
+      const res = await loginUser(formData);
+      if (res && "access_token" in res) {
+        // Store the session (token + user) before leaving the auth page,
+        setAuth(res);
+        return INITIAL_STATE;
       }
+      if (res && "error" in res && res.error) {
+        return { error: res.error };
+      }
+      return { error: "Invalid credentials. Please try again." };
     },
     INITIAL_STATE
   );

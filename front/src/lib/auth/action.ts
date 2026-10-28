@@ -61,7 +61,9 @@ export async function resetPasswordAction(formData: FormData): Promise<void> {
   redirect("/auth-pages/sign-in");
 }
 
-export async function loginUser(formData: FormData): Promise<AuthResponse> {
+export async function loginUser(
+  formData: FormData
+): Promise<AuthResponse | { error: string | null }> {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
@@ -69,17 +71,20 @@ export async function loginUser(formData: FormData): Promise<AuthResponse> {
     return await login({ email, password });
   } catch (error: any) {
     const actionError = toActionError(error);
-    
+
+    // 422 = unverified email (redirects safely)
     if (actionError.status === 422) {
       await setPendingEmail(email);
       redirect("/verify-otp");
     }
 
-    throw actionError;
+    return { error: actionError.message };
   }
 }
 
-export async function loginUserImg(formData: FormData): Promise<AuthResponse> {
+export async function loginUserImg(
+  formData: FormData
+): Promise<AuthResponse | { error: string | null }> {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
@@ -87,13 +92,13 @@ export async function loginUserImg(formData: FormData): Promise<AuthResponse> {
     return await login({ email, password });
   } catch (error: any) {
     const actionError = toActionError(error);
-    
+
     if (actionError.status === 422) {
       await setPendingEmail(email);
       redirect("/verify-otp");
     }
 
-    throw actionError;
+    return { error: actionError.message };
   }
 }
 
