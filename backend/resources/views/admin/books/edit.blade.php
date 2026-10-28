@@ -160,13 +160,24 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><strong>Title:</strong> {{ $book->title }}</li>
                             <li class="list-group-item"><strong>Slug:</strong> {{ $book->slug }}</li>
-                            <li class="list-group-item"><strong>Author:</strong> 
+                            <li class="list-group-item"><strong>Author:</strong>
                                 @php
-                                    $authorRel = is_object($book->author) && !is_string($book->author) ? $book->author : null;
+                                    $authorObj = $book->author;
+                                    if (is_string($authorObj)) {
+                                        $authorObj = null;
+                                    }
                                     $authorStr = $book->getAttribute('author');
-                                    if (is_object($authorStr)) $authorStr = null;
+                                    if (is_object($authorStr)) {
+                                        $authorStr = null;
+                                    }
                                 @endphp
-                                @if($authorRel && isset($authorRel->name)){{ $authorRel->name }}@elseif(is_string($authorStr) && $authorStr){{ $authorStr }}@elseN/A@endif
+                                @if($authorObj && isset($authorObj->name))
+                                    {{ $authorObj->name }}
+                                @elseif(is_string($authorStr) && $authorStr !== '')
+                                    {{ $authorStr }}
+                                @else
+                                    N/A
+                                @endif
                             </li>
                             <li class="list-group-item"><strong>Publisher:</strong> {{ $book->publisher ?? 'N/A' }}</li>
                             <li class="list-group-item"><strong>Category:</strong> {{ $book->category ?? 'N/A' }}</li>
@@ -176,7 +187,7 @@
                             <li class="list-group-item"><strong>Pages:</strong> {{ $book->page_count ?? 'N/A' }}</li>
                             <li class="list-group-item"><strong>Published:</strong> {{ $book->publication_year ?? 'N/A' }}</li>
                             <li class="list-group-item"><strong>Status:</strong> <span class="badge bg-{{ $book->is_active ? 'success' : 'danger' }}">{{ $book->is_active ? 'Active' : 'Inactive' }}</span></li>
-                            <li class="list-group-item"><strong>Premium:</strong> @if($book->is_premium)Yes@elseNo@endif</li>
+                            <li class="list-group-item"><strong>Premium:</strong> @if($book->is_premium)Yes @else No @endif</li>
                             <li class="list-group-item"><strong>Read Count:</strong> {{ $book->read_count }}</li>
                             <li class="list-group-item"><strong>Created:</strong> {{ $book->created_at->format('d M, Y h:i A') }}</li>
                         </ul>
