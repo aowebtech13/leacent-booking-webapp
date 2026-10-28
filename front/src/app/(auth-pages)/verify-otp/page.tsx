@@ -20,10 +20,5 @@ export default async function Page({
   const rawPurpose = params.purpose;
   const purpose = typeof rawPurpose === "string" ? rawPurpose : undefined;
 
-  return (
-    <VerifyOtpForm
-      email={email}
-      {...(purpose ? { purpose } : {})}
-    />
-  );
+  return <VerifyOtpForm email={email} {...(purpose ? { purpose } : {})} />;
 }

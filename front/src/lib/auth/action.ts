@@ -102,9 +102,7 @@ export async function loginUserImg(
   }
 }
 
-export async function registerUser(
-  formData: FormData
-): Promise<void> {
+export async function registerUser(formData: FormData): Promise<void> {
   const name = formData.get("username") as string;
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;

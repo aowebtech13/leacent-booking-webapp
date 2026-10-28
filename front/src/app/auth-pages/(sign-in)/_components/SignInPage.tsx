@@ -16,7 +16,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
 import { loginUser } from "@/lib/auth/action";
-import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { POST_LOGIN_PATH } from "@/lib/auth/constants";
 import { useAuth } from "@/lib/contexts/AuthContext";
 

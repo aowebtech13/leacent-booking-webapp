@@ -6,7 +6,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/contexts/AuthContext";
-import { verifyOtp as apiVerifyOtp, resendOtp as apiResendOtp, AuthResponse } from "@/lib/api";
+import {
+  verifyOtp as apiVerifyOtp,
+  resendOtp as apiResendOtp,
+  AuthResponse,
+} from "@/lib/api";
 
 type FormData = {
   code: string;
@@ -30,17 +34,17 @@ const VerifyOtpForm = ({
   const router = useRouter();
   const { setAuth } = useAuth();
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    watch,
-  } = useForm<FormData>();
+  const { register, handleSubmit, setValue, watch } = useForm<FormData>();
 
   const code = watch("code");
 
   useEffect(() => {
-    if (code && code.length === 5 && !isLoading && verifyingRef.current !== code) {
+    if (
+      code &&
+      code.length === 5 &&
+      !isLoading &&
+      verifyingRef.current !== code
+    ) {
       verifyingRef.current = code;
       onSubmit({ code });
     }
@@ -62,10 +66,6 @@ const VerifyOtpForm = ({
       if (timerRef.current) clearInterval(timerRef.current);
     };
   }, []);
-
-
-
-
 
   const onSubmit = async (data: FormData) => {
     setIsLoading(true);
@@ -89,7 +89,7 @@ const VerifyOtpForm = ({
       }
       const res: AuthResponse = await apiVerifyOtp(payload);
       setAuth(res);
-      if (purpose === 'password-reset') {
+      if (purpose === "password-reset") {
         router.push(`/auth-pages/reset-password?token=${res.access_token}`);
         return;
       }
@@ -119,10 +119,7 @@ const VerifyOtpForm = ({
     } catch (err: any) {
       setResendTimer(60);
       setCanResend(false);
-      setError(
-        err?.message ||
-          "Email not sent. Please contact support."
-      );
+      setError(err?.message || "Email not sent. Please contact support.");
     }
     timerRef.current = setInterval(() => {
       setResendTimer((prev) => {
@@ -175,26 +172,26 @@ const VerifyOtpForm = ({
             </div>
           )}
 
-           <div className="form-group mb-5">
-             <div className="otp-input-wrapper">
-               <input
-                 type="text"
-                 maxLength={5}
-                 inputMode="numeric"
-                 autoComplete="one-time-code"
-                 autoFocus
-                 className="form-control text-center otp-input-lg otp-input-with-divider"
-                 {...register("code", { required: "Required" })}
-               />
-               <div className="otp-divider">
-                 <span>-</span>
-                 <span>-</span>
-                 <span>-</span>
-                 <span>-</span>
-               </div>
-             </div>
-           </div>
-         </form>
+          <div className="form-group mb-5">
+            <div className="otp-input-wrapper">
+              <input
+                type="text"
+                maxLength={5}
+                inputMode="numeric"
+                autoComplete="one-time-code"
+                autoFocus
+                className="form-control text-center otp-input-lg otp-input-with-divider"
+                {...register("code", { required: "Required" })}
+              />
+              <div className="otp-divider">
+                <span>-</span>
+                <span>-</span>
+                <span>-</span>
+                <span>-</span>
+              </div>
+            </div>
+          </div>
+        </form>
 
         <div className="text-center mt-5">
           {resendMessage && (
