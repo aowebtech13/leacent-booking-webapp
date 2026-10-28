@@ -20,6 +20,7 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
   const [canResend, setCanResend] = useState(false);
   const [email] = useState<string | null>(initialEmail);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const verifyingRef = useRef<string | null>(null);
   const router = useRouter();
   const { setAuth } = useAuth();
 
@@ -33,7 +34,8 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
   const code = watch("code");
 
   useEffect(() => {
-    if (code && code.length === 5 && !isLoading) {
+    if (code && code.length === 5 && !isLoading && verifyingRef.current !== code) {
+      verifyingRef.current = code;
       onSubmit({ code });
     }
   }, [code, isLoading]);
