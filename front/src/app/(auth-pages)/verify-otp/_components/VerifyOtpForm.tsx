@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/contexts/AuthContext";
-import { verifyOtp as apiVerifyOtp, AuthResponse } from "@/lib/api";
+import { verifyOtp as apiVerifyOtp, resendOtp as apiResendOtp, AuthResponse } from "@/lib/api";
 
 type FormData = {
   code: string;
@@ -27,7 +27,16 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
     register,
     handleSubmit,
     setValue,
+    watch,
   } = useForm<FormData>();
+
+  const code = watch("code");
+
+  useEffect(() => {
+    if (code && code.length === 5 && !isLoading) {
+      onSubmit({ code });
+    }
+  }, [code, isLoading]);
 
   useEffect(() => {
     timerRef.current = setInterval(() => {
@@ -73,12 +82,28 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
     }
   };
 
-  const handleResend = () => {
+  const handleResend = async () => {
     if (!canResend) return;
+    if (!email) {
+      setError("Missing email. Please go back and sign in again.");
+      return;
+    }
+    setResendMessage(null);
+    setError(null);
     setResendTimer(60);
     setCanResend(false);
-    setResendMessage("Code has been resent");
-    setTimeout(() => setResendMessage(null), 4000);
+    try {
+      await apiResendOtp({ email });
+      setResendMessage("Code has been resent");
+      setTimeout(() => setResendMessage(null), 4000);
+    } catch (err: any) {
+      setResendTimer(60);
+      setCanResend(false);
+      setError(
+        err?.message ||
+          "Email not sent. Please contact support."
+      );
+    }
     timerRef.current = setInterval(() => {
       setResendTimer((prev) => {
         if (prev <= 1) {
