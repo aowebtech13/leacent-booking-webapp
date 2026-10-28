@@ -18,7 +18,7 @@ export interface RegisterPayload {
 export interface VerifyOtpPayload {
   email: string;
   code: string;
-  purpose?: string;
+  purpose?: string | null;
 }
 
 export interface ForgotPasswordPayload {

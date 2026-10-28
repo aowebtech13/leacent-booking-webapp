@@ -21,7 +21,7 @@ const VerifyOtpForm = ({
   purpose,
 }: {
   email: string | null;
-  purpose?: string;
+  purpose?: string | null;
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -80,13 +80,11 @@ const VerifyOtpForm = ({
     }
 
     try {
-      const payload: { email: string; code: string; purpose?: string } = {
+      const payload: { email: string; code: string; purpose?: string | null } = {
         email,
         code,
+        purpose: purpose ?? null,
       };
-      if (purpose) {
-        payload.purpose = purpose;
-      }
       const res: AuthResponse = await apiVerifyOtp(payload);
       setAuth(res);
       if (purpose === "password-reset") {
