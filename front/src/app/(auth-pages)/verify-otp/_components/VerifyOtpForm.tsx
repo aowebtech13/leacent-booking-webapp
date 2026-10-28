@@ -15,6 +15,7 @@ type FormData = {
 const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [resendMessage, setResendMessage] = useState<string | null>(null);
   const [resendTimer, setResendTimer] = useState(60);
   const [canResend, setCanResend] = useState(false);
   const [email] = useState<string | null>(initialEmail);
@@ -76,6 +77,8 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
     if (!canResend) return;
     setResendTimer(60);
     setCanResend(false);
+    setResendMessage("Code has been resent");
+    setTimeout(() => setResendMessage(null), 4000);
     timerRef.current = setInterval(() => {
       setResendTimer((prev) => {
         if (prev <= 1) {
@@ -167,6 +170,19 @@ const VerifyOtpForm = ({ email: initialEmail }: { email: string | null }) => {
         </form>
 
         <div className="text-center mt-5">
+          {resendMessage && (
+            <div
+              className="alert alert-success alert-dismissible fade show"
+              role="alert"
+            >
+              {resendMessage}
+              <button
+                type="button"
+                className="btn-close"
+                onClick={() => setResendMessage(null)}
+              ></button>
+            </div>
+          )}
           <p className="text-muted mb-0">
             Didn&apos;t receive the code?{" "}
             <button
