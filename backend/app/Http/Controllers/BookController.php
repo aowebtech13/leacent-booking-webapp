@@ -224,7 +224,6 @@ class BookController extends Controller
             'format' => 'nullable|string|max:50',
             'description' => 'nullable|string',
             'file' => 'required|file|mimes:pdf|max:20480',
-            'price' => 'nullable|numeric|min:0',
             'is_premium' => 'sometimes|boolean',
             'is_active' => 'sometimes|boolean',
             'is_featured' => 'sometimes|boolean',
@@ -235,7 +234,6 @@ class BookController extends Controller
             $data['slug'] = Str::slug($data['title']);
         }
 
-        $data['price'] = $data['price'] ?? 0;
         $data['is_premium'] = $data['is_premium'] ?? false;
         $data['is_active'] = $data['is_active'] ?? true;
         $data['is_featured'] = $data['is_featured'] ?? false;
@@ -274,7 +272,6 @@ class BookController extends Controller
             'format' => 'sometimes|nullable|string|max:50',
             'description' => 'sometimes|nullable|string',
             'file' => 'sometimes|nullable|file|mimes:pdf|max:20480',
-            'price' => 'sometimes|nullable|numeric|min:0',
             'is_premium' => 'sometimes|boolean',
             'is_active' => 'sometimes|boolean',
             'is_featured' => 'sometimes|boolean',

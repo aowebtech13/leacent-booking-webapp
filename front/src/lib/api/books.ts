@@ -23,7 +23,6 @@ export interface Book {
   author: string | null;
   author_id: number | null;
   authorDetail?: Author | null;
-  isbn: string | null;
   publisher: string | null;
   language: string | null;
   category: string | null;
@@ -33,7 +32,6 @@ export interface Book {
   file_path: string | null;
   cover_image_path: string | null;
   preview_path: string | null;
-  price: number | string | null;
   is_premium: boolean;
   is_active: boolean;
   is_featured: boolean;

@@ -76,16 +76,17 @@
                                 @error('format') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
 
-                            <div class="col-md-4">
-                                <label class="form-label">Price ($)</label>
-                                <input type="number" name="price" class="form-control" value="{{ old('price', $book->price) }}" min="0" step="0.01">
-                                @error('price') <span class="text-danger f-12">{{ $message }}</span> @enderror
-                            </div>
                             <div class="col-md-6">
                                 <label class="form-label">Upload PDF</label>
                                 <input type="file" name="file" class="form-control" accept="application/pdf">
                                 <small class="form-text text-muted">Leave empty to keep current file.</small>
                                 @error('file') <span class="text-danger f-12">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Cover Image</label>
+                                <input type="file" name="cover_image" class="form-control" accept="image/*">
+                                <small class="form-text text-muted">Leave empty to keep current cover.</small>
+                                @error('cover_image') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Description</label>

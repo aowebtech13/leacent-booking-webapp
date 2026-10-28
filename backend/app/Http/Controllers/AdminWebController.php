@@ -927,7 +927,7 @@ class AdminWebController extends Controller
             'format' => 'nullable|string|max:50',
             'description' => 'nullable|string',
             'file' => 'required|file|mimes:pdf|max:20480',
-            'price' => 'nullable|numeric|min:0',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'is_premium' => 'sometimes|boolean',
             'is_active' => 'sometimes|boolean',
             'is_featured' => 'sometimes|boolean',
@@ -938,13 +938,20 @@ class AdminWebController extends Controller
             $data['slug'] = \Illuminate\Support\Str::slug($data['title']);
         }
 
-        $data['price'] = $data['price'] ?? 0;
         $data['is_premium'] = $data['is_premium'] ?? false;
         $data['is_active'] = $data['is_active'] ?? true;
         $data['is_featured'] = $data['is_featured'] ?? false;
 
         // Upload the PDF file and store its path
         $data['file_path'] = $request->file('file')->store('books', 'public');
+
+        // Upload the cover image if provided
+        if ($request->hasFile('cover_image')) {
+            $data['cover_image_path'] = $request->file('cover_image')->store('books/covers', 'public');
+        }
+
+        unset($data['file']);
+        unset($data['cover_image']);
 
         Book::create($data);
 
@@ -974,7 +981,7 @@ class AdminWebController extends Controller
             'format' => 'sometimes|nullable|string|max:50',
             'description' => 'sometimes|nullable|string',
             'file' => 'sometimes|nullable|file|mimes:pdf|max:20480',
-            'price' => 'sometimes|nullable|numeric|min:0',
+            'cover_image' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'is_premium' => 'sometimes|boolean',
             'is_active' => 'sometimes|boolean',
             'is_featured' => 'sometimes|boolean',
@@ -985,6 +992,14 @@ class AdminWebController extends Controller
             $data['slug'] = \Illuminate\Support\Str::slug($data['title'] ?? $book->title);
         }
 
+        // Handle cover image upload
+        if ($request->hasFile('cover_image')) {
+            if ($book->cover_image_path) {
+                Storage::disk('public')->delete($book->cover_image_path);
+            }
+            $data['cover_image_path'] = $request->file('cover_image')->store('books/covers', 'public');
+        }
+
         // Handle PDF file upload
         if ($request->hasFile('file')) {
             if ($book->file_path) {
@@ -992,6 +1007,9 @@ class AdminWebController extends Controller
             }
             $data['file_path'] = $request->file('file')->store('books', 'public');
         }
+
+        unset($data['file']);
+        unset($data['cover_image']);
 
         $book->update($data);
 
@@ -1002,6 +1020,10 @@ class AdminWebController extends Controller
     {
         if ($book->file_path) {
             Storage::disk('public')->delete($book->file_path);
+        }
+
+        if ($book->cover_image_path) {
+            Storage::disk('public')->delete($book->cover_image_path);
         }
 
         $book->delete();

@@ -39,7 +39,7 @@
                         <form method="GET" action="{{ route('admin.books.index') }}">
                             <div class="row g-3 mb-3">
                                 <div class="col-md-4">
-                                    <input type="text" name="search" class="form-control" placeholder="Search title, author, isbn, category..." value="{{ request('search') }}">
+                                    <input type="text" name="search" class="form-control" placeholder="Search title, author, category..." value="{{ request('search') }}">
                                 </div>
                                 <div class="col-md-2">
                                     <select name="is_active" class="form-select">
@@ -64,9 +64,7 @@
                                         <th>Cover</th>
                                         <th>Title</th>
                                         <th>Author</th>
-                                        <th>ISBN</th>
                                         <th>Category</th>
-                                        <th>Price</th>
                                         <th>Status</th>
                                         <th>Created At</th>
                                         <th class="text-end">Actions</th>
@@ -108,9 +106,7 @@
                                                 <span class="text-muted f-light">No Author</span>
                                             @endif
                                         </td>
-                                        <td>{{ $book->isbn ?? 'N/A' }}</td>
                                         <td>{{ $book->category ?? 'N/A' }}</td>
-                                        <td class="f-w-600">${{ number_format($book->price, 2) }}</td>
                                         <td>
                                             <span class="badge bg-{{ $book->is_active ? 'success' : 'danger' }}-light text-{{ $book->is_active ? 'success' : 'danger' }}">
                                                 {{ $book->is_active ? 'Active' : 'Inactive' }}
@@ -129,7 +125,7 @@
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td colspan="10" class="text-center f-light">No books found.</td>
+                                        <td colspan="8" class="text-center f-light">No books found.</td>
                                     </tr>
                                     @endforelse
                                 </tbody>

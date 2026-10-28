@@ -196,7 +196,7 @@ const VerifyOtpForm = ({
         <div className="text-center mt-5">
           {resendMessage && (
             <div
-              className="alert alert-success alert-dismissible fade show"
+              className="alert alert-success alert-dismissible fade show text-dark"
               role="alert"
             >
               {resendMessage}
