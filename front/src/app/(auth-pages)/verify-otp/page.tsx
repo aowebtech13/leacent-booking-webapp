@@ -17,7 +17,13 @@ export default async function Page({
   const cookieStore = await cookies();
   const email = cookieStore.get("pending_email")?.value ?? null;
   const params = await searchParams;
-  const purpose = (params.purpose as string) | undefined;
+  const rawPurpose = params.purpose;
+  const purpose = typeof rawPurpose === "string" ? rawPurpose : undefined;
 
-  return <VerifyOtpForm email={email} purpose={purpose} />;
+  return (
+    <VerifyOtpForm
+      email={email}
+      {...(purpose ? { purpose } : {})}
+    />
+  );
 }

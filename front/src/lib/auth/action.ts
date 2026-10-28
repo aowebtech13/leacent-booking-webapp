@@ -140,7 +140,7 @@ export async function forgotPasswordAction(formData: FormData): Promise<void> {
   }
 
   await setPendingEmail(email);
-  redirect("/verify-otp");
+  redirect("/verify-otp?purpose=password-reset");
 }
 
 export async function verifyOtp(formData: FormData): Promise<void> {

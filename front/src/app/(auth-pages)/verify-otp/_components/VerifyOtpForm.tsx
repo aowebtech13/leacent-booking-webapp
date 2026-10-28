@@ -80,7 +80,14 @@ const VerifyOtpForm = ({
     }
 
     try {
-      const res: AuthResponse = await apiVerifyOtp({ email, code, purpose });
+      const payload: { email: string; code: string; purpose?: string } = {
+        email,
+        code,
+      };
+      if (purpose) {
+        payload.purpose = purpose;
+      }
+      const res: AuthResponse = await apiVerifyOtp(payload);
       setAuth(res);
       if (purpose === 'password-reset') {
         router.push(`/auth-pages/reset-password?token=${res.access_token}`);
