@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\BookAccess;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -75,6 +76,7 @@ class BookController extends Controller
         $data = $book->toArray();
         $data['can_access'] = false;
         $data['access_type'] = null;
+        $data['points_required'] = $book->points_required;
 
         if ($request->user()) {
             $access = BookAccess::query()
@@ -87,6 +89,8 @@ class BookController extends Controller
                 $data['can_access'] = true;
                 $data['access_type'] = $access->access_type;
                 $data['access_expires_at'] = $access->expires_at;
+            } elseif ($book->points_required > 0) {
+                $data['can_unlock_with_points'] = $request->user()->profile->hasEnoughPoints($book->points_required);
             }
         } elseif (! $book->is_premium) {
             // Free books are accessible to everyone.
@@ -97,6 +101,87 @@ class BookController extends Controller
         return response()->json([
             'success' => true,
             'data' => $data,
+        ]);
+    }
+
+    /**
+     * POST /api/books/{id}/unlock
+     * Unlock a book using points. Access is permanent once unlocked.
+     */
+    public function unlock(Request $request, int $id)
+    {
+        $book = Book::query()->where('is_active', true)->findOrFail($id);
+
+        $user = $request->user();
+        $profile = $user->profile;
+
+        // Already has active access?
+        $existing = BookAccess::query()
+            ->where('user_id', $user->id)
+            ->where('book_id', $book->id)
+            ->active()
+            ->first();
+
+        if ($existing) {
+            return response()->json([
+                'success' => true,
+                'message' => 'You already have access to this book.',
+                'data' => [
+                    'book' => $book,
+                    'access' => $existing,
+                ],
+            ]);
+        }
+
+        $pointsRequired = $book->points_required;
+
+        if ($pointsRequired <= 0) {
+            return response()->json([
+                'success' => false,
+                'message' => 'This book cannot be unlocked with points.',
+            ], 422);
+        }
+
+        if (! $profile->hasEnoughPoints($pointsRequired)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Insufficient points. You need '.$pointsRequired.' point(s) to unlock this book, but your balance is '.$profile->points_balance.'.',
+            ], 403);
+        }
+
+        // Deduct points and grant permanent access in a transaction.
+        DB::transaction(function () use ($user, $profile, $book, $pointsRequired) {
+            $profile->deductPoints(
+                $pointsRequired,
+                'Unlocked book: '.$book->title
+            );
+
+            BookAccess::updateOrCreate(
+                ['user_id' => $user->id, 'book_id' => $book->id],
+                [
+                    'subscription_id' => null,
+                    'book_payment_id' => null,
+                    'access_type' => 'points',
+                    'granted_at' => now(),
+                    'expires_at' => null,
+                    'is_active' => true,
+                ]
+            );
+        });
+
+        $access = BookAccess::query()
+            ->where('user_id', $user->id)
+            ->where('book_id', $book->id)
+            ->first();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Book unlocked successfully. Your access is permanent.',
+            'data' => [
+                'book' => $book,
+                'access' => $access,
+                'points_remaining' => $profile->fresh()->points_balance,
+            ],
         ]);
     }
 
@@ -117,7 +202,7 @@ class BookController extends Controller
         if (! $access) {
             return response()->json([
                 'success' => false,
-                'message' => 'You do not have access to this book. Please subscribe or purchase it.',
+                'message' => 'You do not have access to this book. Unlock it using your points or subscribe.',
             ], 403);
         }
 
@@ -225,6 +310,7 @@ class BookController extends Controller
             'description' => 'nullable|string',
             'file' => 'required|file|mimes:pdf|max:20480',
             'is_premium' => 'sometimes|boolean',
+            'points' => 'sometimes|integer|min:0',
             'is_active' => 'sometimes|boolean',
             'is_featured' => 'sometimes|boolean',
             'tags' => 'sometimes|array',
@@ -235,6 +321,7 @@ class BookController extends Controller
         }
 
         $data['is_premium'] = $data['is_premium'] ?? false;
+        $data['points'] = $data['points'] ?? 0;
         $data['is_active'] = $data['is_active'] ?? true;
         $data['is_featured'] = $data['is_featured'] ?? false;
 
@@ -273,6 +360,7 @@ class BookController extends Controller
             'description' => 'sometimes|nullable|string',
             'file' => 'sometimes|nullable|file|mimes:pdf|max:20480',
             'is_premium' => 'sometimes|boolean',
+            'points' => 'sometimes|integer|min:0',
             'is_active' => 'sometimes|boolean',
             'is_featured' => 'sometimes|boolean',
             'tags' => 'sometimes|array',

@@ -12,6 +12,7 @@ class BookPlan extends Model
         'slug',
         'description',
         'price',
+        'points',
         'currency',
         'billing_cycle',
         'access_duration_days',
@@ -27,6 +28,7 @@ class BookPlan extends Model
 
     protected $casts = [
         'price' => 'decimal:2',
+        'points' => 'integer',
         'unlimited_books' => 'boolean',
         'book_limit' => 'integer',
         'can_download' => 'boolean',

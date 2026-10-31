@@ -25,6 +25,7 @@ class Book extends Model
         'cover_image_path',
         'preview_path',
         'is_premium',
+        'points',
         'is_active',
         'is_featured',
         'read_count',
@@ -40,6 +41,7 @@ class Book extends Model
         'is_premium' => 'boolean',
         'is_active' => 'boolean',
         'is_featured' => 'boolean',
+        'points' => 'integer',
         'read_count' => 'integer',
         'download_count' => 'integer',
         'rating' => 'decimal:1',
@@ -48,6 +50,14 @@ class Book extends Model
         'page_count' => 'integer',
         'tags' => 'array',
     ];
+
+    /**
+     * The number of points required to unlock this book.
+     */
+    public function getPointsRequiredAttribute(): int
+    {
+        return (int) ($this->attributes['points'] ?? 0);
+    }
 
     public function access(): HasMany
     {

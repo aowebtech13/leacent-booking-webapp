@@ -24,12 +24,6 @@ const formatMoney = (amount: number, currency?: string) => {
   }
 };
 
-const periodLabel = (plan: BookPlan) => {
-  if (plan.billing_cycle === "yearly") return "per year";
-  if (plan.billing_cycle === "one_time") return "one time";
-  return "per month";
-};
-
 const SimplePricingCard: React.FC<SimplePricingCardProps> = ({
   plans,
   loading = false,
@@ -68,7 +62,7 @@ const SimplePricingCard: React.FC<SimplePricingCardProps> = ({
         <div className="text-center py-4 text-muted">Loading plans…</div>
       ) : plans.length === 0 ? (
         <div className="text-center py-4 text-muted">
-          No subscription plans available right now.
+          No point packages available right now.
         </div>
       ) : (
         <Slider {...sliderSettings}>
@@ -92,10 +86,10 @@ const SimplePricingCard: React.FC<SimplePricingCardProps> = ({
                       } d-block py-3 mb-3`}
                     >
                       <span className="f-s-24 f-w-600 d-block">
-                        {formatMoney(plan.price, plan.currency)}/
+                        {formatMoney(plan.price, plan.currency)}
                       </span>
                       <span className="f-s-12 f-w-600">
-                        {periodLabel(plan)}
+                        {plan.points} point{plan.points === 1 ? "" : "s"}
                       </span>
                     </div>
 
@@ -122,7 +116,7 @@ const SimplePricingCard: React.FC<SimplePricingCardProps> = ({
                         type="button"
                         onClick={() => onSubscribe(plan)}
                       >
-                        Subscribe
+                        Buy Points
                       </Button>
                     </div>
                   </div>

@@ -25,6 +25,19 @@ const nextConfig: NextConfig = {
         hostname: "leacentbooks-enterpise.lexicron.org",
         pathname: "/**",
       },
+      // Local development server (http://127.0.0.1:8000 and localhost)
+      {
+        protocol: "http",
+        hostname: "127.0.0.1",
+        port: "8000",
+        pathname: "/**",
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "8000",
+        pathname: "/**",
+      },
     ],
   },
 

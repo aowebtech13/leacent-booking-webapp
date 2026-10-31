@@ -6,13 +6,9 @@ export interface BookPlan {
   slug: string;
   description: string | null;
   price: number;
+  points: number;
   currency: string;
   billing_cycle: "monthly" | "yearly" | "one_time";
-  access_duration_days: number;
-  unlimited_books: boolean;
-  book_limit: number;
-  can_download: boolean;
-  can_read_offline: boolean;
   is_featured: boolean;
   features: string[] | null;
 }
@@ -30,9 +26,9 @@ export interface SubscriptionPlanInfo {
   slug: string;
   description: string | null;
   price: number;
+  points: number;
   currency: string;
   billing_cycle: string;
-  access_duration_days: number;
   features: string[] | null;
 }
 
@@ -53,12 +49,13 @@ export interface SubscriptionPayment {
   paid_at: string | null;
   verified_at: string | null;
   created_at: string | null;
+  points: number;
   plan: SubscriptionPlanInfo | null;
   bank: BankDetails;
 }
 
 /**
- * Active subscription plans offered on the pricing page.
+ * Active point packages offered on the pricing page.
  */
 export function getBookPlans(): Promise<BookPlan[]> {
   return api.get("book-plans").then((res) => res.data ?? []);
@@ -72,22 +69,22 @@ export function getBankDetails(): Promise<BankDetails> {
 }
 
 /**
- * Start a subscription. Creates a pending payment the customer settles
+ * Buy a point package. Creates a pending payment the customer settles
  * by bank transfer; verification happens manually in the admin area.
  */
-export function subscribeToPlan(planId: number): Promise<SubscriptionPayment> {
-  return api.post(`book-plans/${planId}/subscribe`).then((res) => res.data);
+export function buyPointsPlan(planId: number): Promise<SubscriptionPayment> {
+  return api.post(`book-plans/${planId}/buy`).then((res) => res.data);
 }
 
 /**
- * The authenticated user's subscription payments.
+ * The authenticated user's point purchase payments.
  */
 export function getMySubscriptionPayments(): Promise<SubscriptionPayment[]> {
   return api.get("book-plans/payments").then((res) => res.data ?? []);
 }
 
 /**
- * Upload the bank transfer receipt for a pending subscription payment.
+ * Upload the bank transfer receipt for a pending point purchase.
  */
 export async function uploadSubscriptionReceipt(
   paymentId: number,

@@ -164,30 +164,31 @@ Route::get('tags/{id}', function () {
 });
 
 // Books catalog (public read)
-Route::get('books', [BookController::class, 'index']);
-Route::get('books/total', [BookController::class, 'total']);
-Route::get('books/{id}', [BookController::class, 'show']);
-Route::get('books/{id}/preview', [BookController::class, 'preview']);
+    Route::get('books', [BookController::class, 'index']);
+    Route::get('books/total', [BookController::class, 'total']);
+    Route::get('books/{id}', [BookController::class, 'show']);
+    Route::get('books/{id}/preview', [BookController::class, 'preview']);
 
-// Subscription plans (public read)
-Route::get('book-plans', [BookPlanController::class, 'index']);
-Route::get('book-plans/bank-details', [BookPlanController::class, 'bankDetailsEndpoint']);
+    // Subscription plans (public read)
+    Route::get('book-plans', [BookPlanController::class, 'index']);
+    Route::get('book-plans/bank-details', [BookPlanController::class, 'bankDetailsEndpoint']);
 
-// Subscription payments (manual bank transfer, verified in the admin area)
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('book-plans/payments', [BookPlanController::class, 'myPayments']);
-    Route::post('book-plans/{bookPlan}/subscribe', [BookPlanController::class, 'subscribe']);
-    Route::post('book-plans/payments/{payment}/receipt', [BookPlanController::class, 'uploadReceipt']);
-});
+    // Point purchases (manual bank transfer, verified in the admin area)
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('book-plans/payments', [BookPlanController::class, 'myPayments']);
+        Route::post('book-plans/{bookPlan}/buy', [BookPlanController::class, 'buy']);
+        Route::post('book-plans/payments/{payment}/receipt', [BookPlanController::class, 'uploadReceipt']);
+    });
 
-// Protected book reading (requires active access)
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('books/{id}/read', [BookController::class, 'read']);
+    // Protected book reading (requires active access)
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('books/{id}/read', [BookController::class, 'read']);
+        Route::post('books/{id}/unlock', [BookController::class, 'unlock']);
 
-    // Reading progress (save / resume position)
-    Route::get('books/{id}/progress', [BookReadingProgressController::class, 'show']);
-    Route::post('books/{id}/progress', [BookReadingProgressController::class, 'update']);
-});
+        // Reading progress (save / resume position)
+        Route::get('books/{id}/progress', [BookReadingProgressController::class, 'show']);
+        Route::post('books/{id}/progress', [BookReadingProgressController::class, 'update']);
+    });
 
 // Health check route
 Route::get('health', function () {

@@ -13,7 +13,7 @@ import { Bank, CheckCircle, Copy, FileArrowUp, Receipt } from "phosphor-react";
 import {
   BookPlan,
   SubscriptionPayment,
-  subscribeToPlan,
+  buyPointsPlan,
   uploadSubscriptionReceipt,
 } from "@/lib/api";
 
@@ -52,7 +52,7 @@ const SubscribePlanModal: React.FC<SubscribePlanModalProps> = ({
   const [copied, setCopied] = useState<string | null>(null);
   const [receipt, setReceipt] = useState<File | null>(null);
 
-  // Start (or resume) the subscription as soon as the modal opens.
+  // Start (or resume) the point purchase as soon as the modal opens.
   useEffect(() => {
     if (!isOpen || !plan) return;
 
@@ -64,13 +64,13 @@ const SubscribePlanModal: React.FC<SubscribePlanModalProps> = ({
     const start = async () => {
       setLoading(true);
       try {
-        const data = await subscribeToPlan(plan.id);
+        const data = await buyPointsPlan(plan.id);
         if (!cancelled) setPayment(data);
       } catch (err: any) {
         if (!cancelled)
           setError(
             err?.message ||
-              "Unable to start this subscription. Please try again."
+              "Unable to start this purchase. Please try again."
           );
       } finally {
         if (!cancelled) setLoading(false);
@@ -111,7 +111,7 @@ const SubscribePlanModal: React.FC<SubscribePlanModalProps> = ({
       const updated = await uploadSubscriptionReceipt(payment.id, formData);
       setPayment(updated);
       setSuccess(
-        "Receipt submitted. Our team verifies bank transfers manually, and your access is activated once the payment is confirmed."
+        "Receipt submitted. Our team verifies bank transfers manually, and your points are credited once the payment is confirmed."
       );
       setReceipt(null);
       onSubmitted?.(updated);
@@ -128,7 +128,7 @@ const SubscribePlanModal: React.FC<SubscribePlanModalProps> = ({
 
   return (
     <Modal isOpen={isOpen} toggle={onClose} size="lg">
-      <ModalHeader toggle={onClose}>Subscribe to {plan?.name}</ModalHeader>
+      <ModalHeader toggle={onClose}>Buy {plan?.name} Points</ModalHeader>
       <ModalBody>
         {error && <Alert color="danger">{error}</Alert>}
 
@@ -146,8 +146,8 @@ const SubscribePlanModal: React.FC<SubscribePlanModalProps> = ({
                 {formatMoney(payment.amount, payment.currency)}
               </h4>
               <p className="mb-0 f-s-13 text-muted">
-                {payment.plan?.name} · access for{" "}
-                {payment.plan?.access_duration_days} days
+                {payment.plan?.name} · {payment.plan?.points ?? payment.points}{" "}
+                point{(payment.plan?.points ?? payment.points) === 1 ? "" : "s"}
               </p>
             </div>
 
@@ -241,7 +241,7 @@ const SubscribePlanModal: React.FC<SubscribePlanModalProps> = ({
                 <p className="f-s-13 text-muted mb-0">
                   <FileArrowUp size={16} className="me-1" />
                   Upload a screenshot or photo of the transfer receipt (max
-                  5MB). Payment verification is manual, so access is granted
+                  5MB). Payment verification is manual, so points are credited
                   after an admin confirms the transfer.
                 </p>
               </div>

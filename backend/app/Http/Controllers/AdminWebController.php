@@ -651,7 +651,7 @@ class AdminWebController extends Controller
 
     /**
      * POST /admin/book-payments/{payment}/verify
-     * Accept the manual bank transfer and activate the subscription.
+     * Accept the manual bank transfer and credit points to the user's wallet.
      */
     public function verifyBookPayment(Request $request, BookPayment $payment)
     {
@@ -683,7 +683,14 @@ class AdminWebController extends Controller
 
         $payment->save();
 
-        $this->activateSubscription($payment, $plan);
+        // Credit points to the user's wallet when a point package is verified.
+        $points = (int) ($plan->points ?? 0);
+        if ($points > 0) {
+            $payment->user->profile->addPoints(
+                $points,
+                'Point package purchased: '.$plan->name.' ('.$points.' points)'
+            );
+        }
 
         $payment->user->notify(new SubscriptionActivatedNotification(
             planName: $plan->name,
@@ -694,7 +701,7 @@ class AdminWebController extends Controller
 
         return redirect()
             ->route('admin.book-payments.show', $payment)
-            ->with('success', 'Payment verified. Subscription activated for '.$payment->user->name.'.');
+            ->with('success', 'Payment verified. '.$points.' points credited to '.$payment->user->name.'.');
     }
 
     /**

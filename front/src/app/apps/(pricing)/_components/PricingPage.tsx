@@ -44,7 +44,7 @@ const PricingPage = () => {
       const data = await getBookPlans();
       setPlans(data ?? []);
     } catch (err: any) {
-      setPlansError(err?.message || "Failed to load subscription plans");
+      setPlansError(err?.message || "Failed to load point packages");
     } finally {
       setPlansLoading(false);
     }
@@ -105,7 +105,7 @@ const PricingPage = () => {
             <Link href="/auth-pages/sign-in" className="f-w-600">
               Sign in
             </Link>{" "}
-            to subscribe. Payments are made by bank transfer and verified
+            to buy points. Payments are made by bank transfer and verified
             manually by our team.
           </Alert>
         )}
@@ -123,8 +123,10 @@ const PricingPage = () => {
           >
             {latestPayment.status === "active" && (
               <>
-                Your {latestPayment.plan?.name} subscription is active. Your
-                access is confirmed.
+                Your {latestPayment.plan?.name} point package is confirmed.{" "}
+                {latestPayment.points} point
+                {latestPayment.points === 1 ? "" : "s"} credited to your
+                wallet.
               </>
             )}
             {latestPayment.status === "pending" && (
@@ -132,7 +134,7 @@ const PricingPage = () => {
                 Your {latestPayment.plan?.name} payment (
                 {latestPayment.payment_reference}) is awaiting verification.
                 {latestPayment.has_receipt
-                  ? " We received your receipt and will activate your access shortly."
+                  ? " We received your receipt and will credit your points shortly."
                   : " Upload your payment receipt to complete the process."}
               </>
             )}
@@ -142,7 +144,7 @@ const PricingPage = () => {
                 {latestPayment.rejection_reason
                   ? `: ${latestPayment.rejection_reason}`
                   : "."}{" "}
-                You can subscribe again below.
+                You can buy points again below.
               </>
             )}
           </Alert>
@@ -158,7 +160,7 @@ const PricingPage = () => {
           <Col xs={12}>
             <Card>
               <CardHeader>
-                <h5>Subscription Price</h5>
+                <h5>Buy Points</h5>
               </CardHeader>
               <CardBody>
                 <SimplePricingCard
@@ -173,7 +175,7 @@ const PricingPage = () => {
           <Col xs={12}>
             <Card>
               <CardHeader>
-                <h5>Compare plans</h5>
+                <h5>Compare packages</h5>
               </CardHeader>
               <CardBody>
                 <ComparePricing plans={plans} />

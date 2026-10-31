@@ -28,7 +28,7 @@ class BookPlanController extends Controller
 
     /**
      * GET /api/book-plans
-     * Active subscription plans available to customers.
+     * Active point packages available to customers.
      */
     public function index(Request $request)
     {
@@ -41,13 +41,9 @@ class BookPlanController extends Controller
                 'slug',
                 'description',
                 'price',
+                'points',
                 'currency',
                 'billing_cycle',
-                'access_duration_days',
-                'unlimited_books',
-                'book_limit',
-                'can_download',
-                'can_read_offline',
                 'is_featured',
                 'features',
             ]);
@@ -71,18 +67,19 @@ class BookPlanController extends Controller
     }
 
     /**
-     * POST /api/book-plans/{bookPlan}/subscribe
+     * POST /api/book-plans/{bookPlan}/buy
      *
-     * Start a subscription: creates a pending book payment the customer
+     * Start a point purchase: creates a pending book payment the customer
      * settles by bank transfer. Payment verification is manual and happens
-     * in the Laravel admin area.
+     * in the Laravel admin area. Once verified, points are credited to the
+     * user's wallet.
      */
-    public function subscribe(Request $request, BookPlan $bookPlan)
+    public function buy(Request $request, BookPlan $bookPlan)
     {
         if (! $bookPlan->is_active) {
             return response()->json([
                 'success' => false,
-                'message' => 'This plan is not available.',
+                'message' => 'This point package is not available.',
             ], 422);
         }
 
@@ -99,7 +96,7 @@ class BookPlanController extends Controller
         if ($pending) {
             return response()->json([
                 'success' => true,
-                'message' => 'You already have a pending payment for this plan.',
+                'message' => 'You already have a pending payment for this package.',
                 'data' => $this->paymentPayload($pending),
             ]);
         }
@@ -114,24 +111,24 @@ class BookPlanController extends Controller
             'currency' => $bookPlan->currency,
             'payment_method' => 'bank_transfer',
             'payment_reference' => $this->generateReference(),
-            'notes' => 'Subscription to '.$bookPlan->name,
+            'notes' => 'Point package: '.$bookPlan->name.' ('.$bookPlan->points.' points)',
             'meta' => [
                 'plan_name' => $bookPlan->name,
                 'plan_slug' => $bookPlan->slug,
-                'billing_cycle' => $bookPlan->billing_cycle,
+                'points' => $bookPlan->points,
             ],
         ]);
 
         return response()->json([
             'success' => true,
-            'message' => 'Subscription started. Complete the bank transfer and upload your receipt.',
+            'message' => 'Payment started. Complete the bank transfer and upload your receipt.',
             'data' => $this->paymentPayload($payment),
         ], 201);
     }
 
     /**
      * GET /api/book-plans/payments
-     * The authenticated user's subscription payments.
+     * The authenticated user's point purchase payments.
      */
     public function myPayments(Request $request)
     {
@@ -149,7 +146,7 @@ class BookPlanController extends Controller
 
     /**
      * POST /api/book-plans/payments/{payment}/receipt
-     * Upload the bank transfer receipt for a pending subscription payment.
+     * Upload the bank transfer receipt for a pending point purchase.
      */
     public function uploadReceipt(Request $request, BookPayment $payment)
     {
@@ -215,7 +212,7 @@ class BookPlanController extends Controller
     }
 
     /**
-     * Uniform payload for a subscription payment.
+     * Uniform payload for a point purchase payment.
      */
     private function paymentPayload(BookPayment $payment): array
     {
@@ -235,6 +232,7 @@ class BookPlanController extends Controller
             'paid_at' => optional($payment->paid_at)->toIso8601String(),
             'verified_at' => optional($payment->verified_at)->toIso8601String(),
             'created_at' => optional($payment->created_at)->toIso8601String(),
+            'points' => $payment->bookPlan?->points ?? ($payment->meta['points'] ?? 0),
             'plan' => $payment->bookPlan ? [
                 'id' => $payment->bookPlan->id,
                 'name' => $payment->bookPlan->name,
@@ -242,8 +240,7 @@ class BookPlanController extends Controller
                 'description' => $payment->bookPlan->description,
                 'price' => (float) $payment->bookPlan->price,
                 'currency' => $payment->bookPlan->currency,
-                'billing_cycle' => $payment->bookPlan->billing_cycle,
-                'access_duration_days' => $payment->bookPlan->access_duration_days,
+                'points' => $payment->bookPlan->points,
                 'features' => $payment->bookPlan->features ?? [],
             ] : null,
             'bank' => $this->bankDetails(),
