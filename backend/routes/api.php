@@ -182,14 +182,15 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 // Protected book reading (requires active access)
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('books/{id}/read', [BookController::class, 'read']);
-    Route::post('books/{id}/unlock', [BookController::class, 'unlock']);
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('books/{id}/read', [BookController::class, 'read']);
+        Route::post('books/{id}/unlock', [BookController::class, 'unlock']);
 
-    // Reading progress (save / resume position)
-    Route::get('books/{id}/progress', [BookReadingProgressController::class, 'show']);
-    Route::post('books/{id}/progress', [BookReadingProgressController::class, 'update']);
-});
+        // Reading progress (save / resume position)
+        Route::get('books/{id}/progress', [BookReadingProgressController::class, 'show']);
+        Route::post('books/{id}/progress', [BookReadingProgressController::class, 'update']);
+        Route::get('reading-progress/latest', [BookReadingProgressController::class, 'latest']);
+    });
 
 // Health check route
 Route::get('health', function () {

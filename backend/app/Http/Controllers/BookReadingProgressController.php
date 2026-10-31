@@ -87,4 +87,48 @@ class BookReadingProgressController extends Controller
             'data' => $progress,
         ]);
     }
+
+    /**
+     * GET /api/reading-progress/latest
+     * The authenticated user's most recently-read book, with progress.
+     * Used by the dashboard "Book Progress" card.
+     */
+    public function latest(Request $request)
+    {
+        $progress = BookReadingProgress::query()
+            ->where('user_id', $request->user()->id)
+            ->with('book')
+            ->latest('last_read_at')
+            ->first();
+
+        if (! $progress) {
+            return response()->json([
+                'success' => true,
+                'data' => null,
+            ]);
+        }
+
+        $book = $progress->book;
+        $rangeStart = $progress->last_read_at?->copy()->subDays(14)->format('M j');
+        $rangeEnd = $progress->last_read_at?->format('M j, Y') ?? now()->format('M j, Y');
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'id' => $progress->id,
+                'book' => $book ? [
+                    'id' => $book->id,
+                    'title' => $book->title,
+                ] : null,
+                'book_title' => $book?->title ?? 'No book',
+                'progress_percentage' => (float) ($progress->progress_percentage ?? 0),
+                'current_page' => $progress->current_page,
+                'total_pages' => $progress->total_pages,
+                'is_completed' => $progress->is_completed,
+                'last_read_at' => optional($progress->last_read_at)->toIso8601String(),
+                'range_start' => $rangeStart,
+                'range_end' => $rangeEnd,
+            ],
+        ]);
+    }
 }
