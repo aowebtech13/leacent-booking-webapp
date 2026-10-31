@@ -24,6 +24,11 @@ class Profile extends Model
         'linkedin_url',
         'avatar_url',
         'phone',
+        'points',
+    ];
+
+    protected $casts = [
+        'points' => 'integer',
     ];
 
     /**
@@ -32,5 +37,57 @@ class Profile extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * The user's current point balance.
+     */
+    public function getPointsBalanceAttribute(): int
+    {
+        return (int) ($this->attributes['points'] ?? 0);
+    }
+
+    /**
+     * Whether the user has enough points to unlock a book.
+     */
+    public function hasEnoughPoints(int $required): bool
+    {
+        return $this->points_balance >= $required;
+    }
+
+    /**
+     * Add points to the user's balance.
+     */
+    public function addPoints(int $amount, ?string $description = null): void
+    {
+        $this->increment('points', $amount);
+
+        $this->user->walletTransactions()->create([
+            'amount' => $amount,
+            'type' => 'credit',
+            'description' => $description ?? 'Points credited',
+            'reference' => 'POINT-'.strtoupper(\Illuminate\Support\Str::random(8)),
+        ]);
+    }
+
+    /**
+     * Deduct points from the user's balance.
+     */
+    public function deductPoints(int $amount, ?string $description = null): bool
+    {
+        if ($this->points_balance < $amount) {
+            return false;
+        }
+
+        $this->decrement('points', $amount);
+
+        $this->user->walletTransactions()->create([
+            'amount' => $amount,
+            'type' => 'debit',
+            'description' => $description ?? 'Points deducted',
+            'reference' => 'POINT-'.strtoupper(\Illuminate\Support\Str::random(8)),
+        ]);
+
+        return true;
     }
 }
