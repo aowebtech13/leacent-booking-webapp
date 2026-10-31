@@ -23,31 +23,23 @@ const formatMoney = (amount: number, currency?: string) => {
 const ComparePricing: React.FC<ComparePricingProps> = ({ plans }) => {
   const featureList = [
     {
-      label: "Unlimited books",
-      value: (plan: BookPlan) => (plan.unlimited_books ? "check" : "x"),
-    },
-    {
-      label: "Download books",
-      value: (plan: BookPlan) => (plan.can_download ? "check" : "x"),
-    },
-    {
-      label: "Read offline",
-      value: (plan: BookPlan) => (plan.can_read_offline ? "check" : "x"),
-    },
-    {
-      label: "Access period",
-      value: (plan: BookPlan) => `${plan.access_duration_days} days`,
+      label: "Points included",
+      value: (plan: BookPlan) => `${plan.points} point${plan.points === 1 ? "" : "s"}`,
     },
     {
       label: "Price",
       value: (plan: BookPlan) => formatMoney(plan.price, plan.currency),
+    },
+    {
+      label: "Featured",
+      value: (plan: BookPlan) => (plan.is_featured ? "check" : "x"),
     },
   ];
 
   if (!plans.length) {
     return (
       <div className="text-center py-4 text-muted">
-        No subscription plans available right now.
+        No point packages available right now.
       </div>
     );
   }

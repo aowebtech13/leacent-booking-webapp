@@ -33,6 +33,7 @@ export interface Book {
   cover_image_path: string | null;
   preview_path: string | null;
   is_premium: boolean;
+  points: number;
   is_active: boolean;
   is_featured: boolean;
   read_count: number;
@@ -46,6 +47,8 @@ export interface Book {
   can_access?: boolean;
   access_type?: string | null;
   access_expires_at?: string | null;
+  points_required?: number;
+  can_unlock_with_points?: boolean;
 }
 
 export interface BookListMeta {
@@ -165,6 +168,25 @@ export function getBookPreview(
  */
 export function getBookRead(id: number): Promise<BookReadResponse> {
   return api.get(`books/${id}/read`);
+}
+
+/**
+ * Unlock a book using points. Access is permanent once unlocked.
+ */
+export interface BookUnlockResponse {
+  book: Book;
+  access: {
+    id: number;
+    access_type: string;
+    granted_at: string;
+    expires_at: string | null;
+    is_active: boolean;
+  };
+  points_remaining: number;
+}
+
+export function unlockBook(id: number): Promise<BookUnlockResponse> {
+  return api.post(`books/${id}/unlock`).then((res) => res.data);
 }
 
 /* ------------------------------------------------------------------ */

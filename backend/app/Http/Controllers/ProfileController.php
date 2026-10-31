@@ -12,9 +12,12 @@ class ProfileController extends Controller
     {
         $user = $request->user()->load(['profile', 'roles']);
 
+        $data = $user->toArray();
+        $data['points_balance'] = $user->profile?->points_balance ?? 0;
+
         return response()->json([
             'success' => true,
-            'data' => $user,
+            'data' => $data,
         ]);
     }
 
@@ -202,6 +205,22 @@ class ProfileController extends Controller
                 'completed_books' => $completedBooks,
                 'in_progress_books' => $inProgressBooks,
                 'total_progress_entries' => BookReadingProgress::where('user_id', $user->id)->count(),
+            ],
+        ]);
+    }
+
+    /**
+     * GET /api/profile/points
+     * Get the authenticated user's current point balance.
+     */
+    public function getPointsBalance(Request $request)
+    {
+        $profile = $request->user()->profile;
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'points' => $profile->points_balance,
             ],
         ]);
     }
