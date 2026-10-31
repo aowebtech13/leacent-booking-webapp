@@ -117,14 +117,14 @@ const EcommerceCard = () => {
 
   return (
     <>
-      <Col sm="6" lg="4" xxl="2" className="order--1-lg">
+      <Col sm="12" lg="6" xl="4" xxl="3" className="order--1-lg">
         <Row>
           <Col xs="12">
             <Card className="orders-provided-card">
               <CardBody>
                 <i className="ph-bold ph-circle circle-bg-img"></i>
                 <div>
-                  <p className="f-s-18 f-w-600 text-dark txt-ellipsis-1">
+                  <p className="f-s-18 f-w-600 text-dark">
                     📈 leacent Book Points
                   </p>
                   <h2 className="text-secondary-dark mb-0">
@@ -141,7 +141,7 @@ const EcommerceCard = () => {
               <CardBody>
                 <div>
                   <h5 className="text-primary-dark f-w-600">Book Progress</h5>
-                  <p className="text-dark f-w-600 mb-0 mt-2 txt-ellipsis-1">
+                  <p className="text-dark f-w-600 mb-0 mt-2">
                     <Calendar
                       height={16}
                       width={16}
@@ -168,7 +168,7 @@ const EcommerceCard = () => {
           </Col>
         </Row>
       </Col>
-      <Col sm="6" lg="4" xxl="2" className="order--1-lg">
+      <Col sm="12" lg="6" xl="4" xxl="3" className="order--1-lg">
         <Row>
           <Col xs="12">
             <Card className="bg-danger-300 product-sold-card">
@@ -192,7 +192,7 @@ const EcommerceCard = () => {
                       ? "..."
                       : formatMoney(spending?.total ?? 0, spending?.currency)}
                   </h4>
-                  <p className="mb-0 text-dark f-w-500 txt-ellipsis-1">
+                  <p className="mb-0 text-dark f-w-500">
                     Last Week
                     {spending?.change_percent != null ? (
                       <span className="badge bg-white-300 text-danger-dark ms-2">
@@ -226,7 +226,7 @@ const EcommerceCard = () => {
               <CardBody>
                 <i className="ph-bold ph-circle circle-bg-img"></i>
                 <div>
-                  <p className="text-success f-s-18 f-w-600 txt-ellipsis-1">
+                  <p className="text-success f-s-18 f-w-600">
                     📝 Books in Store
                   </p>
                   <h2 className="text-success-dark mb-0">

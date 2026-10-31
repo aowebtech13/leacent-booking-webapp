@@ -838,7 +838,7 @@ const EcommerceChartData: ApexOptions = {
 const EcommerceOrderData: ApexOptions = {
   series: [
     {
-      name: "Calories Burned",
+      name: "Reading Time",
       data: [150, 220, 350, 180, 270, 160],
     },
   ],
@@ -912,16 +912,19 @@ const EcommerceOrderData: ApexOptions = {
         "<span>" +
         category +
         "</span>" +
-        '<div style="font-weight: bold; font-size: 14px;">Weightlifting</div>' +
+        '<div style="font-weight: bold; font-size: 14px;">Reading Time</div>' +
         "<span>" +
         data +
-        " kcal</span>" +
+        " min</span>" +
         "</div>"
       );
     },
     style: {
       fontSize: "16px",
     },
+    position: "right",
+    offsetX: 20,
+    offsetY: 0,
   },
 
   fill: {

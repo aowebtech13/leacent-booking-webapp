@@ -175,7 +175,7 @@ const EcommerceDetail = () => {
   };
   return (
     <>
-      <Col md={7} lg={5}>
+      <Col md={8} lg={6} xl={5} className="ms-auto">
         <Card>
           <CardBody className="p-0">
             <div>
