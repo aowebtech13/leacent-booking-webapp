@@ -11,7 +11,7 @@ interface SimplePricingCardProps {
 }
 
 const formatMoney = (amount: number, currency?: string) => {
-  const value = Number.isFinite(amount) ? amount : 0;
+  const value = Number.isFinite(Number(amount)) ? Number(amount) : 0;
 
   try {
     return new Intl.NumberFormat("en-NG", {
