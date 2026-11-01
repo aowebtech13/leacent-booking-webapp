@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\BookPlan;
-use Illuminate\Database\Seeders\Seeders;
+use Illuminate\Database\Seeder;
 
-class BookPlanSeeder extends Seeders
+class BookPlanSeeder extends Seeder
 {
     /**
      * Seed the point packages offered on the pricing page.

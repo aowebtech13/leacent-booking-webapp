@@ -12,7 +12,6 @@ import {
 import Link from "next/link";
 import Breadcrumbs from "@/Component/CommonElements/Breadcrumbs";
 import SimplePricingCard from "@/app/apps/(pricing)/_components/SimplePricingCard";
-import ComparePricing from "@/app/apps/(pricing)/_components/ComparePricing";
 
 import { IconStack2 } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
@@ -97,16 +96,6 @@ const PricingPage = () => {
             </Card>
           </Col>
 
-          <Col xs={12}>
-            <Card>
-              <CardHeader>
-                <h5>Compare packages</h5>
-              </CardHeader>
-              <CardBody>
-                <ComparePricing plans={plans} />
-              </CardBody>
-            </Card>
-          </Col>
         </Row>
       </Container>
     </div>
