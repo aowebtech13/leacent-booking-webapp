@@ -167,7 +167,7 @@ const EcommerceCard = () => {
 
     return {
       ...base,
-      series: [{ name: "Money Spent", data: values }],
+      series: [{ name: "Point Spent", data: values }],
       xaxis: {
         ...base.xaxis,
         categories: points.map((point) => point.date),
@@ -275,7 +275,7 @@ const EcommerceCard = () => {
             <Card className="bg-danger-300 product-sold-card">
               <CardBody>
                 <div>
-                  <h5 className="text-danger-dark f-w-600">Money Spent</h5>
+                  <h5 className="text-danger-dark f-w-600">Point Spent</h5>
                   {Chart ? (
                     <Chart
                       options={spendingChartOptions}

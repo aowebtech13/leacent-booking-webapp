@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardHeader,
@@ -18,9 +18,14 @@ import SettingProfile from "@/app/apps/(setting)/_components/SettingProfile";
 import Breadcrumbs from "@/Component/CommonElements/Breadcrumbs";
 import TimeSpent from "./TimeSpent";
 import { IconStack2 } from "@tabler/icons-react";
+import { useAuth } from "@/lib/contexts/AuthContext";
+import { getPointsBalance } from "@/lib/api/books";
 
 const Setting = () => {
+  const { user, isAuthenticated } = useAuth();
   const [activeTab, setActiveTab] = useState("1");
+  const [points, setPoints] = useState<number | null>(null);
+  const [pointsLoading, setPointsLoading] = useState(true);
 
   const toggleTab = (tab: string) => {
     if (activeTab !== tab) {
@@ -35,7 +40,7 @@ const Setting = () => {
         title: "Are you sure?",
         text: "You won't be able to revert this!",
         icon: "warning",
-        showCancelButton: true,
+        showCancel: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, delete it!",
@@ -46,6 +51,32 @@ const Setting = () => {
       }
     }
   };
+
+  useEffect(() => {
+    let cancelled = false;
+    const loadPoints = async () => {
+      setPointsLoading(true);
+      try {
+        const data = await getPointsBalance();
+        if (!cancelled) setPoints(data.points ?? 0);
+      } catch {
+        if (!cancelled) setPoints(null);
+      } finally {
+        if (!cancelled) setPointsLoading(false);
+      }
+    };
+    if (isAuthenticated) {
+      loadPoints();
+    } else {
+      setPointsLoading(false);
+    }
+    return () => {
+      cancelled = true;
+    };
+  }, [isAuthenticated]);
+
+  const username = user?.name ?? "there";
+  const pointsLabel = pointsLoading ? "..." : (points ?? 0).toLocaleString();
 
   return (
     <>
@@ -103,35 +134,21 @@ const Setting = () => {
               </CardBody>
             </Card>
 
-            {/* Used Space Card */}
+            {/* Points Balance Card */}
             <Card className="mb-4">
               <CardBody>
                 <Card className="hover-effect card-light-primary mt-4">
                   <CardBody>
-                    <h5>Used Space</h5>
+                    <h5>Points Balance</h5>
                     <p className="mt-2 text-secondary fs-6">
-                      Your team has used 80% of your available space. Need more?
+                      Dear {username}, you have {pointsLabel} point
+                      {pointsLabel === "1" ? "" : "s"} left. Upgrade now.
                     </p>
-                    {/* Custom Progress Bar */}
-                    <div
-                      className="progress w-100 mt-3 mb-3"
-                      role="progressbar"
-                      aria-valuenow={78.5}
-                      aria-valuemin={0}
-                      aria-valuemax={100}
-                    >
-                      <div
-                        className="progress-bar bg-primary progress-bar-striped"
-                        style={{ width: "78.5%" }}
-                      >
-                        78.5%
-                      </div>
-                    </div>
                     <div>
-                      <a href="#" className="me-3 text-secondary">
-                        Dismiss
-                      </a>
-                      <a href="#" className="text-decoration-underline">
+                      <a
+                        href="/apps/pricing"
+                        className="text-decoration-underline"
+                      >
                         Upgrade plan
                       </a>
                     </div>

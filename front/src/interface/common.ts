@@ -20,6 +20,7 @@ export interface MenuItemProps {
     | string;
   type?: string | undefined;
   path?: string | undefined;
+  onClick?: ((e: React.MouseEvent<HTMLAnchorElement>) => void) | undefined;
   badgeCount?: string | number | undefined;
   links?:
     | Array<{

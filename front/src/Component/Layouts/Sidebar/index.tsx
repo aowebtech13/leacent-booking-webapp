@@ -88,6 +88,11 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
                   badgeCount={opt.badgeCount}
                   links={opt.children}
                   collapseId={opt.collapseId}
+                  onClick={
+                    opt.name === "Logout" && isAuthenticated
+                      ? handleLogout
+                      : undefined
+                  }
                 />
               </Fragment>
             ))}

@@ -4,6 +4,7 @@ import {
   Book,
   ChatBubbleQuestion,
   HomeAlt,
+  LogOut,
   Settings,
   User,
 } from "iconoir-react";
@@ -15,11 +16,6 @@ export const MenuList: MenuItemProps[] = [
     iconClass: HomeAlt,
     name: "Dashboard",
     path: "/dashboard",
-  },
-  {
-    iconClass: Settings,
-    name: "My Profile",
-    path: "/apps/setting",
   },
   {
     name: "Upgrade to Pro",
@@ -42,6 +38,11 @@ export const MenuList: MenuItemProps[] = [
     iconClass: ChatBubbleQuestion,
   },
   {
+    iconClass: Settings,
+    name: "My Profile",
+    path: "/apps/setting",
+  },
+  {
     title: "More",
     iconClass: AppleShortcuts,
     type: "dropdown",
@@ -61,5 +62,10 @@ export const MenuList: MenuItemProps[] = [
         path: "/level",
       },
     ],
+  },
+  {
+    iconClass: LogOut,
+    name: "Logout",
+    path: "/logout",
   },
 ];
