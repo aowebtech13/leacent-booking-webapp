@@ -17,11 +17,7 @@ export const MenuList: MenuItemProps[] = [
     name: "Dashboard",
     path: "/dashboard",
   },
-  {
-    name: "Upgrade to Pro",
-    path: "/apps/pricing",
-    iconClass: Archive,
-  },
+ 
   {
     name: "Book Library",
     path: "/apps/book-library",
@@ -32,22 +28,28 @@ export const MenuList: MenuItemProps[] = [
     path: "/apps/authors",
     iconClass: User,
   },
-  {
-    name: "Support",
-    path: "mailto:teqlathemes@gmail.com",
-    iconClass: ChatBubbleQuestion,
+   {
+    name: "Transaction History",
+    path: "/apps/transactions",
+    iconClass: Archive,
   },
+  
   {
     iconClass: Settings,
     name: "My Profile",
     path: "/apps/setting",
   },
   {
-    title: "More",
+    name: "Support",
+    path: "mailto:teqlathemes@gmail.com",
+    iconClass: ChatBubbleQuestion,
+  },
+  {
+    title: "Socials",
     iconClass: AppleShortcuts,
     type: "dropdown",
     collapseId: "more-menu",
-    name: "More",
+    name: "Media",
     children: [
       {
         name: "Facebook",

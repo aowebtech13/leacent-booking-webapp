@@ -15,11 +15,13 @@ import {
 } from "reactstrap";
 import Link from "next/link";
 import Breadcrumbs from "@/Component/CommonElements/Breadcrumbs";
+import { Copy } from "phosphor-react";
 import SimplePricingCard from "@/app/apps/(pricing)/_components/SimplePricingCard";
 
 import { IconStack2 } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
-import { BookPlan, buyPointsPlan, getBookPlans } from "@/lib/api";
+import { BookPlan } from "@/lib/api";
+import { buyPointsPlan, getBookPlans, uploadBookPlanReceipt } from "@/lib/api/bookPlans";
 import { useAuth } from "@/lib/contexts/AuthContext";
 
 const PricingPage = () => {
@@ -51,6 +53,9 @@ const PricingPage = () => {
 
   const [payment, setPayment] = useState<any>(null);
   const [buying, setBuying] = useState(false);
+  const [receiptFile, setReceiptFile] = useState<File | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const [submitMsg, setSubmitMsg] = useState<string | null>(null);
 
   const handleSubscribe = async (plan: BookPlan) => {
     if (!isAuthenticated) {
@@ -111,18 +116,58 @@ const PricingPage = () => {
               </CardBody>
             </Card>
           </Col>
+        </Row>
 
         <Modal isOpen={modalOpen} toggle={() => setModalOpen(false)}>
           <ModalHeader toggle={() => setModalOpen(false)}>
             {selectedPlan?.name}
           </ModalHeader>
           <ModalBody>
+            {submitMsg && <div className="alert alert-info mt-2">{submitMsg}</div>}
             {payment && (
               <div>
                 <p>Reference: {payment.payment_reference}</p>
                 <p>Amount: {payment.amount} {payment.currency}</p>
-                <p>Bank: {payment.bank?.bank_name} - {payment.bank?.account_number} ({payment.bank?.account_name})</p>
+                <p>Bank Name: {payment.bank?.bank_name}</p>
+                <p className="d-flex align-items-center gap-2">
+                  Account Number: {payment.bank?.account_number}
+                  <button
+                    className="btn btn-sm btn-outline-secondary p-1"
+                    onClick={() => navigator.clipboard.writeText(payment.bank?.account_number ?? "")}
+                  >
+                    <Copy size={16} />
+                  </button>
+                </p>
+                <p>Account Name: {payment.bank?.account_name}</p>
                 <p>{payment.bank?.instructions}</p>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setReceiptFile(e.target.files?.[0] ?? null)}
+                  className="form-control mb-2"
+                />
+                <button
+                  className="btn btn-primary w-100"
+                  disabled={!receiptFile || uploading}
+                  onClick={async () => {
+                    if (!payment || !receiptFile) return;
+                    setUploading(true);
+                    try {
+                      const fd = new FormData();
+                    fd.append("receipt", receiptFile);
+                    const res = await uploadBookPlanReceipt(payment.id, fd);
+                      setPayment(res);
+                      setSubmitMsg("Receipt submitted. Please wait for admin verification.");
+                      setTimeout(() => router.push("/dashboard"), 1500);
+                    } catch (err: any) {
+                      alert(err?.message || "Upload failed");
+                    } finally {
+                      setUploading(false);
+                    }
+                  }}
+                >
+                  {uploading ? "Uploading..." : "Submit payment"}
+                </button>
               </div>
             )}
           </ModalBody>
