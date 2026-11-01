@@ -156,7 +156,7 @@ const TopProduct = () => {
                           </Badge>
                         </td>
                         <td className="f-w-600 text-dark">
-                          ₦{Number(product.price ?? 0).toLocaleString()}
+                          {Number(product.points ?? 0)} pts
                         </td>
                         <td className="text-warning-dark f-w-600">
                           <StarSolid
