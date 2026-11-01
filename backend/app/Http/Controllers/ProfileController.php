@@ -243,4 +243,22 @@ class ProfileController extends Controller
             ],
         ]);
     }
+
+    /**
+     * GET /api/profile/days-since-registration
+     * Number of days the authenticated user has been registered.
+     */
+    public function getDaysSinceRegistration(Request $request)
+    {
+        $user = $request->user();
+        $days = (int) now()->diffInDays($user->created_at);
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'days_since_registration' => $days,
+                'registered_at' => $user->created_at->toIso8601String(),
+            ],
+        ]);
+    }
 }

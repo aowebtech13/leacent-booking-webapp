@@ -65,6 +65,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('book-plan-transaction', [ProfileController::class, 'getLatestBookPlanTransaction']);
         Route::get('points', [ProfileController::class, 'getPointsBalance']);
         Route::get('points-spent', [ProfileController::class, 'getPointsSpent']);
+        Route::get('days-since-registration', [ProfileController::class, 'getDaysSinceRegistration']);
     });
 
     // Payment routes
