@@ -1,9 +1,9 @@
 <?php
 namespace Database\Seeders;
 use App\Models\Book;
-use Illuminate\Database\Seeders\Seeders;
+use Illuminate\Database\Seeders\Seeder;
 
-class BookSeeder extends Seeders
+class BookSeeder extends Seeder
 {
     public function run(): void
     {
