@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { EcommerceOrderData } from "@/Data/Charts/ApexCharts/ApexChart";
-import { Card, CardBody, Col, Row } from "reactstrap";
+import { Card, CardBody, Col } from "reactstrap";
 import Slider from "react-slick";
 import { Badge } from "reactstrap";
 import Loading from "@/app/loading";
@@ -143,74 +143,81 @@ const EcommerceDetail = () => {
   };
   return (
     <>
-      <Row className="g-3">
-        <Col xs={12} md={4} lg={4} xl={4}>
-          <Card>
-            <CardBody className="p-0">
-              <div>
-                {ApexCharts ? (
-                  <ApexCharts
-                    options={EcommerceOrderData}
-                    series={EcommerceOrderData.series}
-                    type="bar"
-                    height={324}
-                  />
-                ) : (
-                  <Loading />
+      <Col md={8} lg={6} xl={5} className="ms-auto">
+        <Card>
+          <CardBody className="p-0">
+            <div>
+              {ApexCharts ? (
+                <ApexCharts
+                  options={EcommerceOrderData}
+                  series={EcommerceOrderData.series}
+                  type="bar"
+                  height={324}
+                />
+              ) : (
+                <Loading />
+              )}
+            </div>
+          </CardBody>
+        </Card>
+      </Col>
+      <Col className="d-md-none order--1-lg" md="5" lg="4" xxl="3">
+        {!loading ? (
+          <Card className="order-detail-card">
+            <div className="pt-3">
+              <h5 className="pa-s-20">Books Subscriptions</h5>
+            </div>
+            <CardBody>
+              <Slider {...settings}>
+                {(orders).map((order) => (
+                  <ul key={order.id} className="order-content-list">
+                    <li className={`bg-${order.statusClass}-300`}>
+                      <div className="d-flex align-items-center justify-content-between">
+                        <h6
+                          className={`text-${order.statusClass}-dark f-w-600 mb-0`}
+                        >
+                          {" "}
+                          📦#{order.id}
+                        </h6>
+                        <Badge
+                          color={`light-${order.statusClass}`}
+                          className={`me-2 text-${order.statusClass}-dark`}
+                        >
+                          {order.status}
+                        </Badge>
+                      </div>
+                      <div>
+                        <p
+                          className={`text-${order.statusClass} mb-0 txt-ellipsis-2`}
+                        >
+                          {order.description}
+                        </p>
+                      </div>
+                      {order.status === "Canceled" && order.date && (
+                        <p
+                          className={`text-${order.statusClass}-dark f-w-600 mb-0 txt-ellipsis-1`}
+                        >
+                          <span className="f-w-600">Date Ordered</span>:{" "}
+                          {order.date}
+                        </p>
+                      )}
+                    </li>
+                  </ul>
+                ))}
+                {!loading && orders.length === 0 && (
+                  <ul className="order-content-list">
+                    <li className="bg-light">
+                      <div className="text-center text-muted py-3">
+                        No orders found
+                      </div>
+                    </li>
+                  </ul>
                 )}
-              </div>
+              </Slider>
             </CardBody>
           </Card>
-        </Col>
-        {!loading && orders.length > 0 && (
-          <Col xs={12} md={8} lg={8} xl={8} className="order--1-lg">
-            <Card className="order-detail-card">
-              <div className="pt-3">
-                <h5 className="pa-s-20">Orders details</h5>
-              </div>
-              <CardBody>
-                <Slider {...settings}>
-                  {orders.map((order) => (
-                    <ul key={order.id} className="order-content-list">
-                      <li className={`bg-${order.statusClass}-300`}>
-                        <div className="d-flex align-items-center justify-content-between">
-                          <h6
-                            className={`text-${order.statusClass}-dark f-w-600 mb-0`}
-                          >
-                            {" "}
-                            📦#{order.id}
-                          </h6>
-                          <Badge
-                            color={`light-${order.statusClass}`}
-                            className={`me-2 text-${order.statusClass}-dark`}
-                          >
-                            {order.status}
-                          </Badge>
-                        </div>
-                        <div>
-                          <p
-                            className={`text-${order.statusClass} mb-0 txt-ellipsis-2`}
-                          >
-                            {order.description}
-                          </p>
-                        </div>
-                        {order.status === "Canceled" && order.date && (
-                          <p
-                            className={`text-${order.statusClass}-dark f-w-600 mb-0 txt-ellipsis-1`}
-                          >
-                            <span className="f-w-600">Date Ordered</span>:{" "}
-                            {order.date}
-                          </p>
-                        )}
-                      </li>
-                    </ul>
-                  ))}
-                </Slider>
-              </CardBody>
-            </Card>
-          </Col>
-        )}
-      </Row>
+        ) : null}
+      </Col>
     </>
   );
 };
