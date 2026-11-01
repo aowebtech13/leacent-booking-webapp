@@ -226,6 +226,23 @@ export function getBookReadingStats(): Promise<BookReadingStats> {
   return api.get("profile/book-reading-stats");
 }
 
+export interface LatestReadingProgress {
+  id: number;
+  book: { id: number; title: string } | null;
+  book_title: string;
+  progress_percentage: number;
+  current_page: number;
+  total_pages: number;
+  is_completed: boolean;
+  last_read_at: string | null;
+  range_start: string | null;
+  range_end: string;
+}
+
+export function getLatestReadingProgress(): Promise<LatestReadingProgress | null> {
+  return api.get("reading-progress/latest").then((res) => res.data ?? null);
+}
+
 export interface MoneySpentResponse {
   total_spent: number;
   currency: string;

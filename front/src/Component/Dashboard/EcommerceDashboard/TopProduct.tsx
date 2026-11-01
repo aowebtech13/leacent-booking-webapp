@@ -92,7 +92,7 @@ const TopProduct = () => {
     }));
 
   return (
-    <>
+    <Row>
       <Col lg="6" xxl="5">
         <div className="p-3">
           <h5>Top Books List</h5>
@@ -225,7 +225,7 @@ const TopProduct = () => {
           )}
         </Row>
       </Col>
-    </>
+    </Row>
   );
 };
 
