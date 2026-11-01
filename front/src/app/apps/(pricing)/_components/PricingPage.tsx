@@ -7,6 +7,10 @@ import {
   CardHeader,
   Row,
   Col,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
   Container,
 } from "reactstrap";
 import Link from "next/link";
@@ -45,13 +49,25 @@ const PricingPage = () => {
     loadPlans();
   }, [loadPlans]);
 
-  const handleSubscribe = (plan: BookPlan) => {
+  const [payment, setPayment] = useState<any>(null);
+  const [buying, setBuying] = useState(false);
+
+  const handleSubscribe = async (plan: BookPlan) => {
     if (!isAuthenticated) {
       router.push("/auth-pages/sign-in");
       return;
     }
     setSelectedPlan(plan);
-    setModalOpen(true);
+    setBuying(true);
+    try {
+      const res = await buyPointsPlan(plan.id);
+      setPayment(res);
+      setModalOpen(true);
+    } catch (err: any) {
+      setPlansError(err?.message || "Failed to start purchase");
+    } finally {
+      setBuying(false);
+    }
   };
 
   return (
@@ -96,7 +112,24 @@ const PricingPage = () => {
             </Card>
           </Col>
 
-        </Row>
+        <Modal isOpen={modalOpen} toggle={() => setModalOpen(false)}>
+          <ModalHeader toggle={() => setModalOpen(false)}>
+            {selectedPlan?.name}
+          </ModalHeader>
+          <ModalBody>
+            {payment && (
+              <div>
+                <p>Reference: {payment.payment_reference}</p>
+                <p>Amount: {payment.amount} {payment.currency}</p>
+                <p>Bank: {payment.bank?.bank_name} - {payment.bank?.account_number} ({payment.bank?.account_name})</p>
+                <p>{payment.bank?.instructions}</p>
+              </div>
+            )}
+          </ModalBody>
+          <ModalFooter>
+            <button className="btn btn-secondary" onClick={() => setModalOpen(false)}>Close</button>
+          </ModalFooter>
+        </Modal>
       </Container>
     </div>
   );
