@@ -52,7 +52,6 @@ const PricingPage = () => {
   }, [loadPlans]);
 
   const [payment, setPayment] = useState<any>(null);
-  const [buying, setBuying] = useState(false);
   const [receiptFile, setReceiptFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [submitMsg, setSubmitMsg] = useState<string | null>(null);
@@ -63,15 +62,12 @@ const PricingPage = () => {
       return;
     }
     setSelectedPlan(plan);
-    setBuying(true);
     try {
       const res = await buyPointsPlan(plan.id);
       setPayment(res);
       setModalOpen(true);
     } catch (err: any) {
       setPlansError(err?.message || "Failed to start purchase");
-    } finally {
-      setBuying(false);
     }
   };
 
