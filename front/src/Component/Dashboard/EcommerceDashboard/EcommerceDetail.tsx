@@ -165,7 +165,7 @@ const EcommerceDetail = () => {
         {!loading ? (
           <Card className="order-detail-card">
             <div className="pt-3">
-              <h5 className="pa-s-20">Books Subscriptions</h5>
+              <h5 className="pa-s-20">Purchase History</h5>
             </div>
             <CardBody>
               <Slider {...settings}>

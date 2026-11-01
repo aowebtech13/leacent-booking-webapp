@@ -47,14 +47,16 @@ class AuthController extends Controller
             
         ]);
 
-        UserRole::create([
+UserRole::create([
             'user_id' => $user->id,
             'role' => 'user',
         ]);
 
-       
+        // Award 2 registration bonus points
+        $user->profile->addPoints(2, 'Registration bonus');
 
-      
+        // Notify the user about their welcome bonus
+        $user->notify(new \App\Notifications\RegistrationBonusNotification(2));
 
         $otpCode = $this->assignOtp($user);
 
