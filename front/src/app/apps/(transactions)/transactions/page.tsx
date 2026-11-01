@@ -1,8 +1,7 @@
 import React from "react";
 import TransactionHistoryPage from "@/app/apps/(transactions)/_components/TransactionHistoryPage";
-import type { Metadata } from "next";
 
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
 
 const Page = () => {
   return (
