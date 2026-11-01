@@ -32,7 +32,7 @@ function SettingProfile() {
   const [formData, setFormData] = useState({
     full_name: "",
     avatar_url: "",
-    company_name: "Web designer & Developer",
+    company_name: "",
     phone_number: "",
     address: "",
     about_me: "",
