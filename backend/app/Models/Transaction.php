@@ -19,7 +19,6 @@ class Transaction extends Model
     public const TYPE_MANUAL_PAYMENT = 'manual_payment';
     public const TYPE_REFUND = 'refund';
     public const TYPE_WALLET_CREDIT = 'wallet_credit';
-    public const TYPE_SUBSCRIPTION = 'subscription';
 
     /*
     |--------------------------------------------------------------------------

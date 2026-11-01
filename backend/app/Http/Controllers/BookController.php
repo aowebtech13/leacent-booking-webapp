@@ -159,7 +159,6 @@ class BookController extends Controller
             BookAccess::updateOrCreate(
                 ['user_id' => $user->id, 'book_id' => $book->id],
                 [
-                    'subscription_id' => null,
                     'book_payment_id' => null,
                     'access_type' => 'points',
                     'granted_at' => now(),

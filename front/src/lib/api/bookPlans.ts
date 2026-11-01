@@ -8,7 +8,6 @@ export interface BookPlan {
   price: number;
   points: number;
   currency: string;
-  billing_cycle: "monthly" | "yearly" | "one_time";
   is_featured: boolean;
   features: string[] | null;
 }
@@ -20,24 +19,12 @@ export interface BankDetails {
   instructions: string;
 }
 
-export interface SubscriptionPlanInfo {
-  id: number;
-  name: string;
-  slug: string;
-  description: string | null;
-  price: number;
-  points: number;
-  currency: string;
-  billing_cycle: string;
-  features: string[] | null;
-}
+export type BookPlanPaymentStatus =
+  "pending" | "active" | "failed" | "refunded";
 
-export type SubscriptionPaymentStatus =
-  "pending" | "active" | "failed" | "refunded" | "expired";
-
-export interface SubscriptionPayment {
+export interface BookPlanPayment {
   id: number;
-  status: SubscriptionPaymentStatus;
+  status: BookPlanPaymentStatus;
   amount: number;
   currency: string;
   payment_method: string | null;
@@ -50,7 +37,7 @@ export interface SubscriptionPayment {
   verified_at: string | null;
   created_at: string | null;
   points: number;
-  plan: SubscriptionPlanInfo | null;
+  plan: BookPlan | null;
   bank: BankDetails;
 }
 
@@ -72,24 +59,24 @@ export function getBankDetails(): Promise<BankDetails> {
  * Buy a point package. Creates a pending payment the customer settles
  * by bank transfer; verification happens manually in the admin area.
  */
-export function buyPointsPlan(planId: number): Promise<SubscriptionPayment> {
+export function buyPointsPlan(planId: number): Promise<BookPlanPayment> {
   return api.post(`book-plans/${planId}/buy`).then((res) => res.data);
 }
 
 /**
  * The authenticated user's point purchase payments.
  */
-export function getMySubscriptionPayments(): Promise<SubscriptionPayment[]> {
+export function getMyBookPlanPayments(): Promise<BookPlanPayment[]> {
   return api.get("book-plans/payments").then((res) => res.data ?? []);
 }
 
 /**
  * Upload the bank transfer receipt for a pending point purchase.
  */
-export async function uploadSubscriptionReceipt(
+export async function uploadBookPlanReceipt(
   paymentId: number,
   formData: FormData
-): Promise<SubscriptionPayment> {
+): Promise<BookPlanPayment> {
   const instance = (await import("axios")).default.create({
     baseURL: api.defaults.baseURL ?? "",
     withCredentials: true,

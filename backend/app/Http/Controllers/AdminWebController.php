@@ -549,7 +549,7 @@ class AdminWebController extends Controller
     public function bookPayments(Request $request)
     {
         $query = BookPayment::with(['user.profile', 'bookPlan'])
-            ->whereIn('payment_type', [BookPayment::TYPE_PLAN, BookPayment::TYPE_SUBSCRIPTION]);
+            ->where('payment_type', BookPayment::TYPE_PLAN);
 
         if ($request->filled('search')) {
             $search = $request->search;
@@ -1082,7 +1082,6 @@ class AdminWebController extends Controller
             BookAccess::updateOrCreate(
                 ['user_id' => $order->user_id, 'book_id' => $item->book_id],
                 [
-                    'subscription_id' => null,
                     'book_payment_id' => $bookPayment->id,
                     'access_type' => 'purchase',
                     'granted_at' => now(),

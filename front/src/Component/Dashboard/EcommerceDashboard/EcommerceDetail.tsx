@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { EcommerceOrderData } from "@/Data/Charts/ApexCharts/ApexChart";
-import { Card, CardBody, Col } from "reactstrap";
+import { Card, CardBody, Col, Row } from "reactstrap";
 import Slider from "react-slick";
 import { Badge } from "reactstrap";
 import Loading from "@/app/loading";
 import { getOrders, Order } from "@/lib/api/orders";
 import { useAuth } from "@/lib/contexts/AuthContext";
-import { getMySubscriptionPayments } from "@/lib/api";
 
 const getStatusInfo = (order: Order) => {
   const status = (order.status || "").toLowerCase();
@@ -69,8 +68,6 @@ const EcommerceDetail = () => {
   const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const { isAuthenticated, isLoading: authLoading } = useAuth();
-  const [hasActiveSubscription, setHasActiveSubscription] = useState(false);
-  const [subLoading, setSubLoading] = useState(true);
 
   useEffect(() => {
     const loadModules = async () => {
@@ -86,38 +83,9 @@ const EcommerceDetail = () => {
 
   useEffect(() => {
     let cancelled = false;
-    const checkSubscription = async () => {
+    const fetchOrders = async () => {
       if (authLoading) return;
       if (!isAuthenticated) {
-        if (!cancelled) {
-          setHasActiveSubscription(false);
-          setSubLoading(false);
-        }
-        return;
-      }
-      setSubLoading(true);
-      try {
-        const payments = await getMySubscriptionPayments();
-        const latest = Array.isArray(payments) ? payments[0] : null;
-        if (!cancelled) {
-          setHasActiveSubscription(latest?.status === "active");
-        }
-      } catch {
-        if (!cancelled) setHasActiveSubscription(false);
-      } finally {
-        if (!cancelled) setSubLoading(false);
-      }
-    };
-    checkSubscription();
-    return () => {
-      cancelled = true;
-    };
-  }, [isAuthenticated, authLoading]);
-
-  useEffect(() => {
-    let cancelled = false;
-    const fetchOrders = async () => {
-      if (!hasActiveSubscription) {
         if (!cancelled) {
           setOrders([]);
           setLoading(false);
@@ -160,7 +128,7 @@ const EcommerceDetail = () => {
     return () => {
       cancelled = true;
     };
-  }, [hasActiveSubscription]);
+  }, [isAuthenticated, authLoading]);
 
   const settings = {
     dots: false,
@@ -175,90 +143,74 @@ const EcommerceDetail = () => {
   };
   return (
     <>
-      <Col md={8} lg={6} xl={5} className="ms-auto">
-        <Card>
-          <CardBody className="p-0">
-            <div>
-              {ApexCharts ? (
-                <ApexCharts
-                  options={EcommerceOrderData}
-                  series={EcommerceOrderData.series}
-                  type="bar"
-                  height={324}
-                />
-              ) : (
-                <Loading />
-              )}
-            </div>
-          </CardBody>
-        </Card>
-      </Col>
-      <Col md="5" lg="4" xxl="3" className="order--1-lg">
-        {subLoading || !hasActiveSubscription ? null : (
-          <Card className="order-detail-card">
-            <div className="pt-3">
-              <h5 className="pa-s-20">Orders details</h5>
-            </div>
-            <CardBody>
-              <Slider {...settings}>
-                {(loading ? [] : orders).map((order) => (
-                  <ul key={order.id} className="order-content-list">
-                    <li className={`bg-${order.statusClass}-300`}>
-                      <div className="d-flex align-items-center justify-content-between">
-                        <h6
-                          className={`text-${order.statusClass}-dark f-w-600 mb-0`}
-                        >
-                          {" "}
-                          📦#{order.id}
-                        </h6>
-                        <Badge
-                          color={`light-${order.statusClass}`}
-                          className={`me-2 text-${order.statusClass}-dark`}
-                        >
-                          {order.status}
-                        </Badge>
-                      </div>
-                      <div>
-                        <p
-                          className={`text-${order.statusClass} mb-0 txt-ellipsis-2`}
-                        >
-                          {order.description}
-                        </p>
-                      </div>
-                      {order.status === "Canceled" && order.date && (
-                        <p
-                          className={`text-${order.statusClass}-dark f-w-600 mb-0 txt-ellipsis-1`}
-                        >
-                          <span className="f-w-600">Date Ordered</span>:{" "}
-                          {order.date}
-                        </p>
-                      )}
-                    </li>
-                  </ul>
-                ))}
-                {loading && (
-                  <ul className="order-content-list">
-                    <li className="bg-light">
-                      <div className="text-center text-muted py-3">
-                        Loading orders...
-                      </div>
-                    </li>
-                  </ul>
+      <Row className="g-3">
+        <Col xs={12} md={4} lg={4} xl={4}>
+          <Card>
+            <CardBody className="p-0">
+              <div>
+                {ApexCharts ? (
+                  <ApexCharts
+                    options={EcommerceOrderData}
+                    series={EcommerceOrderData.series}
+                    type="bar"
+                    height={324}
+                  />
+                ) : (
+                  <Loading />
                 )}
-                {!loading && orders.length === 0 && (
-                  <ul className="order-content-list">
-                    <li className="bg-light">
-                      <div className="text-center text-muted py-3">
-                        No orders found
-                      </div>
-                    </li>
-                  </ul>
-                )}
-              </Slider>
+              </div>
             </CardBody>
           </Card>
+        </Col>
+        {!loading && orders.length > 0 && (
+          <Col xs={12} md={8} lg={8} xl={8} className="order--1-lg">
+            <Card className="order-detail-card">
+              <div className="pt-3">
+                <h5 className="pa-s-20">Orders details</h5>
+              </div>
+              <CardBody>
+                <Slider {...settings}>
+                  {orders.map((order) => (
+                    <ul key={order.id} className="order-content-list">
+                      <li className={`bg-${order.statusClass}-300`}>
+                        <div className="d-flex align-items-center justify-content-between">
+                          <h6
+                            className={`text-${order.statusClass}-dark f-w-600 mb-0`}
+                          >
+                            {" "}
+                            📦#{order.id}
+                          </h6>
+                          <Badge
+                            color={`light-${order.statusClass}`}
+                            className={`me-2 text-${order.statusClass}-dark`}
+                          >
+                            {order.status}
+                          </Badge>
+                        </div>
+                        <div>
+                          <p
+                            className={`text-${order.statusClass} mb-0 txt-ellipsis-2`}
+                          >
+                            {order.description}
+                          </p>
+                        </div>
+                        {order.status === "Canceled" && order.date && (
+                          <p
+                            className={`text-${order.statusClass}-dark f-w-600 mb-0 txt-ellipsis-1`}
+                          >
+                            <span className="f-w-600">Date Ordered</span>:{" "}
+                            {order.date}
+                          </p>
+                        )}
+                      </li>
+                    </ul>
+                  ))}
+                </Slider>
+              </CardBody>
+            </Card>
+          </Col>
         )}
-      </Col>
+      </Row>
     </>
   );
 };

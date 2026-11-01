@@ -50,16 +50,13 @@ export const MenuList: MenuItemProps[] = [
     name: "More",
     children: [
       {
-        name: "Library",
-        path: "/level",
+        name: "Facebook",
+        path: "https://www.facebook.com/leacentng",
       },
-      {
-        name: "Settings",
-        path: "/level",
-      },
+     
       {
         name: "WhatsApp",
-        path: "/level",
+        path: "https://chat.whatsapp.com/CRMLEqwPgR7AFi90exHHgv?s=cl&p=a&mlu=0",
       },
     ],
   },

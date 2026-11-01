@@ -24,7 +24,8 @@ const ComparePricing: React.FC<ComparePricingProps> = ({ plans }) => {
   const featureList = [
     {
       label: "Points included",
-      value: (plan: BookPlan) => `${plan.points} point${plan.points === 1 ? "" : "s"}`,
+      value: (plan: BookPlan) =>
+        `${plan.points} point${plan.points === 1 ? "" : "s"}`,
     },
     {
       label: "Price",

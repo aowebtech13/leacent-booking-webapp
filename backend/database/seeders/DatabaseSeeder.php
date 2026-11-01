@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Profile;
 use App\Models\UserRole;
-use App\Models\Subscription;
 use Database\Seeders\CategorySeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -54,17 +53,6 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // Create subscription
-        Subscription::firstOrCreate(
-            ['user_id' => $demoUser->id],
-            [
-                'user_id' => $demoUser->id,
-                'plan' => 'Free',
-                'status' => 'active',
-                'start_date' => now(),
-            ]
-        );
-
         // Create admin demo user
         $adminUser = User::firstOrCreate(
             ['email' => 'firstbornpublishing923@gmail.com'],
@@ -95,24 +83,10 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // Create Team subscription for admin
-        Subscription::firstOrCreate(
-            ['user_id' => $adminUser->id],
-            [
-                'user_id' => $adminUser->id,
-                'plan' => 'Team',
-                'status' => 'active',
-                'billing_cycle' => 'monthly',
-                'amount' => 25 * 1500,
-                'currency' => 'NGN',
-'start_date' => now(),
-            ]
-        );
-
         // Seed categories
         $this->call(CategorySeeder::class);
 
-        // Seed subscription plans
+        // Seed point packages
         $this->call(BookPlanSeeder::class);
     }
 }

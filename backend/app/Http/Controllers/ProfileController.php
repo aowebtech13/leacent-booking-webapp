@@ -152,7 +152,7 @@ class ProfileController extends Controller
     {
         $payment = BookPayment::with(['bookPlan', 'user'])
             ->where('user_id', $request->user()->id)
-            ->where('payment_type', BookPayment::TYPE_SUBSCRIPTION)
+            ->where('payment_type', BookPayment::TYPE_PLAN)
             ->whereIn('status', [BookPayment::STATUS_ACTIVE, BookPayment::STATUS_PENDING])
             ->latest('paid_at')
             ->first();

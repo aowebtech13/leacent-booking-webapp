@@ -43,7 +43,6 @@ class BookPlanController extends Controller
                 'price',
                 'points',
                 'currency',
-                'billing_cycle',
                 'is_featured',
                 'features',
             ]);
@@ -133,7 +132,7 @@ class BookPlanController extends Controller
     public function myPayments(Request $request)
     {
         $payments = BookPayment::where('user_id', $request->user()->id)
-            ->whereIn('payment_type', [BookPayment::TYPE_PLAN, BookPayment::TYPE_SUBSCRIPTION])
+            ->where('payment_type', BookPayment::TYPE_PLAN)
             ->with('bookPlan')
             ->latest('id')
             ->get();

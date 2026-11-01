@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
 import { Container, Row } from "reactstrap";
+import EcommerceCard from "./EcommerceCard";
 import EcommerceDetail from "./EcommerceDetail";
 import TopProduct from "./TopProduct";
-import EcommerceCard from "./EcommerceCard";
 
 const EcommerceDashboard = () => {
   return (

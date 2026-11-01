@@ -74,9 +74,7 @@ class AdminController extends Controller
      */
     public function getUser($id)
     {
-        $user = User::with(['profile', 'roles', 'subscriptions' => function ($query) {
-            $query->orderBy('created_at', 'desc');
-        }])->findOrFail($id);
+        $user = User::with(['profile', 'roles'])->findOrFail($id);
 
         return response()->json([
             'success' => true,
@@ -298,7 +296,7 @@ class AdminController extends Controller
     public function getOnlineUsers()
     {
         // Consider a user online if they were seen in the last 5 minutes
-        $onlineUsers = User::with(['profile', 'roles', 'activeSubscription'])
+        $onlineUsers = User::with(['profile', 'roles'])
             ->where('last_seen_at', '>=', now()->subMinutes(5))
             ->orderBy('last_seen_at', 'desc')
             ->get();
