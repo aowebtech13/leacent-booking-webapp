@@ -160,14 +160,14 @@ const MenuItem: React.FC<MenuItemProps> = ({
         <li className="no-sub" style={{ marginBottom: "0.25rem" }}>
           <Link
             href={path || ""}
-            onClick={
-              onClick
-                ? (e) => {
+            {...(onClick
+              ? {
+                  onClick: (e: any) => {
                     e.preventDefault();
                     onClick(e);
-                  }
-                : undefined
-            }
+                  },
+                }
+              : {})}
           >
             {typeof iconClass === "string" ? (
               <i className={iconClass}></i>
