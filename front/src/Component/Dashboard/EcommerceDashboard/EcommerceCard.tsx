@@ -6,8 +6,14 @@ import Link from "next/link";
 import {
   getBooksTotal,
   getBooksSpending,
+  getLatestReadingProgress,
+  getPointsBalance,
+  getPointsSpent,
   BookTotalResponse,
   BooksSpendingResponse,
+  LatestReadingProgress,
+  PointsBalanceResponse,
+  PointsSpentResponse,
 } from "@/lib/api/books";
 
 const formatMoney = (amount: number, currency?: string) => {
@@ -36,6 +42,12 @@ const EcommerceCard = () => {
   const [booksTotalLoading, setBooksTotalLoading] = useState(true);
   const [spending, setSpending] = useState<BooksSpendingResponse | null>(null);
   const [spendingLoading, setSpendingLoading] = useState(true);
+  const [readingProgress, setReadingProgress] = useState<LatestReadingProgress | null>(null);
+  const [readingProgressLoading, setReadingProgressLoading] = useState(true);
+  const [pointsBalance, setPointsBalance] = useState<PointsBalanceResponse | null>(null);
+  const [pointsBalanceLoading, setPointsBalanceLoading] = useState(true);
+  const [pointsSpent, setPointsSpent] = useState<PointsSpentResponse | null>(null);
+  const [pointsSpentLoading, setPointsSpentLoading] = useState(true);
 
   useEffect(() => {
     const loadModules = async () => {
@@ -87,6 +99,66 @@ const EcommerceCard = () => {
     };
   }, []);
 
+  useEffect(() => {
+    let cancelled = false;
+    const loadReadingProgress = async () => {
+      setReadingProgressLoading(true);
+      try {
+        const data = await getLatestReadingProgress();
+        if (!cancelled) setReadingProgress(data);
+      } catch {
+        if (!cancelled) setReadingProgress(null);
+      } finally {
+        if (!cancelled) setReadingProgressLoading(false);
+      }
+    };
+    loadReadingProgress();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    const loadPointsBalance = async () => {
+      setPointsBalanceLoading(true);
+      try {
+        const data = await getPointsBalance();
+        if (!cancelled) setPointsBalance(data);
+      } catch {
+        if (!cancelled) setPointsBalance(null);
+      } finally {
+        if (!cancelled) setPointsBalanceLoading(false);
+      }
+    };
+    loadPointsBalance();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    const loadPointsSpent = async () => {
+      setPointsSpentLoading(true);
+      try {
+        const data = await getPointsSpent();
+        if (!cancelled) setPointsSpent(data);
+      } catch {
+        if (!cancelled) setPointsSpent(null);
+      } finally {
+        if (!cancelled) setPointsSpentLoading(false);
+      }
+    };
+    loadPointsSpent();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const progressPercent = readingProgress?.progress_percentage ?? 0;
+  const hasRead = !!readingProgress;
+
   const spendingChartOptions = useMemo(() => {
     const points = spending?.series ?? [];
     const values = points.map((point) => point.amount);
@@ -128,9 +200,9 @@ const EcommerceCard = () => {
                     📈 leacent Book Points
                   </p>
                   <h2 className="text-secondary-dark mb-0">
-                    {booksTotalLoading
+                    {pointsBalanceLoading
                       ? "..."
-                      : (booksTotal?.total ?? 0).toLocaleString()}
+                      : (pointsBalance?.points ?? 0).toLocaleString()}
                   </h2>
                 </div>
               </CardBody>
@@ -141,25 +213,54 @@ const EcommerceCard = () => {
               <CardBody>
                 <div>
                   <h5 className="text-primary-dark f-w-600">Book Progress</h5>
-                  <p className="text-dark f-w-600 mb-0 mt-2">
-                    <Calendar
-                      height={16}
-                      width={16}
-                      className="f-s-16 align-text-top me-2"
-                    />
-                    Oct 1 - Oct 15, 2024
-                  </p>
+                  {readingProgressLoading ? (
+                    <p className="text-dark f-w-600 mb-0 mt-2">
+                      <Calendar
+                        height={16}
+                        width={16}
+                        className="f-s-16 align-text-top me-2"
+                      />
+                      Loading…
+                    </p>
+                  ) : hasRead ? (
+                    <p className="text-dark f-w-600 mb-0 mt-2">
+                      <Calendar
+                        height={16}
+                        width={16}
+                        className="f-s-16 align-text-top me-2"
+                      />
+                      {readingProgress.range_start} - {readingProgress.range_end}
+                    </p>
+                  ) : (
+                    <p className="text-dark f-w-600 mb-0 mt-2">
+                      <Calendar
+                        height={16}
+                        width={16}
+                        className="f-s-16 align-text-top me-2"
+                      />
+                      You haven't read any book yet
+                    </p>
+                  )}
                 </div>
                 <div className="my-4">
-                  <h4 className="text-primary-dark">Name of Book</h4>
+                  <h4 className="text-primary-dark">
+                    {readingProgressLoading
+                      ? "..."
+                      : hasRead
+                        ? readingProgress.book_title
+                        : "No books yet"}
+                  </h4>
                 </div>
                 <div className="custom-progress-container">
-                  <div className="progress-bar productive"></div>
+                  <div
+                    className="progress-bar productive"
+                    style={{ width: `${progressPercent}%` }}
+                  ></div>
                   <div className="progress-bar middle"></div>
                   <div className="progress-bar idle"></div>
                 </div>
                 <div className="progress-labels">
-                  <span>25 %</span>
+                  <span>{progressPercent} %</span>
                   <span>45%</span>
                   <span>100%</span>
                 </div>
@@ -188,12 +289,12 @@ const EcommerceCard = () => {
                 </div>
                 <div>
                   <h4>
-                    {spendingLoading
+                    {pointsSpentLoading
                       ? "..."
-                      : formatMoney(spending?.total ?? 0, spending?.currency)}
+                      : (pointsSpent?.points_spent ?? 0).toLocaleString()}
                   </h4>
                   <p className="mb-0 text-dark f-w-500">
-                    Last Week
+                    Points Spent
                     {spending?.change_percent != null ? (
                       <span className="badge bg-white-300 text-danger-dark ms-2">
                         {spending.change_percent > 0 ? "+" : ""}

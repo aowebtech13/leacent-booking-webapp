@@ -161,10 +161,12 @@ class AdminWebController extends Controller
             'name' => 'Name',
             'email' => 'Email',
             'role' => 'Role',
+            'points' => 'Points',
         ], $users->getCollection()->map(fn ($user) => [
             'name' => $user->name,
             'email' => $user->email,
             'role' => $user->roles->first()?->role ?? '-',
+            'points' => $user->profile?->points_balance ?? 0,
         ]));
 
         return view('admin.users.index', compact('users', 'dataTable'));
@@ -296,6 +298,32 @@ class AdminWebController extends Controller
         $this->syncRole($user, $data['role']);
 
         return redirect()->route('admin.users.index')->with('status', 'User updated successfully.');
+    }
+
+    /**
+     * POST /admin/users/{user}/credit-points
+     * Manually credit points to a user's wallet.
+     */
+    public function creditUserPoints(Request $request, User $user)
+    {
+        $request->validate([
+            'points' => ['required', 'integer', 'min:1', 'max:100000'],
+            'notes' => ['nullable', 'string', 'max:2000'],
+        ]);
+
+        $profile = $user->profile;
+        if (! $profile) {
+            return back()->with('error', 'User profile not found.');
+        }
+
+        $points = (int) $request->get('points');
+        $notes = $request->get('notes') ?: 'Manual credit by admin';
+
+        $profile->addPoints($points, $notes);
+
+        return redirect()
+            ->route('admin.users.edit', $user)
+            ->with('status', $points.' point(s) credited to '.$user->name.'.');
     }
 
     public function destroyUser(User $user)

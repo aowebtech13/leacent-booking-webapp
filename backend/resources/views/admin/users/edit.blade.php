@@ -45,6 +45,49 @@
         </div>
     </div>
     <!-- Container-fluid Ends-->
+
+    <!-- Manual Points Credit -->
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card border-primary">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Manual Points Credit</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Current Points Balance</label>
+                                    <p class="mb-0 fs-5 text-primary">
+                                        {{ $user->profile?->points_balance ?? 0 }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <form action="{{ route('admin.user.credit-points', $user->id) }}" method="POST">
+                                    @csrf
+                                    <div class="row g-3 align-items-end">
+                                        <div class="col-md-5">
+                                            <label for="credit_points" class="form-label">Points to add</label>
+                                            <input type="number" name="points" id="credit_points" class="form-control" min="1" max="100000" required>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <label for="credit_notes" class="form-label">Notes (optional)</label>
+                                            <input type="text" name="notes" id="credit_notes" class="form-control" maxlength="2000" placeholder="e.g. Promotional bonus">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="submit" class="btn btn-primary w-100">Credit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')

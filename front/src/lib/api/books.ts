@@ -251,3 +251,19 @@ export interface MoneySpentResponse {
 export function getMoneySpent(): Promise<MoneySpentResponse> {
   return api.get("profile/money-spent");
 }
+
+export interface PointsBalanceResponse {
+  points: number;
+}
+
+export function getPointsBalance(): Promise<PointsBalanceResponse> {
+  return api.get("profile/points");
+}
+
+export interface PointsSpentResponse {
+  points_spent: number;
+}
+
+export function getPointsSpent(): Promise<PointsSpentResponse> {
+  return api.get("profile/points-spent");
+}

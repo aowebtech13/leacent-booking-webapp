@@ -224,4 +224,23 @@ class ProfileController extends Controller
             ],
         ]);
     }
+
+    /**
+     * GET /api/profile/points-spent
+     * Total points the authenticated user has spent on unlocking books.
+     */
+    public function getPointsSpent(Request $request)
+    {
+        $spent = \App\Models\WalletTransaction::where('user_id', $request->user()->id)
+            ->where('type', 'debit')
+            ->where('description', 'like', 'Unlocked book:%')
+            ->sum('amount');
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'points_spent' => (int) $spent,
+            ],
+        ]);
+    }
 }
