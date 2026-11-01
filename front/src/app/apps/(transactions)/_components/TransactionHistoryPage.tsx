@@ -26,7 +26,7 @@ const TransactionHistoryPage = () => {
             <CardBody>
               <div className="d-flex justify-content-between mb-2">
                 <strong>{r.plan?.name ?? "Plan"}</strong>
-                <span className={`badge ${r.status === "verified" ? "bg-success" : "bg-warning"}`}>
+                <span className={`badge ${r.status === "verified" ? "bg-success" : "bg-primary"}`}>
                   {r.status}
                 </span>
               </div>

@@ -2,7 +2,7 @@ import React from "react";
 import SettingPage from "@/app/apps/(setting)/_components/SettingPage";
 import type { Metadata } from "next";
 
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {

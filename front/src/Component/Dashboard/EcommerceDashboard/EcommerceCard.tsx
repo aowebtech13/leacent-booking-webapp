@@ -41,7 +41,6 @@ const EcommerceCard = () => {
   const [booksTotal, setBooksTotal] = useState<BookTotalResponse | null>(null);
   const [booksTotalLoading, setBooksTotalLoading] = useState(true);
   const [spending, setSpending] = useState<BooksSpendingResponse | null>(null);
-  const [spendingLoading, setSpendingLoading] = useState(true);
   const [readingProgress, setReadingProgress] = useState<LatestReadingProgress | null>(null);
   const [readingProgressLoading, setReadingProgressLoading] = useState(true);
   const [pointsBalance, setPointsBalance] = useState<PointsBalanceResponse | null>(null);
@@ -83,14 +82,12 @@ const EcommerceCard = () => {
   useEffect(() => {
     let cancelled = false;
     const loadSpending = async () => {
-      setSpendingLoading(true);
       try {
         const data = await getBooksSpending();
         if (!cancelled) setSpending(data);
       } catch {
         if (!cancelled) setSpending(null);
       } finally {
-        if (!cancelled) setSpendingLoading(false);
       }
     };
     loadSpending();
