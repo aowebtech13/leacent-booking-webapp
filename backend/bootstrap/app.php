@@ -35,7 +35,6 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
             'auth' => \App\Http\Middleware\Authenticate::class,
-            'subscription.check' => \App\Http\Middleware\CheckSubscription::class,
         ]);
     })
     ->withSchedule(function (Schedule $schedule): void {
@@ -56,26 +55,6 @@ return Application::configure(basePath: dirname(__DIR__))
         $schedule->command('case-reminders:health-check')
             ->dailyAt('03:00')
             ->withoutOverlapping();
-
-        $schedule->command('subscriptions:verify-pending')
-            ->everyFiveMinutes()
-            ->withoutOverlapping()
-            ->onFailure(function () {
-                \Illuminate\Support\Facades\Log::error('subscriptions:verify-pending command failed');
-            })
-            ->onSuccess(function () {
-                \Illuminate\Support\Facades\Log::info('subscriptions:verify-pending command completed successfully');
-            });
-
-        $schedule->command('subscriptions:expire')
-            ->hourly()
-            ->withoutOverlapping()
-            ->onFailure(function () {
-                \Illuminate\Support\Facades\Log::error('subscriptions:expire command failed');
-            })
-            ->onSuccess(function () {
-                \Illuminate\Support\Facades\Log::info('subscriptions:expire command completed successfully');
-            });
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

@@ -156,41 +156,6 @@ class AdminWebController extends Controller
         return view('admin.users.index', compact('users', 'dataTable'));
     }
 
-    public function updateUserPlan(Request $request, User $user)
-    {
-        $data = $request->validate([
-            'plan' => ['required', Rule::in(array_keys(self::PLAN_PRICING))],
-            'billing_cycle' => ['nullable', Rule::in(['monthly', 'yearly'])],
-            'end_date' => ['nullable', 'date'],
-        ]);
-
-        $selectedPlan = $data['plan'];
-        $billingCycle = $data['billing_cycle'] ?? ($user->activeSubscription?->billing_cycle ?? 'monthly');
-        $endDate = ! empty($data['end_date']) ? Carbon::parse($data['end_date']) : ($billingCycle === 'yearly' ? Carbon::now()->addYear() : Carbon::now()->addMonth());
-
-        // Deactivate all current active subscriptions
-        Subscription::where('user_id', $user->id)
-            ->where('status', 'active')
-            ->update(['status' => 'expired']);
-
-        $subscriptionPayload = [
-            'user_id' => $user->id,
-            'plan' => $selectedPlan,
-            'status' => 'active',
-            'billing_cycle' => $billingCycle,
-            'amount' => $this->getPlanAmount($selectedPlan, $billingCycle),
-            'currency' => $user->activeSubscription?->currency ?? 'NGN',
-            'start_date' => Carbon::now(),
-            'end_date' => $endDate,
-            'cancelled_at' => null,
-            'auto_renew' => false,
-        ];
-
-        // Subscription::create($subscriptionPayload);
-
-        return back()->with('status', $user->name."'s plan updated to ".$selectedPlan.'.');
-    }
-
     public function profile(Request $request)
     {
         $admin = $request->user()->load('profile');
@@ -326,7 +291,7 @@ class AdminWebController extends Controller
 
     public function exportUsers()
     {
-        $users = User::with('activeSubscription')->get();
+        $users = User::get();
 
         $headers = [
             'Content-Type' => 'text/csv',
@@ -338,40 +303,12 @@ class AdminWebController extends Controller
             fputcsv($file, ['Name', 'Email', 'Plan']);
 
             foreach ($users as $user) {
-                $plan = $user->activeSubscription ? $user->activeSubscription->plan : 'Free';
-                fputcsv($file, [$user->name, $user->email, $plan]);
+                fputcsv($file, [$user->name, $user->email, 'Free']);
             }
             fclose($file);
         };
 
         return response()->stream($callback, 200, $headers);
-    }
-
-    public function subscriptions(Request $request)
-    {
-        $query = Subscription::with(['user.profile']);
-
-        if ($request->filled('search')) {
-            $query->whereHas('user', function ($userQuery) use ($request) {
-                $userQuery->where('name', 'like', "%{$request->search}%")
-                    ->orWhere('email', 'like', "%{$request->search}%");
-            });
-        }
-
-        if ($request->filled('plan')) {
-            $query->where('plan', $request->plan);
-        }
-
-        if ($request->filled('status')) {
-            $query->where('status', $request->status);
-        }
-
-        $subscriptions = $query->where('amount', '>', 0) // Only paid plans usually
-            ->orderByDesc('created_at')
-            ->paginate(20)
-            ->withQueryString();
-
-        return view('admin.subscriptions.index', compact('subscriptions'));
     }
 
     public function transactions(Request $request)
@@ -704,11 +641,10 @@ class AdminWebController extends Controller
             );
         }
 
-        $payment->user->notify(new SubscriptionActivatedNotification(
+        $payment->user->notify(new ManualPaymentVerifiedNotification(
             planName: $plan->name,
             amount: (float) $payment->amount,
             currency: $payment->currency,
-            accessEndsAt: $this->subscriptionEndDate($plan)->format('d M, Y'),
         ));
 
         return redirect()
@@ -743,8 +679,8 @@ class AdminWebController extends Controller
 
         $payment->save();
 
-        $payment->user->notify(new SubscriptionPaymentRejectedNotification(
-            planName: $payment->bookPlan?->name ?? 'Subscription',
+        $payment->user->notify(new ManualPaymentRejectedNotification(
+            planName: $payment->bookPlan?->name ?? 'Point package',
             amount: (float) $payment->amount,
             currency: $payment->currency,
             reason: $request->get('rejection_reason'),
@@ -753,71 +689,6 @@ class AdminWebController extends Controller
         return redirect()
             ->route('admin.book-payments.show', $payment)
             ->with('success', 'Payment rejected for '.$payment->user->name.'.');
-    }
-
-    /**
-     * Create/refresh the subscription for a verified plan payment and
-     * grant the user access to the books included in the plan.
-     */
-    private function activateSubscription(BookPayment $payment, \App\Models\BookPlan $plan): Subscription
-    {
-        $start = now();
-        $end = $this->subscriptionEndDate($plan, $start);
-
-        $subscription = Subscription::updateOrCreate(
-            [
-                'user_id' => $payment->user_id,
-                'book_plan_id' => $plan->id,
-            ],
-            [
-                'plan' => $plan->slug,
-                'status' => Subscription::STATUS_ACTIVE,
-                'billing_cycle' => $plan->billing_cycle === 'yearly' ? Subscription::BILLING_YEARLY : Subscription::BILLING_MONTHLY,
-                'amount' => $payment->amount,
-                'currency' => $payment->currency,
-                'start_date' => $start,
-                'end_date' => $end,
-                'auto_renew' => false,
-            ]
-        );
-
-        $books = $plan->unlimited_books
-            ? Book::where('is_active', true)->orderByDesc('id')->get()
-            : Book::where('is_active', true)->orderByDesc('id')->limit($plan->book_limit)->get();
-
-        foreach ($books as $book) {
-            // firstOrCreate keeps a permanent purchase access untouched.
-            BookAccess::firstOrCreate(
-                ['user_id' => $payment->user_id, 'book_id' => $book->id],
-                [
-                    'subscription_id' => $subscription->id,
-                    'book_payment_id' => $payment->id,
-                    'access_type' => 'subscription',
-                    'granted_at' => now(),
-                    'expires_at' => $end,
-                    'is_active' => true,
-                ]
-            );
-        }
-
-        $meta = $payment->meta ?: [];
-        $meta['subscription_id'] = $subscription->id;
-        $meta['access_ends_at'] = $end->toIso8601String();
-        $payment->meta = $meta;
-        $payment->save();
-
-        return $subscription;
-    }
-
-    /**
-     * The date a plan's access expires.
-     */
-    private function subscriptionEndDate(\App\Models\BookPlan $plan, ?Carbon $start = null): Carbon
-    {
-        $start = $start ?: now();
-        $days = $plan->access_duration_days ?: 30;
-
-        return $start->copy()->addDays($days);
     }
 
     public function exportTransactions(Request $request)
@@ -875,27 +746,6 @@ class AdminWebController extends Controller
         };
 
         return response()->stream($callback, 200, $headers);
-    }
-
-    public function updateSubscription(Request $request, Subscription $subscription)
-    {
-        $data = $request->validate([
-            'status' => ['required', Rule::in(['active', 'cancelled', 'expired', 'pending'])],
-        ]);
-
-        $subscription->update([
-            'status' => $data['status'],
-            'cancelled_at' => $data['status'] === 'cancelled' ? now() : null,
-        ]);
-
-        return back()->with('status', 'Subscription updated successfully.');
-    }
-
-    private function getPlanAmount(string $plan, string $cycle = 'monthly'): float
-    {
-        $planKey = ucfirst(strtolower($plan));
-
-        return (float) (self::PLAN_PRICING[$planKey][$cycle] ?? 0);
     }
 
     /* ------------------------------------------------------------------ */
@@ -1262,7 +1112,7 @@ class AdminWebController extends Controller
         $logs = $query->paginate(30)->withQueryString();
 
         // Also get currently online users for the same page
-        $onlineUsers = User::with(['profile', 'roles', 'activeSubscription'])
+        $onlineUsers = User::with(['profile', 'roles'])
             ->where('last_seen_at', '>=', now()->subMinutes(5))
             ->orderBy('last_seen_at', 'desc')
             ->get();
@@ -1272,7 +1122,7 @@ class AdminWebController extends Controller
 
     public function affiliates(Request $request)
     {
-        $query = User::with(['profile', 'activeSubscription']);
+        $query = User::with(['profile']);
 
         if ($request->filled('search')) {
             $search = $request->search;

@@ -31,9 +31,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('users/{user}/credit-points', [AdminWebController::class, 'creditUserPoints'])->name('users.credit-points');
         Route::delete('users/{user}', [AdminWebController::class, 'destroyUser'])->name('users.destroy');
 
-        Route::get('subscriptions', [AdminWebController::class, 'subscriptions'])->name('subscriptions.index');
-        Route::put('subscriptions/{subscription}', [AdminWebController::class, 'updateSubscription'])->name('subscriptions.update');
-
         Route::get('transactions', [AdminWebController::class, 'transactions'])->name('transactions.index');
         Route::get('transactions/export', [AdminWebController::class, 'exportTransactions'])->name('transactions.export');
 
