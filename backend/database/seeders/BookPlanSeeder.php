@@ -65,6 +65,10 @@ class BookPlanSeeder extends Seeders
             ],
         ];
 
+        // Remove stale plans (old slugs) so only current packages remain.
+        $validSlugs = collect($plans)->pluck('slug')->toArray();
+        BookPlan::whereNotIn('slug', $validSlugs)->delete();
+
         foreach ($plans as $plan) {
             BookPlan::updateOrCreate(['slug' => $plan['slug']], $plan);
         }
