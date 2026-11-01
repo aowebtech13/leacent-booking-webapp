@@ -58,9 +58,9 @@ class BookController extends Controller
         return response()->json([
             'success' => true,
             'data' => [
-                'total' => Book::where('is_active', true)->count(),
-                'premium' => Book::where('is_active', true)->where('is_premium', true)->count(),
-                'free' => Book::where('is_active', true)->where('is_premium', false)->count(),
+                'total' => Book::count(),
+                'premium' => Book::where('is_premium', true)->count(),
+                'free' => Book::where('is_premium', false)->count(),
             ],
         ]);
     }

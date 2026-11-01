@@ -167,7 +167,7 @@ const EcommerceCard = () => {
 
     return {
       ...base,
-      series: [{ name: "Point Spent", data: values }],
+      series: [{ name: "Points Spent", data: values }],
       xaxis: {
         ...base.xaxis,
         categories: points.map((point) => point.date),
@@ -293,19 +293,12 @@ const EcommerceCard = () => {
                       ? "..."
                       : (pointsSpent?.points_spent ?? 0).toLocaleString()}
                   </h4>
-                  <p className="mb-0 text-dark f-w-500">
-                    Points Spent
-                    {spending?.change_percent != null ? (
-                      <span className="badge bg-white-300 text-danger-dark ms-2">
-                        {spending.change_percent > 0 ? "+" : ""}
-                        {spending.change_percent}%
-                      </span>
-                    ) : (spending?.last_week ?? 0) > 0 ? (
-                      <span className="badge bg-white-300 text-danger-dark ms-2">
-                        New
-                      </span>
-                    ) : null}
-                  </p>
+                
+                  {!pointsBalanceLoading && (pointsBalance?.points ?? 0) < 3 && (
+                    <span className="badge bg-warning text-dark ms-2">
+                      Low points
+                    </span>
+                  )}
                 </div>
                 <Link
                   className="bg-danger h-35 w-35 d-flex-center b-r-50 product-sold-icon"

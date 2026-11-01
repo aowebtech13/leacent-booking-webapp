@@ -3,12 +3,12 @@
 namespace Database\Seeders;
 
 use App\Models\BookPlan;
-use Illuminate\Database\Seeder;
+use Illuminate\Database\Seeders\Seeders;
 
-class BookPlanSeeder extends Seeder
+class BookPlanSeeder extends Seeders
 {
     /**
-     * Seed the subscription plans offered on the pricing page.
+     * Seed the point packages offered on the pricing page.
      * Idempotent: existing plans (matched by slug) are refreshed.
      */
     public function run(): void
@@ -17,59 +17,60 @@ class BookPlanSeeder extends Seeder
 
         $plans = [
             [
-                'name' => 'Monthly Access',
-                'slug' => 'monthly-access',
-                'description' => 'Read the full library for 30 days.',
-                'price' => 3000,
+                'name' => 'Starter Pack',
+                'slug' => 'starter-pack',
+                'description' => '100 points for occasional readers.',
+                'price' => 1000,
+                'points' => 100,
                 'currency' => $currency,
-                'billing_cycle' => 'monthly',
-                'access_duration_days' => 30,
-                'unlimited_books' => true,
+                'billing_cycle' => 'one_time',
+                'access_duration_days' => 0,
+                'unlimited_books' => false,
                 'book_limit' => 0,
-                'can_download' => true,
+                'can_download' => false,
                 'can_read_offline' => false,
                 'is_active' => true,
                 'is_featured' => false,
                 'sort_order' => 1,
                 'features' => [
-                    'Unlimited book access',
-                    'Download books for offline reading',
-                    'Valid for 30 days',
-                    'Priority email support',
+                    '100 leacent book points',
+                    'Unlock books permanently',
+                    'One-time payment',
                 ],
             ],
             [
-                'name' => 'Quarterly Access',
-                'slug' => 'quarterly-access',
-                'description' => 'Read the full library for 90 days.',
-                'price' => 8000,
+                'name' => 'Popular Pack',
+                'slug' => 'popular-pack',
+                'description' => '500 points for regular readers.',
+                'price' => 4500,
+                'points' => 500,
                 'currency' => $currency,
-                'billing_cycle' => 'monthly',
-                'access_duration_days' => 90,
-                'unlimited_books' => true,
+                'billing_cycle' => 'one_time',
+                'access_duration_days' => 0,
+                'unlimited_books' => false,
                 'book_limit' => 0,
-                'can_download' => true,
-                'can_read_offline' => true,
+                'can_download' => false,
+                'can_read_offline' => false,
                 'is_active' => true,
                 'is_featured' => true,
                 'sort_order' => 2,
                 'features' => [
-                    'Unlimited book access',
-                    'Download books for offline reading',
-                    'Read offline',
-                    'Valid for 90 days',
+                    '500 leacent book points',
+                    'Unlock books permanently',
+                    'Save 10% vs Starter Pack',
                     'Priority support',
                 ],
             ],
             [
-                'name' => 'Yearly Access',
-                'slug' => 'yearly-access',
-                'description' => 'Read the full library for a full year.',
-                'price' => 30000,
+                'name' => 'Pro Pack',
+                'slug' => 'pro-pack',
+                'description' => '2000 points for heavy readers.',
+                'price' => 16000,
+                'points' => 2000,
                 'currency' => $currency,
-                'billing_cycle' => 'yearly',
-                'access_duration_days' => 365,
-                'unlimited_books' => true,
+                'billing_cycle' => 'one_time',
+                'access_duration_days' => 0,
+                'unlimited_books' => false,
                 'book_limit' => 0,
                 'can_download' => true,
                 'can_read_offline' => true,
@@ -77,11 +78,11 @@ class BookPlanSeeder extends Seeder
                 'is_featured' => false,
                 'sort_order' => 3,
                 'features' => [
-                    'Unlimited book access',
+                    '2000 leacent book points',
+                    'Unlock books permanently',
                     'Download books for offline reading',
                     'Read offline',
-                    'Valid for 365 days',
-                    'Best value for heavy readers',
+                    'Save 20% vs Popular Pack',
                 ],
             ],
         ];
