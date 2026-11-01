@@ -922,7 +922,6 @@ const EcommerceOrderData: ApexOptions = {
     style: {
       fontSize: "16px",
     },
-    position: "right",
     offsetX: 20,
     offsetY: 0,
   },
