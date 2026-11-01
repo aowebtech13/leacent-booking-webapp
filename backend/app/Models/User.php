@@ -86,15 +86,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->notifications()->whereNull('read_at');
     }
 
-    // Subscriptions are currently removed from the user domain.
-    // Keep this stub relationship so legacy code referencing
-    // `activeSubscription` doesn't crash.
-    public function activeSubscription()
-    {
-        return $this->hasOne(Subscription::class)->whereRaw('1=0');
-    }
-
-
     public function userLogs()
     {
         return $this->hasMany(UserLog::class);

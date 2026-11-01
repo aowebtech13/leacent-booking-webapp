@@ -7,7 +7,6 @@ use App\Mail\PasswordResetMail;
 use App\Models\User;
 use App\Models\Profile;
 use App\Models\UserRole;
-use App\Models\Subscription;
 use App\Models\UserLog;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\Request;
@@ -437,7 +436,6 @@ class AuthController extends Controller
         }
 
         $user->roles()->delete();
-        $user->subscriptions()->delete();
 
         $user->delete();
 

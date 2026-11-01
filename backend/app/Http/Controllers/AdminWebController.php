@@ -8,15 +8,12 @@ use App\Models\BookAccess;
 use App\Models\BookPayment;
 use App\Models\Category;
 use App\Models\Profile;
-use App\Models\Subscription;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Models\UserLog;
 use App\Models\UserRole;
 use App\Notifications\ManualPaymentRejectedNotification;
 use App\Notifications\ManualPaymentVerifiedNotification;
-use App\Notifications\SubscriptionActivatedNotification;
-use App\Notifications\SubscriptionPaymentRejectedNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,19 +25,6 @@ use Illuminate\Validation\Rules\Password;
 
 class AdminWebController extends Controller
 {
-    private const PLAN_PRICING = [
-        'Free' => ['monthly' => 0, 'yearly' => 0],
-        'Student' => ['monthly' => 6000, 'yearly' => 66000],
-        'Pro' => ['monthly' => 15000, 'yearly' => 165000],
-        'Max' => ['monthly' => 21000, 'yearly' => 231000],
-        'Team' => ['monthly' => 37500, 'yearly' => 412500],
-        // Legacy support
-        'free' => ['monthly' => 0, 'yearly' => 0],
-        'basic' => ['monthly' => 15000, 'yearly' => 165000],
-        'premium' => ['monthly' => 21000, 'yearly' => 231000],
-        'enterprise' => ['monthly' => 37500, 'yearly' => 412500],
-    ];
-
     public function showLogin()
     {
         /** @var User|null $user */

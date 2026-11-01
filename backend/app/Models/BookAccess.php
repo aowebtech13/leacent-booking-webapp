@@ -15,7 +15,6 @@ class BookAccess extends Model
     protected $fillable = [
         'user_id',
         'book_id',
-        'subscription_id',
         'book_payment_id',
         'access_type',
         'granted_at',
@@ -37,11 +36,6 @@ class BookAccess extends Model
     public function book(): BelongsTo
     {
         return $this->belongsTo(Book::class);
-    }
-
-    public function subscription(): BelongsTo
-    {
-        return $this->belongsTo(Subscription::class);
     }
 
     public function bookPayment(): BelongsTo

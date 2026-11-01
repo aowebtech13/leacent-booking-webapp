@@ -14,12 +14,6 @@ class BookPlan extends Model
         'price',
         'points',
         'currency',
-        'billing_cycle',
-        'access_duration_days',
-        'unlimited_books',
-        'book_limit',
-        'can_download',
-        'can_read_offline',
         'is_active',
         'is_featured',
         'sort_order',
@@ -29,21 +23,11 @@ class BookPlan extends Model
     protected $casts = [
         'price' => 'decimal:2',
         'points' => 'integer',
-        'unlimited_books' => 'boolean',
-        'book_limit' => 'integer',
-        'can_download' => 'boolean',
-        'can_read_offline' => 'boolean',
         'is_active' => 'boolean',
         'is_featured' => 'boolean',
         'sort_order' => 'integer',
-        'access_duration_days' => 'integer',
         'features' => 'array',
     ];
-
-    public function subscriptions(): HasMany
-    {
-        return $this->hasMany(Subscription::class);
-    }
 
     public function payments(): HasMany
     {

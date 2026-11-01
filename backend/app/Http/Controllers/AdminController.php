@@ -39,7 +39,7 @@ class AdminController extends Controller
      */
     public function getUsers(Request $request)
     {
-        $query = User::with(['profile', 'roles', 'activeSubscription']);
+        $query = User::with(['profile', 'roles']);
 
         // Search functionality
         if ($request->has('search') && $request->search) {

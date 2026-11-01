@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Storage;
 
 class BookPayment extends Model
 {
-    public const TYPE_SUBSCRIPTION = 'subscription';
     public const TYPE_SINGLE_BOOK = 'single_book';
     public const TYPE_PLAN = 'plan';
 
@@ -18,7 +17,6 @@ class BookPayment extends Model
     public const STATUS_ACTIVE = 'active';
     public const STATUS_FAILED = 'failed';
     public const STATUS_REFUNDED = 'refunded';
-    public const STATUS_EXPIRED = 'expired';
 
     protected $fillable = [
         'user_id',
@@ -29,15 +27,9 @@ class BookPayment extends Model
         'amount',
         'currency',
         'payment_method',
-        'flutterwave_tx_ref',
-        'flutterwave_transaction_id',
         'payment_reference',
         'payment_receipt',
         'paid_at',
-        'starts_at',
-        'expires_at',
-        'auto_renew',
-        'cancelled_at',
         'verified_by',
         'verified_at',
         'rejection_reason',
@@ -48,10 +40,6 @@ class BookPayment extends Model
     protected $casts = [
         'amount' => 'decimal:2',
         'paid_at' => 'datetime',
-        'starts_at' => 'datetime',
-        'expires_at' => 'datetime',
-        'auto_renew' => 'boolean',
-        'cancelled_at' => 'datetime',
         'verified_at' => 'datetime',
         'meta' => 'array',
     ];
@@ -98,17 +86,6 @@ class BookPayment extends Model
         return $this->status === self::STATUS_ACTIVE;
     }
 
-    public function isExpired(): bool
-    {
-        return $this->status === self::STATUS_EXPIRED
-            || ($this->expires_at && $this->expires_at->isPast());
-    }
-
-    public function canRenew(): bool
-    {
-        return ! $this->isActive() && $this->auto_renew === false;
-    }
-
     public function markActive(): void
     {
         $this->status = self::STATUS_ACTIVE;
@@ -118,12 +95,6 @@ class BookPayment extends Model
     public function markFailed(): void
     {
         $this->status = self::STATUS_FAILED;
-        $this->save();
-    }
-
-    public function markExpired(): void
-    {
-        $this->status = self::STATUS_EXPIRED;
         $this->save();
     }
 
@@ -144,7 +115,6 @@ class BookPayment extends Model
             self::STATUS_ACTIVE,
             self::STATUS_FAILED,
             self::STATUS_REFUNDED,
-            self::STATUS_EXPIRED,
         ];
     }
 }
