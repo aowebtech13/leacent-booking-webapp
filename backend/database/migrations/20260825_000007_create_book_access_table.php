@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('book_id')->constrained()->onDelete('cascade');
             $table->foreignId('subscription_id')->nullable()->constrained()->onDelete('set null');
-            $table->foreignId('book_payment_id')->nullable()->constrained('book_payments')->onDelete('set null');
+            $table->unsignedBigInteger('book_payment_id')->nullable();
             $table->enum('access_type', ['subscription', 'purchase', 'free']);
             $table->timestamp('granted_at')->nullable();
             $table->timestamp('expires_at')->nullable();
