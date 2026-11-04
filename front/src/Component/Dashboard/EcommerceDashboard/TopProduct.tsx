@@ -21,7 +21,7 @@ const authorAvatar = (author: Author) => {
   if (/^https?:\/\//.test(author.avatar)) return author.avatar;
   const base =
     process.env.NEXT_PUBLIC_API_BASE_URL ||
-    "http://127.0.0.1:8000/api";
+    "https://dbackbus-admin-esslabapi.leacent.org/api";
   return `${base.replace(/\/api$/, "")}/storage/${author.avatar}`;
 };
 
