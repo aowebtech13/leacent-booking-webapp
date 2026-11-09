@@ -70,10 +70,25 @@
                                 <input type="text" name="language" class="form-control" value="{{ old('language', $book->language) }}">
                                 @error('language') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
-                            <div class="col-md-4">
+<div class="col-md-4">
                                 <label class="form-label">Format</label>
                                 <input type="text" name="format" class="form-control" value="{{ old('format', $book->format) }}">
-                                @error('format') <span class="text-danger f-12">{{ $message }}</span> @enderror
+                                @error('format') <span class="text-danger f-12">{{ $message }}</span> @endif
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Publication Year</label>
+                                <input type="number" name="publication_year" class="form-control" value="{{ old('publication_year', $book->publication_year) }}" min="1000" max="9999">
+                                @error('publication_year') <span class="text-danger f-12">{{ $message }}</span> @endif
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Page Count</label>
+                                <input type="number" name="page_count" class="form-control" value="{{ old('page_count', $book->page_count) }}" min="1">
+                                @error('page_count') <span class="text-danger f-12">{{ $message }}</span> @endif
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Points Required</label>
+                                <input type="number" name="points" class="form-control" value="{{ old('points', $book->points) }}" min="0">
+                                @error('points') <span class="text-danger f-12">{{ $message }}</span> @endif
                             </div>
 
                             <div class="col-md-6">
@@ -94,6 +109,12 @@
                                 @error('description') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
 
+                            <div class="col-md-3">
+                                <div class="form-check mt-5">
+                                    <input class="form-check-input" type="checkbox" name="is_premium" value="1" {{ old('is_premium', $book->is_premium) ? 'checked' : '' }} id="is_premium">
+                                    <label class="form-check-label" for="is_premium">Premium Book</label>
+                                </div>
+                            </div>
                             <div class="col-md-3">
                                 <div class="form-check mt-5">
                                     <input class="form-check-input" type="checkbox" name="is_active" value="1" {{ old('is_active', $book->is_active) ? 'checked' : '' }} id="is_active">
