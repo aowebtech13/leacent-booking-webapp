@@ -7117,7 +7117,7 @@
   	// Iterates over the layers of the group, optionally specifying context of the iterator function.
   	// ```js
   	// group.eachLayer(function (layer) {
-  	// 	layer.bindPopup('Hello');
+  	// 	layer.bindPopup('Hy');
   	// });
   	// ```
   	eachLayer: function (method, context) {
