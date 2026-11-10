@@ -2,6 +2,7 @@ export {
   default as api,
   setAuthToken,
   bootstrapCsrf,
+  avatarUrl,
   safeRequest,
   type ApiError,
   type ApiResult,

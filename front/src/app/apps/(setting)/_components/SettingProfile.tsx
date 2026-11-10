@@ -17,7 +17,7 @@ import {
 } from "reactstrap";
 import { IconPhotoHeart } from "@tabler/icons-react";
 import { useAuth } from "@/lib/contexts/AuthContext";
-import { updateProfile } from "@/lib/api";
+import { updateProfile, avatarUrl } from "@/lib/api";
 import { useRouter } from "next/navigation";
 
 function SettingProfile() {
@@ -178,7 +178,7 @@ function SettingProfile() {
                       >
                         {formData.avatar_url ? (
                           <img
-                            src={formData.avatar_url}
+                            src={avatarUrl(formData.avatar_url)}
                             alt="Avatar"
                             style={{
                               width: "100%",
@@ -189,7 +189,7 @@ function SettingProfile() {
                           />
                         ) : (
                           <img
-                            src={user?.profile?.avatar_url}
+                            src={avatarUrl(user?.profile?.avatar_url)}
                             alt="Avatar"
                             style={{
                               width: "100%",

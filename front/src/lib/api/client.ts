@@ -9,9 +9,7 @@ import axios, { type AxiosInstance, type AxiosResponse } from "axios";
  * such as `auth/login`.
  */
 const api: AxiosInstance = axios.create({
-  baseURL:
-    process.env.NEXT_PUBLIC_API_BASE_URL ||
-    "http://127.0.0.1:8000/api",
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8000/api",
   withCredentials: true, // required for Sanctum stateful cookies (CSRF + session)
   headers: {
     "Content-Type": "application/json",
@@ -134,9 +132,7 @@ export async function safeRequest<T>(
     const data = response?.data ?? error?.data;
     const backendMessage =
       data?.message ||
-      (data?.errors
-        ? Object.values(data.errors).flat().join(" ")
-        : null) ||
+      (data?.errors ? Object.values(data.errors).flat().join(" ") : null) ||
       error?.message ||
       "An unexpected error occurred";
 
@@ -149,6 +145,33 @@ export async function safeRequest<T>(
       },
     };
   }
+}
+
+/**
+ * Resolve a user avatar URL returned by the backend.
+ *
+ * Absolute URLs (http/https) and data URIs are returned as-is. Relative
+ * paths (e.g. `/images/profile/28.jpg`) are prefixed with the backend API
+ * origin so the browser fetches the image from the API server instead of
+ * the frontend origin, which would 404.
+ */
+export function avatarUrl(url?: string | null): string | undefined {
+  if (!url) return undefined;
+
+  if (/^https?:\/\//i.test(url) || /^data:/i.test(url)) {
+    return url;
+  }
+
+  const origin = (process.env.NEXT_PUBLIC_API_BASE_URL || "").replace(
+    /\/api$/,
+    ""
+  );
+
+  if (!origin) return url;
+
+  const normalized = url.startsWith("/") ? url : `/${url}`;
+
+  return `${origin}${normalized}`;
 }
 
 /**

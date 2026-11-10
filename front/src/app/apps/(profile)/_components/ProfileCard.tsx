@@ -2,6 +2,7 @@ import React from "react";
 import { Card, CardBody, Row, Button } from "reactstrap";
 import { IconPhotoHeart, IconUser } from "@tabler/icons-react";
 import Link from "next/link";
+import { avatarUrl } from "@/lib/api";
 
 interface ProfileCardProps {
   user: {
@@ -18,8 +19,9 @@ interface ProfileCardProps {
 }
 
 const ProfileCard = ({ user }: ProfileCardProps) => {
-  const name = user?.name || "User";
-  const avatar = user?.profile?.avatar_url || null;
+const name = user?.name || "User";
+const avatar = user?.profile?.avatar_url || null;
+const resolvedAvatar = avatarUrl(avatar);
 
   return (
     <Card>
@@ -42,9 +44,9 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
                 </div>
                 <div className="avatar-preview mt-3">
                   <div id="imgPreview">
-                    {avatar && (
+                    {resolvedAvatar && (
                       <img
-                        src={avatar}
+                        src={resolvedAvatar}
                         alt="Avatar"
                         className="img-fluid rounded-circle"
                         style={{ width: 120, height: 120 }}
