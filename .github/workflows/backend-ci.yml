@@ -20,7 +20,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: "8.2"
-          extensions: mbstring, xml, json, mysql, pdo, tokenizer, curl
+          extensions: mbstring, xml, json, mysql, pdo, tokenizer, curl, gd, zip, bcmath, intl, fileinfo, dom
 
       - name: Copy .env
         run: cp backend/.env.example backend/.env
