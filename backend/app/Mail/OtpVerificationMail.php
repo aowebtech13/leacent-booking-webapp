@@ -32,7 +32,7 @@ class OtpVerificationMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Welcome to ' . config('app.name') . ' - Verify Your Account',
+            subject: 'Hello, Welcome to ' . config('app.name') . ' - Verify Your Account',
         );
     }
 
