@@ -1,8 +1,5 @@
 name: Backend CI
 
-env:
-  SERVER_IP: "13.61.173.10"
-
 on:
   push:
     branches: [main, master]
@@ -59,19 +56,15 @@ jobs:
     needs: build
     environment: production
     steps:
-      - name: Deploy to server
-        uses: appleboy/ssh-action@v1.0.0
+      - name: Deploy to AWS Server
+        uses: appleboy/ssh-action@master
         with:
-          host: ${{ env.SERVER_IP }}
-          username: ${{ secrets.SSH_USERNAME }}
-          password: ${{ secrets.SSH_PASSWORD }}
+          host: 13.61.173.10
+          username: ubuntu
+          key: ${{ secrets.AWS_SSH_KEY }}
           script: |
             cd /var/www/html
             git pull origin main
-            cd backend
-            composer install --no-interaction --no-progress --ignore-platform-reqs
+            composer install --no-dev --optimize-autoloader
             php artisan migrate --force
-            php artisan db:seed --force
-            php artisan config:clear
-            php artisan route:clear
-            php artisan view:clear
+            php artisan optimize:clear
