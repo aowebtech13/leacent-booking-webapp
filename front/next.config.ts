@@ -25,7 +25,7 @@ const nextConfig: NextConfig = {
         hostname: "leacentbooks-enterpise.lexicron.org",
         pathname: "/**",
       },
-      // Local development server (https://dbackbus-admin-esslabapi.leacent.org and localhost)
+      // Local development server (https://dbackbus-amdin-esslabapi.leacent.org and localhost)
       {
         protocol: "http",
         hostname: "127.0.0.1",
