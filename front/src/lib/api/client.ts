@@ -92,6 +92,66 @@ api.interceptors.response.use(
 export default api;
 
 /**
+ * Structured error returned by `safeRequest` when an API call fails.
+ * Never throws; callers inspect `error` instead of using try/catch.
+ */
+export interface ApiError {
+  message: string;
+  status?: number;
+  code?: string;
+  data?: any;
+}
+
+/**
+ * Structured result of an infallible API call.
+ *
+ *   const result = await safeRequest(() => getBooks(query));
+ *   if (result.error) { /* handle *\/ return;
+ *   // result.data is the payload
+ */
+export interface ApiResult<T> {
+  data?: T;
+  error?: ApiError;
+}
+
+/**
+ * Wraps an API call so it never throws on the server. Returns a structured
+ * `{ data, error }` object instead. Safe to use in Server Components and
+ * Server Actions where an uncaught rejection would crash the request.
+ *
+ *   const result = await safeRequest(() => getBooks(query));
+ *   if (result.error) return { error: result.error };
+ *   return { data: result.data };
+ */
+export async function safeRequest<T>(
+  fn: () => Promise<T>
+): Promise<ApiResult<T>> {
+  try {
+    const data = await fn();
+    return { data };
+  } catch (error: any) {
+    const response = error?.response;
+    const data = response?.data ?? error?.data;
+    const backendMessage =
+      data?.message ||
+      (data?.errors
+        ? Object.values(data.errors).flat().join(" ")
+        : null) ||
+      error?.message ||
+      "An unexpected error occurred";
+
+    return {
+      error: {
+        message: backendMessage,
+        status: response?.status ?? error?.status,
+        code: error?.code,
+        data,
+      },
+    };
+  }
+}
+
+/**
  * Bootstrap CSRF cookie before any stateful Sanctum request.
  * Safe to call multiple times; guarded by a module-level flag.
  */

@@ -1,4 +1,11 @@
-export { default as api, setAuthToken, bootstrapCsrf } from "./client";
+export {
+  default as api,
+  setAuthToken,
+  bootstrapCsrf,
+  safeRequest,
+  type ApiError,
+  type ApiResult,
+} from "./client";
 export * from "./auth";
 export * from "./books";
 export * from "./authors";
