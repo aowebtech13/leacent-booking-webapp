@@ -1,44 +1,34 @@
-import React from "react";
-import EcommerceDashboard from "@/Component/Dashboard/EcommerceDashboard";
-import type { Metadata } from "next";
+"use client";
 
-export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: "E-commerce Dashboard -Business Labs - Books & Movies",
-    description:
-      "Monitor and manage your e-commerce operations with our comprehensive dashboard featuring real-time analytics and insights.",
-    keywords: [
-      "e-commerce dashboard",
-      "dashboard",
-      "react dashboard",
-      "UI dashboard",
-      "dashboard component",
-      "e-commerce analytics",
-      "sales dashboard",
-      "business dashboard",
-      "dashboard customization",
-      "dashboard styles",
-      "dashboard effects",
-      "dashboard integration",
-      "dashboard library",
-      "react dashboard app",
-      "dashboard optimization",
-      "dashboard performance",
-      "business analytics",
-    ],
-    openGraph: {
-      title: "E-commerce Dashboard -Business Labs - Books & Movies",
-      description:
-        "Monitor and manage your e-commerce operations with our comprehensive dashboard featuring real-time analytics and insights.",
-      url: "https://businesslab.leacent.org/dashboard",
-      siteName: "BUSINESS LAB - BOOKS & MOVIES",
-      locale: "en_US",
-      type: "website",
-    },
-  };
-}
+import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import EcommerceDashboard from "@/Component/Dashboard/EcommerceDashboard";
+import { useAuth } from "@/lib/contexts/AuthContext";
 
 const Page = () => {
+  const { isAuthenticated, isLoading, user } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      router.replace("/auth-pages/sign-in?redirect=/dashboard");
+    }
+  }, [isAuthenticated, isLoading, router]);
+
+  if (isLoading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated || !user) {
+    return null;
+  }
+
   return (
     <div>
       <EcommerceDashboard />

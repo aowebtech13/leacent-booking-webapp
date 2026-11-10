@@ -194,7 +194,7 @@ const EcommerceCard = () => {
                 <i className="ph-bold ph-circle circle-bg-img"></i>
                 <div>
                   <p className="f-s-18 f-w-600 text-dark">
-                    📈 leacent Book Points
+                    📈My Points
                   </p>
                   <h2 className="text-secondary-dark mb-0">
                     {pointsBalanceLoading
@@ -272,7 +272,7 @@ const EcommerceCard = () => {
             <Card className="bg-danger-300 product-sold-card">
               <CardBody>
                 <div>
-                  <h5 className="text-danger-dark f-w-600">Point Spent</h5>
+                  <h5 className="text-danger-dark f-w-600">Points Spent</h5>
                   {Chart ? (
                     <Chart
                       options={spendingChartOptions}
