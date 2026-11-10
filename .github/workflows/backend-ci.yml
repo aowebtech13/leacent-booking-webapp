@@ -1,0 +1,51 @@
+name: Backend CI
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - "backend/**"
+  pull_request:
+    branches: [main, master]
+    paths:
+      - "backend/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          extensions: mbstring, xml, json, mysql, pdo, tokenizer, curl
+
+      - name: Copy .env
+        run: cp backend/.env.example backend/.env
+
+      - name: Install dependencies
+        run: |
+          cd backend
+          composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Generate key
+        run: |
+          cd backend
+          php artisan key:generate
+
+      - name: Run migrations
+        run: |
+          cd backend
+          php artisan migrate --force
+
+      - name: Run seeders
+        run: |
+          cd backend
+          php artisan db:seed --force
+
+      - name: Run tests
+        run: |
+          cd backend
+          php artisan test --no-interaction
