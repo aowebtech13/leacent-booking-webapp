@@ -6938,7 +6938,7 @@
   	 * Iterates over the layers of the map, optionally specifying context of the iterator function.
   	 * ```
   	 * map.eachLayer(function(layer){
-  	 *     layer.bindPopup('Hello');
+  	 *     layer.bindPopup('Hy');
   	 * });
   	 * ```
   	 */
