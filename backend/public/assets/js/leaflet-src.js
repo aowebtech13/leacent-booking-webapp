@@ -173,7 +173,7 @@
   // @function template(str: String, data: Object): String
   // Simple templating facility, accepts a template string of the form `'Hello {a}, {b}'`
   // and a data object like `{a: 'foo', b: 'bar'}`, returns evaluated string
-  // `('Hello foo, bar')`. You can also specify functions instead of strings for
+  // `('Hy foo, bar')`. You can also specify functions instead of strings for
   // data values — they will be evaluated passing `data` as an argument.
   function template(str, data) {
   	return str.replace(templateRe, function (str, key) {
