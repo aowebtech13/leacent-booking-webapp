@@ -24,7 +24,7 @@ jobs:
           --health-cmd="mysqladmin ping --silent"
           --health-interval=10s
           --health-timeout=5s
-          --health-retries=5
+          --health-retries=10
 
     steps:
       - name: Checkout code
@@ -53,6 +53,10 @@ jobs:
           sed -i "s/DB_DATABASE=.*/DB_DATABASE=${{ secrets.DB_DATABASE }}/" .env
           sed -i "s/DB_USERNAME=.*/DB_USERNAME=${{ secrets.DB_USERNAME }}/" .env
           sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=${{ secrets.DB_PASSWORD }}/" .env
+          sed -i "s/APP_ENV=.*/APP_ENV=testing/" .env
+          sed -i "s/SESSION_DRIVER=.*/SESSION_DRIVER=array/" .env
+          sed -i "s/CACHE_STORE=.*/CACHE_STORE=array/" .env
+          sed -i "s/QUEUE_CONNECTION=.*/QUEUE_CONNECTION=sync/" .env
         working-directory: ./backend
 
       - name: Generate application key
@@ -61,13 +65,20 @@ jobs:
 
       - name: Wait for MySQL
         run: |
-          for i in {1..30}; do
-            if mysqladmin ping -h 127.0.0.1 -P 3306 --silent; then
+          sleep 15
+          for i in {1..60}; do
+            if mysqladmin ping -h 127.0.0.1 -P 3306 -u${{ secrets.DB_USERNAME }} -p${{ secrets.DB_PASSWORD }} --silent; then
               echo "MySQL is ready"
               break
             fi
-            sleep 2
+            echo "Waiting for MySQL... ($i/60)"
+            sleep 3
           done
+
+      - name: Verify database connection
+        run: |
+          mysql -h 127.0.0.1 -P 3306 -u${{ secrets.DB_USERNAME }} -p${{ secrets.DB_PASSWORD }} -e "USE ${{ secrets.DB_DATABASE }}; SHOW TABLES;"
+        working-directory: ./backend
 
       - name: Run migrations
         run: php artisan migrate --force
