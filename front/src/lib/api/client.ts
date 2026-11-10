@@ -11,7 +11,7 @@ import axios, { type AxiosInstance, type AxiosResponse } from "axios";
 const api: AxiosInstance = axios.create({
   baseURL:
     process.env.NEXT_PUBLIC_API_BASE_URL ||
-    "https://dbackbus-admin-esslabapi.leacent.org/api",
+    "http://127.0.0.1:8000/api",
   withCredentials: true, // required for Sanctum stateful cookies (CSRF + session)
   headers: {
     "Content-Type": "application/json",
