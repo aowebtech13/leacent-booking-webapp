@@ -299,7 +299,7 @@ const EcommerceCard = () => {
                 </div>
                 <Link
                   className="bg-danger h-35 w-35 d-flex-center b-r-50 product-sold-icon"
-                  href="/apps/e-shop/orders-details"
+                  href="/apps/transactions"
                   target="_blank"
                 >
                   <ArrowRight
