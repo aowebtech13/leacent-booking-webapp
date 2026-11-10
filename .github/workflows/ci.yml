@@ -67,7 +67,7 @@ jobs:
         run: |
           sleep 15
           for i in {1..60}; do
-            if mysqladmin ping -h 127.0.0.1 -P 3306 -u${{ secrets.DB_USERNAME }} -p${{ secrets.DB_PASSWORD }} --silent; then
+            if mysqladmin ping -h 127.0.0.1 -P 3306 --silent; then
               echo "MySQL is ready"
               break
             fi
@@ -77,7 +77,14 @@ jobs:
 
       - name: Verify database connection
         run: |
-          mysql -h 127.0.0.1 -P 3306 -u${{ secrets.DB_USERNAME }} -p${{ secrets.DB_PASSWORD }} -e "USE ${{ secrets.DB_DATABASE }}; SHOW TABLES;"
+          cat > ~/.my.cnf << 'EOF'
+          [client]
+          user="${{ secrets.DB_USERNAME }}"
+          password="${{ secrets.DB_PASSWORD }}"
+          host=127.0.0.1
+          port=3306
+          EOF
+          mysql --defaults-file=~/.my.cnf -e "USE ${{ secrets.DB_DATABASE }}; SHOW TABLES;"
         working-directory: ./backend
 
       - name: Run migrations
