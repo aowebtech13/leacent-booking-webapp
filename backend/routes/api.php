@@ -6,6 +6,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookPlanController;
 use App\Http\Controllers\BookReadingProgressController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\OrderApiController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
@@ -65,6 +66,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('points', [ProfileController::class, 'getPointsBalance']);
         Route::get('points-spent', [ProfileController::class, 'getPointsSpent']);
         Route::get('days-since-registration', [ProfileController::class, 'getDaysSinceRegistration']);
+    });
+
+    // Order routes
+    Route::prefix('orders')->group(function () {
+        Route::get('/', [OrderApiController::class, 'index']);
+        Route::get('{id}', [OrderApiController::class, 'show']);
     });
 
     // Payment routes
