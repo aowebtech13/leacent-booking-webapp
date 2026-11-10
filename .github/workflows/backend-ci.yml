@@ -70,7 +70,7 @@ jobs:
       - name: Run tests
         run: |
           cd backend
-          php artisan test --no-interaction
+          php artisan test
 
   deploy:
     runs-on: ubuntu-latest
