@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Health\Health;
+use Spatie\Health\Checks\Checks\CacheCheck;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +26,9 @@ class AppServiceProvider extends ServiceProvider
     {
         // Limits default indexed string columns to 191 characters to fit under MySQL's 1000-byte cap
         Schema::defaultStringLength(191);
+
+        // Register API health checks (cache is verified on every /health request)
+        app(Health::class)->checks([(new CacheCheck())->driver('file')]);
 
         // Share notifications with all admin views
         // Directly query the Notification model to avoid trait/method conflicts

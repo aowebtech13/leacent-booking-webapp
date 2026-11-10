@@ -13,6 +13,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Ecommerce\CategoryController;
+use Spatie\Health\Http\Controllers\HealthCheckJsonResultsController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -200,14 +201,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('reading-progress/latest', [BookReadingProgressController::class, 'latest']);
     });
 
-// Health check route
-Route::get('health', function () {
-    return response()->json([
-        'success' => true,
-        'message' => 'LivinusAPI is running',
-        'timestamp' => now()->toISOString(),
-    ]);
-});
+// Health check route (runs dependency checks and reports real-time API health)
+Route::get('health', HealthCheckJsonResultsController::class);
 
 Route::prefix('public')->group(function () {
     Route::get('books/stats', [BookController::class, 'getPublicStats']);
