@@ -103,7 +103,7 @@ export async function bootstrapCsrf(): Promise<void> {
     await axios.get("/sanctum/csrf-cookie", {
       baseURL:
         process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/api$/, "") ||
-        "https://dbackbus-admin-esslabapi.leacent.org",
+        "https://dbackbus-amdin-esslabapi.leacent.org",
       withCredentials: true,
     });
   } catch {
