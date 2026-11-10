@@ -19,9 +19,9 @@ interface ProfileCardProps {
 }
 
 const ProfileCard = ({ user }: ProfileCardProps) => {
-const name = user?.name || "User";
-const avatar = user?.profile?.avatar_url || null;
-const resolvedAvatar = avatarUrl(avatar);
+  const name = user?.name || "User";
+  const avatar = user?.profile?.avatar_url || null;
+  const resolvedAvatar = avatarUrl(avatar);
 
   return (
     <Card>
