@@ -45,7 +45,7 @@ jobs:
           echo "DB_PORT=3306" >> .env
           echo "DB_DATABASE=test_db" >> .env
           echo "DB_USERNAME=root" >> .env
-          echo "DB_PASSWORD=root" >> .env
+          echo "DB_PASSWORD=" >> .env
 
       - name: Install dependencies
         run: |
