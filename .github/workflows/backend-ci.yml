@@ -9,20 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: test_db
-          MYSQL_ROOT_HOST: '%'
-        ports:
-          - 3306:3306
-        options: >-
-          --health-cmd="mysqladmin ping -h localhost -u root"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -40,11 +26,11 @@ jobs:
       - name: Configure CI env
         run: |
           cd backend
-          echo "DB_CONNECTION=mysql" >> .env
+          echo "DB_CONNECTION=sqlite" >> .env
           echo "DB_HOST=127.0.0.1" >> .env
           echo "DB_PORT=3306" >> .env
-          echo "DB_DATABASE=test_db" >> .env
-          echo "DB_USERNAME=root" >> .env
+          echo "DB_DATABASE=:memory:" >> .env
+          echo "DB_USERNAME=" >> .env
           echo "DB_PASSWORD=" >> .env
 
       - name: Install dependencies
