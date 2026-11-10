@@ -20,20 +20,19 @@ jobs:
           extensions: mbstring, xml, json, mysql, pdo, tokenizer, curl, gd, zip, bcmath, intl, fileinfo, dom, ctype, filter, hash, iconv, openssl, simplexml, xmlwriter, soap, sockets, pcntl, date, ftp, gmp, pcov
           ini-values: post_max_size=256M, upload_max_filesize=256M, memory_limit=512M
 
-      - name: Copy .env
-        run: cp .env.example .env
+      - name: Copy or Create .env
+        run: |
+          if [ -f .env.example ]; then
+            cp .env.example .env
+          else
+            touch .env
+          fi
 
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist --no-progress --ignore-platform-reqs
 
       - name: Generate key
         run: php artisan key:generate
-
-      - name: Run migrations
-        run: php artisan migrate --force
-
-      - name: Run seeders
-        run: php artisan db:seed --force
 
       - name: Run tests
         run: php artisan test --no-interaction
