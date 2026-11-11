@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\BookAccess;
+use App\Notifications\BookUnlockedNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -165,6 +166,13 @@ class BookController extends Controller
             ->where('user_id', $user->id)
             ->where('book_id', $book->id)
             ->first();
+
+        $user->notify(new BookUnlockedNotification(
+            bookId: $book->id,
+            bookTitle: $book->title,
+            pointsSpent: $pointsRequired,
+            pointsRemaining: (int) $profile->fresh()->points_balance,
+        ));
 
         return response()->json([
             'success' => true,

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Notifications\PointsCreditedNotification;
+use App\Notifications\PointsDebitedNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -68,6 +70,12 @@ class Profile extends Model
             'description' => $description ?? 'Points credited',
             'reference' => 'POINT-'.strtoupper(\Illuminate\Support\Str::random(8)),
         ]);
+
+        $this->user->notify(new PointsCreditedNotification(
+            points: $amount,
+            description: $description ?? 'Points credited to your account',
+            newBalance: (int) $this->fresh()->points,
+        ));
     }
 
     /**
@@ -87,6 +95,12 @@ class Profile extends Model
             'description' => $description ?? 'Points deducted',
             'reference' => 'POINT-'.strtoupper(\Illuminate\Support\Str::random(8)),
         ]);
+
+        $this->user->notify(new PointsDebitedNotification(
+            points: $amount,
+            description: $description ?? 'Points deducted from your account',
+            newBalance: (int) $this->fresh()->points,
+        ));
 
         return true;
     }

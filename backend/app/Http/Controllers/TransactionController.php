@@ -128,8 +128,6 @@ class TransactionController extends Controller
             $order->markVerified($admin->id, $request->get('notes'));
         }
 
-        $this->notifyAccepted($transaction);
-
         return response()->json([
             'success' => true,
             'data' => $transaction->load(['user', 'order.items.product', 'verifier']),
@@ -176,8 +174,6 @@ class TransactionController extends Controller
             // Restore reserved stock so the product is available again.
             $this->restoreStock($order);
         }
-
-        $this->notifyRejected($transaction, $reason);
 
         return response()->json([
             'success' => true,

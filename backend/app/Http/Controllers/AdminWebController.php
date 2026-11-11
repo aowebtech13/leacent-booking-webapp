@@ -489,12 +489,6 @@ class AdminWebController extends Controller
             Transaction::STATUS_PENDING
         )->settle(Transaction::STATUS_ACCEPTED, $admin->id);
 
-        $order->user->notify(new ManualPaymentVerifiedNotification(
-            orderId: $order->id,
-            amount: $order->amount_paid ?? $order->total,
-            currency: $order->currency,
-        ));
-
         // Grant the user access to the books in this order.
         $this->fulfillBookOrder($order);
 
@@ -531,11 +525,6 @@ class AdminWebController extends Controller
             Transaction::TYPE_MANUAL_PAYMENT,
             Transaction::STATUS_PENDING
         )->settle(Transaction::STATUS_REJECTED, $admin->id, $request->get('rejection_reason'));
-
-        $order->user->notify(new ManualPaymentRejectedNotification(
-            orderId: $order->id,
-            reason: $request->get('rejection_reason'),
-        ));
 
         return redirect()
             ->route('admin.orders.show', $order)
@@ -641,12 +630,6 @@ class AdminWebController extends Controller
             );
         }
 
-        $payment->user->notify(new ManualPaymentVerifiedNotification(
-            planName: $plan->name,
-            amount: (float) $payment->amount,
-            currency: $payment->currency,
-        ));
-
         return redirect()
             ->route('admin.book-payments.show', $payment)
             ->with('success', 'Payment verified. '.$points.' points credited to '.$payment->user->name.'.');
@@ -680,9 +663,7 @@ class AdminWebController extends Controller
         $payment->save();
 
         $payment->user->notify(new ManualPaymentRejectedNotification(
-            planName: $payment->bookPlan?->name ?? 'Point package',
-            amount: (float) $payment->amount,
-            currency: $payment->currency,
+            orderId: $payment->id,
             reason: $request->get('rejection_reason'),
         ));
 

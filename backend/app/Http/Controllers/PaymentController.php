@@ -147,12 +147,6 @@ class PaymentController extends Controller
                 Transaction::STATUS_PENDING
             );
 
-            $order->user->notify(new \App\Notifications\ManualPaymentSubmittedNotification(
-                orderId: $order->id,
-                amount: $order->amount_paid ?? $order->total,
-                currency: $order->currency,
-            ));
-
             return response()->json([
                 'success' => true,
                 'data' => $order->load(['items.product']),

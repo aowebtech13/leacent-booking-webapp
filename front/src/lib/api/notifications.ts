@@ -1,10 +1,8 @@
 import api from "./client";
 
 export interface Notification {
-  id: number;
+  id: string;
   type: string;
-  notifiable_type: string;
-  notifiable_id: number;
   data: {
     title?: string;
     message?: string;
@@ -15,6 +13,7 @@ export interface Notification {
     bgClass?: string;
     date?: string;
     dateBadgeClass?: string;
+    action_url?: string;
     [key: string]: any;
   };
   read_at: string | null;
@@ -41,7 +40,7 @@ export async function fetchUnreadCount(): Promise<number> {
   return (res.data as UnreadCountResponse).count;
 }
 
-export async function markAsRead(id: number): Promise<void> {
+export async function markAsRead(id: string): Promise<void> {
   await api.post(`notifications/${id}/read`);
 }
 
@@ -49,6 +48,6 @@ export async function markAllAsRead(): Promise<void> {
   await api.post("notifications/read-all");
 }
 
-export async function deleteNotification(id: number): Promise<void> {
+export async function deleteNotification(id: string): Promise<void> {
   await api.delete(`notifications/${id}`);
 }

@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Storage;
+use App\Notifications\TransactionSubmittedNotification;
+use App\Notifications\TransactionAcceptedNotification;
+use App\Notifications\TransactionRejectedNotification;
 
 
 class Transaction extends Model
@@ -143,12 +146,22 @@ class Transaction extends Model
                 'billing_name' => $order->billing_name,
                 'billing_email' => $order->billing_email,
             ],
-        ]);
+        ])->tap(function ($transaction) {
+            $transaction->user->notify(new TransactionSubmittedNotification(
+                transactionId: $transaction->id,
+                orderId: $order->id,
+                amount: (float) ($order->amount_paid ?? $order->total),
+                currency: $order->currency,
+                type: $type,
+            ));
+        });
     }
 
     
     public function settle(string $status, ?int $adminId = null, ?string $reason = null): void
     {
+        $previousStatus = $this->status;
+
         $this->status = $status;
         $this->verified_by = $adminId;
         $this->verified_at = now();
@@ -158,5 +171,22 @@ class Transaction extends Model
         }
 
         $this->save();
+
+        if ($previousStatus === self::STATUS_PENDING && $status === self::STATUS_ACCEPTED) {
+            $this->user->notify(new TransactionAcceptedNotification(
+                transactionId: $this->id,
+                orderId: $this->order_id,
+                amount: (float) $this->amount,
+                currency: $this->currency,
+            ));
+        }
+
+        if ($previousStatus === self::STATUS_PENDING && $status === self::STATUS_REJECTED) {
+            $this->user->notify(new TransactionRejectedNotification(
+                transactionId: $this->id,
+                orderId: $this->order_id,
+                reason: $reason ?? 'No reason provided',
+            ));
+        }
     }
 }

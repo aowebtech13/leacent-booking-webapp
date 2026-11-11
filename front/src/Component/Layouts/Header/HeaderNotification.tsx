@@ -35,7 +35,7 @@ const HeaderNotification: React.FC = () => {
     loadNotifications();
   }, []);
 
-  const handleRemoveNotification = async (id: number) => {
+  const handleRemoveNotification = async (id: string) => {
     try {
       await deleteNotification(id);
       const updated = notifications.filter((n) => n.id !== id);
@@ -54,6 +54,7 @@ const HeaderNotification: React.FC = () => {
       action: data.message || "",
       file: data.file,
       avatar: data.avatar,
+      actionUrl: data.action_url || "#",
       iconClass: data.iconClass,
       bgClass: data.bgClass || "bg-secondary",
       date: data.date || new Date(notification.created_at).toLocaleDateString(),
@@ -129,7 +130,7 @@ const HeaderNotification: React.FC = () => {
                   <div className="message-content-box flex-grow-1 ps-2">
                     <Link
                       className="f-s-15 text-secondary mb-0"
-                      href="/apps/email-page/read_email"
+                      href={notification.actionUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
