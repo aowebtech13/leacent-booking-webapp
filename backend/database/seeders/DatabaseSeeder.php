@@ -5,7 +5,11 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Profile;
 use App\Models\UserRole;
+use Database\Seeders\AuthorSeeder;
+use Database\Seeders\BookSeeder;
 use Database\Seeders\CategorySeeder;
+use Database\Seeders\PaymentTransactionSeeder;
+use Database\Seeders\TransactionSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -23,12 +27,11 @@ class DatabaseSeeder extends Seeder
         User::whereIn('email', $legacyAdminEmails)->update(['email' => 'firstbornpublishing923@gmail.com']);
         Profile::whereIn('email', $legacyAdminEmails)->update(['email' => 'firstbornpublishing923@gmail.com']);
 
-        // Create demo user with known credentials
-        $demoUser = User::firstOrCreate(
+        // Create/update demo user with known credentials
+        $demoUser = User::updateOrCreate(
             ['email' => 'demo@lvsdrinks.com'],
             [
                 'name' => 'Demo User',
-                'email' => 'demo@lvsdrinks.com',
                 'password' => Hash::make('demo123'),
                 'email_verified_at' => now(),
             ]
@@ -44,6 +47,9 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        // Add points to demo user (idempotent: sets balance rather than incrementing)
+        $demoUser->profile->update(['points' => 500]);
+
         // Assign user role
         UserRole::firstOrCreate(
             ['user_id' => $demoUser->id],
@@ -53,12 +59,11 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // Create admin demo user
-        $adminUser = User::firstOrCreate(
+        // Create/update admin demo user
+        $adminUser = User::updateOrCreate(
             ['email' => 'firstbornpublishing923@gmail.com'],
             [
                 'name' => 'Admin Demo',
-                'email' => 'firstbornpublishing923@gmail.com',
                 'password' => Hash::make('admin123'),
                 'email_verified_at' => now(),
             ]
@@ -83,11 +88,21 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        // Seed authors (must run before books so author_id links resolve)
+        $this->call(AuthorSeeder::class);
+
         // Seed categories
         $this->call(CategorySeeder::class);
 
+        // Seed books
+        $this->call(BookSeeder::class);
+
         // Seed point packages
         $this->call(BookPlanSeeder::class);
+
+        // Seed transaction history
+        $this->call(TransactionSeeder::class);
+        $this->call(PaymentTransactionSeeder::class);
     }
 }
 

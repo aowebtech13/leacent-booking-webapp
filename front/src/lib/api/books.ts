@@ -11,6 +11,12 @@ export interface Author {
   avatar: string | null;
   is_active: boolean;
   books_count?: number;
+  books?: Array<{
+    id: number;
+    title: string;
+    slug: string;
+    points: number;
+  }>;
   created_at?: string;
   updated_at?: string;
 }
@@ -266,4 +272,16 @@ export interface PointsSpentResponse {
 
 export function getPointsSpent(): Promise<PointsSpentResponse> {
   return api.get("profile/points-spent");
+}
+
+export interface DashboardResponse {
+  points_balance: number;
+  points_spent: number;
+  total_books: number;
+  premium_books: number;
+  free_books: number;
+}
+
+export function getDashboard(): Promise<DashboardResponse> {
+  return api.get("profile/dashboard").then((res) => res.data);
 }

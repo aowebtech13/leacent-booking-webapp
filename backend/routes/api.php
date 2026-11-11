@@ -66,6 +66,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('book-plan-transaction', [ProfileController::class, 'getLatestBookPlanTransaction']);
         Route::get('points', [ProfileController::class, 'getPointsBalance']);
         Route::get('points-spent', [ProfileController::class, 'getPointsSpent']);
+        Route::get('dashboard', [ProfileController::class, 'dashboard']);
         Route::get('days-since-registration', [ProfileController::class, 'getDaysSinceRegistration']);
     });
 
@@ -161,6 +162,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 // Public author directory (used by the frontend team page).
 Route::get('authors', [AuthorController::class, 'publicIndex']);
+Route::get('authors/{slug}', [AuthorController::class, 'showBySlug']);
 
 // Public category/product endpoints
 Route::get('categories', [CategoryController::class, 'index']);

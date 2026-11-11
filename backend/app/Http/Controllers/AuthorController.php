@@ -43,7 +43,10 @@ class AuthorController extends Controller
      */
     public function publicIndex()
     {
-        $authors = Author::withCount('books')
+        $authors = Author::with(['books' => function ($query) {
+            $query->where('is_active', true)->orderBy('title', 'asc');
+        }])
+            ->withCount('books')
             ->where('is_active', true)
             ->orderBy('created_at', 'desc')
             ->limit(100)
@@ -52,6 +55,25 @@ class AuthorController extends Controller
         return response()->json([
             'success' => true,
             'data' => $authors,
+        ]);
+    }
+
+    /**
+     * GET /api/authors/{slug}
+     * Public single author detail with their books.
+     */
+    public function showBySlug(string $slug)
+    {
+        $author = Author::with(['books' => function ($query) {
+            $query->where('is_active', true);
+        }])
+            ->where('slug', $slug)
+            ->where('is_active', true)
+            ->firstOrFail();
+
+        return response()->json([
+            'success' => true,
+            'data' => $author,
         ]);
     }
 

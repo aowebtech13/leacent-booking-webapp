@@ -19,13 +19,21 @@ import Breadcrumbs from "@/Component/CommonElements/Breadcrumbs";
 import TimeSpent from "./TimeSpent";
 import { IconStack2 } from "@tabler/icons-react";
 import { useAuth } from "@/lib/contexts/AuthContext";
-import { getPointsBalance } from "@/lib/api/books";
+import { getDashboard } from "@/lib/api/books";
 
 const Setting = () => {
   const { user, isAuthenticated } = useAuth();
   const [activeTab, setActiveTab] = useState("1");
-  const [points, setPoints] = useState<number | null>(null);
-  const [pointsLoading, setPointsLoading] = useState(true);
+  const [dashboard, setDashboard] = useState<DashboardResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  interface DashboardResponse {
+    points_balance: number;
+    points_spent: number;
+    total_books: number;
+    premium_books: number;
+    free_books: number;
+  }
 
   const toggleTab = (tab: string) => {
     if (activeTab !== tab) {
@@ -54,21 +62,21 @@ const Setting = () => {
 
   useEffect(() => {
     let cancelled = false;
-    const loadPoints = async () => {
-      setPointsLoading(true);
+    const loadDashboard = async () => {
+      setLoading(true);
       try {
-        const data = await getPointsBalance();
-        if (!cancelled) setPoints(data.points ?? 0);
+        const data = await getDashboard();
+        if (!cancelled) setDashboard(data);
       } catch {
-        if (!cancelled) setPoints(null);
+        if (!cancelled) setDashboard(null);
       } finally {
-        if (!cancelled) setPointsLoading(false);
+        if (!cancelled) setLoading(false);
       }
     };
     if (isAuthenticated) {
-      loadPoints();
+      loadDashboard();
     } else {
-      setPointsLoading(false);
+      setLoading(false);
     }
     return () => {
       cancelled = true;
@@ -76,7 +84,9 @@ const Setting = () => {
   }, [isAuthenticated]);
 
   const username = user?.name ?? "there";
-  const pointsLabel = pointsLoading ? "..." : (points ?? 0).toLocaleString();
+  const pointsLabel = loading ? "..." : (dashboard?.points_balance ?? 0).toLocaleString();
+  const pointsSpentLabel = loading ? "..." : (dashboard?.points_spent ?? 0).toLocaleString();
+  const totalBooksLabel = loading ? "..." : (dashboard?.total_books ?? 0).toLocaleString();
 
   return (
     <>
@@ -134,7 +144,7 @@ const Setting = () => {
               </CardBody>
             </Card>
 
-            {/* Points Balance Card */}
+            {/* Dashboard: Points Balance */}
             <Card className="mb-4">
               <CardBody>
                 <Card className="hover-effect card-light-primary mt-4">
@@ -152,6 +162,37 @@ const Setting = () => {
                         Upgrade plan
                       </a>
                     </div>
+                  </CardBody>
+                </Card>
+              </CardBody>
+            </Card>
+
+            {/* Dashboard: Points Spent */}
+            <Card className="mb-4">
+              <CardBody>
+                <Card className="hover-effect card-light-info mt-4">
+                  <CardBody>
+                    <h5>Points Spent on Books</h5>
+                    <p className="mt-2 text-secondary fs-6">
+                      You have spent {pointsSpentLabel} point
+                      {pointsSpentLabel === "1" ? "" : "s"} unlocking books.
+                    </p>
+                  </CardBody>
+                </Card>
+              </CardBody>
+            </Card>
+
+            {/* Dashboard: Total Books in Store */}
+            <Card className="mb-4">
+              <CardBody>
+                <Card className="hover-effect card-light-success mt-4">
+                  <CardBody>
+                    <h5>Books in Store</h5>
+                    <p className="mt-2 text-secondary fs-6">
+                      There are {totalBooksLabel} book
+                      {totalBooksLabel === "1" ? "" : "s"} available in the
+                      store.
+                    </p>
                   </CardBody>
                 </Card>
               </CardBody>

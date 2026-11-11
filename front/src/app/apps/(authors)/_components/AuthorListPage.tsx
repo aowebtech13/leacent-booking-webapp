@@ -143,7 +143,7 @@ const AuthorListPage = () => {
                       )}
                       <div className="author-meta small text-muted mb-3">
                         {author.books_count && (
-                          <span className="me-3">
+                          <span className="me-3 d-inline-block">
                             <IconBook size={14} className="me-1" />
                             {`${author.books_count} book${
                               author.books_count !== 1 ? "s" : ""
@@ -151,6 +151,27 @@ const AuthorListPage = () => {
                           </span>
                         )}
                       </div>
+                      {author.books && author.books.length > 0 && (
+                        <div className="author-books mt-3">
+                          <h6 className="text-muted small mb-2">
+                            Books written
+                          </h6>
+                          <ul className="list-unstyled small">
+                          {author.books.map(
+                            (book: { id: number; title: string; points: number }) => (
+                              <li key={book.id} className="mb-1">
+                                {book.title}
+                                {book.points > 0 && (
+                                  <span className="badge bg-info ms-2">
+                                    {book.points} pts
+                                  </span>
+                                )}
+                              </li>
+                            )
+                          )}
+                          </ul>
+                        </div>
+                      )}
                       <Button
                         color="primary"
                         className="w-100"

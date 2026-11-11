@@ -89,11 +89,11 @@ class BookController extends Controller
                 $data['can_access'] = true;
                 $data['access_type'] = $access->access_type;
                 $data['access_expires_at'] = $access->expires_at;
-            } elseif ($book->points_required > 0) {
+            } else {
                 $data['can_unlock_with_points'] = $request->user()->profile->hasEnoughPoints($book->points_required);
             }
-        } elseif (! $book->is_premium) {
-            // Free books are accessible to everyone.
+        } elseif ($book->points_required === 0) {
+            // Free books (zero points) are accessible to everyone.
             $data['can_access'] = true;
             $data['access_type'] = 'free';
         }
@@ -134,13 +134,6 @@ class BookController extends Controller
         }
 
         $pointsRequired = $book->points_required;
-
-        if ($pointsRequired <= 0) {
-            return response()->json([
-                'success' => false,
-                'message' => 'This book cannot be unlocked with points.',
-            ], 422);
-        }
 
         if (! $profile->hasEnoughPoints($pointsRequired)) {
             return response()->json([

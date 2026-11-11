@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\BookPayment;
 use App\Models\BookReadingProgress;
 use Illuminate\Http\Request;
@@ -221,6 +222,39 @@ class ProfileController extends Controller
             'success' => true,
             'data' => [
                 'points' => $profile->points_balance,
+            ],
+        ]);
+    }
+
+    /**
+     * GET /api/profile/dashboard
+     * Aggregated dashboard metrics for the authenticated user:
+     * profile balance (points), points spent on books, and total books in store.
+     */
+    public function dashboard(Request $request)
+    {
+        $user = $request->user();
+        $profile = $user->profile;
+
+        $pointsBalance = $profile ? $profile->points_balance : 0;
+
+        $pointsSpent = \App\Models\WalletTransaction::where('user_id', $user->id)
+            ->where('type', 'debit')
+            ->where('description', 'like', 'Unlocked book:%')
+            ->sum('amount');
+
+        $totalBooks = Book::where('is_active', true)->count();
+        $premiumBooks = Book::where('is_active', true)->where('is_premium', true)->count();
+        $freeBooks = Book::where('is_active', true)->where('is_premium', false)->count();
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'points_balance' => (int) $pointsBalance,
+                'points_spent' => (int) $pointsSpent,
+                'total_books' => (int) $totalBooks,
+                'premium_books' => (int) $premiumBooks,
+                'free_books' => (int) $freeBooks,
             ],
         ]);
     }

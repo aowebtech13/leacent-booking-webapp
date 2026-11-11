@@ -59,6 +59,13 @@ export function getPublicAuthors(): Promise<Author[]> {
 }
 
 /**
+ * Get a single active author by slug (public).
+ */
+export function getPublicAuthor(slug: string): Promise<Author> {
+  return api.get(`authors/${slug}`).then((res) => res.data);
+}
+
+/**
  * Get a single author by id or slug.
  */
 export function getAuthor(id: number | string): Promise<Author> {

@@ -18,7 +18,7 @@ import {
 } from "reactstrap";
 import Breadcrumbs from "@/Component/CommonElements/Breadcrumbs";
 import BookLibrarySidebar from "@/app/apps/(book-library)/_components/BookLibrarySidebar";
-import { getBooks, Book } from "@/lib/api/books";
+import { getBooks, Book, unlockBook } from "@/lib/api/books";
 import { IconBook, IconSearch, IconFileText } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -31,6 +31,7 @@ const BookLibraryPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [lastPage, setLastPage] = useState(1);
+  const [unlocking, setUnlocking] = useState<Set<number>>(new Set());
   const router = useRouter();
 
   const fetchBooks = useCallback(async () => {
@@ -77,6 +78,29 @@ const BookLibraryPage = () => {
   const handlePreview = (book: Book) => {
     if (book.preview_url) {
       window.open(book.preview_url, "_blank");
+    }
+  };
+
+  const handleUnlock = async (book: Book) => {
+    if (unlocking.has(book.id)) return;
+    setUnlocking((prev) => new Set([...prev, book.id]));
+    try {
+      await unlockBook(book.id);
+      setUnlocking((prev) => {
+        const next = new Set(prev);
+        next.delete(book.id);
+        return next;
+      });
+      setError(null);
+      // Refresh to reflect new access state
+      fetchBooks();
+    } catch (err: any) {
+      setUnlocking((prev) => {
+        const next = new Set(prev);
+        next.delete(book.id);
+        return next;
+      });
+      setError(err?.message || "Failed to unlock book");
     }
   };
 
@@ -169,11 +193,9 @@ const BookLibraryPage = () => {
                                 <IconFileText size={64} color="#ccc" />
                               </div>
                             )}
-                            {book.is_premium && (
-                              <span className="badge bg-warning position-absolute top-0 end-0 m-2">
-                                Premium
-                              </span>
-                            )}
+                            <span className="badge bg-info position-absolute top-0 end-0 m-2">
+                              {book.points} pts
+                            </span>
                             {!book.is_active && (
                               <span className="badge bg-secondary position-absolute top-0 start-0 m-2">
                                 Inactive
@@ -213,13 +235,21 @@ const BookLibraryPage = () => {
                                 >
                                   Read Now
                                 </Button>
-                              ) : book.is_premium ? (
+                              ) : unlocking.has(book.id) ? (
                                 <Button
                                   color="outline-primary"
                                   className="flex-grow-1"
                                   disabled
                                 >
-                                  Premium Only
+                                  Unlocking…
+                                </Button>
+                              ) : book.can_unlock_with_points ? (
+                                <Button
+                                  color="outline-primary"
+                                  className="flex-grow-1"
+                                  onClick={() => handleUnlock(book)}
+                                >
+                                  Unlock ({book.points} pts)
                                 </Button>
                               ) : (
                                 <Button
@@ -227,7 +257,7 @@ const BookLibraryPage = () => {
                                   className="flex-grow-1"
                                   disabled
                                 >
-                                  Not Available
+                                  Not enough points
                                 </Button>
                               )}
                               {book.preview_url && (
