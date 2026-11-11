@@ -92,15 +92,29 @@ const BookLibraryPage = () => {
         return next;
       });
       setError(null);
-      // Refresh to reflect new access state
-      fetchBooks();
+      // Unlock succeeded: open the book PDF reader immediately.
+      router.push(`/apps/book-library/read/${book.id}`);
     } catch (err: any) {
       setUnlocking((prev) => {
         const next = new Set(prev);
         next.delete(book.id);
         return next;
       });
-      setError(err?.message || "Failed to unlock book");
+      const message = err?.message || "Failed to unlock book";
+      if (err?.status === 403 || /insufficient points/i.test(message)) {
+        if (typeof window !== "undefined") {
+          const { default: Swal } = await import("sweetalert2");
+          await Swal.fire({
+            title: "Upgrade your points",
+            text: "You don't have enough points to unlock this book. Please upgrade your points balance and try again.",
+            icon: "warning",
+            confirmButtonColor: "#d33",
+            confirmButtonText: "OK",
+          });
+        }
+        return;
+      }
+      setError(message);
     }
   };
 
@@ -243,21 +257,13 @@ const BookLibraryPage = () => {
                                 >
                                   Unlocking…
                                 </Button>
-                              ) : book.can_unlock_with_points ? (
+                              ) : (
                                 <Button
                                   color="outline-primary"
                                   className="flex-grow-1"
                                   onClick={() => handleUnlock(book)}
                                 >
                                   Unlock ({book.points} pts)
-                                </Button>
-                              ) : (
-                                <Button
-                                  color="outline-secondary"
-                                  className="flex-grow-1"
-                                  disabled
-                                >
-                                  Not enough points
                                 </Button>
                               )}
                               {book.preview_url && (
