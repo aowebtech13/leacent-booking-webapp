@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Col, Container, Row, Button, Spinner, Alert } from "reactstrap";
 import Breadcrumbs from "@/Component/CommonElements/Breadcrumbs";
 import { useParams, useRouter } from "next/navigation";
-import { getBookRead, Book } from "@/lib/api/books";
+import { getBook, getBookRead, Book } from "@/lib/api/books";
 import { BookReader } from "@/Component/BookReader/BookReader";
 import { useReadingProgress } from "@/hooks/useReadingProgress";
 import { IconBook, IconArrowLeft, IconRefresh } from "@tabler/icons-react";
@@ -38,14 +38,27 @@ const BookReaderPage = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const res = await getBookRead(bookId);
-      const data = res;
-      setBook(data.book);
-      setFileUrl(data.file_url);
-      // Load saved progress
+      try {
+        const res = await getBookRead(bookId);
+        setBook(res.book);
+        setFileUrl(res.file_url);
+      } catch (readErr: any) {
+        // Fallback: load book details and try its public file URL if present.
+        try {
+          const details = await getBook(bookId);
+          setBook(details);
+          if (details?.file_url) {
+            setFileUrl(details.file_url);
+          } else {
+            throw readErr;
+          }
+        } catch {
+          throw readErr;
+        }
+      }
+
       const saved = await loadProgress(bookId);
       if (saved?.progress_percentage) {
-        // Store the CFI or location to restore
         setReaderLocation(saved.progress_percentage as any);
       }
     } catch (err: any) {
@@ -63,7 +76,6 @@ const BookReaderPage = () => {
   }, [bookId]);
 
   const handleLocationChange = (location: any) => {
-    // location contains: fraction, section, location, time, cfi
     if (location?.cfi) {
       setReaderLocation(location.cfi);
     }
@@ -72,8 +84,6 @@ const BookReaderPage = () => {
   const handleSaveProgress = async () => {
     if (!bookId || !book) return;
     try {
-      // We need to extract current page from the reader
-      // The onLocationChange already captures the CFI
       if (readerLocation) {
         await saveProgress(bookId, {
           current_page: Math.round(
@@ -149,7 +159,6 @@ const BookReaderPage = () => {
       className="book-reader-page"
       style={{ height: "100vh", display: "flex", flexDirection: "column" }}
     >
-      {/* Top Bar */}
       <nav
         className="navbar navbar-light bg-white border-bottom px-3"
         style={{ zIndex: 100 }}
@@ -201,7 +210,6 @@ const BookReaderPage = () => {
         </div>
       </nav>
 
-      {/* Reader */}
       <main
         style={{ flex: 1, overflow: "hidden" }}
         onContextMenu={(e) => e.preventDefault()}
@@ -216,7 +224,6 @@ const BookReaderPage = () => {
         />
       </main>
 
-      {/* Bottom Progress Bar (optional) */}
       <div className="bg-light border-top px-3 py-2">
         <div className="d-flex align-items-center justify-content-between small text-muted">
           <span>
