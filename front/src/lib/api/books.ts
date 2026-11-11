@@ -150,7 +150,7 @@ export function getBooks(query: BooksQuery = {}): Promise<BookListResponse> {
  * Total counts of active books (public).
  */
 export function getBooksTotal(): Promise<BookTotalResponse> {
-  return api.get("books/total");
+  return api.get("books/total").then((res) => res.data);
 }
 
 /**
@@ -219,7 +219,7 @@ export interface BooksSpendingResponse {
  * used by the dashboard "Money Spent" chart.
  */
 export function getBooksSpending(): Promise<BooksSpendingResponse> {
-  return api.get("profile/books-spending");
+  return api.get("profile/books-spending").then((res) => res.data);
 }
 
 export interface BookReadingStats {
@@ -263,7 +263,7 @@ export interface PointsBalanceResponse {
 }
 
 export function getPointsBalance(): Promise<PointsBalanceResponse> {
-  return api.get("profile/points");
+  return api.get("profile/points").then((res) => res.data);
 }
 
 export interface PointsSpentResponse {
@@ -271,7 +271,7 @@ export interface PointsSpentResponse {
 }
 
 export function getPointsSpent(): Promise<PointsSpentResponse> {
-  return api.get("profile/points-spent");
+  return api.get("profile/points-spent").then((res) => res.data);
 }
 
 export interface DashboardResponse {

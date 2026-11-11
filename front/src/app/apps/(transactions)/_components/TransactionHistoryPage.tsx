@@ -8,9 +8,23 @@ const TransactionHistoryPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let cancelled = false;
     getMyBookPlanPayments()
-      .then((data) => setRows(data ?? []))
-      .finally(() => setLoading(false));
+      .then((data) => {
+        if (!cancelled) setRows(data ?? []);
+      })
+      .catch((err) => {
+        if (!cancelled) {
+          console.error("Failed to load transaction history:", err);
+          setRows([]);
+        }
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return (
