@@ -19,37 +19,57 @@ import { loginUser } from "@/lib/auth/action";
 import { POST_LOGIN_PATH } from "@/lib/auth/constants";
 import { useAuth } from "@/lib/contexts/AuthContext";
 
-const INITIAL_STATE = { error: null as string | null };
+type LoginActionState =
+  | { error: string | null }
+  | {
+      access_token: string;
+      token_type: string;
+      user: { id: number; name: string; email: string };
+    };
+
+const INITIAL_STATE: LoginActionState = { error: null };
 
 const SignInPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { isAuthenticated, isLoading: authLoading, setAuth } = useAuth();
 
-  const [state, formAction, isPending] = useActionState(
-    async (_prev: { error: string | null }, formData: FormData) => {
-      const res = await loginUser(formData);
-      if (res && "access_token" in res) {
-        // Store the session (token + user) before leaving the auth page,
-        setAuth(res);
-        return INITIAL_STATE;
-      }
-      if (res && "error" in res && res.error) {
-        return { error: res.error };
-      }
-      return { error: "Invalid credentials. Please try again." };
-    },
-    INITIAL_STATE
-  );
+  const [state, formAction, isPending] = useActionState<
+    LoginActionState,
+    FormData
+  >(async (_prev, formData) => {
+    const res = await loginUser(formData);
+    if (res && "access_token" in res) {
+      // Return the auth response to the client so setAuth runs on the client,
+      // not inside the server action where React state setters don't work.
+      return res as LoginActionState;
+    }
+    if (res && "error" in res && res.error) {
+      return { error: res.error };
+    }
+    return { error: "Invalid credentials. Please try again." };
+  }, INITIAL_STATE);
 
   const resetSent = searchParams.get("reset") === "sent";
 
-  // Send signed in users to the app instead of the sign in form.
+  // Set auth on the client and redirect after a successful login.
   useEffect(() => {
+    if ("access_token" in state) {
+      setAuth(
+        state as {
+          access_token: string;
+          token_type: string;
+          user: { id: number; name: string; email: string };
+        }
+      );
+      router.replace(POST_LOGIN_PATH);
+      return;
+    }
+    // Send signed in users to the app instead of the sign in form.
     if (!authLoading && isAuthenticated) {
       router.replace(POST_LOGIN_PATH);
     }
-  }, [authLoading, isAuthenticated, router]);
+  }, [state, authLoading, isAuthenticated, router, setAuth]);
 
   return (
     <div className="sign-in-bg">
@@ -122,7 +142,7 @@ const SignInPage = () => {
                         </Col>
                       )}
 
-                      {state.error && (
+                      {!("access_token" in state) && state.error && (
                         <Col xs={12}>
                           <Alert color="danger" className="mb-3">
                             {state.error}
