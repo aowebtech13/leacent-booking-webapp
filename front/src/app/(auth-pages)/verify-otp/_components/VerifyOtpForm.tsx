@@ -11,6 +11,7 @@ import {
   resendOtp as apiResendOtp,
   AuthResponse,
 } from "@/lib/api";
+import { POST_LOGIN_PATH } from "@/lib/auth/constants";
 
 type FormData = {
   code: string;
@@ -91,7 +92,7 @@ const VerifyOtpForm = ({
         router.push(`/auth-pages/reset-password?token=${res.access_token}`);
         return;
       }
-      router.push("/apps/setting");
+      router.push(POST_LOGIN_PATH);
     } catch (err: any) {
       verifyingRef.current = null;
       setError(err?.message || "Invalid OTP. Please try again.");
