@@ -121,7 +121,7 @@ const EcommerceDetail = () => {
 
         const payments = Array.isArray(paymentRes)
           ? paymentRes
-          : (paymentRes?.data ?? []);
+          : [];
 
         const mappedOrders = orderList.slice(0, 6).map((order: Order) => {
           const info = getStatusInfo(order);
