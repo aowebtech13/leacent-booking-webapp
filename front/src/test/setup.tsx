@@ -1,6 +1,11 @@
 import "@testing-library/jest-dom/vitest";
 import { vi } from "vitest";
 
+declare global {
+  // eslint-disable-next-line no-var
+  var __TESTING__: boolean;
+}
+
 // Mock next/navigation
 vi.mock("next/navigation", () => ({
   useRouter: () => ({
