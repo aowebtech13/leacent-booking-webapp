@@ -1,4 +1,4 @@
-import axios, { type AxiosInstance, type AxiosResponse } from "axios";
+import axios, { type AxiosInstance, type AxiosResponse, type InternalAxiosRequestConfig } from "axios";
 
 /**
  * Base axios instance configured to talk to the Laravel backend.
@@ -18,6 +18,22 @@ const api: AxiosInstance = axios.create({
   timeout: 30000,
 });
 
+const TOKEN_KEY = "leacent_auth_token";
+
+/**
+ * Request interceptor: attach Bearer token from localStorage to every request.
+ * This ensures the token is always sent, even after page refresh.
+ */
+api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
+  if (typeof window !== "undefined") {
+    const token = localStorage.getItem(TOKEN_KEY);
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+  }
+  return config;
+});
+
 /**
  * Attach the Bearer token (Sanctum personal access token) returned by the
  * login endpoint to outgoing requests when one is available in the store.
@@ -25,8 +41,14 @@ const api: AxiosInstance = axios.create({
 export function setAuthToken(token: string | null) {
   if (token) {
     api.defaults.headers.common.Authorization = `Bearer ${token}`;
+    if (typeof window !== "undefined") {
+      localStorage.setItem(TOKEN_KEY, token);
+    }
   } else {
     delete api.defaults.headers.common.Authorization;
+    if (typeof window !== "undefined") {
+      localStorage.removeItem(TOKEN_KEY);
+    }
   }
 }
 
