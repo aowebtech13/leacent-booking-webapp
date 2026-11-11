@@ -5,6 +5,7 @@ import Slider from "react-slick";
 import { Badge } from "reactstrap";
 import Loading from "@/app/loading";
 import { getOrders, Order } from "@/lib/api/orders";
+import { getMyBookPlanPayments } from "@/lib/api/bookPlans";
 import { useAuth } from "@/lib/contexts/AuthContext";
 
 const getStatusInfo = (order: Order) => {
@@ -63,6 +64,20 @@ const getStatusInfo = (order: Order) => {
   };
 };
 
+const mapPaymentStatus = (status: string) => {
+  const s = (status || "").toLowerCase();
+  if (s === "active" || s === "verified" || s === "completed") {
+    return { label: "Completed", statusClass: "success", badgeClass: "success" };
+  }
+  if (s === "pending" || s === "pending_verification") {
+    return { label: "Pending", statusClass: "warning", badgeClass: "warning" };
+  }
+  if (s === "failed" || s === "rejected" || s === "refunded") {
+    return { label: "Failed", statusClass: "danger", badgeClass: "danger" };
+  }
+  return { label: "Pending", statusClass: "warning", badgeClass: "warning" };
+};
+
 const EcommerceDetail = () => {
   const [ApexCharts, setApexCharts] = useState<any>(null);
   const [orders, setOrders] = useState<any[]>([]);
@@ -94,29 +109,64 @@ const EcommerceDetail = () => {
       }
       setLoading(true);
       try {
-        const res = await getOrders({ per_page: 6 });
-        const data = (res as any)?.data ?? res ?? [];
-        const orderList = Array.isArray(data) ? data : (data?.data ?? []);
-        if (!cancelled && Array.isArray(orderList)) {
-          const mapped = orderList.slice(0, 6).map((order: Order) => {
-            const info = getStatusInfo(order);
-            const dateStr = order.created_at
-              ? new Date(order.created_at).toLocaleDateString("en-US", {
-                  month: "long",
-                  day: "numeric",
-                  year: "numeric",
-                })
-              : "";
-            return {
-              id: order.id,
-              status: info.label,
-              date: dateStr,
-              statusClass: info.statusClass,
-              badgeClass: info.badgeClass,
-              description: info.description,
-            };
-          });
-          setOrders(mapped);
+        const [orderRes, paymentRes] = await Promise.all([
+          getOrders({ per_page: 6 }),
+          getMyBookPlanPayments(),
+        ]);
+
+        const orderData = (orderRes as any)?.data ?? orderRes ?? [];
+        const orderList = Array.isArray(orderData)
+          ? orderData
+          : (orderData?.data ?? []);
+
+        const payments = Array.isArray(paymentRes)
+          ? paymentRes
+          : (paymentRes?.data ?? []);
+
+        const mappedOrders = orderList.slice(0, 6).map((order: Order) => {
+          const info = getStatusInfo(order);
+          const dateStr = order.created_at
+            ? new Date(order.created_at).toLocaleDateString("en-US", {
+                month: "long",
+                day: "numeric",
+                year: "numeric",
+              })
+            : "";
+          return {
+            id: order.id,
+            status: info.label,
+            date: dateStr,
+            statusClass: info.statusClass,
+            badgeClass: info.badgeClass,
+            description: info.description,
+            type: "order" as const,
+          };
+        });
+
+        const mappedPayments = payments.slice(0, 6).map((payment: any) => {
+          const info = mapPaymentStatus(payment.status);
+          const dateStr = payment.created_at
+            ? new Date(payment.created_at).toLocaleDateString("en-US", {
+                month: "long",
+                day: "numeric",
+                year: "numeric",
+              })
+            : "";
+          return {
+            id: payment.id,
+            status: info.label,
+            date: dateStr,
+            statusClass: info.statusClass,
+            badgeClass: info.badgeClass,
+            description:
+              payment.notes ||
+              `Payment of ${payment.amount ?? 0} ${payment.currency ?? ""}`,
+            type: "payment" as const,
+          };
+        });
+
+        if (!cancelled) {
+          setOrders([...mappedOrders, ...mappedPayments]);
         }
       } catch (err) {
         if (!cancelled) setOrders([]);
