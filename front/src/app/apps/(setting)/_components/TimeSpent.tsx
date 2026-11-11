@@ -18,7 +18,7 @@ const TimeSpent = () => {
       setLoading(true);
       try {
         const res = await api.get("profile/days-since-registration");
-        const data = res.data?.data as DaysSinceRegistration | undefined;
+        const data = res.data as DaysSinceRegistration | undefined;
         if (!cancelled && data) setDays(data.days_since_registration);
       } catch {
         if (!cancelled) setDays(null);
