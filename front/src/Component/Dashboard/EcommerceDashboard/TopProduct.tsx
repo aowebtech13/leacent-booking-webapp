@@ -2,10 +2,11 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { Badge, Card, CardBody, Col, Row, Table } from "reactstrap";
+import { Badge, Button, Card, CardBody, Col, Row, Table } from "reactstrap";
 import { Language, StarSolid } from "iconoir-react";
-import { getBooks, Book, Author } from "@/lib/api/books";
+import { getBooks, Book, Author, unlockBook } from "@/lib/api/books";
 import { getPublicAuthors } from "@/lib/api/authors";
+import { useRouter } from "next/navigation";
 
 const authorCardClasses = [
   "country-card-warning",
@@ -31,6 +32,9 @@ const TopProduct = () => {
   const [topProductsError, setTopProductsError] = useState<string | null>(null);
   const [authors, setAuthors] = useState<Author[]>([]);
   const [authorsLoading, setAuthorsLoading] = useState(true);
+  const [unlocking, setUnlocking] = useState<Set<number>>(new Set());
+  const [unlockError, setUnlockError] = useState<string | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     let cancelled = false;
@@ -91,6 +95,40 @@ const TopProduct = () => {
       isOnline: index === 1,
     }));
 
+  const handleUnlock = async (book: Book) => {
+    if (unlocking.has(book.id)) return;
+    const points = Number(book.points ?? 0);
+    const { default: Swal } = await import("sweetalert2");
+    const result = await Swal.fire({
+      title: "Purchase this book?",
+      html: `Do you want to purchase "<strong>${book.title}</strong>" `,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+      reverseButtons: true,
+    });
+    if (!result.isConfirmed) return;
+    setUnlocking((prev) => new Set([...prev, book.id]));
+    setUnlockError(null);
+    try {
+      await unlockBook(book.id);
+      setUnlocking((prev) => {
+        const next = new Set(prev);
+        next.delete(book.id);
+        return next;
+      });
+      router.push(`/apps/book-library/read/${book.id}`);
+    } catch (err: any) {
+      setUnlocking((prev) => {
+        const next = new Set(prev);
+        next.delete(book.id);
+        return next;
+      });
+      setUnlockError(err?.message || "Failed to unlock book");
+    }
+  };
+
   return (
     <Row>
       <Col lg="6" xxl="5">
@@ -103,28 +141,35 @@ const TopProduct = () => {
               <Table className="align-middle top-products-table mb-0">
                 <thead>
                   <tr>
-                    <th scope="col">Product</th>
-                    <th scope="col">Units Sold</th>
+                    <th scope="col">Books Name</th>
+                    <th scope="col">Amount Read</th>
                     <th scope="col">Sales</th>
                     <th scope="col">Rating</th>
+                    <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {topProductsLoading ? (
                     <tr>
-                      <td colSpan={4} className="text-center text-muted py-4">
+                      <td colSpan={5} className="text-center text-muted py-4">
                         Loading top products…
                       </td>
                     </tr>
                   ) : topProductsError ? (
                     <tr>
-                      <td colSpan={4} className="text-center text-danger py-4">
+                      <td colSpan={5} className="text-center text-danger py-4">
                         {topProductsError}
+                      </td>
+                    </tr>
+                  ) : unlockError ? (
+                    <tr>
+                      <td colSpan={5} className="text-center text-danger py-4">
+                        {unlockError}
                       </td>
                     </tr>
                   ) : topProducts.length === 0 ? (
                     <tr>
-                      <td colSpan={4} className="text-center text-muted py-4">
+                      <td colSpan={5} className="text-center text-muted py-4">
                         No top products available.
                       </td>
                     </tr>
@@ -165,6 +210,25 @@ const TopProduct = () => {
                             className="text-warning me-1"
                           />
                           {product.rating ?? 0}
+                        </td>
+                        <td>
+                          {unlocking.has(product.id) ? (
+                            <Button
+                              color="outline-primary"
+                              size="sm"
+                              disabled
+                            >
+                              Unlocking…
+                            </Button>
+                          ) : (
+                            <Button
+                              color="outline-primary"
+                              size="sm"
+                              onClick={() => handleUnlock(product)}
+                            >
+                              Unlock ({Number(product.points ?? 0)} pts)
+                            </Button>
+                          )}
                         </td>
                       </tr>
                     ))
