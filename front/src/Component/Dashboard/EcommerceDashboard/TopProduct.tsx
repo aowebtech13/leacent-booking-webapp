@@ -96,7 +96,6 @@ const TopProduct = () => {
 
   const handleUnlock = async (book: Book) => {
     if (unlocking.has(book.id)) return;
-    const points = Number(book.points ?? 0);
     const { default: Swal } = await import("sweetalert2");
     const result = await Swal.fire({
       title: "Purchase this book?",

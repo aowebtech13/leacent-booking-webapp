@@ -30,13 +30,12 @@ interface BookReaderProps {
 export const BookReader: React.FC<BookReaderProps> = ({
   url,
   title,
-  LoadingView,
   ErrorView,
   style,
   className,
 }) => {
   const href = typeof url === "string" ? url : URL.createObjectURL(url);
-  const lower = href.toLowerCase().split("?")[0];
+  const lower = href.toLowerCase().split("?")[0] ?? "";
   const isPdf = lower.endsWith(".pdf");
 
   if (isPdf) {
