@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { Spinner } from "reactstrap";
 import { IconAlertCircle, IconExternalLink } from "@tabler/icons-react";
 
 /**
