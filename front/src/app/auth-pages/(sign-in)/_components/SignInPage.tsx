@@ -18,6 +18,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { loginUser } from "@/lib/auth/action";
 import { POST_LOGIN_PATH } from "@/lib/auth/constants";
 import { useAuth } from "@/lib/contexts/AuthContext";
+import toast from "@/Component/Services/toast";
 
 type LoginActionState =
   | { error: string | null }
@@ -62,7 +63,8 @@ const SignInPage = () => {
           user: { id: number; name: string; email: string };
         }
       );
-      router.replace(POST_LOGIN_PATH);
+      toast.success("Signed in successfully.");
+      setTimeout(() => router.replace(POST_LOGIN_PATH), 500);
       return;
     }
     // Send signed in users to the app instead of the sign in form.

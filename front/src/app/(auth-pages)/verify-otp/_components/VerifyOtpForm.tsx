@@ -82,7 +82,11 @@ const VerifyOtpForm = ({
     }
 
     try {
-      const payload: { email: string; code: string; purpose?: string | null } = {
+      const payload: {
+        email: string;
+        code: string;
+        purpose?: string | null;
+      } = {
         email,
         code,
         purpose: purpose ?? null,
@@ -95,7 +99,9 @@ const VerifyOtpForm = ({
         router.push(`/auth-pages/reset-password?token=${res.access_token}`);
         return;
       }
-      toast.success("Account verified. Welcome bonus points have been added to your wallet.");
+      toast.success(
+        "Account verified. Welcome bonus points have been added to your wallet."
+      );
       await new Promise((r) => setTimeout(r, 500));
       router.replace(POST_LOGIN_PATH);
     } catch (err: any) {

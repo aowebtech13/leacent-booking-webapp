@@ -120,7 +120,8 @@ const TopProduct = () => {
       router.push(`/apps/book-library/read/${book.id}`);
     } catch (err: any) {
       const message = err?.message || "Failed to unlock book";
-      const insufficient = err?.status === 403 || /insufficient points/i.test(message);
+      const insufficient =
+        err?.status === 403 || /insufficient points/i.test(message);
       if (insufficient) {
         await Swal.fire({
           title: "Not enough points",
