@@ -49,7 +49,7 @@ const Setting = () => {
     }
   };
 
-const handleResetPassword = async () => {
+  const handleResetPassword = async () => {
     if (!user?.email) {
       toast.error("Email not found. Please contact support.");
       return;
@@ -142,11 +142,7 @@ const handleResetPassword = async () => {
                         onClick={handleResetPassword}
                         disabled={resettingPassword}
                       >
-                        <RotateCcw
-                          weight="bold"
-                          size={20}
-                          className="me-2"
-                        />
+                        <RotateCcw weight="bold" size={20} className="me-2" />
                         {resettingPassword ? (
                           <>
                             <Spinner size="sm" className="me-2" />
@@ -181,7 +177,7 @@ const handleResetPassword = async () => {
                       Dear {username}, you have {pointsLabel} point
                       {pointsLabel === "1" ? "" : "s"} left. Upgrade now.
                     </p>
-<div>
+                    <div>
                       <Link
                         href="/apps/pricing"
                         className="text-decoration-underline"
