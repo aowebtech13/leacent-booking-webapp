@@ -11,8 +11,10 @@ import {
   TabPane,
   Col,
   Row,
+  Spinner,
+  Alert,
 } from "reactstrap";
-import { Trash, UserCircleGear } from "phosphor-react";
+import { RotateCcw, UserCircleGear } from "phosphor-react";
 
 import SettingProfile from "@/app/apps/(setting)/_components/SettingProfile";
 import Breadcrumbs from "@/Component/CommonElements/Breadcrumbs";
@@ -20,12 +22,17 @@ import TimeSpent from "./TimeSpent";
 import { IconStack2 } from "@tabler/icons-react";
 import { useAuth } from "@/lib/contexts/AuthContext";
 import { getDashboard } from "@/lib/api/books";
+import { forgotPassword } from "@/lib/api/auth";
+import { useRouter } from "next/navigation";
+import toast from "@/Component/Services/toast";
 
 const Setting = () => {
   const { user, isAuthenticated } = useAuth();
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState("1");
   const [dashboard, setDashboard] = useState<DashboardResponse | null>(null);
   const [loading, setLoading] = useState(true);
+  const [resettingPassword, setResettingPassword] = useState(false);
 
   interface DashboardResponse {
     points_balance: number;
@@ -41,22 +48,21 @@ const Setting = () => {
     }
   };
 
-  const handleDeleteClick = async () => {
-    if (typeof window !== "undefined") {
-      const { default: Swal } = await import("sweetalert2");
-      const result = await Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
-      });
+  const handleResetPassword = async () => {
+    if (!user?.email) {
+      toast.error("Email not found. Please contact support.");
+      return;
+    }
 
-      if (result.isConfirmed) {
-        await Swal.fire("Deleted!", "Your file has been deleted.", "success");
-      }
+    setResettingPassword(true);
+    try {
+      await forgotPassword({ email: user.email });
+      toast.success("Password reset code sent to your email.");
+      router.push("/auth-pages/verify-otp?purpose=password-reset");
+    } catch (error: any) {
+      toast.error(error?.message || "Failed to send reset code. Please try again.");
+    } finally {
+      setResettingPassword(false);
     }
   };
 
@@ -123,11 +129,23 @@ const Setting = () => {
                     <NavItem className="cursor-pointer">
                       <NavLink
                         className="nav-link"
-                        id="account_delete"
-                        onClick={handleDeleteClick}
+                        id="account_reset_password"
+                        onClick={handleResetPassword}
+                        disabled={resettingPassword}
                       >
-                        <Trash weight="bold" size={20} className="me-2" />
-                        Delete Account
+                        <RotateCcw
+                          weight="bold"
+                          size={20}
+                          className="me-2"
+                        />
+                        {resettingPassword ? (
+                          <>
+                            <Spinner size="sm" className="me-2" />
+                            Sending...
+                          </>
+                        ) : (
+                          "Reset Password"
+                        )}
                       </NavLink>
                     </NavItem>
                   </Nav>
