@@ -6,8 +6,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Sign Up - Business Labs - Books & Movies",
     description:
-      "Create your account with our user-friendly registration system.",
+      "If you are looking for real-life investment, entrepreneurship, and business management resources, you are looking for Leacent's Business Lab Books - and Movies - brought to you by Firstborn Publishing. Create your account with our user-friendly registration system.",
     keywords: [
+      "Leacent's Business Lab Books",
+      "Firstborn Publishing",
+      "investment resources",
+      "entrepreneurship",
+      "business management",
       "sign up",
       "registration",
       "account creation",
@@ -28,7 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: "Sign Up - Business Labs - Books & Movies",
       description:
-        "Create your account with our user-friendly registration system.",
+        "If you are looking for real-life investment, entrepreneurship, and business management resources, you are looking for Leacent's Business Lab Books - and Movies - brought to you by Firstborn Publishing.",
       url: "https://businesslab.leacent.org/auth/sign-up",
       siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",

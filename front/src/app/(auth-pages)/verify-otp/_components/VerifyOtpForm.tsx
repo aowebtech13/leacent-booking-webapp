@@ -12,6 +12,7 @@ import {
   AuthResponse,
 } from "@/lib/api";
 import { POST_LOGIN_PATH } from "@/lib/auth/constants";
+import toast from "@/Component/Services/toast";
 
 type FormData = {
   code: string;
@@ -89,10 +90,12 @@ const VerifyOtpForm = ({
       const res: AuthResponse = await apiVerifyOtp(payload);
       setAuth(res);
       if (purpose === "password-reset") {
+        toast.success("Code verified. Set your new password.");
         router.push(`/auth-pages/reset-password?token=${res.access_token}`);
         return;
       }
-      router.push(POST_LOGIN_PATH);
+      toast.success("Account verified. Welcome bonus points have been added to your wallet.");
+      router.replace(POST_LOGIN_PATH);
     } catch (err: any) {
       verifyingRef.current = null;
       setError(err?.message || "Invalid OTP. Please try again.");
@@ -113,7 +116,8 @@ const VerifyOtpForm = ({
     setCanResend(false);
     try {
       await apiResendOtp({ email });
-      setResendMessage("Code has been resent");
+      setResendMessage("A new verification code has been sent to your email.");
+      toast.info("Verification code resent.");
       setTimeout(() => setResendMessage(null), 4000);
     } catch (err: any) {
       setResendTimer(60);

@@ -6,8 +6,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Terms & Conditions -Business Labs - Books & Movies",
     description:
-      "Terms and conditions page template for your React application's legal terms and user agreements.",
+      "If you are looking for real-life investment, entrepreneurship, and business management resources, you are looking for Leacent's Business Lab Books - and Movies - brought to you by Firstborn Publishing. Terms and conditions page template for your React application's legal terms and user agreements.",
     keywords: [
+      "Leacent's Business Lab Books",
+      "Firstborn Publishing",
+      "investment resources",
+      "entrepreneurship",
+      "business management",
       "terms and conditions",
       "react template",
       "UI template",
@@ -27,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: "Terms & Conditions -Business Labs - Books & Movies",
       description:
-        "Terms and conditions page template for your React application's legal terms and user agreements.",
+        "If you are looking for real-life investment, entrepreneurship, and business management resources, you are looking for Leacent's Business Lab Books - and Movies - brought to you by Firstborn Publishing.",
       url: "https://businesslab.leacent.org/other-pages/terms-condition",
       siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",

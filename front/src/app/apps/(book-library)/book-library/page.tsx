@@ -8,8 +8,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Book Library -Business Labs - Books & Movies",
     description:
-      "Browse and read your e-book library. Access EPUB, MOBI, KF8 (AZW3), FB2, CBZ, and PDF formats.",
+      "If you are looking for real-life investment, entrepreneurship, and business management resources, you are looking for Leacent's Business Lab Books - and Movies - brought to you by Firstborn Publishing. Browse and read your e-book library. Access EPUB, MOBI, KF8 (AZW3), FB2, CBZ, and PDF formats.",
     keywords: [
+      "Leacent's Business Lab Books",
+      "Firstborn Publishing",
+      "investment resources",
+      "entrepreneurship",
+      "business management",
       "book library",
       "ebook",
       "reader",
@@ -22,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: "Book Library -Business Labs - Books & Movies",
       description:
-        "Browse and read your e-book library with our built-in reader.",
+        "If you are looking for real-life investment, entrepreneurship, and business management resources, you are looking for Leacent's Business Lab Books - and Movies - brought to you by Firstborn Publishing.",
       url: "https://businesslab.leacent.org/apps/book-library",
       siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",

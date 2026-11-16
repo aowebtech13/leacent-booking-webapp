@@ -2,9 +2,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description"
-    content="Cuba admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin template with unlimited possibilities.">
+    content="If you are looking for real-life investment, entrepreneurship, and business management resources, you are looking for Leacent's Business Lab Books - and Movies - brought to you by Firstborn Publishing.">
 <meta name="keywords"
-    content="admin template, Cuba admin template, dashboard template, flat admin template, responsive admin template, web app">
+    content="Leacent's Business Lab Books, Firstborn Publishing, investment, entrepreneurship, business management, admin template, Cuba admin template, dashboard template, flat admin template, responsive admin template, web app">
 <meta name="author" content="pixelstrap">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">

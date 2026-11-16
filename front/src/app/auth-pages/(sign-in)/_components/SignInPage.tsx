@@ -131,6 +131,10 @@ const SignInPage = () => {
                           Sign in with your data that you entered during your
                           registration
                         </p>
+                        <p className="mb-0 text-muted small">
+                          Welcome to the real-life investment, entrepreneurship,
+                          and business management resource Lab.
+                        </p>
                       </Col>
 
                       {resetSent && (

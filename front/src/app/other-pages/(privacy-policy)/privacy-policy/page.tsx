@@ -6,8 +6,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Privacy Policy -Business Labs - Books & Movies",
     description:
-      "Privacy policy page template for your React application's data protection and user privacy information.",
+      "If you are looking for real-life investment, entrepreneurship, and business management resources, you are looking for Leacent's Business Lab Books - and Movies - brought to you by Firstborn Publishing. Privacy policy page template for your React application's data protection and user privacy information.",
     keywords: [
+      "Leacent's Business Lab Books",
+      "Firstborn Publishing",
+      "investment resources",
+      "entrepreneurship",
+      "business management",
       "privacy policy",
       "react template",
       "UI template",
@@ -27,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: "Privacy Policy -Business Labs - Books & Movies",
       description:
-        "Privacy policy page template for your React application's data protection and user privacy information.",
+        "If you are looking for real-life investment, entrepreneurship, and business management resources, you are looking for Leacent's Business Lab Books - and Movies - brought to you by Firstborn Publishing.",
       url: "https://businesslab.leacent.org/other-pages/privacy-policy",
       siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",

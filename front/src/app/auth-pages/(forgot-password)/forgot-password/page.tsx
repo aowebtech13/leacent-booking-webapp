@@ -6,8 +6,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Forgot Password -Business Labs - Books & Movies",
     description:
-      "Request a password reset link to be sent to your email address.",
+      "If you are looking for real-life investment, entrepreneurship, and business management resources, you are looking for Leacent's Business Lab Books - and Movies - brought to you by Firstborn Publishing. Request a password reset link to be sent to your email address.",
     keywords: [
+      "Leacent's Business Lab Books",
+      "Firstborn Publishing",
+      "investment resources",
+      "entrepreneurship",
+      "business management",
       "forgot password",
       "password reset",
       "reset password",
@@ -20,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: "Forgot Password -Business Labs - Books & Movies",
       description:
-        "Request a password reset link to be sent to your email address.",
+        "If you are looking for real-life investment, entrepreneurship, and business management resources, you are looking for Leacent's Business Lab Books - and Movies - brought to you by Firstborn Publishing.",
       url: "https://businesslab.leacent.org/auth/forgot-password",
       siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",

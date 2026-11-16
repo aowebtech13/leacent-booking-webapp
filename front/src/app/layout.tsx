@@ -41,11 +41,15 @@ export const metadata: Metadata = {
     template: "%s | The Business Lab",
   },
   description:
-    "The Business Lab empowers entrepreneurs with strategic business development, technology integration, branding, and innovative solutions. Business Lab dedicated to transforming the capacity, competence, and confidence of entrepreneurs and business managers.",
+    "If you are looking for real-life investment, entrepreneurship, and business management resources, you are looking for Leacent's Business Lab Books - and Movies - brought to you by Firstborn Publishing. The Business Lab empowers entrepreneurs with strategic business development, technology integration, branding, and innovative solutions. Business Lab dedicated to transforming the capacity, competence, and confidence of entrepreneurs and business managers.",
   keywords: [
     "The Business Lab",
+    "Leacent's Business Lab Books",
+    "Firstborn Publishing",
+    "investment resources",
+    "entrepreneurship",
+    "business management",
     "Business Development",
-    "Entrepreneurship",
     "Technology Integration",
     "Branding",
     "Strategic Solutions",
@@ -68,13 +72,13 @@ export const metadata: Metadata = {
     siteName: "The Business Lab",
     title: "The Business Lab",
     description:
-      "The Business Lab empowers entrepreneurs with strategic business development, technology integration, branding, and innovative solutions. Business Lab dedicated to transforming the capacity, competence, and confidence of entrepreneurs and business managers.",
+      "If you are looking for real-life investment, entrepreneurship, and business management resources, you are looking for Leacent's Business Lab Books - and Movies - brought to you by Firstborn Publishing. The Business Lab empowers entrepreneurs with strategic business development, technology integration, branding, and innovative solutions.",
   },
   twitter: {
     card: "summary_large_image",
     title: "The Business Lab",
     description:
-      "The Business Lab empowers entrepreneurs with strategic business development, technology integration, branding, and innovative solutions. Business Lab dedicated to transforming the capacity, competence, and confidence of entrepreneurs and business managers.",
+      "If you are looking for real-life investment, entrepreneurship, and business management resources, you are looking for Leacent's Business Lab Books - and Movies - brought to you by Firstborn Publishing.",
   },
 };
 

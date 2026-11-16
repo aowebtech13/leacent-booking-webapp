@@ -66,6 +66,11 @@ const SimplePricingCard: React.FC<SimplePricingCardProps> = ({
 
   return (
     <div className="simple-pricing-container">
+      <div className="text-center mb-3">
+        <p className="mb-0 text-muted small">
+          1 point is 150
+        </p>
+      </div>
       {loading ? (
         <div className="text-center py-4 text-muted">Loading plans…</div>
       ) : plans.length === 0 ? (
