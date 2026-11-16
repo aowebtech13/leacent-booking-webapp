@@ -7,6 +7,7 @@ import { Language, StarSolid } from "iconoir-react";
 import { getBooks, Book, Author, unlockBook } from "@/lib/api/books";
 import { getPublicAuthors } from "@/lib/api/authors";
 import { useRouter } from "next/navigation";
+import toast from "@/Component/Services/toast";
 
 const authorCardClasses = [
   "country-card-warning",
@@ -32,7 +33,6 @@ const TopProduct = () => {
   const [authors, setAuthors] = useState<Author[]>([]);
   const [authorsLoading, setAuthorsLoading] = useState(true);
   const [unlocking, setUnlocking] = useState<Set<number>>(new Set());
-  const [unlockError, setUnlockError] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -98,32 +98,48 @@ const TopProduct = () => {
     if (unlocking.has(book.id)) return;
     const { default: Swal } = await import("sweetalert2");
     const result = await Swal.fire({
-      title: "Purchase this book?",
-      html: `Do you want to purchase "<strong>${book.title}</strong>" `,
+      title: "Unlock this book?",
+      html: `Use <strong>${Number(book.points ?? 0)} point${Number(book.points ?? 0) === 1 ? "" : "s"}</strong> to unlock "<strong>${book.title}</strong>"?`,
       icon: "question",
       showCancelButton: true,
-      confirmButtonText: "Yes",
-      cancelButtonText: "No",
+      confirmButtonText: "Unlock",
+      cancelButtonText: "Cancel",
       reverseButtons: true,
+      confirmButtonColor: "#3085d6",
     });
     if (!result.isConfirmed) return;
-    setUnlocking((prev) => new Set([...prev, book.id]));
-    setUnlockError(null);
+    setUnlocking((prev) => new Set(prev).add(book.id));
     try {
-      await unlockBook(book.id);
-      setUnlocking((prev) => {
-        const next = new Set(prev);
-        next.delete(book.id);
-        return next;
-      });
+      const res = await unlockBook(book.id);
+      const remaining = res?.points_remaining;
+      toast.success(
+        `Unlocked "${book.title}"${typeof remaining === "number" ? `. ${remaining} point${remaining === 1 ? "" : "s"} remaining.` : "."}`
+      );
       router.push(`/apps/book-library/read/${book.id}`);
     } catch (err: any) {
+      const message = err?.message || "Failed to unlock book";
+      const insufficient = err?.status === 403 || /insufficient points/i.test(message);
+      if (insufficient) {
+        await Swal.fire({
+          title: "Not enough points",
+          text: `You need ${Number(book.points ?? 0)} point${Number(book.points ?? 0) === 1 ? "" : "s"} to unlock this book. Buy more points to continue.`,
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Buy points",
+          cancelButtonText: "Not now",
+          confirmButtonColor: "#3085d6",
+        }).then((r) => {
+          if (r.isConfirmed) router.push("/apps/pricing");
+        });
+        return;
+      }
+      toast.error(message);
+    } finally {
       setUnlocking((prev) => {
         const next = new Set(prev);
         next.delete(book.id);
         return next;
       });
-      setUnlockError(err?.message || "Failed to unlock book");
     }
   };
 
@@ -157,12 +173,6 @@ const TopProduct = () => {
                     <tr>
                       <td colSpan={5} className="text-center text-danger py-4">
                         {topProductsError}
-                      </td>
-                    </tr>
-                  ) : unlockError ? (
-                    <tr>
-                      <td colSpan={5} className="text-center text-danger py-4">
-                        {unlockError}
                       </td>
                     </tr>
                   ) : topProducts.length === 0 ? (

@@ -22,6 +22,7 @@ import { getBooks, Book, unlockBook } from "@/lib/api/books";
 import { IconBook, IconSearch, IconFileText } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import toast from "@/Component/Services/toast";
 
 const BookLibraryPage = () => {
   const [activeTab, setActiveTab] = useState("1");
@@ -50,11 +51,13 @@ const BookLibraryPage = () => {
       setBooks(booksData);
       const meta = (payload as any).meta ?? (res as any).meta;
       if (meta) {
-        setCurrentPage(meta.current_page);
-        setLastPage(meta.last_page);
+        setCurrentPage(meta.current_page ?? currentPage);
+        setLastPage(meta.last_page ?? 1);
       } else if ((payload as any).current_page) {
-        setCurrentPage((payload as any).current_page);
-        setLastPage((payload as any).last_page);
+        setCurrentPage((payload as any).current_page ?? currentPage);
+        setLastPage((payload as any).last_page ?? 1);
+      } else {
+        setLastPage(1);
       }
     } catch (err: any) {
       setError(err?.message || "Failed to load books");
@@ -69,7 +72,7 @@ const BookLibraryPage = () => {
 
   const handleRead = (book: Book) => {
     if (!book.file_url && !book.can_access) {
-      setError("This book is not available for reading yet.");
+      toast.error("This book is not available for reading yet.");
       return;
     }
     router.push(`/apps/book-library/read/${book.id}`);
@@ -77,44 +80,53 @@ const BookLibraryPage = () => {
 
   const handlePreview = (book: Book) => {
     if (book.preview_url) {
-      window.open(book.preview_url, "_blank");
+      window.open(book.preview_url, "_blank", "noopener,noreferrer");
     }
   };
 
   const handleUnlock = async (book: Book) => {
     if (unlocking.has(book.id)) return;
-    setUnlocking((prev) => new Set([...prev, book.id]));
+    setUnlocking((prev) => new Set(prev).add(book.id));
+    setError(null);
     try {
-      await unlockBook(book.id);
-      setUnlocking((prev) => {
-        const next = new Set(prev);
-        next.delete(book.id);
-        return next;
-      });
-      setError(null);
-      // Unlock succeeded: open the book PDF reader immediately.
+      const res = await unlockBook(book.id);
+      const remaining = res?.points_remaining;
+      toast.success(
+        `Unlocked "${book.title}"${typeof remaining === "number" ? `. ${remaining} point${remaining === 1 ? "" : "s"} remaining.` : "."}`
+      );
+      setBooks((prev) =>
+        prev.map((b) =>
+          b.id === book.id ? { ...b, can_access: true, access_type: "points" } : b
+        )
+      );
       router.push(`/apps/book-library/read/${book.id}`);
     } catch (err: any) {
-      setUnlocking((prev) => {
-        const next = new Set(prev);
-        next.delete(book.id);
-        return next;
-      });
       const message = err?.message || "Failed to unlock book";
-      if (err?.status === 403 || /insufficient points/i.test(message)) {
+      const insufficient = err?.status === 403 || /insufficient points/i.test(message);
+      if (insufficient) {
         if (typeof window !== "undefined") {
           const { default: Swal } = await import("sweetalert2");
           await Swal.fire({
-            title: "Upgrade your points",
-            text: "You don't have enough points to unlock this book. Please upgrade your points balance and try again.",
+            title: "Not enough points",
+            text: `You need ${book.points} point${book.points === 1 ? "" : "s"} to unlock this book. Buy more points to continue.`,
             icon: "warning",
-            confirmButtonColor: "#d33",
-            confirmButtonText: "OK",
+            showCancelButton: true,
+            confirmButtonText: "Buy points",
+            cancelButtonText: "Not now",
+            confirmButtonColor: "#3085d6",
+          }).then((result) => {
+            if (result.isConfirmed) router.push("/apps/pricing");
           });
         }
         return;
       }
-      setError(message);
+      toast.error(message);
+    } finally {
+      setUnlocking((prev) => {
+        const next = new Set(prev);
+        next.delete(book.id);
+        return next;
+      });
     }
   };
 
@@ -149,7 +161,10 @@ const BookLibraryPage = () => {
                         type="text"
                         placeholder="Search by title, author, or ISBN..."
                         value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onChange={(e) => {
+                          setSearchQuery(e.target.value);
+                          setCurrentPage(1);
+                        }}
                       />
                       <InputGroupText>
                         <IconSearch size={18} />
@@ -160,7 +175,11 @@ const BookLibraryPage = () => {
               </Row>
 
               {error && (
-                <Alert color="danger" className="mb-4">
+                <Alert
+                  color="danger"
+                  className="mb-4"
+                  toggle={() => setError(null)}
+                >
                   {error}
                 </Alert>
               )}
@@ -174,7 +193,7 @@ const BookLibraryPage = () => {
                 </Row>
               ) : books.length === 0 ? (
                 <Alert color="info" className="text-center py-5">
-                  <IconBook size={48} className="mb-3 d-block" />
+                  <IconBook size={48} className="mb-3 d-block mx-auto" />
                   <h4>No books found</h4>
                   <p className="mb-0">
                     {searchQuery
@@ -185,101 +204,100 @@ const BookLibraryPage = () => {
               ) : (
                 <>
                   <Row className="g-4">
-                    {books.map((book) => (
-                      <Col key={book.id} xs={12} sm={6} lg={4} xl={3}>
-                        <Card className="h-100 book-card">
-                          <div className="book-cover-wrapper position-relative">
-                            {book.cover_url ? (
-                              <div
-                                className="book-cover position-relative w-100"
-                                style={{ aspectRatio: "2 / 3" }}
-                              >
-                                <Image
-                                  src={book.cover_url}
-                                  alt={book.title}
-                                  fill
-                                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
-                                  style={{ objectFit: "cover" }}
-                                />
-                              </div>
-                            ) : (
-                              <div className="book-cover-placeholder d-flex align-items-center justify-content-center bg-light">
-                                <IconFileText size={64} color="#ccc" />
-                              </div>
-                            )}
-                            <span className="badge bg-info position-absolute top-0 end-0 m-2">
-                              {book.points} pts
-                            </span>
-                            {!book.is_active && (
-                              <span className="badge bg-secondary position-absolute top-0 start-0 m-2">
-                                Inactive
-                              </span>
-                            )}
-                          </div>
-                          <CardBody className="d-flex flex-column">
-                            <h5 className="card-title mb-1">{book.title}</h5>
-                            <p className="text-muted small mb-2">
-                              {book.author || "Unknown Author"}
-                            </p>
-                            {book.description && (
-                              <p className="card-text text-muted small flex-grow-1">
-                                {book.description.substring(0, 100)}
-                                {book.description.length > 100 ? "..." : ""}
-                              </p>
-                            )}
-                            <div className="book-meta small text-muted mb-3">
-                              {book.page_count && (
-                                <span className="me-3">
-                                  <IconFileText size={14} className="me-1" />
-                                  {book.page_count} pages
-                                </span>
-                              )}
-                              {book.format && (
-                                <span className="badge bg-light text-dark">
-                                  {book.format.toUpperCase()}
-                                </span>
-                              )}
-                            </div>
-                            <div className="d-flex gap-2 mt-auto">
-                              {book.can_access && book.file_url ? (
-                                <Button
-                                  color="primary"
-                                  className="flex-grow-1"
-                                  onClick={() => handleRead(book)}
+                    {books.map((book) => {
+                      const isUnlocking = unlocking.has(book.id);
+                      const canRead = Boolean(book.can_access && book.file_url);
+                      return (
+                        <Col key={book.id} xs={12} sm={6} lg={4} xl={3}>
+                          <Card className="h-100 book-card">
+                            <div className="book-cover-wrapper position-relative">
+                              {book.cover_url ? (
+                                <div
+                                  className="book-cover position-relative w-100"
+                                  style={{ aspectRatio: "2 / 3" }}
                                 >
-                                  Read Now
-                                </Button>
-                              ) : unlocking.has(book.id) ? (
-                                <Button
-                                  color="outline-primary"
-                                  className="flex-grow-1"
-                                  disabled
-                                >
-                                  Unlocking…
-                                </Button>
+                                  <Image
+                                    src={book.cover_url}
+                                    alt={book.title}
+                                    fill
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+                                    style={{ objectFit: "cover" }}
+                                  />
+                                </div>
                               ) : (
-                                <Button
-                                  color="outline-primary"
-                                  className="flex-grow-1"
-                                  onClick={() => handleUnlock(book)}
-                                >
-                                  Unlock ({book.points} pts)
-                                </Button>
+                                <div className="book-cover-placeholder d-flex align-items-center justify-content-center bg-light">
+                                  <IconFileText size={64} color="#ccc" />
+                                </div>
                               )}
-                              {book.preview_url && (
-                                <Button
-                                  color="outline-secondary"
-                                  size="sm"
-                                  onClick={() => handlePreview(book)}
-                                >
-                                  Preview
-                                </Button>
+                              <span className="badge bg-info position-absolute top-0 end-0 m-2">
+                                {book.points} pts
+                              </span>
+                              {!book.is_active && (
+                                <span className="badge bg-secondary position-absolute top-0 start-0 m-2">
+                                  Inactive
+                                </span>
                               )}
                             </div>
-                          </CardBody>
-                        </Card>
-                      </Col>
-                    ))}
+                            <CardBody className="d-flex flex-column">
+                              <h5 className="card-title mb-1">{book.title}</h5>
+                              <p className="text-muted small mb-2">
+                                {book.author || "Unknown Author"}
+                              </p>
+                              {book.description && (
+                                <p className="card-text text-muted small flex-grow-1">
+                                  {book.description.substring(0, 100)}
+                                  {book.description.length > 100 ? "..." : ""}
+                                </p>
+                              )}
+                              <div className="book-meta small text-muted mb-3">
+                                {book.page_count && (
+                                  <span className="me-3">
+                                    <IconFileText size={14} className="me-1" />
+                                    {book.page_count} pages
+                                  </span>
+                                )}
+                                {book.format && (
+                                  <span className="badge bg-light text-dark">
+                                    {book.format.toUpperCase()}
+                                  </span>
+                                )}
+                              </div>
+                              <div className="d-flex gap-2 mt-auto">
+                                {canRead ? (
+                                  <Button
+                                    color="primary"
+                                    className="flex-grow-1"
+                                    onClick={() => handleRead(book)}
+                                  >
+                                    Read Now
+                                  </Button>
+                                ) : (
+                                  <Button
+                                    color="outline-primary"
+                                    className="flex-grow-1"
+                                    onClick={() => handleUnlock(book)}
+                                    disabled={isUnlocking}
+                                  >
+                                    {isUnlocking
+                                      ? "Unlocking…"
+                                      : `Unlock (${book.points} pts)`}
+                                  </Button>
+                                )}
+                                {book.preview_url && (
+                                  <Button
+                                    color="outline-secondary"
+                                    size="sm"
+                                    onClick={() => handlePreview(book)}
+                                  >
+                                    Preview
+                                  </Button>
+                                )}
+                              </div>
+                            </CardBody>
+                          </Card>
+                        </Col>
+                      );
+                    })}
                   </Row>
 
                   {lastPage > 1 && (
@@ -290,10 +308,7 @@ const BookLibraryPage = () => {
                         >
                           <button
                             className="page-link"
-                            onClick={() => {
-                              setCurrentPage(currentPage - 1);
-                              fetchBooks();
-                            }}
+                            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                             disabled={currentPage === 1}
                           >
                             Previous
@@ -307,10 +322,7 @@ const BookLibraryPage = () => {
                             >
                               <button
                                 className="page-link"
-                                onClick={() => {
-                                  setCurrentPage(page);
-                                  fetchBooks();
-                                }}
+                                onClick={() => setCurrentPage(page)}
                               >
                                 {page}
                               </button>
@@ -322,10 +334,7 @@ const BookLibraryPage = () => {
                         >
                           <button
                             className="page-link"
-                            onClick={() => {
-                              setCurrentPage(currentPage + 1);
-                              fetchBooks();
-                            }}
+                            onClick={() => setCurrentPage((p) => Math.min(lastPage, p + 1))}
                             disabled={currentPage === lastPage}
                           >
                             Next
