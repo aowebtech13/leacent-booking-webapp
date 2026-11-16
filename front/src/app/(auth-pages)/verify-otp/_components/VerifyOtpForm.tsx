@@ -91,10 +91,12 @@ const VerifyOtpForm = ({
       setAuth(res);
       if (purpose === "password-reset") {
         toast.success("Code verified. Set your new password.");
+        await new Promise((r) => setTimeout(r, 500));
         router.push(`/auth-pages/reset-password?token=${res.access_token}`);
         return;
       }
       toast.success("Account verified. Welcome bonus points have been added to your wallet.");
+      await new Promise((r) => setTimeout(r, 500));
       router.replace(POST_LOGIN_PATH);
     } catch (err: any) {
       verifyingRef.current = null;

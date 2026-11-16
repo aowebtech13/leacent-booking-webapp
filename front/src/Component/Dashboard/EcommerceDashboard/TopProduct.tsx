@@ -115,6 +115,8 @@ const TopProduct = () => {
       toast.success(
         `Unlocked "${book.title}"${typeof remaining === "number" ? `. ${remaining} point${remaining === 1 ? "" : "s"} remaining.` : "."}`
       );
+      // Allow toast to appear before navigation
+      await new Promise((r) => setTimeout(r, 500));
       router.push(`/apps/book-library/read/${book.id}`);
     } catch (err: any) {
       const message = err?.message || "Failed to unlock book";

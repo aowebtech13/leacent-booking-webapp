@@ -99,6 +99,8 @@ const BookLibraryPage = () => {
           b.id === book.id ? { ...b, can_access: true, access_type: "points" } : b
         )
       );
+      // Allow toast to appear before navigation
+      await new Promise((r) => setTimeout(r, 500));
       router.push(`/apps/book-library/read/${book.id}`);
     } catch (err: any) {
       const message = err?.message || "Failed to unlock book";
