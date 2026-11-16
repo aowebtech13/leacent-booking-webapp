@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import Image from "next/image";
@@ -31,26 +31,86 @@ const VerifyOtpForm = ({
   const [resendTimer, setResendTimer] = useState(60);
   const [canResend, setCanResend] = useState(false);
   const [email] = useState<string | null>(initialEmail);
+  const [otpDigits, setOtpDigits] = useState<string[]>(["", "", "", "", ""]);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const verifyingRef = useRef<string | null>(null);
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([
+    null,
+    null,
+    null,
+    null,
+    null,
+  ]);
   const router = useRouter();
   const { setAuth } = useAuth();
 
-  const { register, handleSubmit, setValue, watch } = useForm<FormData>();
+  const { register, handleSubmit, setValue } = useForm<FormData>();
 
-  const code = watch("code");
+  const handleOtpChange = useCallback(
+    (index: number, value: string) => {
+      if (!/^\d*$/.test(value)) return;
+      if (value.length > 1) return;
 
-  useEffect(() => {
-    if (
-      code &&
-      code.length === 5 &&
-      !isLoading &&
-      verifyingRef.current !== code
-    ) {
-      verifyingRef.current = code;
-      onSubmit({ code });
+      const newDigits = [...otpDigits];
+      newDigits[index] = value;
+      setOtpDigits(newDigits);
+
+      const fullCode = newDigits.join("");
+      setValue("code", fullCode, { shouldValidate: true });
+
+      if (value && index < 4) {
+        inputRefs.current[index + 1]?.focus();
+      }
+
+      if (
+        fullCode.length === 5 &&
+        !isLoading &&
+        verifyingRef.current !== fullCode
+      ) {
+        verifyingRef.current = fullCode;
+        onSubmit({ code: fullCode });
+      }
+    },
+    [otpDigits, setValue, isLoading]
+  );
+
+  const handleKeyDown = useCallback(
+    (index: number, e: React.KeyboardEvent) => {
+      if (e.key === "Backspace" && !otpDigits[index] && index > 0) {
+        inputRefs.current[index - 1]?.focus();
+      }
+      if (e.key === "ArrowLeft" && index > 0) {
+        inputRefs.current[index - 1]?.focus();
+      }
+      if (e.key === "ArrowRight" && index < 4) {
+        inputRefs.current[index + 1]?.focus();
+      }
+    },
+    [otpDigits]
+  );
+
+  const handlePaste = useCallback(
+    (e: React.ClipboardEvent) => {
+      e.preventDefault();
+      const pasted = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, 5);
+      const digits = pasted.split("");
+      digits.forEach((digit, i) => {
+      if (i < 5) {
+        const newDigits = [...otpDigits];
+        newDigits[i] = digit;
+        setOtpDigits(newDigits);
+      }
+    });
+    const fullCode = digits.join("");
+    setValue("code", fullCode, { shouldValidate: true });
+    if (fullCode.length === 5) {
+      inputRefs.current[4]?.focus();
+      if (!isLoading && verifyingRef.current !== fullCode) {
+        verifyingRef.current = fullCode;
+        onSubmit({ code: fullCode });
+      }
     }
-  }, [code, isLoading]);
+  }, [otpDigits, setValue, isLoading]);
 
   useEffect(() => {
     timerRef.current = setInterval(() => {
@@ -109,6 +169,8 @@ const VerifyOtpForm = ({
       setError(err?.message || "Invalid OTP. Please try again.");
       setIsLoading(false);
       setValue("code", "");
+      setOtpDigits(["", "", "", "", ""]);
+      inputRefs.current[0]?.focus();
     }
   };
 
@@ -184,22 +246,29 @@ const VerifyOtpForm = ({
           )}
 
           <div className="form-group mb-5">
-            <div className="otp-input-wrapper">
+            <div className="otp-inputs-container d-flex justify-content-center gap-3">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <input
+                  key={i}
+                  ref={(el) => { inputRefs.current[i] = el; }}
+                  type="text"
+                  inputMode="numeric"
+                  maxLength={1}
+                  autoComplete="one-time-code"
+                  autoFocus={i === 0}
+                  className={`form-control otp-digit-input text-center ${otpDigits[i] ? "filled" : ""}`}
+                  value={otpDigits[i]}
+                  onChange={(e) => handleOtpChange(i, e.target.value)}
+                  onKeyDown={(e) => handleKeyDown(i, e)}
+                  onPaste={handlePaste}
+                  disabled={isLoading}
+                  aria-label={`OTP digit ${i + 1}`}
+                />
+              ))}
               <input
-                type="text"
-                maxLength={5}
-                inputMode="numeric"
-                autoComplete="one-time-code"
-                autoFocus
-                className="form-control text-center otp-input-lg otp-input-with-divider"
+                type="hidden"
                 {...register("code", { required: "Required" })}
               />
-              <div className="otp-divider">
-                <span>-</span>
-                <span>-</span>
-                <span>-</span>
-                <span>-</span>
-              </div>
             </div>
           </div>
         </form>
