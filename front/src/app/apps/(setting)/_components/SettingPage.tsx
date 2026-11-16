@@ -19,6 +19,7 @@ import { RotateCcw, UserCircleGear } from "phosphor-react";
 import SettingProfile from "@/app/apps/(setting)/_components/SettingProfile";
 import Breadcrumbs from "@/Component/CommonElements/Breadcrumbs";
 import TimeSpent from "./TimeSpent";
+import Link from "next/link";
 import { IconStack2 } from "@tabler/icons-react";
 import { useAuth } from "@/lib/contexts/AuthContext";
 import { getDashboard } from "@/lib/api/books";
@@ -48,7 +49,7 @@ const Setting = () => {
     }
   };
 
-  const handleResetPassword = async () => {
+const handleResetPassword = async () => {
     if (!user?.email) {
       toast.error("Email not found. Please contact support.");
       return;
@@ -60,7 +61,9 @@ const Setting = () => {
       toast.success("Password reset code sent to your email.");
       router.push("/auth-pages/verify-otp?purpose=password-reset");
     } catch (error: any) {
-      toast.error(error?.message || "Failed to send reset code. Please try again.");
+      toast.error(
+        error?.message || "Failed to send reset code. Please try again."
+      );
     } finally {
       setResettingPassword(false);
     }
@@ -90,9 +93,15 @@ const Setting = () => {
   }, [isAuthenticated]);
 
   const username = user?.name ?? "there";
-  const pointsLabel = loading ? "..." : (dashboard?.points_balance ?? 0).toLocaleString();
-  const pointsSpentLabel = loading ? "..." : (dashboard?.points_spent ?? 0).toLocaleString();
-  const totalBooksLabel = loading ? "..." : (dashboard?.total_books ?? 0).toLocaleString();
+  const pointsLabel = loading
+    ? "..."
+    : (dashboard?.points_balance ?? 0).toLocaleString();
+  const pointsSpentLabel = loading
+    ? "..."
+    : (dashboard?.points_spent ?? 0).toLocaleString();
+  const totalBooksLabel = loading
+    ? "..."
+    : (dashboard?.total_books ?? 0).toLocaleString();
 
   return (
     <>
@@ -172,13 +181,13 @@ const Setting = () => {
                       Dear {username}, you have {pointsLabel} point
                       {pointsLabel === "1" ? "" : "s"} left. Upgrade now.
                     </p>
-                    <div>
-                      <a
+<div>
+                      <Link
                         href="/apps/pricing"
                         className="text-decoration-underline"
                       >
                         Upgrade plan
-                      </a>
+                      </Link>
                     </div>
                   </CardBody>
                 </Card>
