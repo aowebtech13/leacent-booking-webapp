@@ -22,7 +22,7 @@ import Link from "next/link";
 import { IconStack2 } from "@tabler/icons-react";
 import { useAuth } from "@/lib/contexts/AuthContext";
 import { getDashboard } from "@/lib/api/books";
-import { forgotPassword } from "@/lib/api/auth";
+import { requestPasswordReset } from "@/lib/auth/action";
 import { useRouter } from "next/navigation";
 import toast from "@/Component/Services/toast";
 
@@ -56,13 +56,15 @@ const Setting = () => {
 
     setResettingPassword(true);
     try {
-      await forgotPassword({ email: user.email });
+      const res = await requestPasswordReset(user.email);
+      if (res.error) {
+        toast.error(res.error);
+        return;
+      }
       toast.success("Password reset code sent to your email.");
-      router.push("/auth-pages/verify-otp?purpose=password-reset");
-    } catch (error: any) {
-      toast.error(
-        error?.message || "Failed to send reset code. Please try again."
-      );
+      router.push("/verify-otp?purpose=password-reset");
+    } catch {
+      toast.error("Failed to send reset code. Please try again.");
     } finally {
       setResettingPassword(false);
     }

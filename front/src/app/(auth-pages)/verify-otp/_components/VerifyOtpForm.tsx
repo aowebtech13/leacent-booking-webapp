@@ -255,7 +255,9 @@ const VerifyOtpForm = ({
               {Array.from({ length: 5 }).map((_, i) => (
                 <input
                   key={i}
-                  ref={(el) => { inputRefs.current[i] = el; }}
+                  ref={(el) => {
+                    inputRefs.current[i] = el;
+                  }}
                   type="text"
                   inputMode="numeric"
                   maxLength={1}
