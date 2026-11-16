@@ -12,9 +12,8 @@ import {
   Col,
   Row,
   Spinner,
-  Alert,
 } from "reactstrap";
-import { RotateCcw, UserCircleGear } from "phosphor-react";
+import { ArrowClockwise, UserCircleGear } from "phosphor-react";
 
 import SettingProfile from "@/app/apps/(setting)/_components/SettingProfile";
 import Breadcrumbs from "@/Component/CommonElements/Breadcrumbs";
@@ -142,7 +141,11 @@ const Setting = () => {
                         onClick={handleResetPassword}
                         disabled={resettingPassword}
                       >
-                        <RotateCcw weight="bold" size={20} className="me-2" />
+                        <ArrowClockwise
+                          weight="bold"
+                          size={20}
+                          className="me-2"
+                        />
                         {resettingPassword ? (
                           <>
                             <Spinner size="sm" className="me-2" />
