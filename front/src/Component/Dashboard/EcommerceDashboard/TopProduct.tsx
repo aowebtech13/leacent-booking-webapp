@@ -230,7 +230,7 @@ const TopProduct = () => {
                               size="sm"
                               onClick={() => handleUnlock(product)}
                             >
-                              Unlock ({Number(product.points ?? 0)} pts)
+                              Unlock 
                             </Button>
                           )}
                         </td>
