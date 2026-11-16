@@ -92,25 +92,30 @@ const VerifyOtpForm = ({
   const handlePaste = useCallback(
     (e: React.ClipboardEvent) => {
       e.preventDefault();
-      const pasted = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, 5);
+      const pasted = e.clipboardData
+        .getData("text")
+        .replace(/\D/g, "")
+        .slice(0, 5);
       const digits = pasted.split("");
       digits.forEach((digit, i) => {
-      if (i < 5) {
-        const newDigits = [...otpDigits];
-        newDigits[i] = digit;
-        setOtpDigits(newDigits);
+        if (i < 5) {
+          const newDigits = [...otpDigits];
+          newDigits[i] = digit;
+          setOtpDigits(newDigits);
+        }
+      });
+      const fullCode = digits.join("");
+      setValue("code", fullCode, { shouldValidate: true });
+      if (fullCode.length === 5) {
+        inputRefs.current[4]?.focus();
+        if (!isLoading && verifyingRef.current !== fullCode) {
+          verifyingRef.current = fullCode;
+          onSubmit({ code: fullCode });
+        }
       }
-    });
-    const fullCode = digits.join("");
-    setValue("code", fullCode, { shouldValidate: true });
-    if (fullCode.length === 5) {
-      inputRefs.current[4]?.focus();
-      if (!isLoading && verifyingRef.current !== fullCode) {
-        verifyingRef.current = fullCode;
-        onSubmit({ code: fullCode });
-      }
-    }
-  }, [otpDigits, setValue, isLoading]);
+    },
+    [otpDigits, setValue, isLoading]
+  );
 
   useEffect(() => {
     timerRef.current = setInterval(() => {
