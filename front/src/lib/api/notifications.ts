@@ -31,8 +31,9 @@ export interface UnreadCountResponse {
 
 export async function fetchNotifications(): Promise<Notification[]> {
   const res = await api.get("notifications");
-  const data = res.data as Notification[];
-  return Array.isArray(data) ? data : [];
+  const body = res.data as NotificationsResponse | Notification[];
+  if (Array.isArray(body)) return body;
+  return Array.isArray(body?.data) ? body.data : [];
 }
 
 export async function fetchUnreadCount(): Promise<number> {
