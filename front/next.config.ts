@@ -25,6 +25,17 @@ const nextConfig: NextConfig = {
         hostname: "leacentbooks-enterpise.lexicron.org",
         pathname: "/**",
       },
+      // Laravel backend API host (storage covers/PDFs/avatars)
+      {
+        protocol: "https",
+        hostname: "ledbackbus-amdin-esslabapi.leacent.org",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "ledbackbus-admin-esslabapi.leacent.org",
+        pathname: "/**",
+      },
       // Local development server (https://dbackbus-admin-esslabapi.leacent.org and localhost)
       {
         protocol: "http",

@@ -73,22 +73,22 @@
 <div class="col-md-4">
                                 <label class="form-label">Format</label>
                                 <input type="text" name="format" class="form-control" value="{{ old('format', $book->format) }}">
-                                @error('format') <span class="text-danger f-12">{{ $message }}</span> @endif
+                                @error('format') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Publication Year</label>
                                 <input type="number" name="publication_year" class="form-control" value="{{ old('publication_year', $book->publication_year) }}" min="1000" max="9999">
-                                @error('publication_year') <span class="text-danger f-12">{{ $message }}</span> @endif
+                                @error('publication_year') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Page Count</label>
                                 <input type="number" name="page_count" class="form-control" value="{{ old('page_count', $book->page_count) }}" min="1">
-                                @error('page_count') <span class="text-danger f-12">{{ $message }}</span> @endif
+                                @error('page_count') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Points Required</label>
                                 <input type="number" name="points" class="form-control" value="{{ old('points', $book->points) }}" min="0">
-                                @error('points') <span class="text-danger f-12">{{ $message }}</span> @endif
+                                @error('points') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
 
                             <div class="col-md-6">
@@ -126,12 +126,12 @@
                                 <hr>
                                 <button type="submit" class="btn btn-primary">Update Book</button>
                                 <a href="{{ route('admin.books.index') }}" class="btn btn-secondary">Back to List</a>
-                                <form action="{{ route('admin.books.destroy', $book) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this book?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Delete Book</button>
-                                </form>
                             </div>
+                        </form>
+                        <form action="{{ route('admin.books.destroy', $book) }}" method="POST" class="mt-3" onsubmit="return confirm('Are you sure you want to delete this book?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete Book</button>
                         </form>
                     </div>
                 </div>

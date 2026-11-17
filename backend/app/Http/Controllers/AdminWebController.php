@@ -779,6 +779,7 @@ class AdminWebController extends Controller
             'file' => 'required|file|mimes:pdf|max:20480',
             'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'is_premium' => 'sometimes|boolean',
+            'points' => 'nullable|integer|min:0',
             'is_active' => 'sometimes|boolean',
             'is_featured' => 'sometimes|boolean',
             'tags' => 'sometimes|array',
@@ -789,6 +790,7 @@ class AdminWebController extends Controller
         }
 
         $data['is_premium'] = $data['is_premium'] ?? false;
+        $data['points'] = $data['points'] ?? 0;
         $data['is_active'] = $data['is_active'] ?? true;
         $data['is_featured'] = $data['is_featured'] ?? false;
 
@@ -833,6 +835,7 @@ class AdminWebController extends Controller
             'file' => 'sometimes|nullable|file|mimes:pdf|max:20480',
             'cover_image' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'is_premium' => 'sometimes|boolean',
+            'points' => 'sometimes|nullable|integer|min:0',
             'is_active' => 'sometimes|boolean',
             'is_featured' => 'sometimes|boolean',
             'tags' => 'sometimes|array',
@@ -840,6 +843,10 @@ class AdminWebController extends Controller
 
         if (isset($data['slug']) && empty($data['slug'])) {
             $data['slug'] = \Illuminate\Support\Str::slug($data['title'] ?? $book->title);
+        }
+
+        if (array_key_exists('points', $data)) {
+            $data['points'] = $data['points'] ?? 0;
         }
 
         // Handle cover image upload

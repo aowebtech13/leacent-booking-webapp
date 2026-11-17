@@ -78,6 +78,17 @@
                                 <input type="number" name="page_count" class="form-control" value="{{ old('page_count') }}" min="1">
                                 @error('page_count') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Language</label>
+                                <input type="text" name="language" class="form-control" value="{{ old('language', 'en') }}" placeholder="e.g. en, fr, es">
+                                @error('language') <span class="text-danger f-12">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Points Required</label>
+                                <input type="number" name="points" class="form-control" value="{{ old('points', 0) }}" min="0" placeholder="0 = free">
+                                <small class="form-text text-muted">Points needed to unlock this book (0 = free).</small>
+                                @error('points') <span class="text-danger f-12">{{ $message }}</span> @enderror
+                            </div>
 <div class="col-md-6">
                                 <label class="form-label">Upload PDF <span class="text-danger">*</span></label>
                                 <input type="file" name="file" class="form-control" accept="application/pdf" required>
