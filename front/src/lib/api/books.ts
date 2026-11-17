@@ -192,7 +192,12 @@ export interface BookUnlockResponse {
 }
 
 export function unlockBook(id: number): Promise<BookUnlockResponse> {
-  return api.post(`books/${id}/unlock`).then((res) => res.data);
+  return api.post(`books/${id}/unlock`).then((res) => {
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event("leacent:points-updated"));
+    }
+    return res.data;
+  });
 }
 
 /* ------------------------------------------------------------------ */
@@ -272,6 +277,28 @@ export interface PointsSpentResponse {
 
 export function getPointsSpent(): Promise<PointsSpentResponse> {
   return api.get("profile/points-spent").then((res) => res.data);
+}
+
+export interface WalletTransaction {
+  id: number;
+  user_id: number;
+  amount: number;
+  type: "credit" | "debit";
+  description: string;
+  reference: string;
+  created_at: string;
+  updated_at: string;
+}
+
+/**
+ * The authenticated user's point wallet ledger (credits and debits).
+ */
+export function getWalletTransactions(): Promise<WalletTransaction[]> {
+  return api.get("profile/transactions").then((res) => {
+    const payload = res.data;
+    if (Array.isArray(payload)) return payload;
+    return payload?.data ?? [];
+  });
 }
 
 export interface DashboardResponse {
