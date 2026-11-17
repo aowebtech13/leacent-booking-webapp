@@ -44,17 +44,24 @@ const BookReaderPage = () => {
         setBook(res.book);
         setFileUrl(res.file_url);
       } catch (readErr: any) {
-        // Fallback: load book details and try its public file URL if present.
+        // The read endpoint failed (no access / no file uploaded). Fall back
+        // to the public book endpoint to tell "book missing" apart from
+        // "book exists but is not readable".
+        let details: Book | null = null;
         try {
-          const details = await getBook(bookId);
-          setBook(details);
-          if (details?.file_url) {
-            setFileUrl(details.file_url);
-          } else {
-            throw readErr;
-          }
-        } catch {
-          throw readErr;
+          details = await getBook(bookId);
+        } catch (bookErr: any) {
+          // Public endpoint also failed → book itself doesn't exist.
+          throw bookErr;
+        }
+        setBook(details);
+        if (details?.file_url) {
+          // Public file URL available as a fallback.
+          setFileUrl(details.file_url);
+        } else {
+          // Book exists but is not readable (no access or no file uploaded).
+          // Surface the backend's message instead of a generic error.
+          setError(readErr?.message || "Book file is not available yet.");
         }
       }
 

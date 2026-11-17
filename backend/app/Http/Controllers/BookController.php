@@ -136,6 +136,13 @@ class BookController extends Controller
 
         $pointsRequired = $book->points_required;
 
+        if (! $book->file_path) {
+            return response()->json([
+                'success' => false,
+                'message' => 'This book is not available for reading yet. Please contact support.',
+            ], 422);
+        }
+
         if (! $profile->hasEnoughPoints($pointsRequired)) {
             return response()->json([
                 'success' => false,
