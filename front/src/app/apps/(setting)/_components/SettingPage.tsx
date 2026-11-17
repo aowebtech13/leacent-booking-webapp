@@ -27,7 +27,7 @@ import { useRouter } from "next/navigation";
 import toast from "@/Component/Services/toast";
 
 const Setting = () => {
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, refreshUser } = useAuth();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("1");
   const [dashboard, setDashboard] = useState<DashboardResponse | null>(null);
@@ -49,14 +49,21 @@ const Setting = () => {
   };
 
   const handleResetPassword = async () => {
-    if (!user?.email) {
-      toast.error("Email not found. Please contact support.");
-      return;
-    }
-
     setResettingPassword(true);
     try {
-      const res = await requestPasswordReset(user.email);
+      // The session is restored asynchronously, so re-fetch the user when the
+      // email is not in context yet (e.g. after a hard refresh).
+      const email = user?.email ?? (await refreshUser())?.email;
+
+      if (!email) {
+        toast.error(
+          "Your session has expired. Please sign in again to reset your password.",
+          6000
+        );
+        return;
+      }
+
+      const res = await requestPasswordReset(email);
       if (res.error) {
         toast.error(res.error);
         return;
