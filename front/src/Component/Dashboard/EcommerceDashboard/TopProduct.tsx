@@ -68,7 +68,7 @@ const TopProduct = () => {
       setAuthorsLoading(true);
       try {
         const data = await getPublicAuthors();
-        if (!cancelled) setAuthors(data ?? []);
+        if (!cancelled) setAuthors(data?.data ?? []);
       } catch {
         if (!cancelled) setAuthors([]);
       } finally {

@@ -55,9 +55,11 @@ export function getAuthors(
  * Optionally accepts a search query and pagination params.
  * Returns { data, meta } like other list endpoints.
  */
-export function getPublicAuthors(
-  query?: { search?: string; per_page?: number; page?: number }
-): Promise<AuthorListResponse> {
+export function getPublicAuthors(query?: {
+  search?: string;
+  per_page?: number;
+  page?: number;
+}): Promise<AuthorListResponse> {
   const params: Record<string, any> = {};
   if (query?.search) params.search = query.search;
   if (query?.per_page) params.per_page = query.per_page;

@@ -96,7 +96,9 @@ const BookLibraryPage = () => {
       );
       setBooks((prev) =>
         prev.map((b) =>
-          b.id === book.id ? { ...b, can_access: true, access_type: "points" } : b
+          b.id === book.id
+            ? { ...b, can_access: true, access_type: "points" }
+            : b
         )
       );
       // Allow toast to appear before navigation
@@ -104,7 +106,8 @@ const BookLibraryPage = () => {
       router.push(`/apps/book-library/read/${book.id}`);
     } catch (err: any) {
       const message = err?.message || "Failed to unlock book";
-      const insufficient = err?.status === 403 || /insufficient points/i.test(message);
+      const insufficient =
+        err?.status === 403 || /insufficient points/i.test(message);
       if (insufficient) {
         if (typeof window !== "undefined") {
           const { default: Swal } = await import("sweetalert2");
@@ -265,15 +268,15 @@ const BookLibraryPage = () => {
                                 )}
                               </div>
                               <div className="d-flex gap-2 mt-auto">
-                              {canRead ? (
-                                <Button
-                                  color="primary"
-                                  className="flex-grow-1"
-                                  onClick={() => handleRead(book)}
-                                >
-                                  Open
-                                </Button>
-                              ) : (
+                                {canRead ? (
+                                  <Button
+                                    color="primary"
+                                    className="flex-grow-1"
+                                    onClick={() => handleRead(book)}
+                                  >
+                                    Open
+                                  </Button>
+                                ) : (
                                   <Button
                                     color="outline-primary"
                                     className="flex-grow-1"
@@ -310,7 +313,9 @@ const BookLibraryPage = () => {
                         >
                           <button
                             className="page-link"
-                            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                            onClick={() =>
+                              setCurrentPage((p) => Math.max(1, p - 1))
+                            }
                             disabled={currentPage === 1}
                           >
                             Previous
@@ -336,7 +341,9 @@ const BookLibraryPage = () => {
                         >
                           <button
                             className="page-link"
-                            onClick={() => setCurrentPage((p) => Math.min(lastPage, p + 1))}
+                            onClick={() =>
+                              setCurrentPage((p) => Math.min(lastPage, p + 1))
+                            }
                             disabled={currentPage === lastPage}
                           >
                             Next

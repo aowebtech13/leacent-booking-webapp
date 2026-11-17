@@ -53,7 +53,7 @@ const Team = () => {
     let cancelled = false;
     getPublicAuthors()
       .then((data) => {
-        if (!cancelled) setAuthors(data);
+        if (!cancelled) setAuthors(data?.data ?? []);
       })
       .catch(() => {
         // Non-fatal: team page falls back to an empty author list.

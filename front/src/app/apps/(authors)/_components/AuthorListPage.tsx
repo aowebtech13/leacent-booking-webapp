@@ -38,7 +38,7 @@ const AuthorListPage = () => {
       const query: any = { per_page: 12, page: currentPage };
       if (searchQuery) query.search = searchQuery;
       const res = await getPublicAuthors(query);
-      const list = Array.isArray(res) ? res : res?.data ?? [];
+      const list = Array.isArray(res) ? res : (res?.data ?? []);
       setAuthors(list);
       if (res && (res as any).meta) {
         setCurrentPage((res as any).meta.current_page);
@@ -157,18 +157,22 @@ const AuthorListPage = () => {
                             Books written
                           </h6>
                           <ul className="list-unstyled small">
-                          {author.books.map(
-                            (book: { id: number; title: string; points: number }) => (
-                              <li key={book.id} className="mb-1">
-                                {book.title}
-                                {book.points > 0 && (
-                                  <span className="badge bg-info ms-2">
-                                    {book.points} pts
-                                  </span>
-                                )}
-                              </li>
-                            )
-                          )}
+                            {author.books.map(
+                              (book: {
+                                id: number;
+                                title: string;
+                                points: number;
+                              }) => (
+                                <li key={book.id} className="mb-1">
+                                  {book.title}
+                                  {book.points > 0 && (
+                                    <span className="badge bg-info ms-2">
+                                      {book.points} pts
+                                    </span>
+                                  )}
+                                </li>
+                              )
+                            )}
                           </ul>
                         </div>
                       )}

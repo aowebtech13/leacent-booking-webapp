@@ -115,10 +115,7 @@ export default async function AuthorDetailPage({
                 <IconUser size={48} className="mb-3 d-block mx-auto" />
                 <h4>Author not found</h4>
                 <p className="mb-0">{error}</p>
-                <Link
-                  href="/apps/authors"
-                  className="btn btn-primary mt-3"
-                >
+                <Link href="/apps/authors" className="btn btn-primary mt-3">
                   Back to Authors
                 </Link>
               </div>
@@ -191,10 +188,7 @@ export default async function AuthorDetailPage({
                 ) : (
                   <div className="row g-4">
                     {books.map((book) => (
-                      <div
-                        key={book.id}
-                        className="col-sm-6 col-lg-4"
-                      >
+                      <div key={book.id} className="col-sm-6 col-lg-4">
                         <div className="card h-100 shadow-sm book-card">
                           <div className="book-cover-wrapper position-relative">
                             {book.cover_url ? (
@@ -203,7 +197,10 @@ export default async function AuthorDetailPage({
                                 alt={book.title}
                                 fill
                                 className="book-cover"
-                                style={{ objectFit: "cover", aspectRatio: "2 / 3" }}
+                                style={{
+                                  objectFit: "cover",
+                                  aspectRatio: "2 / 3",
+                                }}
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
                                 priority
                               />
