@@ -1,10 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Card, CardBody, CardHeader } from "reactstrap";
-import { IconBook, IconHelp, IconRotateClockwise2 } from "@tabler/icons-react";
+import { IconBook, IconHelp } from "@tabler/icons-react";
 import { Image } from "phosphor-react";
 import { Video } from "@phosphor-icons/react";
 import Loading from "@/app/loading";
+import Link from "next/link";
 
 type BookLibrarySidebarProps = {
   activeTab: string;
@@ -62,21 +63,15 @@ const BookLibrarySidebar: React.FC<BookLibrarySidebarProps> = ({
                 <span className="flex-grow-1">Library</span>
                 10+
               </li>
-              <li
-                className={`tab-link align-items-center ${activeTab === "4" ? "active" : ""}`}
-                onClick={() => handleTabClick("4")}
-                data-tab="4"
-              >
-                <IconRotateClockwise2 size={28} className=" pe-2" />
-                <span className="flex-grow-1">Recent</span>
-              </li>
               <div className="app-divider-v dashed m-0 p-2"></div>
-              <li
-                className="tab-link align-items-center"
-                onClick={() => handleTabClick("6")}
-              >
-                <IconHelp size={28} className=" pe-2" />
-                <span className="flex-grow-1">Help</span>
+              <li className="tab-link align-items-center">
+                <Link
+                  href="/apps/contact"
+                  className="d-flex align-items-center w-100 text-decoration-none text-reset"
+                >
+                  <IconHelp size={28} className=" pe-2" />
+                  <span className="flex-grow-1">Help</span>
+                </Link>
               </li>
             </ul>
           </div>

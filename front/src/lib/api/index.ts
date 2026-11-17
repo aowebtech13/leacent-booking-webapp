@@ -12,3 +12,4 @@ export * from "./books";
 export * from "./authors";
 export * from "./bookPlans";
 export * from "./notifications";
+export * from "./contact";

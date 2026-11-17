@@ -42,7 +42,7 @@
             @endif
             <div class="field">
                 <div class="label">Message:</div>
-                <div class="value">{{ $message }}</div>
+                <div class="value">{{ $message_text }}</div>
             </div>
         </div>
     </div>

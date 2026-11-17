@@ -29,8 +29,17 @@ class ContactController extends Controller
         $data = $validator->validated();
 
         try {
-            Mail::send('emails.contact', $data, function ($message) use ($data) {
-                $message->to('contact@mictomonbespoketailor.com')
+            // NOTE: `$message` is reserved by Laravel's mailer (Illuminate\Mail\Message),
+            // so the contact form message is passed as `message_text` to the view.
+            Mail::send('emails.contact', [
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'phone' => $data['phone'] ?? null,
+                'subject' => $data['subject'] ?? null,
+                'message_text' => $data['message'],
+            ], function ($message) use ($data) {
+                $message->to(config('mail.from.address'))
+                    ->replyTo($data['email'], $data['name'] ?: $data['email'])
                     ->subject('New Contact Form Submission - ' . ($data['subject'] ?? 'Contact Us'));
                 $message->from(config('mail.from.address'), config('mail.from.name'));
             });
