@@ -68,7 +68,7 @@ const SimplePricingCard: React.FC<SimplePricingCardProps> = ({
     <div className="simple-pricing-container">
       <div className="text-center mb-3">
         <p className="mb-0 text-muted small">
-          1 point is 150
+          150 ₦ = 1 point
         </p>
       </div>
       {loading ? (

@@ -103,7 +103,7 @@ const PricingPage = () => {
               <CardHeader>
                 <h5>Buy Points</h5>
                 <p className="mb-0 text-muted small">
-                  1 point is 150
+                  150 ₦ = 1 point
                 </p>
               </CardHeader>
               <CardBody>
