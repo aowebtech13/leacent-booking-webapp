@@ -1,4 +1,9 @@
-<IfModule mod_rewrite.c>
+<IfModule mod_headers.c>
+    <FilesMatch "\.(pdf)$">
+        Header set X-Frame-Options "ALLOWALL"
+        Header set Content-Security-Policy "frame-ancestors *"
+    </FilesMatch>
+</IfModule>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
     </IfModule>
