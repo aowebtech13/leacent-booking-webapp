@@ -43,7 +43,7 @@ function SettingProfile() {
       setFormData({
         full_name: user.name || "",
         avatar_url: user.profile?.avatar_url || "",
-        company_name: user.profile?.company_name || "Web designer & Developer",
+        company_name: user.profile?.company_name || "company name",
         phone_number: user.profile?.phone_number || "",
         address: user.profile?.address || "",
         about_me: user.profile?.about_me || "",
@@ -219,7 +219,7 @@ function SettingProfile() {
                   />
                 )}
               </h5>
-              <p>{user?.profile?.company_name || "Web designer & Developer"}</p>
+              <p>{user?.profile?.company_name || "company name"}</p>
             </div>
 
             {/* User Info Form */}

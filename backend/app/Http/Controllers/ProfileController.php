@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\BookPayment;
 use App\Models\BookReadingProgress;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -39,6 +40,10 @@ class ProfileController extends Controller
 
         $user = $request->user();
         $profile = $user->profile;
+
+        if (! $profile) {
+            $profile = Profile::create(['user_id' => $user->id]);
+        }
 
         $profile->update($request->only([
             'full_name',
