@@ -67,6 +67,14 @@ export const MenuList: MenuItemProps[] = [
         name: "WhatsApp",
         path: "https://chat.whatsapp.com/CRMLEqwPgR7AFi90exHHgv?s=cl&p=a&mlu=0",
       },
+       {
+        name: "Youtube",
+        path: "https://www.youtube.com/@BusinessLabSeries",
+      },
+      {
+        name: "Tiktok",
+        path: "https://www.tiktok.com/@officialbusinesslab?_r=1&_t=ZS-9AUYlbwxj64",
+      },
     ],
   },
   {

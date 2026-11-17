@@ -194,6 +194,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 // Protected book reading (requires active access)
     Route::middleware('auth:sanctum')->group(function () {
+        Route::get('my-books', [BookController::class, 'unlocked']);
         Route::get('books/{id}/read', [BookController::class, 'read']);
         Route::post('books/{id}/unlock', [BookController::class, 'unlock']);
 

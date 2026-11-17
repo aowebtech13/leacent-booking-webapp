@@ -161,6 +161,17 @@ export function getBook(id: number): Promise<Book> {
 }
 
 /**
+ * List books unlocked by the authenticated user (active access).
+ */
+export function getMyBooks(): Promise<Book[]> {
+  return api.get("my-books").then((res) => {
+    const payload = res.data;
+    if (Array.isArray(payload)) return payload;
+    return Array.isArray(payload?.data) ? payload.data : [];
+  });
+}
+
+/**
  * Get the preview URL for a book (public).
  */
 export function getBookPreview(

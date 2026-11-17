@@ -1,11 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Card, CardBody, CardHeader } from "reactstrap";
-import { IconBook, IconHelp } from "@tabler/icons-react";
+import { IconBook, IconHelp, IconChevronRight } from "@tabler/icons-react";
 import { Image } from "phosphor-react";
 import { Video } from "@phosphor-icons/react";
 import Loading from "@/app/loading";
 import Link from "next/link";
+import { getMyBooks } from "@/lib/api/books";
 
 type BookLibrarySidebarProps = {
   activeTab: string;
@@ -13,13 +14,6 @@ type BookLibrarySidebarProps = {
 };
 
 const bookCategories = [
-  {
-    label: "E-Books",
-    icon: <Image size={18} weight="duotone" alt="" />,
-    colorClass: "text-light-primary",
-    files: "1.195 Files",
-    size: "37.2GB",
-  },
   {
     label: "Audiobooks",
     icon: <Video size={18} weight="duotone" />,
@@ -36,6 +30,22 @@ const BookLibrarySidebar: React.FC<BookLibrarySidebarProps> = ({
 }) => {
   const handleTabClick = (tab: string) => setActiveTab(tab);
   const [ApexCharts, setApexCharts] = useState<any>(null);
+  const [unlockedCount, setUnlockedCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    getMyBooks()
+      .then((books) => {
+        if (!cancelled) setUnlockedCount(books.length);
+      })
+      .catch(() => {
+        // Not signed in or request failed — treat as no unlocked books.
+        if (!cancelled) setUnlockedCount(0);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     const loadModules = async () => {
@@ -133,6 +143,25 @@ const BookLibrarySidebar: React.FC<BookLibrarySidebarProps> = ({
               <Loading />
             )}
           </div>
+          <Link
+            href="/apps/book-library/unlocked"
+            className="file-manager-sidebar mb-4 d-flex align-items-center position-relative text-decoration-none text-reset"
+          >
+            <span
+              className="text-light-primary h-40 w-40 d-flex-center b-r-10 position-absolute"
+            >
+              <Image size={18} weight="duotone" alt="" />
+            </span>
+            <div className="flex-grow-1 ms-5">
+              <h6 className="mb-0">Unlocked Books</h6>
+              <p className="text-secondary mb-0">
+                {unlockedCount === null
+                  ? "Loading…"
+                  : `${unlockedCount} Book${unlockedCount !== 1 ? "s" : ""}`}
+              </p>
+            </div>
+            <IconChevronRight size={18} className="text-secondary" />
+          </Link>
           {bookCategories.map((category, index) => (
             <div className="file-manager-sidebar mb-4" key={index}>
               <div className="d-flex align-items-center position-relative">

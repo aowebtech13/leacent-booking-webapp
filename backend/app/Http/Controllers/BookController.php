@@ -67,6 +67,29 @@ class BookController extends Controller
     }
 
     /**
+     * GET /api/my-books
+     * Books unlocked by the authenticated user (active access).
+     */
+    public function unlocked(Request $request)
+    {
+        $access = BookAccess::query()
+            ->with('book')
+            ->where('user_id', $request->user()->id)
+            ->active()
+            ->get();
+
+        $books = $access
+            ->map(fn ($a) => $a->book)
+            ->filter()
+            ->values();
+
+        return response()->json([
+            'success' => true,
+            'data' => $books,
+        ]);
+    }
+
+    /**
      * GET /api/books/{id}
      * Public book details. Includes access status for authenticated users.
      */
