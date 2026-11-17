@@ -41,16 +41,24 @@ class AuthorController extends Controller
      * GET /api/authors
      * Public list of active authors (for the frontend team directory).
      */
-    public function publicIndex()
+    public function publicIndex(Request $request)
     {
-        $authors = Author::with(['books' => function ($query) {
-            $query->where('is_active', true)->orderBy('title', 'asc');
+        $query = Author::with(['books' => function ($q) {
+            $q->where('is_active', true)->orderBy('title', 'asc');
         }])
             ->withCount('books')
             ->where('is_active', true)
-            ->orderBy('created_at', 'desc')
-            ->limit(100)
-            ->get();
+            ->orderBy('created_at', 'desc');
+
+        if ($request->filled('search')) {
+            $search = $request->get('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('bio', 'like', "%{$search}%");
+            });
+        }
+
+        $authors = $query->paginate($request->get('per_page', 100));
 
         return response()->json([
             'success' => true,

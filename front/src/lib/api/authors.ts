@@ -52,10 +52,26 @@ export function getAuthors(
 
 /**
  * List active authors (public) for the frontend team directory.
- * Resolves to the authors array directly.
+ * Optionally accepts a search query and pagination params.
+ * Returns { data, meta } like other list endpoints.
  */
-export function getPublicAuthors(): Promise<Author[]> {
-  return api.get("authors").then((res) => res.data ?? []);
+export function getPublicAuthors(
+  query?: { search?: string; per_page?: number; page?: number }
+): Promise<AuthorListResponse> {
+  const params: Record<string, any> = {};
+  if (query?.search) params.search = query.search;
+  if (query?.per_page) params.per_page = query.per_page;
+  if (query?.page) params.page = query.page;
+  return api.get("authors", { params }).then((res) => {
+    const payload = res.data;
+    if (Array.isArray(payload)) {
+      return { data: payload, meta: undefined };
+    }
+    return {
+      data: Array.isArray(payload?.data) ? payload.data : [],
+      meta: payload?.meta,
+    };
+  });
 }
 
 /**

@@ -218,12 +218,6 @@ export default async function AuthorDetailPage({
                           </div>
                           <div className="card-body d-flex flex-column">
                             <h5 className="card-title mb-1">{book.title}</h5>
-                            {book.description && (
-                              <p className="card-text text-muted small flex-grow-1">
-                                {book.description.substring(0, 120)}
-                                {book.description.length > 120 ? "..." : ""}
-                              </p>
-                            )}
                             <div className="book-meta small text-muted mb-3">
                               {book.page_count && (
                                 <span className="me-3">

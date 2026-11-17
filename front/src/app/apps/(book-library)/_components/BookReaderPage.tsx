@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Col, Container, Row, Button, Spinner, Alert } from "reactstrap";
 import Breadcrumbs from "@/Component/CommonElements/Breadcrumbs";
 import { useParams, useRouter } from "next/navigation";
+import { notFound } from "next/navigation";
 import { getBook, getBookRead, Book } from "@/lib/api/books";
 import { BookReader } from "@/Component/BookReader/BookReader";
 import { useReadingProgress } from "@/hooks/useReadingProgress";
@@ -62,6 +63,11 @@ const BookReaderPage = () => {
         setReaderLocation(saved.progress_percentage as any);
       }
     } catch (err: any) {
+      const status = err?.status;
+      // 404 = book doesn't exist or has no file → trigger Next.js 404 page
+      if (status === 404) {
+        notFound();
+      }
       setError(
         err?.message ||
           "Failed to load book. You may not have access to this book."

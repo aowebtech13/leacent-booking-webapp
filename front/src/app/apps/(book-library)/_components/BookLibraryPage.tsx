@@ -245,7 +245,7 @@ const BookLibraryPage = () => {
                               <p className="text-muted small mb-2">
                                 {book.author || "Unknown Author"}
                               </p>
-                              {book.description && (
+                              {book.can_access && book.description && (
                                 <p className="card-text text-muted small flex-grow-1">
                                   {book.description.substring(0, 100)}
                                   {book.description.length > 100 ? "..." : ""}
@@ -265,15 +265,15 @@ const BookLibraryPage = () => {
                                 )}
                               </div>
                               <div className="d-flex gap-2 mt-auto">
-                                {canRead ? (
-                                  <Button
-                                    color="primary"
-                                    className="flex-grow-1"
-                                    onClick={() => handleRead(book)}
-                                  >
-                                    Read Now
-                                  </Button>
-                                ) : (
+                              {canRead ? (
+                                <Button
+                                  color="primary"
+                                  className="flex-grow-1"
+                                  onClick={() => handleRead(book)}
+                                >
+                                  Open
+                                </Button>
+                              ) : (
                                   <Button
                                     color="outline-primary"
                                     className="flex-grow-1"
