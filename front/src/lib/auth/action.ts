@@ -146,19 +146,6 @@ export async function forgotPasswordAction(formData: FormData): Promise<void> {
   redirect("/verify-otp?purpose=password-reset");
 }
 
-export async function requestPasswordReset(
-  email: string
-): Promise<{ error: string | null }> {
-  try {
-    await forgotPassword({ email });
-  } catch (error: any) {
-    return { error: toActionError(error).message };
-  }
-
-  await setPendingEmail(email);
-  return { error: null };
-}
-
 export async function verifyOtp(formData: FormData): Promise<void> {
   const email = formData.get("email") as string;
   const otpDigits = [

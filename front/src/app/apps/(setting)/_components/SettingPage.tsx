@@ -11,28 +11,23 @@ import {
   TabPane,
   Col,
   Row,
-  Spinner,
 } from "reactstrap";
 import { ArrowClockwise, UserCircleGear } from "phosphor-react";
 
 import SettingProfile from "@/app/apps/(setting)/_components/SettingProfile";
+import ChangePasswordForm from "@/app/apps/(setting)/_components/ChangePasswordForm";
 import Breadcrumbs from "@/Component/CommonElements/Breadcrumbs";
 import TimeSpent from "./TimeSpent";
 import Link from "next/link";
 import { IconStack2 } from "@tabler/icons-react";
 import { useAuth } from "@/lib/contexts/AuthContext";
 import { getDashboard } from "@/lib/api/books";
-import { requestPasswordReset } from "@/lib/auth/action";
-import { useRouter } from "next/navigation";
-import toast from "@/Component/Services/toast";
 
 const Setting = () => {
-  const { user, isAuthenticated, refreshUser } = useAuth();
-  const router = useRouter();
+  const { user, isAuthenticated } = useAuth();
   const [activeTab, setActiveTab] = useState("1");
   const [dashboard, setDashboard] = useState<DashboardResponse | null>(null);
   const [loading, setLoading] = useState(true);
-  const [resettingPassword, setResettingPassword] = useState(false);
 
   interface DashboardResponse {
     points_balance: number;
@@ -45,35 +40,6 @@ const Setting = () => {
   const toggleTab = (tab: string) => {
     if (activeTab !== tab) {
       setActiveTab(tab);
-    }
-  };
-
-  const handleResetPassword = async () => {
-    setResettingPassword(true);
-    try {
-      // The session is restored asynchronously, so re-fetch the user when the
-      // email is not in context yet (e.g. after a hard refresh).
-      const email = user?.email ?? (await refreshUser())?.email;
-
-      if (!email) {
-        toast.error(
-          "Your session has expired. Please sign in again to reset your password.",
-          6000
-        );
-        return;
-      }
-
-      const res = await requestPasswordReset(email);
-      if (res.error) {
-        toast.error(res.error);
-        return;
-      }
-      toast.success("Password reset code sent to your email.");
-      router.push("/verify-otp?purpose=password-reset");
-    } catch {
-      toast.error("Failed to send reset code. Please try again.");
-    } finally {
-      setResettingPassword(false);
     }
   };
 
@@ -95,8 +61,19 @@ const Setting = () => {
     } else {
       setLoading(false);
     }
+
+    // Refresh the points shown here after a book unlock.
+    const handlePointsUpdated = () => {
+      if (isAuthenticated) loadDashboard();
+    };
+    window.addEventListener("leacent:points-updated", handlePointsUpdated);
+
     return () => {
       cancelled = true;
+      window.removeEventListener(
+        "leacent:points-updated",
+        handlePointsUpdated
+      );
     };
   }, [isAuthenticated]);
 
@@ -145,24 +122,15 @@ const Setting = () => {
 
                     <NavItem className="cursor-pointer">
                       <NavLink
-                        className="nav-link"
-                        id="account_reset_password"
-                        onClick={handleResetPassword}
-                        disabled={resettingPassword}
+                        className={`nav-link ${activeTab === "2" ? "active" : ""}`}
+                        onClick={() => toggleTab("2")}
                       >
                         <ArrowClockwise
                           weight="bold"
                           size={20}
                           className="me-2"
                         />
-                        {resettingPassword ? (
-                          <>
-                            <Spinner size="sm" className="me-2" />
-                            Sending...
-                          </>
-                        ) : (
-                          "Reset Password"
-                        )}
+                        Reset Password
                       </NavLink>
                     </NavItem>
                   </Nav>
@@ -237,6 +205,9 @@ const Setting = () => {
             <TabContent activeTab={activeTab}>
               <TabPane tabId="1">
                 <SettingProfile />
+              </TabPane>
+              <TabPane tabId="2">
+                <ChangePasswordForm />
               </TabPane>
             </TabContent>
           </Col>

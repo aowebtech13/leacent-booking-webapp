@@ -129,8 +129,17 @@ const EcommerceCard = () => {
       }
     };
     loadPointsBalance();
+
+    // A book unlock changes the balance, so refresh it when that happens.
+    const handlePointsUpdated = () => loadPointsBalance();
+    window.addEventListener("leacent:points-updated", handlePointsUpdated);
+
     return () => {
       cancelled = true;
+      window.removeEventListener(
+        "leacent:points-updated",
+        handlePointsUpdated
+      );
     };
   }, []);
 
