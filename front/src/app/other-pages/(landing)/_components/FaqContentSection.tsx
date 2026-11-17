@@ -64,7 +64,7 @@ const FaqContentSection = () => {
                       <Button
                         color="primary"
                         target="_blank"
-                        href="mailto:teqlathemes@gmail.com"
+                        href="mailto:firstbornpublishing923@gmail.com"
                       >
                         Get Support
                       </Button>

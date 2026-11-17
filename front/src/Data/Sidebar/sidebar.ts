@@ -41,7 +41,7 @@ export const MenuList: MenuItemProps[] = [
   },
   {
     name: "Support",
-    path: "mailto:teqlathemes@gmail.com",
+    path: "mailto:firstbornpublishing923@gmail.com",
     iconClass: ChatBubbleQuestion,
   },
   {

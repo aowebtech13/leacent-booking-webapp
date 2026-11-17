@@ -231,7 +231,7 @@ const LandingPage = () => {
                 </NavItem>
                 <NavItem>
                   <NavLink
-                    href="mailto:teqlathemes@gmail.com"
+                    href="mailto:firstbornpublishing923@gmail.com"
                     target="_blank"
                     className="nav-link"
                   >

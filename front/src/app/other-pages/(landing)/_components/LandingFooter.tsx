@@ -26,7 +26,7 @@ const LandingFooter = () => {
               Buy Now
             </Button>
             <Button
-              href="mailto:teqlathemes@gmail.com."
+              href="mailto:firstbornpublishing923@gmail.com."
               target="_blank"
               color="danger"
               size="lg"
