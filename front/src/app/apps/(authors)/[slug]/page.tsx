@@ -4,6 +4,7 @@ import Breadcrumbs from "@/Component/CommonElements/Breadcrumbs";
 import { IconBook, IconUser } from "@tabler/icons-react";
 import Link from "next/link";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
 interface AuthorDetailResponse {
@@ -56,7 +57,7 @@ export async function generateMetadata({
   try {
     author = (await getPublicAuthor(slug)) as AuthorDetailResponse;
   } catch {
-    // fall back to slug-based title
+    notFound();
   }
 
   return {
@@ -89,11 +90,17 @@ export default async function AuthorDetailPage({
   const { slug } = await params;
   let author: AuthorDetailResponse | null = null;
   let error: string | null = null;
+  let authorNotFound = false;
 
   try {
     author = (await getPublicAuthor(slug)) as AuthorDetailResponse;
   } catch (err: any) {
     error = err?.message || "Failed to load author.";
+    authorNotFound = true;
+  }
+
+  if (authorNotFound) {
+    notFound();
   }
 
   const books = author?.books ?? [];
