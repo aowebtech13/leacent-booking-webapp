@@ -157,7 +157,7 @@ export function getBooksTotal(): Promise<BookTotalResponse> {
  * Get a single book by id, including access status for authenticated users.
  */
 export function getBook(id: number): Promise<Book> {
-  return api.get(`books/${id}`);
+  return api.get(`books/${id}`).then((res) => res.data?.data ?? res.data);
 }
 
 /**
@@ -184,7 +184,7 @@ export function getBookPreview(
  * Get the book file URL for an authenticated user with active access.
  */
 export function getBookRead(id: number): Promise<BookReadResponse> {
-  return api.get(`books/${id}/read`);
+  return api.get(`books/${id}/read`).then((res) => res.data?.data ?? res.data);
 }
 
 /**
