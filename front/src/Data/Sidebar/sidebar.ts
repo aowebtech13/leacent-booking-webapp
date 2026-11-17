@@ -3,6 +3,7 @@ import {
   Archive,
   Book,
   ChatBubbleQuestion,
+  Coins,
   HomeAlt,
   LogOut,
   Settings,
@@ -17,7 +18,7 @@ export const MenuList: MenuItemProps[] = [
     name: "Dashboard",
     path: "/dashboard",
   },
- 
+
   {
     name: "Book Library",
     path: "/apps/book-library",
@@ -28,12 +29,18 @@ export const MenuList: MenuItemProps[] = [
     path: "/apps/authors",
     iconClass: User,
   },
-   {
+  {
     name: "Transaction History",
     path: "/apps/transactions",
     iconClass: Archive,
   },
-  
+
+  {
+    iconClass: Coins,
+    name: "Purchase Points",
+    path: "/apps/pricing",
+  },
+
   {
     iconClass: Settings,
     name: "My Profile",
@@ -55,7 +62,7 @@ export const MenuList: MenuItemProps[] = [
         name: "Facebook",
         path: "https://www.facebook.com/leacentng",
       },
-     
+
       {
         name: "WhatsApp",
         path: "https://chat.whatsapp.com/CRMLEqwPgR7AFi90exHHgv?s=cl&p=a&mlu=0",
