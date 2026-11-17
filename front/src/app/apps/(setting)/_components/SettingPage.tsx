@@ -70,10 +70,7 @@ const Setting = () => {
 
     return () => {
       cancelled = true;
-      window.removeEventListener(
-        "leacent:points-updated",
-        handlePointsUpdated
-      );
+      window.removeEventListener("leacent:points-updated", handlePointsUpdated);
     };
   }, [isAuthenticated]);
 

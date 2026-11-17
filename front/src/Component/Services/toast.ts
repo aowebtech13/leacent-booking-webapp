@@ -1,12 +1,7 @@
 import Toastify from "toastify-js";
+import "toastify-js/src/toastify.css";
 
 type ToastType = "success" | "error" | "info";
-
-const colors: Record<ToastType, string> = {
-  success: "rgb(var(--success),1)",
-  error: "rgb(var(--danger),1)",
-  info: "rgb(var(--primary),1)",
-};
 
 function show(text: string, type: ToastType, duration = 3000) {
   if (!text) return;
@@ -17,7 +12,7 @@ function show(text: string, type: ToastType, duration = 3000) {
     position: "right",
     close: true,
     stopOnFocus: true,
-    style: { background: colors[type] },
+    className: `app-toastify app-toastify-${type}`,
   }).showToast();
 }
 

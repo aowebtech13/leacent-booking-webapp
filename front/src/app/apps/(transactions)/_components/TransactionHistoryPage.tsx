@@ -2,10 +2,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Container, Card, CardBody } from "reactstrap";
 import { getMyBookPlanPayments, BookPlanPayment } from "@/lib/api/bookPlans";
-import {
-  getWalletTransactions,
-  WalletTransaction,
-} from "@/lib/api/books";
+import { getWalletTransactions, WalletTransaction } from "@/lib/api/books";
 
 type HistoryRow = {
   key: string;
@@ -73,12 +70,14 @@ const TransactionHistoryPage = () => {
 
       if (cancelled) return;
 
-      const merged = [...payments.map(toPaymentRow), ...wallet.map(toWalletRow)]
-        .sort((a, b) => {
-          const aTime = a.date ? new Date(a.date).getTime() : 0;
-          const bTime = b.date ? new Date(b.date).getTime() : 0;
-          return bTime - aTime;
-        });
+      const merged = [
+        ...payments.map(toPaymentRow),
+        ...wallet.map(toWalletRow),
+      ].sort((a, b) => {
+        const aTime = a.date ? new Date(a.date).getTime() : 0;
+        const bTime = b.date ? new Date(b.date).getTime() : 0;
+        return bTime - aTime;
+      });
 
       setRows(merged);
       setLoading(false);
@@ -118,8 +117,7 @@ const TransactionHistoryPage = () => {
               <div className="small text-muted mb-1">{r.subtitle}</div>
               <div className="d-flex justify-content-between">
                 <span>
-                  {r.amount ??
-                    (r.points < 0 ? "Points used" : "Points added")}
+                  {r.amount ?? (r.points < 0 ? "Points used" : "Points added")}
                 </span>
                 {r.status && (
                   <span

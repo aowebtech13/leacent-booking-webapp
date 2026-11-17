@@ -66,4 +66,53 @@
   cursor: pointer;
 }
 
+.app-toastify {
+  &.toastify {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 280px;
+    max-width: 360px;
+    padding: 0.75rem 1rem;
+    border-radius: var(--bs-border-radius);
+    background: rgba(var(--white), 1);
+    color: var(--font-color);
+    font-size: var(--p-font-size);
+    font-weight: 500;
+    box-shadow: var(--box-shadow);
+    border: 1px solid var(--border_color);
+    border-left: 4px solid rgba(var(--primary), 1);
+  }
+
+  &.app-toastify-success {
+    border-left-color: rgba(var(--success), 1);
+    background: rgba(var(--success), 0.12);
+    color: rgba(var(--success-dark), 1);
+  }
+
+  &.app-toastify-error {
+    border-left-color: rgba(var(--danger), 1);
+    background: rgba(var(--danger), 0.12);
+    color: rgba(var(--danger-dark), 1);
+  }
+
+  &.app-toastify-info {
+    border-left-color: rgba(var(--primary), 1);
+    background: rgba(var(--primary), 0.12);
+    color: rgba(var(--primary-dark), 1);
+  }
+
+  .toast-close {
+    opacity: 0.7;
+    color: inherit;
+    font-size: 1rem;
+    padding: 0 0 0 0.5rem;
+    margin-left: auto;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
 // >>-- 55 Notification css end --<<

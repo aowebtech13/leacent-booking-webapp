@@ -14,13 +14,9 @@ const Footer = () => {
                     Copyright © 2026 Leacent Books. All rights reserved 💖
                   </p>
                 </li>
+              
                 <li>
-                  <p className="mb-0 text-muted small">
-                    If you are looking for real-life investment, entrepreneurship, and business management resources, you are looking for Leacent's Business Lab Books - and Movies - brought to you by Firstborn Publishing.
-                  </p>
-                </li>
-                <li>
-                  <Link href="#"> aowebtech </Link>
+                  <Link href="#">Designed by aowebtech </Link>
                 </li>
               </ul>
             </div>
