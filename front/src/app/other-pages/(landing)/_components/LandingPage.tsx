@@ -63,9 +63,9 @@ const LandingPage = () => {
 
     const options = {
       strings: [
-        '<span class="highlight-text">Work<span class="txt-shadow">Work</span></span>',
-        '<span class="highlight-text">Goals<span class="txt-shadow">Goals</span></span>',
-        '<span class="highlight-text">Projects<span class="txt-shadow">Projects</span></span>',
+        '<span class="highlight-text">Leacent <span class="txt-shadow">Work</span></span>',
+        '<span class="highlight-text">Core <span class="txt-shadow">Goals</span></span>',
+   
       ],
       typeSpeed: 100,
       backSpeed: 50,
@@ -270,8 +270,8 @@ const LandingPage = () => {
               <Col lg="6" className="offset-lg-3 position-relative">
                 <div className="landing-heading text-center">
                   <h1>
-                    Power Up Your <br />
-                    <span ref={typedRef} id="highlight-typed"></span> With
+                  Welcome To <br />
+                    <span ref={typedRef} id="highlight-typed"></span>
                     Business Labs - Books & Movies <br />
                   </h1>
                   <img

@@ -33,73 +33,41 @@ const FaqPage = () => {
   // FAQ data
   const faqSections: AccordionSection[] = [
     {
-      title: "Frequently Asked Questions",
-      parentId: "accordionExample",
-      items: [
-        {
-          id: "collapseOne",
-          title: "what is FAQs",
-          isOpen: true,
-          content:
-            "a list of questions and answers relating to a particular subject, especially one giving basic information for users of a website. A frequently asked questions list is often used in articles, websites, email lists, and online forums where common questions tend to recur, for example through posts or queries by new users related to common knowledge gaps",
-        },
-        {
-          id: "collapseTwo",
-          title: "What is an FAQs page?",
-          content:
-            "Frequently Asked Questions (FAQ) pages contain a list of commonly asked questions and answers on a website about topics such as hours, shipping and handling, product information, and return policies. Sure there are chatbots, support lines, and customer reviews to help shoppers on their path to purchase, but there's one forgotten customer service tactic that is cost-effective and streamlined. That tactic is an FAQ page.",
-        },
-        {
-          id: "collapseThree",
-          title: "Why you should make an FAQs page?",
-          content:
-            "An FAQ page is a time-saving customer service tactic that provides the most commonly asked questions and answers for current or potential customers. Before diving into how to make an FAQ page, you need to know why having one is so important. There are so many reasons beyond improving the customer experience for perfecting your FAQ page. Keep in mind the importance of an FAQ page when developing your own e-commerce website, so you can make sure it increases sales and not the other way around.",
-        },
-        {
-          id: "collapseFour",
-          title: "How to make an FAQ page?",
-          content: (
-            <>
-              There are seven simple steps to make the perfect FAQ page for your
-              business. The design of an FAQ page is crucial for an easy-to-use
-              customer experience. Follow these steps and your customer success
-              team will thank you.
-              <ul className="mt-3">
-                <li>- Determine the questions</li>
-                <li>- Categorize the questions</li>
-                <li>- Highlight or link the most popular questions</li>
-                <li>- Include a search bar</li>
-                <li>- Align with your brand look and feel</li>
-                <li>- Update regularly</li>
-                <li>- Track and improve</li>
-              </ul>
-            </>
-          ),
-        },
-        {
-          id: "collapseFive",
-          title: "What are the most frequently asked questions?",
-          content: (
-            <>
-              A good FAQ is general enough to address many issues. There are
-              questions that just about every company answers on their FAQ page,
-              so if you&#39;re struggling to get started use these as your
-              starting point. If they&#39;re relevant to your company, of
-              course.
-              <ul className="mt-3">
-                <li>- What is the return policy?</li>
-                <li>- What are the shipping options?</li>
-                <li>- What do I do if I never received my order?</li>
-                <li>- When will I receive my order?</li>
-                <li>- How do I make sure I order the right size?</li>
-                <li>- Where are you located?</li>
-                <li>- Can I make changes to an order I already placed?</li>
-                <li>- How do I get a new password?</li>
-              </ul>
-            </>
-          ),
-        },
-      ],
+       title: "Books, Points & Unlocking",
+       parentId: "accordionExample",
+       items: [
+         {
+           id: "collapseOne",
+           title: "How do I unlock a book?",
+           isOpen: true,
+           content:
+             "Books are unlocked using points. Browse the book catalog, choose a book, and spend the required points to unlock it. Once unlocked, the book is added to your library and available to read anytime.",
+         },
+         {
+           id: "collapseTwo",
+           title: "What are points and how do I get them?",
+           content:
+             "Points are the in-app currency used to unlock books. You purchase points through book plans. Each plan grants a specific number of points, which are credited to your account immediately after a successful payment.",
+         },
+         {
+           id: "collapseThree",
+           title: "What are book plans?",
+           content:
+             "Book plans are purchasable packages that bundle points at different price tiers. Choose the plan that fits your reading needs, complete the payment, and the points are added to your balance. Plans may also include bonus points or discounts on larger purchases.",
+         },
+         {
+           id: "collapseFour",
+           title: "Can I unlock multiple books at once?",
+           content:
+             "Yes. As long as you have enough points in your balance, you can unlock any number of books. Each book costs a set number of points, which is shown on the book detail page before unlocking.",
+         },
+         {
+           id: "collapseFive",
+           title: "Do unlocked books expire?",
+           content:
+             "No. Once a book is unlocked with points, it stays in your library permanently and can be read offline or online at any time. Points, however, are non-refundable once spent.",
+         },
+       ],
     },
     {
       title: "Admin Dashboard",

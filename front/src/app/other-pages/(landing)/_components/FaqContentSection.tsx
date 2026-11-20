@@ -74,51 +74,50 @@ const FaqContentSection = () => {
           <Col lg={8}>
             <div className="landing-accordion">
               <div className="accordion app-accordion accordion-flush accordion-light-dark app-accordion-plus">
-                {[
-                  {
-                    id: "nestingcollapseOne",
-                    question: "What is the role of an admin??",
-                    answer:
-                      "Admins are responsible for managing and overseeing the smooth operation of a system, platform, or organization.",
-                  },
-                  {
-                    id: "nestingcollapseTwo",
-                    question: "How do I add or remove users?",
-                    answer:
-                      "Depending on the system, user management can usually be done through the admin dashboard. Look for the <strong>'User Management'</strong> or <strong>'Admin Settings'</strong> section, where you can add or remove users and assign roles.",
-                  },
-                  {
-                    id: "nestingcollapseFour",
-                    question: "What security measures should I implement?",
-                    answer:
-                      "Admins should prioritize security by enforcing strong password policies, implementing two-factor authentication, regularly updating software, and monitoring system logs for any suspicious activities.",
-                  },
-                  {
-                    id: "nestingcollapseFive",
-                    question: "How can I troubleshoot common issues?",
-                    answer:
-                      "Document and follow a systematic approach to troubleshooting. Check error logs, consult documentation, and involve relevant stakeholders if needed.",
-                  },
-                  {
-                    id: "nestingcollapseSix",
-                    question:
-                      "How can I stay informed about updates and patches?",
-                    answer:
-                      "Subscribe to official newsletters, forums, or mailing lists related to the software or system you're administering. Regularly check the official website for announcements and security patches. Stay informed about the latest industry trends and best practices.",
-                  },
-                  {
-                    id: "nestingcollapseSeven",
-                    question: "What is the process for system upgrades?",
-                    answer:
-                      "Before upgrading, thoroughly review release notes, test the upgrade in a non-production environment, and ensure compatibility with existing plugins or integrations.",
-                  },
-                  {
-                    id: "nestingcollapseEight",
-                    question: "How do I handle user access permissions?",
-                    answer:
-                      "User access permissions can be managed from the admin dashboard under 'User Management'. Assign appropriate roles and permissions to each user based on their responsibilities.",
-                  },
-                ].map((item) => (
+                 {[
+                   {
+                     id: "nestingcollapseOne",
+                     question: "How do I unlock a book?",
+                     answer:
+                       "Books are unlocked using points. Browse the book catalog, choose a book, and spend the required points to unlock it. Once unlocked, the book is added to your library and available to read anytime.",
+                   },
+                   {
+                     id: "nestingcollapseTwo",
+                     question: "What are points and how do I get them?",
+                     answer:
+                       "Points are the in-app currency used to unlock books. You purchase points through book plans. Each plan grants a specific number of points, which are credited to your account immediately after a successful payment.",
+                   },
+                   {
+                     id: "nestingcollapseFour",
+                     question: "What are book plans?",
+                     answer:
+                       "Book plans are purchasable packages that bundle points at different price tiers. Choose the plan that fits your reading needs, complete the payment, and the points are added to your balance. Plans may also include bonus points or discounts on larger purchases.",
+                   },
+                   {
+                     id: "nestingcollapseFive",
+                     question: "Can I unlock multiple books at once?",
+                     answer:
+                       "Yes. As long as you have enough points in your balance, you can unlock any number of books. Each book costs a set number of points, which is shown on the book detail page before unlocking.",
+                   },
+                   {
+                     id: "nestingcollapseSix",
+                     question: "Do unlocked books expire?",
+                     answer:
+                       "No. Once a book is unlocked with points, it stays in your library permanently and can be read offline or online at any time. Points, however, are non-refundable once spent.",
+                   },
+                   {
+                     id: "nestingcollapseSeven",
+                     question: "How do I check my points balance?",
+                     answer:
+                       "Your current points balance is shown on your account dashboard and profile page. It updates automatically after every purchase or book unlock.",
+                   },
+                   {
+                     id: "nestingcollapseEight",
+                     question: "Can I get a refund for unused points?",
+                     answer:
+                       "Points are non-refundable once purchased. Please choose your book plan carefully. If you experience issues with a purchase, contact support for assistance.",
+                   },
+                 ].map((item) => (
                   <div className="accordion-item" key={item.id}>
                     <h2 className="accordion-header">
                       <button
