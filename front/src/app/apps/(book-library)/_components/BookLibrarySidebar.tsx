@@ -22,6 +22,12 @@ const BookLibrarySidebar: React.FC<BookLibrarySidebarProps> = ({
   const [ApexCharts, setApexCharts] = useState<any>(null);
   const [unlockedCount, setUnlockedCount] = useState<number | null>(null);
 
+  const bookCategories = [
+    { label: "Business", files: "15 Files", size: "45 MB", colorClass: "bg-light-primary", icon: <IconBook size={18} className="text-primary" /> },
+    { label: "Investment", files: "8 Files", size: "22 MB", colorClass: "bg-light-success", icon: <IconBook size={18} className="text-success" /> },
+    { label: "Marketing", files: "12 Files", size: "31 MB", colorClass: "bg-light-warning", icon: <IconBook size={18} className="text-warning" /> },
+  ];
+
   useEffect(() => {
     let cancelled = false;
     getMyBooks()
