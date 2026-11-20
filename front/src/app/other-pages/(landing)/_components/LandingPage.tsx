@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { Container, Row, Col } from "reactstrap";
-import Link from "next/link";
+import { Container, Row, Col, Button } from "reactstrap";
+import { IconArrowNarrowUp } from "@tabler/icons-react";
 import Typed from "typed.js";
 
 import DemoSection from "@/app/other-pages/(landing)/_components/DemoSection";
@@ -27,51 +27,34 @@ const LandingPage = () => {
       typeSpeed: 100,
       backSpeed: 50,
       loop: true,
-    };
-    typedInstance.current = new Typed(typedRef.current, options);
+};
+  typedInstance.current = new Typed(typedRef.current, options);
 
-    return () => {
-      typedInstance.current?.destroy();
-    };
-  }, []);
+  return () => {
+    typedInstance.current?.destroy();
+  };
+}, []);
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+// Scroll progress tracking
+useEffect(() => {
+  const handleScroll = () => {
+    const pos = window.scrollY;
+    const calcHeight = document.body.scrollHeight - window.innerHeight;
+    const percentage = Math.round((pos * 100) / calcHeight);
 
-  const toggle = () => setIsOpen(!isOpen);
+    setShowScrollProgress(pos > 100);
+    setScrollPercentage(percentage);
+  };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+  window.addEventListener("scroll", handleScroll);
+  handleScroll();
 
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
+}, []);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const pos = window.scrollY;
-      const calcHeight = document.body.scrollHeight - window.innerHeight;
-      const percentage = Math.round((pos * 100) / calcHeight);
-
-      setShowScrollProgress(pos > 100);
-      setScrollPercentage(percentage);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const [cursorStyle, setCursorStyle] = useState<React.CSSProperties>({});
+const [cursorStyle, setCursorStyle] = useState<React.CSSProperties>({});
   const circleRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
