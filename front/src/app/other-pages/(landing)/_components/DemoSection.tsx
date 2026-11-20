@@ -1,24 +1,8 @@
 import React, { useState } from "react";
-import {
-  Row,
-  Col,
-  Nav,
-  NavItem,
-  NavLink,
-  TabPane,
-} from "reactstrap";
+import { Row, Col, Nav, NavItem, NavLink } from "reactstrap";
 import classnames from "classnames";
 
-import { IconChevronsRight } from "@tabler/icons-react";
 import SectionHeading from "@/app/other-pages/(landing)/_components/SectionHeading";
-
-type DemoItem = {
-  imgSrc: string;
-  title: string;
-  link: string;
-  btnClass?: string;
-  btnColor?: string;
-};
 
 const DemoSection: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>("dashboard");
@@ -41,24 +25,16 @@ const DemoSection: React.FC = () => {
             <div className="demos-tab-section">
               <Nav tabs className="app-tabs-dark" id="v-bg" role="tablist">
                 {[
-                  { id: "dashboard", icon: "ti-home", label: "The Unreal Estate" },
-                  { id: "apps", icon: "ti-server", label: "Apps" },
-                  { id: "ui", icon: "ti-first-aid-kit", label: "UI Kits" },
-                  {
-                    id: "advance-ui",
-                    icon: "ti-briefcase",
-                    label: "Advance UI",
-                  },
-                  { id: "icons", icon: "ti-icons", label: "Icons" },
-                  { id: "table", icon: "ti-table", label: "Tables" },
-                  { id: "forms", icon: "ti-forms", label: "Forms" },
-                  {
-                    id: "ready-to-use",
-                    icon: "ti-table-import",
-                    label: "Ready To Use",
-                  },
-                  { id: "auth", icon: "ti-news", label: "Auth Pages" },
-                  { id: "error", icon: "ti-news", label: "Error Pages" },
+                  { id: "tab1", icon: "ti-home", label: "Dream Saboteurs" },
+                  { id: "tab2", icon: "ti-server", label: "Delicate Sweetness" },
+                  { id: "tab3", icon: "ti-first-aid-kit", label: "Savvy Investors" },
+                  { id: "tab4", icon: "ti-briefcase", label: "Investing in Stocks, Mutuals" },
+                  { id: "tab5", icon: "ti-icons", label: "Corporate Scuffle" },
+                  { id: "tab6", icon: "ti-table", label: "Desperate Business Partner" },
+                  { id: "tab7", icon: "ti-forms", label: "Baddest Schemer" },
+                  { id: "tab8", icon: "ti-table-import", label: "The Unreal Estate" },
+                  { id: "tab9", icon: "ti-news", label: "Mister President" },
+                  { id: "tab10", icon: "ti-news", label: "Hey, Guys" },
                 ].map((tab) => (
                   <NavItem
                     key={tab.id}
