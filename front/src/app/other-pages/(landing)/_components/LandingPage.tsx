@@ -291,7 +291,7 @@ const LandingPage = () => {
                       href="/dashboard"
                       target="_blank"
                     >
-                      Check Now
+                      Start Reading 
                     </Button>
                   </div>
                 </div>

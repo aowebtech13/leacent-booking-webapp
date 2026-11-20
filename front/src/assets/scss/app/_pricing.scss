@@ -127,4 +127,23 @@
     border: 1px solid rgba(var(--secondary), 0.2);
   }
 }
+
+.purchase-hero-card {
+  .step-badge {
+    width: 42px;
+    height: 42px;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .step h6 {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .step p {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+}
 // >>-- 52 Pricing css end --<<
