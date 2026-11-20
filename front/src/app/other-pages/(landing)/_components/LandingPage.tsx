@@ -26,16 +26,6 @@ import LandingFooter from "@/app/other-pages/(landing)/_components/LandingFooter
 
 
 
-
-interface LanguageItem {
-  title: string;
-  iconClass: React.ReactNode | string;
-  link: string;
-  bgClass: string;
-}
-
-
-
 const LandingPage = () => {
   const [showScrollProgress, setShowScrollProgress] = useState(false);
   const [scrollPercentage, setScrollPercentage] = useState(0);
