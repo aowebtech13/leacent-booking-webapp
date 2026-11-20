@@ -25,7 +25,7 @@ import PurchasePlanSection from "@/app/other-pages/(landing)/_components/Purchas
 import FaqContentSection from "@/app/other-pages/(landing)/_components/FaqContentSection";
 import LandingFooter from "@/app/other-pages/(landing)/_components/LandingFooter";
 
-import ElementSection from "@/app/other-pages/(landing)/_components/ElementSection";
+
 
 
 interface LanguageItem {
@@ -365,11 +365,6 @@ const LandingPage = () => {
    
       {/*card section end */}
 
-      {/*Element section start */}
-      <section className="element-section" id="Elements">
-        <ElementSection />
-      </section>
-      {/*Element section end */}
 
     
 
