@@ -15,10 +15,9 @@ const DemoSection: React.FC = () => {
     <div>
       <div className="container-fluid">
         <SectionHeading
-          title="pages"
-          highlight="150+"
-          description="All pages created with unlimited features that will reduce the
-                cost, efforts and your time."
+          title="20+"
+          highlight="Books"
+          description="Join the Business Lab Club and enjoy the business relationship we offer through our registered  members' Movement."
         />
         <Row>
           <Col xl={8} className="offset-xl-2">
