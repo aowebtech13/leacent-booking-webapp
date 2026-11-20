@@ -20,14 +20,13 @@ import {
 import DemoSection from "@/app/other-pages/(landing)/_components/DemoSection";
 import Link from "next/link";
 import Typed from "typed.js";
-import FeatureSection from "@/app/other-pages/(landing)/_components/FeatureSection";
+
 import PurchasePlanSection from "@/app/other-pages/(landing)/_components/PurchasePlanSection";
 import FaqContentSection from "@/app/other-pages/(landing)/_components/FaqContentSection";
 import LandingFooter from "@/app/other-pages/(landing)/_components/LandingFooter";
-import CustomizationOptionSection from "@/app/other-pages/(landing)/_components/CustomizationOptionSection";
-import LandingDarkSection from "@/app/other-pages/(landing)/_components/LandingDarkSection";
+
 import ElementSection from "@/app/other-pages/(landing)/_components/ElementSection";
-import LandingCardSection from "@/app/other-pages/(landing)/_components/LandingCardSection";
+
 
 interface LanguageItem {
   title: string;
@@ -247,7 +246,7 @@ const LandingPage = () => {
                   href="https://forms.gle/hYrBdsJYsqqWe5pKA"
                   target="_blank"
                 >
-                  Hire Us
+                  Register
                 </Button>
                 <Button
                   color="primary"
@@ -255,7 +254,7 @@ const LandingPage = () => {
                   href="https://themeforest.net/user/la-themes"
                   target="_blank"
                 >
-                  Buy Now
+                 Sign In
                 </Button>
               </div>
             </Collapse>
@@ -355,9 +354,7 @@ const LandingPage = () => {
       </section>
       {/*demos section end */}
 
-      {/*Features section start */}
-      <FeatureSection />
-      {/*Features section end */}
+   
 
       {/*Faq section start */}
       <section className="faq-section">
@@ -365,10 +362,7 @@ const LandingPage = () => {
       </section>
       {/*Faq section end */}
 
-      {/*card section start */}
-      <section className="card-section" id="Cards">
-        <LandingCardSection />
-      </section>
+   
       {/*card section end */}
 
       {/*Element section start */}
@@ -377,17 +371,8 @@ const LandingPage = () => {
       </section>
       {/*Element section end */}
 
-      {/*Dark Mode section */}
-      <section className="dark-section">
-        <LandingDarkSection />
-      </section>
-      {/*Dark Mode section end*/}
+    
 
-      {/*Customization  options section start */}
-      <section className="options-section">
-        <CustomizationOptionSection />
-      </section>
-      {/*Customization  options section end */}
 
       {/*wrapper Section start */}
       <section className="box-wrapper-section p-0">
