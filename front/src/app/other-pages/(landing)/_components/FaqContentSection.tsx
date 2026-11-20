@@ -16,11 +16,9 @@ const FaqContentSection = () => {
     <div>
       <Container>
         <SectionHeading
-          title="Inquired"
-          highlight="Queries"
-          description="After reading the instructions, I had a few inquired queries
-                about the process and decided to reach out to customer support
-                for clarification."
+          title="Frequently Asked"
+          highlight="Questions"
+          description="Find answers to common questions about using our platform. If you need further assistance, our support team is here to help."
         />
 
         <Row className="align-items-center">
