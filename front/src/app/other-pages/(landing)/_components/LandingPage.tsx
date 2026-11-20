@@ -14,8 +14,7 @@ import {
 } from "reactstrap";
 import {
   IconArrowNarrowUp,
-  IconBrandFigma,
-  IconBrandNextjs,
+
 } from "@tabler/icons-react";
 import DemoSection from "@/app/other-pages/(landing)/_components/DemoSection";
 import Link from "next/link";
@@ -35,20 +34,7 @@ interface LanguageItem {
   bgClass: string;
 }
 
-const languageItems: LanguageItem[] = [
-  {
-    title: "NextJS",
-    iconClass: <IconBrandNextjs size={26} className="text-white" />,
-    link: "/",
-    bgClass: "primary-box bg-primary",
-  },
-  {
-    title: "Figma",
-    iconClass: <IconBrandFigma size={26} className="text-white" />,
-    link: "https://www.figma.com/design/Xmv0dYJsGQClbLD79TwrWk/Leacent-figma-screenshot?node",
-    bgClass: "danger-box bg-danger",
-  },
-];
+
 
 const LandingPage = () => {
   const [showScrollProgress, setShowScrollProgress] = useState(false);
@@ -78,19 +64,6 @@ const LandingPage = () => {
     };
   }, []);
 
-  const wrapper: string[] = [
-    "Fully Customizable",
-    "Google Font",
-    "10+ Apps",
-    "Fully Customizable",
-    "100+ Custom Elements",
-    "Mobile Responsive design",
-    "150+ Pages",
-    "Creative Card Design",
-    "4+ Icons Set",
-    "Quick Response",
-    "Multiple Sidebar Options",
-  ];
 
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -280,9 +253,8 @@ const LandingPage = () => {
                     src="/images/landing/vector-shaps.png"
                   />
                   <p className="text-white">
-                    Business Labs - Books & Movies Comes with so many sidebar
-                    options, <br />
-                    layouts like RTL & many more ...!
+                    Welcome to the real-life investment, entrepreneurship, and  <br />business 
+                    management resource Laboratory.
                   </p>
                   <div className="mt-5">
                     <Button
@@ -324,29 +296,7 @@ const LandingPage = () => {
 
         {/* landing first section end*/}
       </div>
-      <div className="row">
-        <div className="language-box d-flex gap-3">
-          {languageItems.map((item, index) => (
-            <div className="language-box-item" key={index}>
-              <a
-                href={item.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${item.bgClass} h-60 w-60 d-flex-center b-r-20`}
-                onMouseEnter={() => setTooltipVisible(item.title)}
-                onMouseLeave={() => setTooltipVisible(null)}
-              >
-                {item.iconClass}
-                {tooltipVisible === item.title && (
-                  <div className="custom-tooltip custom-dark show">
-                    {item.title}
-                  </div>
-                )}
-              </a>
-            </div>
-          ))}
-        </div>
-      </div>
+     
 
       {/*demos section start */}
       <section className="demos-section" id="Demo">
@@ -369,17 +319,7 @@ const LandingPage = () => {
     
 
 
-      {/*wrapper Section start */}
-      <section className="box-wrapper-section p-0">
-        <Container fluid className="box-wrapper">
-          <ul className="box-wrapper-list">
-            {wrapper.map((feature, index) => (
-              <li key={index}>{feature}</li>
-            ))}
-          </ul>
-        </Container>
-      </section>
-      {/*wrapper Section end */}
+
 
       {/*Purchase Plans section start  */}
       <section className="plans-section">

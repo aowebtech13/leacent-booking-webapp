@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   Row,
   Col,
-  Button,
   Nav,
   NavItem,
   NavLink,
@@ -42,7 +41,7 @@ const DemoSection: React.FC = () => {
             <div className="demos-tab-section">
               <Nav tabs className="app-tabs-dark" id="v-bg" role="tablist">
                 {[
-                  { id: "dashboard", icon: "ti-home", label: "Dashboard" },
+                  { id: "dashboard", icon: "ti-home", label: "The Unreal Estate" },
                   { id: "apps", icon: "ti-server", label: "Apps" },
                   { id: "ui", icon: "ti-first-aid-kit", label: "UI Kits" },
                   {

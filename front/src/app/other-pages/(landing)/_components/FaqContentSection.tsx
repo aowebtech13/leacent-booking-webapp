@@ -32,14 +32,14 @@ const FaqContentSection = () => {
                       <IconBook2 size={18} />
                     </div>
                     <div className="box-content">
-                      <h4>Documentation</h4>
-                      <p>Comprehensive guides to help you get started quickly.</p>
+                      <h4>Whatsaapp</h4>
+                      <p>Join our WhatsApp community for real-time updates and support.</p>
                       <Button
                         color="primary"
                         target="_blank"
-                        href="/dashboard"
+                        href="https://chat.whatsapp.com/CRMLEqwPgR7AFi90exHHgv?s=cl&p=a&mlu=0"
                       >
-                        Read Docs
+                        Join Now
                       </Button>
                     </div>
                   </CardBody>
