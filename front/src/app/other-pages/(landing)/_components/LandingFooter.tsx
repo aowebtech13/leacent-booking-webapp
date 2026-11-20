@@ -7,33 +7,14 @@ const LandingFooter = () => {
     <Container>
       <Row>
         <Col className="footer-content text-center">
-          <Image src="/images/logo/4.png" alt="logo" width={120} height={40} />
+          <Image src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png" alt="logo" width={120} height={40} />
           <h1>
-            Build a <span className="highlight-title"> Startling </span> site
+           Join <span className="highlight-title"> Business </span> lab Today !!
           </h1>
           <p className="txt-ellipsis-3">
-            Purchase TheBusiness Labs - Books & Movies Admin Theme. If you enjoy
-            our template, please take a moment to rate us.
+          The Business Lab - Books & Movies ~ Built By Aowebtech
           </p>
-          <div className="footer-btn">
-            <Button
-              href="https://themeforest.net/user/la-themes"
-              target="_blank"
-              color="primary"
-              size="lg"
-              className="me-3"
-            >
-              Buy Now
-            </Button>
-            <Button
-              href="mailto:firstbornpublishing923@gmail.com."
-              target="_blank"
-              color="danger"
-              size="lg"
-            >
-              Need Help?
-            </Button>
-          </div>
+          
         </Col>
       </Row>
     </Container>
