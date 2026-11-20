@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Col, Container, Row } from "reactstrap";
+import { Col, Container, Row } from "reactstrap";
 import Image from "next/image";
 
 const LandingFooter = () => {
