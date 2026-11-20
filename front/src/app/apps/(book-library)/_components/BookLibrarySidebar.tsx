@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Card, CardBody, CardHeader } from "reactstrap";
 import { IconBook, IconHelp, IconChevronRight } from "@tabler/icons-react";
 import { Image } from "phosphor-react";
-import { Video } from "@phosphor-icons/react";
 import Loading from "@/app/loading";
 import Link from "next/link";
 import { getMyBooks } from "@/lib/api/books";
