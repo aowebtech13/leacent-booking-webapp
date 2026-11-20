@@ -13,15 +13,7 @@ type BookLibrarySidebarProps = {
   setActiveTab: (tab: string) => void;
 };
 
-const bookCategories = [
-  {
-    label: "Audiobooks",
-    icon: <Video size={18} weight="duotone" />,
-    colorClass: "text-light-success",
-    files: "53 Files",
-    size: "19.1 GB",
-  },
-];
+
 
 const BookLibrarySidebar: React.FC<BookLibrarySidebarProps> = ({
   activeTab,
