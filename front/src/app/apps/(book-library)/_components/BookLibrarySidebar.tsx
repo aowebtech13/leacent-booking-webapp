@@ -21,7 +21,6 @@ const bookCategories = [
     files: "53 Files",
     size: "19.1 GB",
   },
-
 ];
 
 const BookLibrarySidebar: React.FC<BookLibrarySidebarProps> = ({
@@ -147,9 +146,7 @@ const BookLibrarySidebar: React.FC<BookLibrarySidebarProps> = ({
             href="/apps/book-library/unlocked"
             className="file-manager-sidebar mb-4 d-flex align-items-center position-relative text-decoration-none text-reset"
           >
-            <span
-              className="text-light-primary h-40 w-40 d-flex-center b-r-10 position-absolute"
-            >
+            <span className="text-light-primary h-40 w-40 d-flex-center b-r-10 position-absolute">
               <Image size={18} weight="duotone" alt="" />
             </span>
             <div className="flex-grow-1 ms-5">

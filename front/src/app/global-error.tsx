@@ -21,7 +21,9 @@ export default function GlobalError({
             {error.message || "An unexpected error occurred. Please try again."}
           </p>
           {error.digest && (
-            <div className="mb-4 text-muted small">Error ID: {error.digest}</div>
+            <div className="mb-4 text-muted small">
+              Error ID: {error.digest}
+            </div>
           )}
           <button className="btn btn-primary" onClick={() => reset()}>
             Try again

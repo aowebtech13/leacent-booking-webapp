@@ -23,26 +23,25 @@ const formatMoney = (amount: number, currency?: string) => {
 const ComparePricing: React.FC<ComparePricingProps> = ({ plans }) => {
   const featureList = [
     {
-      label: 'Plan Name',
+      label: "Plan Name",
       value: (plan: BookPlan) => plan.name,
     },
     {
-      label: 'Point Count',
+      label: "Point Count",
       value: (plan: BookPlan) =>
-        `${plan.points} point${plan.points === 1 ? '' : 's'}`,
+        `${plan.points} point${plan.points === 1 ? "" : "s"}`,
     },
     {
-      label: 'Total Cost',
+      label: "Total Cost",
       value: (plan: BookPlan) => formatMoney(plan.price, plan.currency),
     },
     {
-      label: 'Ideal For',
-      value: (plan: BookPlan) => plan.description || '—',
+      label: "Ideal For",
+      value: (plan: BookPlan) => plan.description || "—",
     },
     {
-      label: 'Key Included Features',
-      value: (plan: BookPlan) =>
-        (plan.features ?? []).join(', ') || '—',
+      label: "Key Included Features",
+      value: (plan: BookPlan) => (plan.features ?? []).join(", ") || "—",
     },
   ];
 

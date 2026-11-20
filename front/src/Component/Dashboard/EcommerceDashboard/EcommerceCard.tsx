@@ -41,11 +41,15 @@ const EcommerceCard = () => {
   const [booksTotal, setBooksTotal] = useState<BookTotalResponse | null>(null);
   const [booksTotalLoading, setBooksTotalLoading] = useState(true);
   const [spending, setSpending] = useState<BooksSpendingResponse | null>(null);
-  const [readingProgress, setReadingProgress] = useState<LatestReadingProgress | null>(null);
+  const [readingProgress, setReadingProgress] =
+    useState<LatestReadingProgress | null>(null);
   const [readingProgressLoading, setReadingProgressLoading] = useState(true);
-  const [pointsBalance, setPointsBalance] = useState<PointsBalanceResponse | null>(null);
+  const [pointsBalance, setPointsBalance] =
+    useState<PointsBalanceResponse | null>(null);
   const [pointsBalanceLoading, setPointsBalanceLoading] = useState(true);
-  const [pointsSpent, setPointsSpent] = useState<PointsSpentResponse | null>(null);
+  const [pointsSpent, setPointsSpent] = useState<PointsSpentResponse | null>(
+    null
+  );
   const [pointsSpentLoading, setPointsSpentLoading] = useState(true);
 
   useEffect(() => {
@@ -136,10 +140,7 @@ const EcommerceCard = () => {
 
     return () => {
       cancelled = true;
-      window.removeEventListener(
-        "leacent:points-updated",
-        handlePointsUpdated
-      );
+      window.removeEventListener("leacent:points-updated", handlePointsUpdated);
     };
   }, []);
 
@@ -202,9 +203,7 @@ const EcommerceCard = () => {
               <CardBody>
                 <i className="ph-bold ph-circle circle-bg-img"></i>
                 <div>
-                  <p className="f-s-18 f-w-600 text-dark">
-                    📈My Points
-                  </p>
+                  <p className="f-s-18 f-w-600 text-dark">📈My Points</p>
                   <h2 className="text-secondary-dark mb-0">
                     {pointsBalanceLoading
                       ? "..."
@@ -235,7 +234,8 @@ const EcommerceCard = () => {
                         width={16}
                         className="f-s-16 align-text-top me-2"
                       />
-                      {readingProgress.range_start} - {readingProgress.range_end}
+                      {readingProgress.range_start} -{" "}
+                      {readingProgress.range_end}
                     </p>
                   ) : (
                     <p className="text-dark f-w-600 mb-0 mt-2">
@@ -299,12 +299,13 @@ const EcommerceCard = () => {
                       ? "..."
                       : (pointsSpent?.points_spent ?? 0).toLocaleString()}
                   </h4>
-                
-                  {!pointsBalanceLoading && (pointsBalance?.points ?? 0) < 3 && (
-                    <span className="badge bg-warning text-dark ms-2">
-                      Low points
-                    </span>
-                  )}
+
+                  {!pointsBalanceLoading &&
+                    (pointsBalance?.points ?? 0) < 3 && (
+                      <span className="badge bg-warning text-dark ms-2">
+                        Low points
+                      </span>
+                    )}
                 </div>
                 <Link
                   className="bg-danger h-35 w-35 d-flex-center b-r-50 product-sold-icon"

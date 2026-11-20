@@ -62,8 +62,7 @@ const ContactPage = () => {
       setFeedback({
         type: "success",
         message:
-          (res as any)?.message ||
-          "Your message has been sent successfully!",
+          (res as any)?.message || "Your message has been sent successfully!",
       });
       setForm({ name: "", email: "", phone: "", subject: "", message: "" });
     } catch (err: any) {
@@ -206,8 +205,7 @@ const ContactPage = () => {
                           </>
                         ) : (
                           <>
-                            <IconSend size={18} className="me-1" /> Send
-                            Message
+                            <IconSend size={18} className="me-1" /> Send Message
                           </>
                         )}
                       </Button>

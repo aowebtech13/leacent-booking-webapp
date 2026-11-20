@@ -63,18 +63,14 @@ const UnlockedBooksPage = () => {
           <Col>
             <h4 className="mb-1">Unlocked Books</h4>
             <p className="text-muted mb-0">
-              Books you have unlocked with points or a subscription. Your
-              access is permanent.
+              Books you have unlocked with points or a subscription. Your access
+              is permanent.
             </p>
           </Col>
         </Row>
 
         {error && (
-          <Alert
-            color="danger"
-            className="mb-4"
-            toggle={() => setError(null)}
-          >
+          <Alert color="danger" className="mb-4" toggle={() => setError(null)}>
             {error}
           </Alert>
         )}
@@ -94,10 +90,7 @@ const UnlockedBooksPage = () => {
               You haven&apos;t unlocked any books yet. Browse the library and
               unlock a book with your points to start reading.
             </p>
-            <Link
-              href="/apps/book-library"
-              className="btn btn-primary"
-            >
+            <Link href="/apps/book-library" className="btn btn-primary">
               Browse Library
             </Link>
           </Alert>

@@ -81,8 +81,13 @@ export const BookReader: React.FC<BookReaderProps> = ({
     >
       {ErrorView ?? (
         <div>
-          <IconAlertCircle size={40} style={{ marginBottom: 8, color: "#6c757d" }} />
-          <p className="mb-2">This format cannot be previewed in the browser.</p>
+          <IconAlertCircle
+            size={40}
+            style={{ marginBottom: 8, color: "#6c757d" }}
+          />
+          <p className="mb-2">
+            This format cannot be previewed in the browser.
+          </p>
           <a
             href={href}
             target="_blank"

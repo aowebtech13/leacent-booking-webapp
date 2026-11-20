@@ -33,41 +33,41 @@ const FaqPage = () => {
   // FAQ data
   const faqSections: AccordionSection[] = [
     {
-       title: "Books, Points & Unlocking",
-       parentId: "accordionExample",
-       items: [
-         {
-           id: "collapseOne",
-           title: "How do I unlock a book?",
-           isOpen: true,
-           content:
-             "Books are unlocked using points. Browse the book catalog, choose a book, and spend the required points to unlock it. Once unlocked, the book is added to your library and available to read anytime.",
-         },
-         {
-           id: "collapseTwo",
-           title: "What are points and how do I get them?",
-           content:
-             "Points are the in-app currency used to unlock books. You purchase points through book plans. Each plan grants a specific number of points, which are credited to your account immediately after a successful payment.",
-         },
-         {
-           id: "collapseThree",
-           title: "What are book plans?",
-           content:
-             "Book plans are purchasable packages that bundle points at different price tiers. Choose the plan that fits your reading needs, complete the payment, and the points are added to your balance. Plans may also include bonus points or discounts on larger purchases.",
-         },
-         {
-           id: "collapseFour",
-           title: "Can I unlock multiple books at once?",
-           content:
-             "Yes. As long as you have enough points in your balance, you can unlock any number of books. Each book costs a set number of points, which is shown on the book detail page before unlocking.",
-         },
-         {
-           id: "collapseFive",
-           title: "Do unlocked books expire?",
-           content:
-             "No. Once a book is unlocked with points, it stays in your library permanently and can be read offline or online at any time. Points, however, are non-refundable once spent.",
-         },
-       ],
+      title: "Books, Points & Unlocking",
+      parentId: "accordionExample",
+      items: [
+        {
+          id: "collapseOne",
+          title: "How do I unlock a book?",
+          isOpen: true,
+          content:
+            "Books are unlocked using points. Browse the book catalog, choose a book, and spend the required points to unlock it. Once unlocked, the book is added to your library and available to read anytime.",
+        },
+        {
+          id: "collapseTwo",
+          title: "What are points and how do I get them?",
+          content:
+            "Points are the in-app currency used to unlock books. You purchase points through book plans. Each plan grants a specific number of points, which are credited to your account immediately after a successful payment.",
+        },
+        {
+          id: "collapseThree",
+          title: "What are book plans?",
+          content:
+            "Book plans are purchasable packages that bundle points at different price tiers. Choose the plan that fits your reading needs, complete the payment, and the points are added to your balance. Plans may also include bonus points or discounts on larger purchases.",
+        },
+        {
+          id: "collapseFour",
+          title: "Can I unlock multiple books at once?",
+          content:
+            "Yes. As long as you have enough points in your balance, you can unlock any number of books. Each book costs a set number of points, which is shown on the book detail page before unlocking.",
+        },
+        {
+          id: "collapseFive",
+          title: "Do unlocked books expire?",
+          content:
+            "No. Once a book is unlocked with points, it stays in your library permanently and can be read offline or online at any time. Points, however, are non-refundable once spent.",
+        },
+      ],
     },
     {
       title: "Admin Dashboard",

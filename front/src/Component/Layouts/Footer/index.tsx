@@ -14,7 +14,7 @@ const Footer = () => {
                     Copyright © 2026 Leacent Books. All rights reserved 💖
                   </p>
                 </li>
-              
+
                 <li>
                   <Link href="#">Designed by aowebtech </Link>
                 </li>

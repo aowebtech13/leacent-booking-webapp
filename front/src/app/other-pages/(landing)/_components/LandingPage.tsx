@@ -12,10 +12,7 @@ import {
   NavLink,
   Row,
 } from "reactstrap";
-import {
-  IconArrowNarrowUp,
-
-} from "@tabler/icons-react";
+import { IconArrowNarrowUp } from "@tabler/icons-react";
 import DemoSection from "@/app/other-pages/(landing)/_components/DemoSection";
 import Link from "next/link";
 import Typed from "typed.js";
@@ -24,15 +21,12 @@ import PurchasePlanSection from "@/app/other-pages/(landing)/_components/Purchas
 import FaqContentSection from "@/app/other-pages/(landing)/_components/FaqContentSection";
 import LandingFooter from "@/app/other-pages/(landing)/_components/LandingFooter";
 
-
-
 const LandingPage = () => {
   const [showScrollProgress, setShowScrollProgress] = useState(false);
   const [scrollPercentage, setScrollPercentage] = useState(0);
   const scrollProgressRef = useRef<HTMLDivElement>(null);
   const typedRef = useRef<HTMLSpanElement>(null);
   const typedInstance = useRef<Typed | null>(null);
-  const [tooltipVisible, setTooltipVisible] = useState<string | null>(null);
 
   useEffect(() => {
     if (!typedRef.current) return;
@@ -41,7 +35,6 @@ const LandingPage = () => {
       strings: [
         '<span class="highlight-text">Leacent <span class="txt-shadow">Work</span></span>',
         '<span class="highlight-text">Core <span class="txt-shadow">Goals</span></span>',
-   
       ],
       typeSpeed: 100,
       backSpeed: 50,
@@ -53,7 +46,6 @@ const LandingPage = () => {
       typedInstance.current?.destroy();
     };
   }, []);
-
 
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -217,7 +209,7 @@ const LandingPage = () => {
                   href="https://themeforest.net/user/la-themes"
                   target="_blank"
                 >
-                 Sign In
+                  Sign In
                 </Button>
               </div>
             </Collapse>
@@ -233,7 +225,7 @@ const LandingPage = () => {
               <Col lg="6" className="offset-lg-3 position-relative">
                 <div className="landing-heading text-center">
                   <h1>
-                  Welcome To <br />
+                    Welcome To <br />
                     <span ref={typedRef} id="highlight-typed"></span>
                     Business Labs - Books & Movies <br />
                   </h1>
@@ -243,8 +235,9 @@ const LandingPage = () => {
                     src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1795183879/stack-of-books_uarttj.png"
                   />
                   <p className="text-white">
-                    Welcome to the real-life investment, entrepreneurship, and  <br />business 
-                    management resource Laboratory.
+                    Welcome to the real-life investment, entrepreneurship, and{" "}
+                    <br />
+                    business management resource Laboratory.
                   </p>
                   <div className="mt-5">
                     <Button
@@ -253,21 +246,19 @@ const LandingPage = () => {
                       href="/dashboard"
                       target="_blank"
                     >
-                      Start Reading 
+                      Start Reading
                     </Button>
                   </div>
                 </div>
               </Col>
 
               {/* Image Section */}
-              
             </Row>
           </Container>
         </section>
 
         {/* landing first section end*/}
       </div>
-     
 
       {/*demos section start */}
       <section className="demos-section" id="Demo">
@@ -275,22 +266,13 @@ const LandingPage = () => {
       </section>
       {/*demos section end */}
 
-   
-
       {/*Faq section start */}
       <section className="faq-section">
         <FaqContentSection />
       </section>
       {/*Faq section end */}
 
-   
       {/*card section end */}
-
-
-    
-
-
-
 
       {/*Purchase Plans section start  */}
       <section className="plans-section">

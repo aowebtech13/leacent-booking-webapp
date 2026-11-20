@@ -26,13 +26,33 @@ const DemoSection: React.FC = () => {
               <Nav tabs className="app-tabs-dark" id="v-bg" role="tablist">
                 {[
                   { id: "tab1", icon: "ti-home", label: "Dream Saboteurs" },
-                  { id: "tab2", icon: "ti-server", label: "Delicate Sweetness" },
-                  { id: "tab3", icon: "ti-first-aid-kit", label: "Savvy Investors" },
-                  { id: "tab4", icon: "ti-briefcase", label: "Investing in Stocks, Mutuals" },
+                  {
+                    id: "tab2",
+                    icon: "ti-server",
+                    label: "Delicate Sweetness",
+                  },
+                  {
+                    id: "tab3",
+                    icon: "ti-first-aid-kit",
+                    label: "Savvy Investors",
+                  },
+                  {
+                    id: "tab4",
+                    icon: "ti-briefcase",
+                    label: "Investing in Stocks, Mutuals",
+                  },
                   { id: "tab5", icon: "ti-icons", label: "Corporate Scuffle" },
-                  { id: "tab6", icon: "ti-table", label: "Desperate Business Partner" },
+                  {
+                    id: "tab6",
+                    icon: "ti-table",
+                    label: "Desperate Business Partner",
+                  },
                   { id: "tab7", icon: "ti-forms", label: "Baddest Schemer" },
-                  { id: "tab8", icon: "ti-table-import", label: "The Unreal Estate" },
+                  {
+                    id: "tab8",
+                    icon: "ti-table-import",
+                    label: "The Unreal Estate",
+                  },
                   { id: "tab9", icon: "ti-news", label: "Mister President" },
                   { id: "tab10", icon: "ti-news", label: "Hey, Guys" },
                 ].map((tab) => (
@@ -55,7 +75,6 @@ const DemoSection: React.FC = () => {
               </Nav>
             </div>
           </Col>
-         
         </Row>
       </div>
     </div>

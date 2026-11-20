@@ -202,9 +202,7 @@ export default async function AuthorDetailPage({
                       {author?.email && (
                         <li className="mb-2 d-flex align-items-center">
                           <IconMail size={16} className="me-2 text-primary" />
-                          <a href={`mailto:${author.email}`}>
-                            {author.email}
-                          </a>
+                          <a href={`mailto:${author.email}`}>{author.email}</a>
                         </li>
                       )}
                       {author?.phone && (

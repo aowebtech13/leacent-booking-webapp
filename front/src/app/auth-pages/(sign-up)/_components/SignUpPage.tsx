@@ -29,7 +29,7 @@ const SignUpPage = () => {
       } catch (err: any) {
         if (isRedirectError(err)) throw err;
 
-        // Robust error extraction for production builds where 
+        // Robust error extraction for production builds where
         // class names like "ActionError" might get minified or stripped.
         const errorMessage =
           err?.message ||

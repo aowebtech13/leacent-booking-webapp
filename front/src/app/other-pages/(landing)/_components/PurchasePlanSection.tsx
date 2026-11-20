@@ -128,9 +128,7 @@ const PricingPlansSection = () => {
                         >
                           {plan.title}
                         </p>
-                        <h1 className="text-dark f-w-700 mt-3">
-                          {plan.price}
-                        </h1>
+                        <h1 className="text-dark f-w-700 mt-3">{plan.price}</h1>
                         <p className="text-secondary txt-ellipsis-3 f-w-500 f-s-16">
                           {plan.description}
                         </p>

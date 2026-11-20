@@ -67,7 +67,11 @@ const getStatusInfo = (order: Order) => {
 const mapPaymentStatus = (status: string) => {
   const s = (status || "").toLowerCase();
   if (s === "active" || s === "verified" || s === "completed") {
-    return { label: "Completed", statusClass: "success", badgeClass: "success" };
+    return {
+      label: "Completed",
+      statusClass: "success",
+      badgeClass: "success",
+    };
   }
   if (s === "pending" || s === "pending_verification") {
     return { label: "Pending", statusClass: "warning", badgeClass: "warning" };
@@ -119,9 +123,7 @@ const EcommerceDetail = () => {
           ? orderData
           : (orderData?.data ?? []);
 
-        const payments = Array.isArray(paymentRes)
-          ? paymentRes
-          : [];
+        const payments = Array.isArray(paymentRes) ? paymentRes : [];
 
         const mappedOrders = orderList.slice(0, 6).map((order: Order) => {
           const info = getStatusInfo(order);
@@ -219,7 +221,7 @@ const EcommerceDetail = () => {
             </div>
             <CardBody>
               <Slider {...settings}>
-                {(orders).map((order) => (
+                {orders.map((order) => (
                   <ul key={order.id} className="order-content-list">
                     <li className={`bg-${order.statusClass}-300`}>
                       <div className="d-flex align-items-center justify-content-between">
