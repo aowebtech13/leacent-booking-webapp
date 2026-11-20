@@ -50,7 +50,6 @@ const DefaultLayout: React.FC<DefaultLayoutProps> = ({ children }) => {
     pathname.includes("/verify-otp") ||
     pathname.includes("/error-pages") ||
     pathname.includes("/other-pages/maintenance") ||
-    pathname.includes("/other-pages/landing") ||
     pathname.includes("/other-pages/coming-soon")
   ) {
     return <>{children}</>;

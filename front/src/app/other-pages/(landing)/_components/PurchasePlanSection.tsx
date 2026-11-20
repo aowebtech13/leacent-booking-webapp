@@ -106,8 +106,8 @@ const PricingPlansSection = () => {
           {plans.map((plan, idx) => (
             <Col
               key={idx}
-              md={plan.highlight ? 5 : 7}
-              xl={plan.highlight ? 4 : 8}
+              md={6}
+              xl={6}
             >
               <Card
                 className={`pricing-cards mb-0 ${plan.highlight ? "active" : ""}`}

@@ -1,22 +1,10 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Button,
-  Col,
-  Collapse,
-  Container,
-  Nav,
-  NavbarBrand,
-  NavbarToggler,
-  NavItem,
-  NavLink,
-  Row,
-} from "reactstrap";
-import { IconArrowNarrowUp } from "@tabler/icons-react";
-import DemoSection from "@/app/other-pages/(landing)/_components/DemoSection";
+import { Container, Row, Col } from "reactstrap";
 import Link from "next/link";
 import Typed from "typed.js";
 
+import DemoSection from "@/app/other-pages/(landing)/_components/DemoSection";
 import PurchasePlanSection from "@/app/other-pages/(landing)/_components/PurchasePlanSection";
 import FaqContentSection from "@/app/other-pages/(landing)/_components/FaqContentSection";
 import LandingFooter from "@/app/other-pages/(landing)/_components/LandingFooter";
@@ -145,78 +133,6 @@ const LandingPage = () => {
       <div ref={circleRef} className="circle-cursor" style={cursorStyle} />
 
       <div className="landing-wrapper">
-        {/*header start*/}
-        <div
-          className={`navbar navbar-expand-lg sticky-top landing-nav_main px-3 position-fixed w-100 ${
-            isScrolled ? "landing-nav-active" : ""
-          }`}
-        >
-          <Container fluid>
-            <NavbarBrand className="logo" tag={Link} href="/dashboard">
-              <img
-                alt="logo"
-                src="http://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png"
-              />
-            </NavbarBrand>
-
-            <NavbarToggler onClick={toggle} aria-label="Toggle navigation" />
-
-            <Collapse isOpen={isOpen} navbar>
-              <Nav className="m-auto" navbar>
-                <NavItem>
-                  <NavLink className="nav-link active" href="#Demo">
-                    Demo
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink className="nav-link" href="#Cards">
-                    Cards
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink className="nav-link" href="#Features">
-                    Features
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink className="nav-link" href="#Elements">
-                    Elements
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink
-                    href="mailto:firstbornpublishing923@gmail.com"
-                    target="_blank"
-                    className="nav-link"
-                  >
-                    Support
-                  </NavLink>
-                </NavItem>
-              </Nav>
-
-              <div className="d-flex">
-                <Button
-                  color="danger"
-                  className="rounded"
-                  href="https://forms.gle/hYrBdsJYsqqWe5pKA"
-                  target="_blank"
-                >
-                  Register
-                </Button>
-                <Button
-                  color="primary"
-                  className="ms-2 rounded"
-                  href="https://themeforest.net/user/la-themes"
-                  target="_blank"
-                >
-                  Sign In
-                </Button>
-              </div>
-            </Collapse>
-          </Container>
-        </div>
-        {/*header end */}
-
         {/* landing first section start*/}
         <section className="landing-section p-0">
           <Container fluid>
