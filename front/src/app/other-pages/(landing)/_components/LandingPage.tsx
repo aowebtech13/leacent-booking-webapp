@@ -139,6 +139,8 @@ const [cursorStyle, setCursorStyle] = useState<React.CSSProperties>({});
                     alt="shape"
                     className="img-fluid landing-vector-shape"
                     src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1795183879/stack-of-books_uarttj.png"
+                    height="50"
+                    width="50"
                   />
                   <p className="text-white">
                     Welcome to the real-life investment, entrepreneurship, and{" "}
