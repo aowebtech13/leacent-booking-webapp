@@ -10,7 +10,7 @@ import { usePathname } from "next/navigation";
 
 const Header: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
   const pathname = usePathname();
-  const isLandingPage = pathname === "/other-pages/landing";
+  const isLandingPage = pathname === "/" || pathname === "/other-pages/landing";
 
   if (isLandingPage) {
     return (
