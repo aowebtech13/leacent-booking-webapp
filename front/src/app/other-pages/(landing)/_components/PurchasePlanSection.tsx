@@ -19,6 +19,7 @@ const FALLBACK_FEATURES = [
 interface DisplayPlan {
   title: string;
   price: string;
+  points: number;
   badgeColor: string;
   image: string;
   description: string;
@@ -47,6 +48,7 @@ function toDisplayPlan(plan: BookPlan): DisplayPlan {
   return {
     title: plan.name,
     price: formatPrice(plan.price, plan.currency),
+    points: plan.points,
     badgeColor: "primary",
     image: DEFAULT_LOGO,
     description:
@@ -129,6 +131,11 @@ const PricingPlansSection = () => {
                           {plan.title}
                         </p>
                         <h1 className="text-dark f-w-700 mt-3">{plan.price}</h1>
+                        <div className="mb-3">
+                          <span className="badge bg-light-primary text-primary f-s-14 px-3 py-2">
+                            {plan.points > 100 ? `${plan.points}+` : plan.points} Books
+                          </span>
+                        </div>
                         <p className="text-secondary txt-ellipsis-3 f-w-500 f-s-16">
                           {plan.description}
                         </p>
@@ -152,6 +159,11 @@ const PricingPlansSection = () => {
                               <h2>{plan.price}</h2>
                             </>
                           )}
+                          <div className="mb-3">
+                            <span className="badge bg-light-primary text-primary f-s-14 px-3 py-2">
+                              {plan.points > 100 ? `${plan.points}+` : plan.points} Books
+                            </span>
+                          </div>
                           <ul className="pricing-list-menu">
                             {plan.features.map((feature, i) => (
                               <li
