@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Forgot Password -Business Labs - Books & Movies",
+    title: "Forgot Password -Business Lab - Books & Movies",
     description:
       "If you are looking for real-life investment, entrepreneurship, and business management resources, you are looking for Leacent's Business Lab Books - and Movies - brought to you by Firstborn Publishing. Request a password reset link to be sent to your email address.",
     keywords: [
@@ -23,7 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "user authentication",
     ],
     openGraph: {
-      title: "Forgot Password -Business Labs - Books & Movies",
+      title: "Forgot Password -Business Lab - Books & Movies",
       description:
         "If you are looking for real-life investment, entrepreneurship, and business management resources, you are looking for Leacent's Business Lab Books - and Movies - brought to you by Firstborn Publishing.",
       url: "https://businesslab.leacent.org/auth/forgot-password",

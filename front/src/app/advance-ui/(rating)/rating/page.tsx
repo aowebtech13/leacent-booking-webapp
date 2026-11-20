@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Rating -Business Labs - Books & Movies",
+    title: "Rating -Business Lab - Books & Movies",
     description:
       "Explore advanced rating components and star rating systems for your web applications.",
     keywords: [
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "rating customization",
     ],
     openGraph: {
-      title: "Rating -Business Labs - Books & Movies",
+      title: "Rating -Business Lab - Books & Movies",
       description:
         "Explore advanced rating components and star rating systems for your web applications.",
       url: "https://businesslab.leacent.org/",

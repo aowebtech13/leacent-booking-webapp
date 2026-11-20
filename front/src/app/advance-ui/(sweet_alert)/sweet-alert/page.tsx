@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Sweet Alert -Business Labs - Books & Movies",
+    title: "Sweet Alert -Business Lab - Books & Movies",
     description:
       "Explore advanced alert components and notifications for your web applications.",
     keywords: [
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "alert performance",
     ],
     openGraph: {
-      title: "Sweet Alert -Business Labs - Books & Movies",
+      title: "Sweet Alert -Business Lab - Books & Movies",
       description:
         "Explore advanced alert components and notifications for your web applications.",
       url: "https://businesslab.leacent.org/",

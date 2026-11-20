@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Animation -Business Labs - Books & Movies",
+    title: "Animation -Business Lab - Books & Movies",
     description:
       "Explore animation components and effects for enhanced user experience in your React application.",
     keywords: [
@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "react animation library",
     ],
     openGraph: {
-      title: "Animation -Business Labs - Books & Movies",
+      title: "Animation -Business Lab - Books & Movies",
       description:
         "Explore advanced animation components and effects for your web applications.",
       url: "https://businesslab.leacent.org/",

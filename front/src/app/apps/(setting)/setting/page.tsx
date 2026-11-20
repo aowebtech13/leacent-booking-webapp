@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Settings -Business Labs - Books & Movies",
+    title: "Settings -Business Lab - Books & Movies",
     description:
       "Configure and customize your application settings with our advanced settings management system.",
     keywords: [
@@ -28,7 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "configuration management",
     ],
     openGraph: {
-      title: "Settings -Business Labs - Books & Movies",
+      title: "Settings -Business Lab - Books & Movies",
       description:
         "Configure and customize your application settings with our advanced settings management system.",
       url: "https://businesslab.leacent.org/apps/settings",

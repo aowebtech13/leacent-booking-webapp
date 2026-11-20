@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "FontAwesome Icons -Business Labs - Books & Movies",
+    title: "FontAwesome Icons -Business Lab - Books & Movies",
     description:
       "Explore the comprehensive FontAwesome icon library for your React applications.",
     keywords: [
@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "icon customization",
     ],
     openGraph: {
-      title: "FontAwesome Icons -Business Labs - Books & Movies",
+      title: "FontAwesome Icons -Business Lab - Books & Movies",
       description:
         "Explore the comprehensive FontAwesome icon library for your React applications.",
       url: "https://businesslab.leacent.org/icons/fontawesome",

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Chart.js -Business Labs - Books & Movies",
+    title: "Chart.js -Business Lab - Books & Movies",
     description:
       "Explore interactive and customizable charts using Chart.js library for data visualization.",
     keywords: [
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "data representation",
     ],
     openGraph: {
-      title: "Chart.js -Business Labs - Books & Movies",
+      title: "Chart.js -Business Lab - Books & Movies",
       description:
         "Explore interactive and customizable charts using Chart.js library for data visualization.",
       url: "https://businesslab.leacent.org/chart/chart-js",

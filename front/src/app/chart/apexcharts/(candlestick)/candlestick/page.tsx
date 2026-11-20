@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Candlestick Chart - ApexCharts -Business Labs - Books & Movies",
+    title: "Candlestick Chart - ApexCharts -Business Lab - Books & Movies",
     description:
       "Explore interactive candlestick charts using ApexCharts for financial data visualization.",
     keywords: [
@@ -28,7 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "data representation",
     ],
     openGraph: {
-      title: "Candlestick Chart - ApexCharts -Business Labs - Books & Movies",
+      title: "Candlestick Chart - ApexCharts -Business Lab - Books & Movies",
       description:
         "Explore interactive candlestick charts using ApexCharts for financial data visualization.",
       url: "https://businesslab.leacent.org/chart/apexcharts/candlestick",

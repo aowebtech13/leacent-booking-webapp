@@ -6,7 +6,7 @@ export const dynamic = "force-static";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Profile -Business Labs - Books & Movies",
+    title: "Profile -Business Lab - Books & Movies",
     description:
       "Manage your profile settings, update personal information, and customize your dashboard preferences.",
     keywords: [
@@ -20,9 +20,9 @@ export async function generateMetadata(): Promise<Metadata> {
       "preferences",
     ],
     openGraph: {
-      title: "Profile -Business Labs - Books & Movies",
+      title: "Profile -Business Lab - Books & Movies",
       description:
-        "Manage your profile settings and preferences inBusiness Labs - Books & Movies dashboard.",
+        "Manage your profile settings and preferences inBusiness Lab - Books & Movies dashboard.",
       url: "https://businesslab.leacent.org/apps/profile",
       siteName: "BUSINESS LAB - BOOKS & MOVIES",
       locale: "en_US",

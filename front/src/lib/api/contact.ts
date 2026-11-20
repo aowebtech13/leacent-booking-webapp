@@ -10,7 +10,7 @@ export interface ContactMessageInput {
 
 /**
  * Send a "Contact Us" message. Posts to the Laravel `POST /api/contact`
- * endpoint which emails the Business Labs team.
+ * endpoint which emails the Business Lab team.
  */
 export function sendContactMessage(
   data: ContactMessageInput

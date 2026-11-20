@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Tabler Icons -Business Labs - Books & Movies",
+    title: "Tabler Icons -Business Lab - Books & Movies",
     description: "Explore the Tabler icon library for your React applications.",
     keywords: [
       "tabler icons",
@@ -22,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "icon customization",
     ],
     openGraph: {
-      title: "Tabler Icons -Business Labs - Books & Movies",
+      title: "Tabler Icons -Business Lab - Books & Movies",
       description:
         "Explore the Tabler icon library for your React applications.",
       url: "https://businesslab.leacent.org/icons/tabler",

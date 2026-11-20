@@ -262,7 +262,7 @@ const ContactPage = () => {
                     <IconMail size={22} />
                   </span>
                   <div>
-                    <h6 className="mb-1">Business Labs</h6>
+                    <h6 className="mb-1">Business Lab</h6>
                     <p className="text-muted small mb-0">
                       Books &amp; Movies platform. We aim to respond to all
                       messages within 1-2 business days.

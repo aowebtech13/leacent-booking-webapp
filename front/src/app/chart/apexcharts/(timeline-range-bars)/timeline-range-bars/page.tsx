@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title:
-      "Timeline Range Bars Chart - ApexCharts -Business Labs - Books & Movies",
+      "Timeline Range Bars Chart - ApexCharts -Business Lab - Books & Movies",
     description:
       "Explore interactive timeline range bars charts using ApexCharts for data visualization.",
     keywords: [
@@ -29,7 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
     ],
     openGraph: {
       title:
-        "Timeline Range Bars Chart - ApexCharts -Business Labs - Books & Movies",
+        "Timeline Range Bars Chart - ApexCharts -Business Lab - Books & Movies",
       description:
         "Explore interactive timeline range bars charts using ApexCharts for data visualization.",
       url: "https://businesslab.leacent.org/chart/apexcharts/timeline-range-bars",

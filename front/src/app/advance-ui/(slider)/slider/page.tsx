@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Slider -Business Labs - Books & Movies",
+    title: "Slider -Business Lab - Books & Movies",
     description:
       "Explore advanced slider components and image galleries for your web applications.",
     keywords: [
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "slider performance",
     ],
     openGraph: {
-      title: "Slider -Business Labs - Books & Movies",
+      title: "Slider -Business Lab - Books & Movies",
       description:
         "Explore advanced slider components and image galleries for your web applications.",
       url: "https://businesslab.leacent.org/",

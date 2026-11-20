@@ -6,12 +6,12 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "My Books (Unlocked) - Business Labs - Books & Movies",
+    title: "My Books (Unlocked) - Business Lab - Books & Movies",
     description:
       "View the list of books you have unlocked with points or a subscription and continue reading.",
     keywords: ["my books", "unlocked books", "library", "read books"],
     openGraph: {
-      title: "My Books (Unlocked) - Business Labs - Books & Movies",
+      title: "My Books (Unlocked) - Business Lab - Books & Movies",
       description:
         "View the list of books you have unlocked and continue reading.",
       url: "https://businesslab.leacent.org/apps/book-library/unlocked",

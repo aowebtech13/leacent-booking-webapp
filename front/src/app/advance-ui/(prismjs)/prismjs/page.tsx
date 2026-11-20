@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "PrismJS -Business Labs - Books & Movies",
+    title: "PrismJS -Business Lab - Books & Movies",
     description:
       "Explore advanced code syntax highlighting with PrismJS for your web applications.",
     keywords: [
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "prism library",
     ],
     openGraph: {
-      title: "PrismJS -Business Labs - Books & Movies",
+      title: "PrismJS -Business Lab - Books & Movies",
       description:
         "Explore advanced code syntax highlighting with PrismJS for your web applications.",
       url: "https://businesslab.leacent.org/",

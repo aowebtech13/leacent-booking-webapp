@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Tooltip & Popovers -Business Labs - Books & Movies",
+    title: "Tooltip & Popovers -Business Lab - Books & Movies",
     description:
       "Explore advanced tooltip and popover components for your web applications.",
     keywords: [
@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "popover optimization",
     ],
     openGraph: {
-      title: "Tooltip & Popovers -Business Labs - Books & Movies",
+      title: "Tooltip & Popovers -Business Lab - Books & Movies",
       description:
         "Explore advanced tooltip and popover components for your web applications.",
       url: "https://businesslab.leacent.org/",

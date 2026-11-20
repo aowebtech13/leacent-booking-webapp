@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Spinners -Business Labs - Books & Movies",
+    title: "Spinners -Business Lab - Books & Movies",
     description:
       "Explore advanced spinner components and loading indicators for your web applications.",
     keywords: [
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "spinner performance",
     ],
     openGraph: {
-      title: "Spinners -Business Labs - Books & Movies",
+      title: "Spinners -Business Lab - Books & Movies",
       description:
         "Explore advanced spinner components and loading indicators for your web applications.",
       url: "https://businesslab.leacent.org/",

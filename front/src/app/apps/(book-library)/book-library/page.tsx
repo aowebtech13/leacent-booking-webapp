@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Book Library -Business Labs - Books & Movies",
+    title: "Book Library -Business Lab - Books & Movies",
     description:
       "If you are looking for real-life investment, entrepreneurship, and business management resources, you are looking for Leacent's Business Lab Books - and Movies - brought to you by Firstborn Publishing. Browse and read your e-book library. Access EPUB, MOBI, KF8 (AZW3), FB2, CBZ, and PDF formats.",
     keywords: [
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "books",
     ],
     openGraph: {
-      title: "Book Library -Business Labs - Books & Movies",
+      title: "Book Library -Business Lab - Books & Movies",
       description:
         "If you are looking for real-life investment, entrepreneurship, and business management resources, you are looking for Leacent's Business Lab Books - and Movies - brought to you by Firstborn Publishing.",
       url: "https://businesslab.leacent.org/apps/book-library",

@@ -6,7 +6,7 @@ export const dynamic = "force-static";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Team -Business Labs - Books & Movies",
+    title: "Team -Business Lab - Books & Movies",
     description:
       "Manage your team members and collaborate effectively with our team management system.",
     keywords: [
@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "team analytics",
     ],
     openGraph: {
-      title: "Team -Business Labs - Books & Movies",
+      title: "Team -Business Lab - Books & Movies",
       description:
         "Manage your team members and collaborate effectively with our team management system.",
       url: "https://businesslab.leacent.org/apps/team",

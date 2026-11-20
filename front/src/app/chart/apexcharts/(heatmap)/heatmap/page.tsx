@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Heatmap Chart - ApexCharts -Business Labs - Books & Movies",
+    title: "Heatmap Chart - ApexCharts -Business Lab - Books & Movies",
     description:
       "Explore interactive heatmap charts using ApexCharts for data visualization.",
     keywords: [
@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "data representation",
     ],
     openGraph: {
-      title: "Heatmap Chart - ApexCharts -Business Labs - Books & Movies",
+      title: "Heatmap Chart - ApexCharts -Business Lab - Books & Movies",
       description:
         "Explore interactive heatmap charts using ApexCharts for data visualization.",
       url: "https://businesslab.leacent.org/chart/apexcharts/heatmap",

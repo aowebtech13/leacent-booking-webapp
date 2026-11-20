@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Phosphor Icons -Business Labs - Books & Movies",
+    title: "Phosphor Icons -Business Lab - Books & Movies",
     description:
       "Explore the Phosphor icon library for your React applications.",
     keywords: [
@@ -23,7 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "icon customization",
     ],
     openGraph: {
-      title: "Phosphor Icons -Business Labs - Books & Movies",
+      title: "Phosphor Icons -Business Lab - Books & Movies",
       description:
         "Explore the Phosphor icon library for your React applications.",
       url: "https://businesslab.leacent.org/icons/phosphor",

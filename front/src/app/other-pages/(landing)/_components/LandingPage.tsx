@@ -126,7 +126,7 @@ const [cursorStyle, setCursorStyle] = useState<React.CSSProperties>({});
                   <h1>
                     Welcome To <br />
                     <span ref={typedRef} id="highlight-typed"></span>
-                    Business Labs - Books & Movies <br />
+                    Business Lab - Books & Movies <br />
                   </h1>
                   <img
                     alt="shape"

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Scrollpy -Business Labs - Books & Movies",
+    title: "Scrollpy -Business Lab - Books & Movies",
     description:
       "Explore advanced scroll effects and animations for your web applications.",
     keywords: [
@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "scroll optimization",
     ],
     openGraph: {
-      title: "Scrollpy -Business Labs - Books & Movies",
+      title: "Scrollpy -Business Lab - Books & Movies",
       description:
         "Explore advanced scroll effects and animations for your web applications.",
       url: "https://businesslab.leacent.org/",

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Treemap Chart - ApexCharts -Business Labs - Books & Movies",
+    title: "Treemap Chart - ApexCharts -Business Lab - Books & Movies",
     description:
       "Explore interactive treemap charts using ApexCharts for hierarchical data visualization.",
     keywords: [
@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "data representation",
     ],
     openGraph: {
-      title: "Treemap Chart - ApexCharts -Business Labs - Books & Movies",
+      title: "Treemap Chart - ApexCharts -Business Lab - Books & Movies",
       description:
         "Explore interactive treemap charts using ApexCharts for hierarchical data visualization.",
       url: "https://businesslab.leacent.org/chart/apexcharts/treemap",

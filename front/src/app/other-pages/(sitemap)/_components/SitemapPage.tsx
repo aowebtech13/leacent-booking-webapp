@@ -32,7 +32,7 @@ const SitemapPage = () => {
                     <ul className="list-unstyled mb-0">
                       <li className="p-0 parent-title">
                         <a href="#" className="fw-medium fs-14">
-                          Business Labs - Books & Movies-next
+                          Business Lab - Books & Movies-next
                         </a>
                       </li>
                       <li>
@@ -655,7 +655,7 @@ const SitemapPage = () => {
                     <ul className="list-unstyled">
                       <li className="p-0 parent-title">
                         <a href="#" className="fw-medium fs-14">
-                          Business Labs - Books & Movies-next
+                          Business Lab - Books & Movies-next
                         </a>
                       </li>
                       <li>

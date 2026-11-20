@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Bubble Chart - ApexCharts -Business Labs - Books & Movies",
+    title: "Bubble Chart - ApexCharts -Business Lab - Books & Movies",
     description:
       "Explore interactive bubble charts using ApexCharts for data visualization.",
     keywords: [
@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "data representation",
     ],
     openGraph: {
-      title: "Bubble Chart - ApexCharts -Business Labs - Books & Movies",
+      title: "Bubble Chart - ApexCharts -Business Lab - Books & Movies",
       description:
         "Explore interactive bubble charts using ApexCharts for data visualization.",
       url: "https://businesslab.leacent.org/chart/apexcharts/bubble",

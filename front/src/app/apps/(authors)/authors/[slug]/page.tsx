@@ -81,15 +81,15 @@ export async function generateMetadata({
 
   return {
     title: author
-      ? `${author.name} - Author - Business Labs`
-      : "Author - Business Labs - Books & Movies",
+      ? `${author.name} - Author - Business Lab`
+      : "Author - Business Lab - Books & Movies",
     description: author?.bio
       ? author.bio.substring(0, 160)
       : "Browse books by this author.",
     openGraph: {
       title: author
-        ? `${author.name} - Author - Business Labs`
-        : "Author - Business Labs - Books & Movies",
+        ? `${author.name} - Author - Business Lab`
+        : "Author - Business Lab - Books & Movies",
       description: author?.bio
         ? author.bio.substring(0, 160)
         : "Browse books by this author.",

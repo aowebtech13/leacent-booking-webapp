@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Widgets -Business Labs - Books & Movies",
+    title: "Widgets -Business Lab - Books & Movies",
     description:
       "Explore a collection of reusable widget components for your React application, including charts, statistics, and interactive elements.",
     keywords: [
@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "interactive components",
     ],
     openGraph: {
-      title: "Widgets -Business Labs - Books & Movies",
+      title: "Widgets -Business Lab - Books & Movies",
       description:
         "Explore a collection of reusable widget components for your React application, including charts, statistics, and interactive elements.",
       url: "https://businesslab.leacent.org/widgets",

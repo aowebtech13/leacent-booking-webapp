@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Read Book - Business Labs - Books & Movies",
+    title: "Read Book - Business Lab - Books & Movies",
     description: "Read a book from your library.",
   };
 }

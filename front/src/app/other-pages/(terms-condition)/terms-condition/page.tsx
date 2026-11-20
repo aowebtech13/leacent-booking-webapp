@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Terms & Conditions -Business Labs - Books & Movies",
+    title: "Terms & Conditions -Business Lab - Books & Movies",
     description:
       "If you are looking for real-life investment, entrepreneurship, and business management resources, you are looking for Leacent's Business Lab Books - and Movies - brought to you by Firstborn Publishing. Terms and conditions page template for your React application's legal terms and user agreements.",
     keywords: [
@@ -30,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "legal terms",
     ],
     openGraph: {
-      title: "Terms & Conditions -Business Labs - Books & Movies",
+      title: "Terms & Conditions -Business Lab - Books & Movies",
       description:
         "If you are looking for real-life investment, entrepreneurship, and business management resources, you are looking for Leacent's Business Lab Books - and Movies - brought to you by Firstborn Publishing.",
       url: "https://businesslab.leacent.org/other-pages/terms-condition",

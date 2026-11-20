@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title:
-      "Two-Step Verification with Background -Business Labs - Books & Movies",
+      "Two-Step Verification with Background -Business Lab - Books & Movies",
     description:
       "Enhance your account security with our visually appealing two-step verification system featuring a background image.",
     keywords: [
@@ -30,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
     ],
     openGraph: {
       title:
-        "Two-Step Verification with Background -Business Labs - Books & Movies",
+        "Two-Step Verification with Background -Business Lab - Books & Movies",
       description:
         "Enhance your account security with our visually appealing two-step verification system featuring a background image.",
       url: "https://businesslab.leacent.org/auth/two-step-verification-img",

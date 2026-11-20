@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Weather Icons -Business Labs - Books & Movies",
+    title: "Weather Icons -Business Lab - Books & Movies",
     description:
       "Explore weather icons for weather and climate representation in your React applications.",
     keywords: [
@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "icon customization",
     ],
     openGraph: {
-      title: "Weather Icons -Business Labs - Books & Movies",
+      title: "Weather Icons -Business Lab - Books & Movies",
       description:
         "Explore weather icons for weather and climate representation in your React applications.",
       url: "https://businesslab.leacent.org/icons/weather",

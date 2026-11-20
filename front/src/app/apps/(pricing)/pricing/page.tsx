@@ -6,7 +6,7 @@ export const dynamic = "force-static";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Pricing -Business Labs - Books & Movies",
+    title: "Pricing -Business Lab - Books & Movies",
     description:
       "If you are looking for real-life investment, entrepreneurship, and business management resources, you are looking for Leacent's Business Lab Books - and Movies - brought to you by Firstborn Publishing. Discover our flexible pricing plans and features tailored for your needs.",
     keywords: [
@@ -30,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "pricing benefits",
     ],
     openGraph: {
-      title: "Pricing -Business Labs - Books & Movies",
+      title: "Pricing -Business Lab - Books & Movies",
       description:
         "If you are looking for real-life investment, entrepreneurship, and business management resources, you are looking for Leacent's Business Lab Books - and Movies - brought to you by Firstborn Publishing.",
       url: "https://businesslab.leacent.org/apps/pricing",

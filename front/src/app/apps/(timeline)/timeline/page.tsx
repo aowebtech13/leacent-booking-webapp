@@ -6,7 +6,7 @@ export const dynamic = "force-static";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Timeline -Business Labs - Books & Movies",
+    title: "Timeline -Business Lab - Books & Movies",
     description:
       "Track your activities and progress with our interactive timeline visualization.",
     keywords: [
@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "timeline analytics",
     ],
     openGraph: {
-      title: "Timeline -Business Labs - Books & Movies",
+      title: "Timeline -Business Lab - Books & Movies",
       description:
         "Track your activities and progress with our interactive timeline visualization.",
       url: "https://businesslab.leacent.org/apps/timeline",

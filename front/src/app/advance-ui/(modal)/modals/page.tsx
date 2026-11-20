@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Modal -Business Labs - Books & Movies",
+    title: "Modal -Business Lab - Books & Movies",
     description:
       "Explore advanced modal components and dialog boxes for your web applications.",
     keywords: [
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "react dialog",
     ],
     openGraph: {
-      title: "Modal -Business Labs - Books & Movies",
+      title: "Modal -Business Lab - Books & Movies",
       description:
         "Explore advanced modal components and dialog boxes for your web applications.",
       url: "https://businesslab.leacent.org/",

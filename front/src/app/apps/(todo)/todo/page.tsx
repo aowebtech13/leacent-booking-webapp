@@ -7,7 +7,7 @@ export const revalidate = false;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "To-Do -Business Labs - Books & Movies",
+    title: "To-Do -Business Lab - Books & Movies",
     description:
       "Manage your tasks and to-do list with our task management system.",
     keywords: [
@@ -28,7 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "task reporting",
     ],
     openGraph: {
-      title: "To-Do -Business Labs - Books & Movies",
+      title: "To-Do -Business Lab - Books & Movies",
       description:
         "Manage your tasks and to-do list with our task management system.",
       url: "https://businesslab.leacent.org/apps/todo",

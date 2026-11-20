@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Flag Icons -Business Labs - Books & Movies",
+    title: "Flag Icons -Business Lab - Books & Movies",
     description:
       "Explore flag icons for country and region representation in your React applications.",
     keywords: [
@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "icon customization",
     ],
     openGraph: {
-      title: "Flag Icons -Business Labs - Books & Movies",
+      title: "Flag Icons -Business Lab - Books & Movies",
       description:
         "Explore flag icons for country and region representation in your React applications.",
       url: "https://businesslab.leacent.org/icons/flag",

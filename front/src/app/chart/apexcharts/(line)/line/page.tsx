@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Line Chart - ApexCharts -Business Labs - Books & Movies",
+    title: "Line Chart - ApexCharts -Business Lab - Books & Movies",
     description:
       "Explore interactive line charts using ApexCharts for data visualization.",
     keywords: [
@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
       "data representation",
     ],
     openGraph: {
-      title: "Line Chart - ApexCharts -Business Labs - Books & Movies",
+      title: "Line Chart - ApexCharts -Business Lab - Books & Movies",
       description:
         "Explore interactive line charts using ApexCharts for data visualization.",
       url: "https://businesslab.leacent.org/chart/apexcharts/line",
