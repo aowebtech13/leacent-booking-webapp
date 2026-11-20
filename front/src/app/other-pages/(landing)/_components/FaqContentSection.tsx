@@ -18,13 +18,13 @@ const FaqContentSection = () => {
         <SectionHeading
           title="Frequently Asked"
           highlight="Questions"
-          description="Find answers to common questions about using our platform. If you need further assistance, our support team is here to help."
+          description="Find answers to common questions about unlocking books and using our platform. If you need further assistance, our support team is here to help."
         />
 
         <Row className="align-items-center">
           <Col lg={4}>
             <Row>
-              {/* Digitize Your Documents Card */}
+              {/* Documentation Card */}
               <Col lg="12" sm="6" className="mb-3">
                 <Card className="card-boxs">
                   <CardBody>
@@ -32,21 +32,21 @@ const FaqContentSection = () => {
                       <IconBook2 size={18} />
                     </div>
                     <div className="box-content">
-                      <h4>Digitize Your Documents</h4>
-                      <p>Efficiently Arranged and Current</p>
+                      <h4>Documentation</h4>
+                      <p>Comprehensive guides to help you get started quickly.</p>
                       <Button
                         color="primary"
                         target="_blank"
-                        href="https://phpstack-1384472-5121645.cloudwaysapps.com/document/next-ts/Leacent/index.html"
+                        href="/dashboard"
                       >
-                        Check Document
+                        Read Docs
                       </Button>
                     </div>
                   </CardBody>
                 </Card>
               </Col>
 
-              {/* Committed Assistance Card */}
+              {/* Support Card */}
               <Col lg="12" sm="6">
                 <Card className="card-boxs">
                   <CardBody>
@@ -54,17 +54,16 @@ const FaqContentSection = () => {
                       <IconHeadphones size={18} />
                     </div>
                     <div className="box-content">
-                      <h4>Committed Assistance</h4>
+                      <h4>Need Help?</h4>
                       <p>
-                        Require assistance? Send us a ticket. We&#39;re here to
-                        help!
+                        Our support team is available 24/7 to assist you.
                       </p>
                       <Button
                         color="primary"
                         target="_blank"
                         href="mailto:firstbornpublishing923@gmail.com"
                       >
-                        Get Support
+                        Contact Support
                       </Button>
                     </div>
                   </CardBody>
@@ -117,7 +116,7 @@ const FaqContentSection = () => {
                     id: "nestingcollapseEight",
                     question: "How do I handle user access permissions?",
                     answer:
-                      "Website design projects can vary depending on their scale and complexity—making it hard to generalize about project timelines. Ideally, a typical website design project should take between 6 and 12 weeks.",
+                      "User access permissions can be managed from the admin dashboard under 'User Management'. Assign appropriate roles and permissions to each user based on their responsibilities.",
                   },
                 ].map((item) => (
                   <div className="accordion-item" key={item.id}>
