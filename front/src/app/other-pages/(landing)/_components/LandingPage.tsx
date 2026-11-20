@@ -250,7 +250,7 @@ const LandingPage = () => {
                   <img
                     alt="shape"
                     className="img-fluid landing-vector-shape"
-                    src="/images/landing/vector-shaps.png"
+                    src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1795183879/stack-of-books_uarttj.png"
                   />
                   <p className="text-white">
                     Welcome to the real-life investment, entrepreneurship, and  <br />business 
@@ -270,26 +270,7 @@ const LandingPage = () => {
               </Col>
 
               {/* Image Section */}
-              <Col xs="12">
-                <div className="landing-img">
-                  <div className="img-box">
-                    <div>
-                      <img
-                        alt="img"
-                        className="box-img-1"
-                        src="/images/landing/banner-img.gif"
-                      />
-                    </div>
-                    <div>
-                      <img
-                        alt="img"
-                        className="box-img-4"
-                        src="/images/landing/banner-img-1.gif"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </Col>
+              
             </Row>
           </Container>
         </section>
