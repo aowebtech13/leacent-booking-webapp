@@ -113,6 +113,13 @@ const [cursorStyle, setCursorStyle] = useState<React.CSSProperties>({});
 
   return (
     <div className="landing-page">
+      <div className="px-4 py-3">
+        <img
+          alt="Leacent Logo"
+          src="https://res.cloudinary.com/dqi7g7lky/image/upload/v1791759399/leacent%20webapp.png"
+          height="40"
+        />
+      </div>
       <div ref={circleRef} className="circle-cursor" style={cursorStyle} />
 
       <div className="landing-wrapper">
