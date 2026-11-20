@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import {
   Row,
   Col,
-  Card,
-  CardBody,
   Button,
   Nav,
   NavItem,

@@ -22,7 +22,11 @@ import SimplePricingCard from "@/app/apps/(pricing)/_components/SimplePricingCar
 import { IconStack2 } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import { BookPlan } from "@/lib/api";
-import { buyPointsPlan, getBookPlans, uploadBookPlanReceipt } from "@/lib/api/bookPlans";
+import {
+  buyPointsPlan,
+  getBookPlans,
+  uploadBookPlanReceipt,
+} from "@/lib/api/bookPlans";
 import { useAuth } from "@/lib/contexts/AuthContext";
 
 const PricingPage = () => {
@@ -101,7 +105,8 @@ const PricingPage = () => {
                         </span>
                         <h6 className="mt-2 mb-1">Browse plans</h6>
                         <p className="text-muted small mb-0">
-                          Review the available point packages and their features.
+                          Review the available point packages and their
+                          features.
                         </p>
                       </div>
                     </div>
@@ -112,8 +117,8 @@ const PricingPage = () => {
                         </span>
                         <h6 className="mt-2 mb-1">Select a plan</h6>
                         <p className="text-muted small mb-0">
-                          Tap "Buy Points" on the package you want. You will be
-                          signed in if needed.
+                          Tap &ldquo;Buy Points&rdquo; on the package you want.
+                          You will be signed in if needed.
                         </p>
                       </div>
                     </div>
@@ -179,7 +184,9 @@ const PricingPage = () => {
             {selectedPlan?.name} — Complete Payment
           </ModalHeader>
           <ModalBody>
-            {submitMsg && <div className="alert alert-info mt-2">{submitMsg}</div>}
+            {submitMsg && (
+              <div className="alert alert-info mt-2">{submitMsg}</div>
+            )}
             {payment && (
               <div>
                 <p className="mb-1">

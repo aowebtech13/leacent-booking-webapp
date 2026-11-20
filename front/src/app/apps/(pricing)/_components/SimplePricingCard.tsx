@@ -77,130 +77,128 @@ const SimplePricingCard: React.FC<SimplePricingCardProps> = ({
         <div className="text-center py-4 text-muted">
           No point packages available right now. Check back soon.
         </div>
+      ) : isMobile ? (
+        <div className="d-flex flex-column gap-3">
+          {plans.map((plan) => (
+            <div key={plan.id}>
+              <Card className="simple-pricing-card">
+                <CardBody>
+                  <div className="simple-price-header text-center mb-3">
+                    <h4 className="mb-0">{plan.name}</h4>
+                    {plan.description && (
+                      <p className="f-s-13 text-muted mt-1 mb-0">
+                        {plan.description}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="simple-price-body">
+                    <div
+                      className={`simple-price-value text-center rounded bg-light-${
+                        plan.is_featured ? "success" : "secondary"
+                      } d-block py-3 mb-3`}
+                    >
+                      <span className="f-s-24 f-w-600 d-block">
+                        {formatMoney(plan.price, plan.currency)}
+                      </span>
+                      <span className="f-s-12 f-w-600">
+                        {plan.points} point{plan.points === 1 ? "" : "s"}
+                      </span>
+                    </div>
+
+                    <div className="simple-price-content">
+                      {(plan.features ?? []).map((feature, i) => (
+                        <div key={i}>
+                          <div className="d-flex align-items-start mb-2">
+                            <Check
+                              size={20}
+                              weight="duotone"
+                              className="bg-success p-1 b-r-100"
+                            />
+                            <p className="ms-2 mb-0">{feature}</p>
+                          </div>
+                          <div className="app-divider-v px-2" />
+                        </div>
+                      ))}
+
+                      <Button
+                        color=""
+                        className={`${
+                          plan.is_featured ? "btn-success" : "btn-secondary"
+                        } rounded w-100 p-2 mt-3`}
+                        type="button"
+                        onClick={() => onSubscribe(plan)}
+                      >
+                        Select & Buy Points
+                      </Button>
+                    </div>
+                  </div>
+                </CardBody>
+              </Card>
+            </div>
+          ))}
+        </div>
       ) : (
-        isMobile ? (
-          <div className="d-flex flex-column gap-3">
-            {plans.map((plan) => (
-              <div key={plan.id}>
-                <Card className="simple-pricing-card">
-                  <CardBody>
-                    <div className="simple-price-header text-center mb-3">
-                      <h4 className="mb-0">{plan.name}</h4>
-                      {plan.description && (
-                        <p className="f-s-13 text-muted mt-1 mb-0">
-                          {plan.description}
-                        </p>
-                      )}
+        <Slider {...sliderSettings}>
+          {plans.map((plan) => (
+            <div key={plan.id} className="p-3">
+              <Card className="simple-pricing-card">
+                <CardBody>
+                  <div className="simple-price-header text-center mb-3">
+                    <h4 className="mb-0">{plan.name}</h4>
+                    {plan.description && (
+                      <p className="f-s-13 text-muted mt-1 mb-0">
+                        {plan.description}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="simple-price-body">
+                    <div
+                      className={`simple-price-value text-center rounded bg-light-${
+                        plan.is_featured ? "success" : "secondary"
+                      } d-block py-3 mb-3`}
+                    >
+                      <span className="f-s-24 f-w-600 d-block">
+                        {formatMoney(plan.price, plan.currency)}
+                      </span>
+                      <span className="f-s-12 f-w-600">
+                        {plan.points} point{plan.points === 1 ? "" : "s"}
+                      </span>
                     </div>
 
-                    <div className="simple-price-body">
-                      <div
-                        className={`simple-price-value text-center rounded bg-light-${
-                          plan.is_featured ? "success" : "secondary"
-                        } d-block py-3 mb-3`}
-                      >
-                        <span className="f-s-24 f-w-600 d-block">
-                          {formatMoney(plan.price, plan.currency)}
-                        </span>
-                        <span className="f-s-12 f-w-600">
-                          {plan.points} point{plan.points === 1 ? "" : "s"}
-                        </span>
-                      </div>
-
-                      <div className="simple-price-content">
-                        {(plan.features ?? []).map((feature, i) => (
-                          <div key={i}>
-                            <div className="d-flex align-items-start mb-2">
-                              <Check
-                                size={20}
-                                weight="duotone"
-                                className="bg-success p-1 b-r-100"
-                              />
-                              <p className="ms-2 mb-0">{feature}</p>
-                            </div>
-                            <div className="app-divider-v px-2" />
+                    <div className="simple-price-content">
+                      {(plan.features ?? []).map((feature, i) => (
+                        <div key={i}>
+                          <div className="d-flex align-items-start mb-2">
+                            <Check
+                              size={20}
+                              weight="duotone"
+                              className="bg-success p-1 b-r-100"
+                            />
+                            <p className="ms-2 mb-0">{feature}</p>
                           </div>
-                        ))}
+                          <div className="app-divider-v px-2" />
+                        </div>
+                      ))}
 
-                        <Button
-                          color=""
-                          className={`${
-                            plan.is_featured ? "btn-success" : "btn-secondary"
-                          } rounded w-100 p-2 mt-3`}
-                          type="button"
-                          onClick={() => onSubscribe(plan)}
-                        >
-                          Select & Buy Points
-                        </Button>
-                      </div>
-                    </div>
-                  </CardBody>
-                </Card>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <Slider {...sliderSettings}>
-            {plans.map((plan) => (
-              <div key={plan.id} className="p-3">
-                <Card className="simple-pricing-card">
-                  <CardBody>
-                    <div className="simple-price-header text-center mb-3">
-                      <h4 className="mb-0">{plan.name}</h4>
-                      {plan.description && (
-                        <p className="f-s-13 text-muted mt-1 mb-0">
-                          {plan.description}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="simple-price-body">
-                      <div
-                        className={`simple-price-value text-center rounded bg-light-${
-                          plan.is_featured ? "success" : "secondary"
-                        } d-block py-3 mb-3`}
+                      <Button
+                        color=""
+                        className={`${
+                          plan.is_featured ? "btn-success" : "btn-secondary"
+                        } rounded w-100 p-2 mt-3`}
+                        type="button"
+                        onClick={() => onSubscribe(plan)}
                       >
-                        <span className="f-s-24 f-w-600 d-block">
-                          {formatMoney(plan.price, plan.currency)}
-                        </span>
-                        <span className="f-s-12 f-w-600">
-                          {plan.points} point{plan.points === 1 ? "" : "s"}
-                        </span>
-                      </div>
-
-                      <div className="simple-price-content">
-                        {(plan.features ?? []).map((feature, i) => (
-                          <div key={i}>
-                            <div className="d-flex align-items-start mb-2">
-                              <Check
-                                size={20}
-                                weight="duotone"
-                                className="bg-success p-1 b-r-100"
-                              />
-                              <p className="ms-2 mb-0">{feature}</p>
-                            </div>
-                            <div className="app-divider-v px-2" />
-                          </div>
-                        ))}
-
-                        <Button
-                          color=""
-                          className={`${
-                            plan.is_featured ? "btn-success" : "btn-secondary"
-                          } rounded w-100 p-2 mt-3`}
-                          type="button"
-                          onClick={() => onSubscribe(plan)}
-                        >
-                          Select & Buy Points
-                        </Button>
-                      </div>
+                        Select & Buy Points
+                      </Button>
                     </div>
-                  </CardBody>
-                </Card>
-              </div>
-            ))}
-          </Slider>
-          )
+                  </div>
+                </CardBody>
+              </Card>
+            </div>
+          ))}
+        </Slider>
       )}
     </div>
   );
