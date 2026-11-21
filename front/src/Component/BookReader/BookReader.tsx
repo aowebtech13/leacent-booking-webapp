@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
-import { IconAlertCircle, IconExternalLink, IconChevronLeft, IconChevronRight, IconZoomIn, IconZoomOut, IconRotateCw, IconDownload, IconSearch } from "@tabler/icons-react";
+import { IconAlertCircle, IconExternalLink, IconChevronLeft, IconChevronRight, IconZoomIn, IconZoomOut, IconRotate, IconDownload, IconSearch } from "@tabler/icons-react";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
@@ -368,7 +368,7 @@ export const BookReader: React.FC<BookReaderProps> = ({
                 </button>
               </div>
               <button className="btn btn-outline-secondary btn-sm" onClick={handleRotate} title="Rotate">
-                <IconRotateCw size={16} />
+                <IconRotate size={16} />
               </button>
               <button className="btn btn-outline-secondary btn-sm" onClick={handleDownload} title="Download">
                 <IconDownload size={16} />
