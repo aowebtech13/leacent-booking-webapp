@@ -6,6 +6,7 @@ import Breadcrumbs from "@/Component/CommonElements/Breadcrumbs";
 import { useParams, useRouter } from "next/navigation";
 import { notFound } from "next/navigation";
 import { getBook, getBookRead, Book } from "@/lib/api/books";
+import api from "@/lib/api/client";
 import { BookReader } from "@/Component/BookReader/BookReader";
 import { useReadingProgress } from "@/hooks/useReadingProgress";
 import { IconBook, IconArrowLeft, IconRefresh } from "@tabler/icons-react";
@@ -17,6 +18,7 @@ const BookReaderPage = () => {
 
   const [book, setBook] = useState<Book | null>(null);
   const [fileUrl, setFileUrl] = useState<string | null>(null);
+  const [blobUrl, setBlobUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [readerLocation, setReaderLocation] = useState<string | number | null>(
@@ -29,6 +31,16 @@ const BookReaderPage = () => {
     saveProgress,
     isLoading: isProgressLoading,
   } = useReadingProgress();
+
+  const TOKEN_KEY = "leacent_auth_token";
+
+  const resolveFileUrl = (url: string | null): string | null => {
+    if (!url) return null;
+    if (/^https?:\/\//i.test(url)) return url;
+    const origin = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/api$/, "") || "";
+    if (!origin) return url;
+    return `${origin}${url.startsWith("/") ? "" : "/"}${url}`;
+  };
 
   const fetchBook = async () => {
     if (!bookId) {
@@ -68,6 +80,22 @@ const BookReaderPage = () => {
       const saved = await loadProgress(bookId);
       if (saved?.progress_percentage) {
         setReaderLocation(saved.progress_percentage as any);
+      }
+
+      // Load the book file as a blob so the iframe renders from a same-origin
+      // URL, avoiding cross-origin X-Frame-Options blocking on the backend.
+      const resolved = resolveFileUrl(fileUrl);
+      if (resolved) {
+        try {
+          const res = await api.get(resolved, { responseType: "blob" as const });
+          const blob = new Blob([res.data as BlobPart], {
+            type: res.headers["content-type"] || "application/pdf",
+          });
+          const objectUrl = URL.createObjectURL(blob);
+          setBlobUrl(objectUrl);
+        } catch (blobErr) {
+          console.error("Failed to load book file as blob:", blobErr);
+        }
       }
     } catch (err: any) {
       const status = err?.status;
