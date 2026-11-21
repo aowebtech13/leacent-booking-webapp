@@ -12,6 +12,7 @@ import { IconAlertCircle, IconExternalLink } from "@tabler/icons-react";
  */
 interface BookReaderProps {
   url: string | File;
+  isPdf?: boolean;
   location?: string | number | null;
   title?: string;
   showToc?: boolean;
