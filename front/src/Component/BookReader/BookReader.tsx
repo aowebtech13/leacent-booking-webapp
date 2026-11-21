@@ -27,7 +27,6 @@ export const BookReader: React.FC<BookReaderProps> = ({
   style,
   className,
   isPdf,
-  showToc,
   onLocationChange,
   onTocChange,
 }) => {
@@ -88,7 +87,7 @@ export const BookReader: React.FC<BookReaderProps> = ({
     }
     setSearchQuery(query);
     try {
-      const doc = await pdfjs.getDocument(href).promise;
+      const doc = await pdfjs.getDocument({ url: href }).promise;
       const results: any[] = [];
       for (let i = 1; i <= doc.numPages; i++) {
         const page = await doc.getPage(i);
@@ -442,10 +441,13 @@ export const BookReader: React.FC<BookReaderProps> = ({
             <Page
               pageNumber={pageNumber}
               scale={scale}
-              rotation={rotation}
               renderTextLayer={true}
               renderAnnotationLayer={true}
               onRenderSuccess={() => {}}
+              style={{
+                transform: rotation ? `rotate(${rotation}deg)` : undefined,
+                transformOrigin: 'center center',
+              }}
             />
           </Document>
         </main>
