@@ -34,12 +34,13 @@ export const BookReader: React.FC<BookReaderProps> = ({
   ErrorView,
   style,
   className,
+  isPdf,
 }) => {
   const href = typeof url === "string" ? url : URL.createObjectURL(url);
   const lower = href.toLowerCase().split("?")[0] ?? "";
-  const isPdf = lower.endsWith(".pdf");
+  const pdf = isPdf ?? lower.endsWith(".pdf");
 
-  if (isPdf) {
+  if (pdf) {
     return (
       <div
         className={className}
