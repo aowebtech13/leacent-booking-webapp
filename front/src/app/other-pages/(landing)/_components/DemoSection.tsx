@@ -15,7 +15,7 @@ const DemoSection: React.FC = () => {
     <div>
       <div className="container-fluid">
         <SectionHeading
-          title="20+"
+          title="30+"
           highlight="Books"
           description="Join the Business Lab Club and enjoy the business relationship we offer through our registered  members' Movement."
         />

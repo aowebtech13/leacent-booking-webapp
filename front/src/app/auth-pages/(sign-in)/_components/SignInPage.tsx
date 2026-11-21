@@ -53,6 +53,17 @@ const SignInPage = () => {
 
   const resetSent = searchParams.get("reset") === "sent";
 
+  // Where to send the user once signed in. Honors a `redirect` query param set
+  // by the auth guard, but only for same-origin absolute paths to avoid open
+  // redirects.
+  const redirectParam = searchParams.get("redirect");
+  const postLoginPath =
+    redirectParam &&
+    redirectParam.startsWith("/") &&
+    !redirectParam.startsWith("//")
+      ? redirectParam
+      : POST_LOGIN_PATH;
+
   // Set auth on the client and redirect after a successful login.
   useEffect(() => {
     if ("access_token" in state) {
@@ -64,14 +75,14 @@ const SignInPage = () => {
         }
       );
       toast.success("Signed in successfully.");
-      setTimeout(() => router.replace(POST_LOGIN_PATH), 500);
+      setTimeout(() => router.replace(postLoginPath), 500);
       return;
     }
     // Send signed in users to the app instead of the sign in form.
     if (!authLoading && isAuthenticated) {
-      router.replace(POST_LOGIN_PATH);
+      router.replace(postLoginPath);
     }
-  }, [state, authLoading, isAuthenticated, router, setAuth]);
+  }, [state, authLoading, isAuthenticated, router, setAuth, postLoginPath]);
 
   return (
     <div className="sign-in-bg">

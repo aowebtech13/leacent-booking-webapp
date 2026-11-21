@@ -3,11 +3,13 @@
 import React, { Suspense, useState, ReactNode, useEffect } from "react";
 import TopGo from "../CommonElements/TopGo";
 import Loading from "@/app/loading";
+import Loader from "@/Component/CommonElements/Loader";
 import Sidebar from "@/Component/Layouts/Sidebar";
 import Header from "@/Component/Layouts/Header";
 import Footer from "@/Component/Layouts/Footer";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
+import { useAuth } from "@/lib/contexts/AuthContext";
 
 import { Modal, ModalBody, ModalFooter } from "reactstrap";
 
@@ -15,10 +17,45 @@ interface DefaultLayoutProps {
   children: ReactNode;
 }
 
+/**
+ * Routes rendered without the dashboard chrome (sidebar/header/footer),
+ * e.g. the landing page, auth screens and error pages.
+ */
+const CHROMELESS_PATTERNS = [
+  "/auth-pages",
+  "/verify-otp",
+  "/error-pages",
+  "/other-pages/maintenance",
+  "/other-pages/coming-soon",
+];
+
+/**
+ * Routes reachable without a session. Everything not matched here is treated
+ * as part of the authenticated app and must not paint its chrome until the
+ * auth state has been resolved.
+ */
+const PUBLIC_PATTERNS = [
+  ...CHROMELESS_PATTERNS,
+  "/other-pages/landing",
+  "/other-pages/privacy-policy",
+  "/other-pages/terms-condition",
+  "/other-pages/sitemap",
+];
+
+function matchesAny(pathname: string, patterns: string[]): boolean {
+  if (pathname === "/") return true;
+  return patterns.some((pattern) => pathname.includes(pattern));
+}
+
 const DefaultLayout: React.FC<DefaultLayoutProps> = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const [welcomeModal, setWelcomeModal] = useState<boolean>(false);
   const pathname = usePathname();
+  const router = useRouter();
+  const { isAuthenticated, isLoading } = useAuth();
+
+  const showChrome = !matchesAny(pathname, CHROMELESS_PATTERNS);
+  const requiresAuth = !matchesAny(pathname, PUBLIC_PATTERNS);
 
   useEffect(() => {
     const head = document.getElementsByTagName("head")[0];
@@ -44,16 +81,26 @@ const DefaultLayout: React.FC<DefaultLayoutProps> = ({ children }) => {
     }
   }, [pathname]);
 
-  if (
-    pathname === "/" ||
-    pathname.includes("/auth-pages") ||
-    pathname.includes("/verify-otp") ||
-    pathname.includes("/error-pages") ||
-    pathname.includes("/other-pages/maintenance") ||
-    pathname.includes("/other-pages/coming-soon")
-  ) {
+  // Send unauthenticated visitors on protected routes to sign-in, preserving
+  // the URL they originally requested so they can be returned after login.
+  useEffect(() => {
+    if (!requiresAuth || isLoading || isAuthenticated) return;
+    const search = typeof window !== "undefined" ? window.location.search : "";
+    router.replace(
+      `/auth-pages/sign-in?redirect=${encodeURIComponent(`${pathname}${search}`)}`
+    );
+  }, [requiresAuth, isLoading, isAuthenticated, pathname, router]);
+
+  if (!showChrome) {
     return <>{children}</>;
   }
+
+  // Protected route: never render the app shell (sidebar/header/footer) until
+  // the session is confirmed, otherwise it flashes before the redirect.
+  if (requiresAuth && (isLoading || !isAuthenticated)) {
+    return <Loader />;
+  }
+
   const toggleWelcomeModal = () => setWelcomeModal(!welcomeModal);
 
   return (
