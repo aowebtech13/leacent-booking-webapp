@@ -438,17 +438,18 @@ export const BookReader: React.FC<BookReaderProps> = ({
               </div>
             )}
           >
+            <div style={{
+                transform: rotation ? `rotate(${rotation}deg)` : undefined,
+                transformOrigin: 'center center',
+              }}>
             <Page
               pageNumber={pageNumber}
               scale={scale}
               renderTextLayer={true}
               renderAnnotationLayer={true}
               onRenderSuccess={() => {}}
-              style={{
-                transform: rotation ? `rotate(${rotation}deg)` : undefined,
-                transformOrigin: 'center center',
-              }}
             />
+            </div>
           </Document>
         </main>
       </div>
