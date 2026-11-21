@@ -116,6 +116,14 @@ const BookReaderPage = () => {
     fetchBook();
   }, [bookId]);
 
+  useEffect(() => {
+    return () => {
+      if (blobUrl) {
+        URL.revokeObjectURL(blobUrl);
+      }
+    };
+  }, [blobUrl]);
+
   const handleLocationChange = (location: any) => {
     if (location?.cfi) {
       setReaderLocation(location.cfi);
@@ -256,7 +264,8 @@ const BookReaderPage = () => {
         onContextMenu={(e) => e.preventDefault()}
       >
         <BookReader
-          url={`/api/books/file/${bookId}`}
+          url={blobUrl || fileUrl}
+          isPdf={true}
           location={readerLocation}
           title={book.title}
           showToc={true}
