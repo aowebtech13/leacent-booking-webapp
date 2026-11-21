@@ -23,10 +23,11 @@ const INITIAL_STATE = { error: null as string | null };
 const SignUpPage = () => {
   const [state, formAction, isPending] = useActionState(
     async (_prev: { error: string | null }, formData: FormData) => {
-      try {
-        await registerUser(formData);
-        return INITIAL_STATE;
-      } catch (err: any) {
+    try {
+      const result = await registerUser(formData);
+      if (result.error) return { error: result.error };
+      return INITIAL_STATE;
+    } catch (err: any) {
         if (isRedirectError(err)) throw err;
 
         // Robust error extraction for production builds where

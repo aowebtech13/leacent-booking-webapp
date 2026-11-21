@@ -47,7 +47,7 @@ export async function createPassword(_formData: FormData): Promise<void> {
   redirect("/auth-pages/sign-in");
 }
 
-export async function resetPasswordAction(formData: FormData): Promise<void> {
+export async function resetPasswordAction(formData: FormData): Promise<{ error: string | null }> {
   const token = formData.get("token") as string;
   const password = formData.get("password") as string;
   const password_confirmation = formData.get("password_confirmation") as string;
@@ -55,10 +55,11 @@ export async function resetPasswordAction(formData: FormData): Promise<void> {
   try {
     await resetPassword({ token, password, password_confirmation });
   } catch (error: any) {
-    throw toActionError(error);
+    return { error: toActionError(error).message };
   }
 
   redirect("/auth-pages/sign-in");
+  return { error: null };
 }
 
 export async function loginUser(
@@ -102,7 +103,7 @@ export async function loginUserImg(
   }
 }
 
-export async function registerUser(formData: FormData): Promise<void> {
+export async function registerUser(formData: FormData): Promise<{ error: string | null }> {
   const name = formData.get("username") as string;
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
@@ -126,24 +127,26 @@ export async function registerUser(formData: FormData): Promise<void> {
   try {
     await register(payload);
   } catch (error: any) {
-    throw toActionError(error);
+    return { error: toActionError(error).message };
   }
 
   await setPendingEmail(email);
   redirect("/verify-otp");
+  return { error: null };
 }
 
-export async function forgotPasswordAction(formData: FormData): Promise<void> {
+export async function forgotPasswordAction(formData: FormData): Promise<{ error: string | null }> {
   const email = formData.get("email") as string;
 
   try {
     await forgotPassword({ email });
   } catch (error: any) {
-    throw toActionError(error);
+    return { error: toActionError(error).message };
   }
 
   await setPendingEmail(email);
   redirect("/verify-otp?purpose=password-reset");
+  return { error: null };
 }
 
 export async function verifyOtp(formData: FormData): Promise<void> {

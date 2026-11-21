@@ -22,9 +22,11 @@ const INITIAL_STATE = { error: null as string | null };
 const ForgotPasswordPage = () => {
   const [state, formAction, isPending] = useActionState(
     async (_prev: { error: string | null }, formData: FormData) => {
-      try {
-        await forgotPasswordAction(formData);
-      } catch (err: any) {
+    try {
+      const result = await forgotPasswordAction(formData);
+      if (result.error) return { error: result.error };
+      return INITIAL_STATE;
+    } catch (err: any) {
         if (isRedirectError(err)) throw err;
 
         // Robust error extraction for production builds where

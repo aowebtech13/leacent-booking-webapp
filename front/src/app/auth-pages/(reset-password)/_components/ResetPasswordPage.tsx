@@ -26,16 +26,15 @@ const ResetPasswordForm = () => {
 
   const [state, formAction, isPending] = useActionState(
     async (_prev: { error: string | null }, formData: FormData) => {
-      try {
-        await resetPasswordAction(formData);
-      } catch (err: any) {
-        if (isRedirectError(err)) throw err;
-        if (err?.name === "ActionError") {
-          return { error: err.message };
-        }
-        return { error: err?.message || "Unable to reset your password." };
-      }
+    try {
+      const result = await resetPasswordAction(formData);
+      if (result.error) return { error: result.error };
       return INITIAL_STATE;
+    } catch (err: any) {
+      if (isRedirectError(err)) throw err;
+      return { error: err?.message || "Unable to reset your password." };
+    }
+    return INITIAL_STATE;
     },
     INITIAL_STATE
   );
