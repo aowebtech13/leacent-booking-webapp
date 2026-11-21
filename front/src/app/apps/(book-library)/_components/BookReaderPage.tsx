@@ -91,9 +91,14 @@ const BookReaderPage = () => {
           });
           const objectUrl = URL.createObjectURL(blob);
           setBlobUrl(objectUrl);
-        } catch (blobErr) {
-          console.error("Failed to load book file as blob:", blobErr);
+        } catch (blobErr: any) {
+          setError(
+            blobErr?.message ||
+              "Failed to load the book file. Please try again later."
+          );
         }
+      } else {
+        setError("No file URL available for this book.");
       }
     } catch (err: any) {
       const status = err?.status;
@@ -169,7 +174,7 @@ const BookReaderPage = () => {
     );
   }
 
-  if (error || !book || !fileUrl) {
+  if (error || !book || !blobUrl) {
     return (
       <Container fluid>
         <Breadcrumbs
@@ -262,7 +267,7 @@ const BookReaderPage = () => {
         onContextMenu={(e) => e.preventDefault()}
       >
         <BookReader
-          url={blobUrl || fileUrl}
+          url={blobUrl}
           isPdf={true}
           location={readerLocation}
           title={book.title}
