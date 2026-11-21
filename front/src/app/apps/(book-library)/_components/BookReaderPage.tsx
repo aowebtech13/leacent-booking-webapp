@@ -98,7 +98,9 @@ const BookReaderPage = () => {
           );
         }
       } else {
-        setError("No file URL available for this book.");
+        setError(
+          "This book doesn't have a file uploaded. Please contact support or try another book."
+        );
       }
     } catch (err: any) {
       const status = err?.status;

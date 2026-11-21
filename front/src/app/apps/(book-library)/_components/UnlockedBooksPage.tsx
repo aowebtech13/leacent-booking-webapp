@@ -42,8 +42,8 @@ const UnlockedBooksPage = () => {
   }, [fetchBooks]);
 
   const handleRead = (book: Book) => {
-    if (!book.file_url && !book.can_access) {
-      setError("This book is not available for reading yet.");
+    if (!book.file_url) {
+      setError("This book doesn't have a file available yet. Please contact support.");
       return;
     }
     router.push(`/apps/book-library/read/${book.id}`);

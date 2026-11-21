@@ -83,6 +83,15 @@ class BookController extends Controller
             ->filter()
             ->values();
 
+        // Add access info and computed URLs to each book
+        $books->transform(function ($book) use ($request) {
+            $bookData = $book->toArray();
+            $bookData['can_access'] = true;
+            $bookData['access_type'] = 'points';
+            // The appended attributes (file_url, cover_url, preview_url) are already included by toArray()
+            return $bookData;
+        });
+
         return response()->json([
             'success' => true,
             'data' => $books,
