@@ -32,8 +32,6 @@ const BookReaderPage = () => {
     isLoading: isProgressLoading,
   } = useReadingProgress();
 
-  const TOKEN_KEY = "leacent_auth_token";
-
   const resolveFileUrl = (url: string | null): string | null => {
     if (!url) return null;
     if (/^https?:\/\//i.test(url)) return url;
@@ -89,7 +87,7 @@ const BookReaderPage = () => {
         try {
           const res = await api.get(resolved, { responseType: "blob" as const });
           const blob = new Blob([res.data as BlobPart], {
-            type: res.headers["content-type"] || "application/pdf",
+            type: (res.headers["content-type"] as string) || "application/pdf",
           });
           const objectUrl = URL.createObjectURL(blob);
           setBlobUrl(objectUrl);
