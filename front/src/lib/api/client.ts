@@ -47,11 +47,13 @@ export function setAuthToken(token: string | null) {
     api.defaults.headers.common.Authorization = `Bearer ${token}`;
     if (typeof window !== "undefined") {
       localStorage.setItem(TOKEN_KEY, token);
+      document.cookie = `leacent_auth_token=${token}; path=/; SameSite=Lax`;
     }
   } else {
     delete api.defaults.headers.common.Authorization;
     if (typeof window !== "undefined") {
       localStorage.removeItem(TOKEN_KEY);
+      document.cookie = `leacent_auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
     }
   }
 }

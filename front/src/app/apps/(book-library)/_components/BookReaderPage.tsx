@@ -228,7 +228,7 @@ const BookReaderPage = () => {
         onContextMenu={(e) => e.preventDefault()}
       >
         <BookReader
-          url={fileUrl}
+          url={`/api/books/file/${bookId}`}
           location={readerLocation}
           title={book.title}
           showToc={true}
