@@ -776,8 +776,8 @@ class AdminWebController extends Controller
             'page_count' => 'nullable|integer|min:1',
             'format' => 'nullable|string|max:50',
             'description' => 'nullable|string',
-            'file' => 'required|file|mimes:pdf|max:20480',
-            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'file_url' => 'required|url',
+            'cover_image_url' => 'nullable|url',
             'is_premium' => 'sometimes|boolean',
             'points' => 'nullable|integer|min:0',
             'is_active' => 'sometimes|boolean',
@@ -794,16 +794,11 @@ class AdminWebController extends Controller
         $data['is_active'] = $data['is_active'] ?? true;
         $data['is_featured'] = $data['is_featured'] ?? false;
 
-        // Upload the PDF file and store its path
-        $data['file_path'] = $request->file('file')->store('books', 'public');
+        // Store Cloudinary URLs directly
+        $data['file_path'] = $data['file_url'];
+        $data['cover_image_path'] = $data['cover_image_url'] ?? null;
 
-        // Upload the cover image if provided
-        if ($request->hasFile('cover_image')) {
-            $data['cover_image_path'] = $request->file('cover_image')->store('books/covers', 'public');
-        }
-
-        unset($data['file']);
-        unset($data['cover_image']);
+        unset($data['file_url'], $data['cover_image_url']);
 
         Book::create($data);
 
@@ -832,8 +827,8 @@ class AdminWebController extends Controller
             'page_count' => 'sometimes|nullable|integer|min:1',
             'format' => 'sometimes|nullable|string|max:50',
             'description' => 'sometimes|nullable|string',
-            'file' => 'sometimes|nullable|file|mimes:pdf|max:20480',
-            'cover_image' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'file_url' => 'sometimes|nullable|url',
+            'cover_image_url' => 'sometimes|nullable|url',
             'is_premium' => 'sometimes|boolean',
             'points' => 'sometimes|nullable|integer|min:0',
             'is_active' => 'sometimes|boolean',
@@ -849,24 +844,15 @@ class AdminWebController extends Controller
             $data['points'] = $data['points'] ?? 0;
         }
 
-        // Handle cover image upload
-        if ($request->hasFile('cover_image')) {
-            if ($book->cover_image_path) {
-                Storage::disk('public')->delete($book->cover_image_path);
-            }
-            $data['cover_image_path'] = $request->file('cover_image')->store('books/covers', 'public');
+        // Handle Cloudinary URLs
+        if (isset($data['file_url'])) {
+            $data['file_path'] = $data['file_url'];
+        }
+        if (isset($data['cover_image_url'])) {
+            $data['cover_image_path'] = $data['cover_image_url'];
         }
 
-        // Handle PDF file upload
-        if ($request->hasFile('file')) {
-            if ($book->file_path) {
-                Storage::disk('public')->delete($book->file_path);
-            }
-            $data['file_path'] = $request->file('file')->store('books', 'public');
-        }
-
-        unset($data['file']);
-        unset($data['cover_image']);
+        unset($data['file_url'], $data['cover_image_url']);
 
         $book->update($data);
 
@@ -875,11 +861,12 @@ class AdminWebController extends Controller
 
     public function destroyBook(Book $book)
     {
-        if ($book->file_path) {
+        // Only delete from local storage if not a Cloudinary URL
+        if ($book->file_path && !str_starts_with($book->file_path, 'http')) {
             Storage::disk('public')->delete($book->file_path);
         }
 
-        if ($book->cover_image_path) {
+        if ($book->cover_image_path && !str_starts_with($book->cover_image_path, 'http')) {
             Storage::disk('public')->delete($book->cover_image_path);
         }
 

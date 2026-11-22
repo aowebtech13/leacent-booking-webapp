@@ -90,37 +90,54 @@ class Book extends Model
     }
 
     /**
+     * Check if a path is a Cloudinary URL.
+     */
+    protected function isCloudinaryUrl(?string $path): bool
+    {
+        return $path !== null && str_starts_with($path, 'http');
+    }
+
+    /**
      * Public URL for the book file (if any).
+     * Supports both Cloudinary URLs and local storage paths.
      */
     protected function fileUrl(): Attribute
     {
         return Attribute::make(
             get: fn () => $this->file_path
-                ? Storage::disk('public')->url($this->file_path)
+                ? ($this->isCloudinaryUrl($this->file_path)
+                    ? $this->file_path
+                    : Storage::disk('public')->url($this->file_path))
                 : null,
         );
     }
 
     /**
      * Public URL for the cover image (if any).
+     * Supports both Cloudinary URLs and local storage paths.
      */
     protected function coverUrl(): Attribute
     {
         return Attribute::make(
             get: fn () => $this->cover_image_path
-                ? Storage::disk('public')->url($this->cover_image_path)
+                ? ($this->isCloudinaryUrl($this->cover_image_path)
+                    ? $this->cover_image_path
+                    : Storage::disk('public')->url($this->cover_image_path))
                 : null,
         );
     }
 
     /**
      * Public URL for the preview (if any).
+     * Supports both Cloudinary URLs and local storage paths.
      */
     protected function previewUrl(): Attribute
     {
         return Attribute::make(
             get: fn () => $this->preview_path
-                ? Storage::disk('public')->url($this->preview_path)
+                ? ($this->isCloudinaryUrl($this->preview_path)
+                    ? $this->preview_path
+                    : Storage::disk('public')->url($this->preview_path))
                 : null,
         );
     }

@@ -81,6 +81,7 @@ class BookController extends Controller
         $books = $access
             ->map(fn ($a) => $a->book)
             ->filter()
+            ->filter(fn ($book) => !empty($book->file_path))
             ->values();
 
         // Add access info and computed URLs to each book
@@ -331,7 +332,7 @@ class BookController extends Controller
 
     /**
      * POST /api/admin/books
-     * Admin: create a new book (PDF upload only).
+     * Admin: create a new book (Cloudinary URL for PDF).
      */
     public function adminStore(Request $request)
     {
@@ -347,7 +348,9 @@ class BookController extends Controller
             'page_count' => 'nullable|integer|min:1',
             'format' => 'nullable|string|max:50',
             'description' => 'nullable|string',
-            'file' => 'required|file|mimes:pdf|max:20480',
+            'file_url' => 'required|url',
+            'cover_image_url' => 'nullable|url',
+            'preview_url' => 'nullable|url',
             'is_premium' => 'sometimes|boolean',
             'points' => 'sometimes|integer|min:0',
             'is_active' => 'sometimes|boolean',
@@ -364,9 +367,12 @@ class BookController extends Controller
         $data['is_active'] = $data['is_active'] ?? true;
         $data['is_featured'] = $data['is_featured'] ?? false;
 
-        // Upload the PDF file and store its path
-        $filePath = $request->file('file')->store('books', 'public');
-        $data['file_path'] = $filePath;
+        // Store Cloudinary URLs directly
+        $data['file_path'] = $data['file_url'];
+        $data['cover_image_path'] = $data['cover_image_url'] ?? null;
+        $data['preview_path'] = $data['preview_url'] ?? null;
+
+        unset($data['file_url'], $data['cover_image_url'], $data['preview_url']);
 
         $book = Book::create($data);
 
@@ -397,7 +403,9 @@ class BookController extends Controller
             'page_count' => 'sometimes|nullable|integer|min:1',
             'format' => 'sometimes|nullable|string|max:50',
             'description' => 'sometimes|nullable|string',
-            'file' => 'sometimes|nullable|file|mimes:pdf|max:20480',
+            'file_url' => 'sometimes|nullable|url',
+            'cover_image_url' => 'sometimes|nullable|url',
+            'preview_url' => 'sometimes|nullable|url',
             'is_premium' => 'sometimes|boolean',
             'points' => 'sometimes|integer|min:0',
             'is_active' => 'sometimes|boolean',
@@ -409,15 +417,18 @@ class BookController extends Controller
             $data['slug'] = Str::slug($data['title'] ?? $book->title);
         }
 
-        // Handle PDF file upload
-        if ($request->hasFile('file')) {
-            if ($book->file_path) {
-                Storage::disk('public')->delete($book->file_path);
-            }
-            $data['file_path'] = $request->file('file')->store('books', 'public');
+        // Handle Cloudinary URLs
+        if (isset($data['file_url'])) {
+            $data['file_path'] = $data['file_url'];
+        }
+        if (isset($data['cover_image_url'])) {
+            $data['cover_image_path'] = $data['cover_image_url'];
+        }
+        if (isset($data['preview_url'])) {
+            $data['preview_path'] = $data['preview_url'];
         }
 
-        unset($data['file']);
+        unset($data['file_url'], $data['cover_image_url'], $data['preview_url']);
 
         $book->update($data);
 

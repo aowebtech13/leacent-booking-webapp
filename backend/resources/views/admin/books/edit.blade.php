@@ -31,7 +31,7 @@
             <div class="col-lg-8">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('admin.books.update', $book) }}" method="POST" class="row g-3" enctype="multipart/form-data">
+                        <form action="{{ route('admin.books.update', $book) }}" method="POST" class="row g-3">
                             @csrf
                             @method('PUT')
                             <div class="col-md-6">
@@ -92,16 +92,16 @@
                             </div>
 
                             <div class="col-md-6">
-                                <label class="form-label">Upload PDF</label>
-                                <input type="file" name="file" class="form-control" accept="application/pdf">
-                                <small class="form-text text-muted">Leave empty to keep current file.</small>
-                                @error('file') <span class="text-danger f-12">{{ $message }}</span> @enderror
+                                <label class="form-label">PDF URL (Cloudinary)</label>
+                                <input type="url" name="file_url" class="form-control" value="{{ old('file_url', $book->file_path) }}" placeholder="https://res.cloudinary.com/.../file.pdf">
+                                <small class="form-text text-muted">Leave empty to keep current file. Enter Cloudinary URL to update.</small>
+                                @error('file_url') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">Cover Image</label>
-                                <input type="file" name="cover_image" class="form-control" accept="image/*">
-                                <small class="form-text text-muted">Leave empty to keep current cover.</small>
-                                @error('cover_image') <span class="text-danger f-12">{{ $message }}</span> @enderror
+                                <label class="form-label">Cover Image URL (Cloudinary)</label>
+                                <input type="url" name="cover_image_url" class="form-control" value="{{ old('cover_image_url', $book->cover_image_path) }}" placeholder="https://res.cloudinary.com/.../cover.jpg">
+                                <small class="form-text text-muted">Leave empty to keep current cover. Enter Cloudinary URL to update.</small>
+                                @error('cover_image_url') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Description</label>
@@ -145,7 +145,7 @@
                     <div class="card-body">
                         <div class="text-center mb-3">
                             @if($book->cover_image_path)
-                                <img src="{{ Storage::disk('public')->url($book->cover_image_path) }}" width="160" height="220" class="rounded shadow" alt="cover">
+                                <img src="{{ $book->cover_url }}" width="160" height="220" class="rounded shadow" alt="cover">
                             @else
                                 <div class="bg-light-secondary rounded d-flex align-items-center justify-content-center" style="width:160px;height:220px;font-size:14px;">No Cover</div>
                             @endif

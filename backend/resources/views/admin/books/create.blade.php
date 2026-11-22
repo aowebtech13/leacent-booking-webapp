@@ -31,7 +31,7 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('admin.books.store') }}" method="POST" class="row g-3" enctype="multipart/form-data">
+                        <form action="{{ route('admin.books.store') }}" method="POST" class="row g-3">
                             @csrf
                             <div class="col-md-6">
                                 <label class="form-label">Book Title <span class="text-danger">*</span></label>
@@ -90,15 +90,16 @@
                                 @error('points') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
 <div class="col-md-6">
-                                <label class="form-label">Upload PDF <span class="text-danger">*</span></label>
-                                <input type="file" name="file" class="form-control" accept="application/pdf" required>
-                                @error('file') <span class="text-danger f-12">{{ $message }}</span> @enderror
+                                <label class="form-label">PDF URL (Cloudinary) <span class="text-danger">*</span></label>
+                                <input type="url" name="file_url" class="form-control" value="{{ old('file_url') }}" placeholder="https://res.cloudinary.com/.../file.pdf" required>
+                                <small class="form-text text-muted">Enter the Cloudinary URL for the PDF file.</small>
+                                @error('file_url') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">Cover Image</label>
-                                <input type="file" name="cover_image" class="form-control" accept="image/*">
-                                <small class="form-text text-muted">Upload a featured cover image.</small>
-                                @error('cover_image') <span class="text-danger f-12">{{ $message }}</span> @enderror
+                                <label class="form-label">Cover Image URL (Cloudinary)</label>
+                                <input type="url" name="cover_image_url" class="form-control" value="{{ old('cover_image_url') }}" placeholder="https://res.cloudinary.com/.../cover.jpg">
+                                <small class="form-text text-muted">Enter the Cloudinary URL for the cover image.</small>
+                                @error('cover_image_url') <span class="text-danger f-12">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Description</label>
