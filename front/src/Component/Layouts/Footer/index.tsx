@@ -9,7 +9,7 @@ const Footer = () => {
             <div className="col-12">
               <ul className="footer-text">
                 <li>
-                  <Link href="#">Designed by aowebtech </Link>
+                  <Link href="#">Business Lab ~ Designed by aowebtech </Link>
                 </li>
               </ul>
             </div>
