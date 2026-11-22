@@ -222,11 +222,18 @@ const BookReaderPage = () => {
   return (
     <div
       className="book-reader-page"
-      style={{ height: "100vh", display: "flex", flexDirection: "column" }}
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 1000,
+        display: "flex",
+        flexDirection: "column",
+        background: "#fff",
+      }}
     >
       <nav
         className="navbar navbar-light bg-white border-bottom px-3"
-        style={{ zIndex: 100 }}
+        style={{ zIndex: 100, flex: "0 0 auto" }}
       >
         <div className="d-flex align-items-center w-100">
           <Button
@@ -276,7 +283,7 @@ const BookReaderPage = () => {
       </nav>
 
       <main
-        style={{ flex: 1, overflow: "hidden" }}
+        style={{ flex: "1 1 0", minHeight: 0, overflow: "hidden" }}
         onContextMenu={(e) => e.preventDefault()}
       >
         {/* Native browser PDF viewer. `blobUrl` is a same-origin blob: URL, so
@@ -294,7 +301,7 @@ const BookReaderPage = () => {
         />
       </main>
 
-      <div className="bg-light border-top px-3 py-2">
+      <div className="bg-light border-top px-3 py-2" style={{ flex: "0 0 auto" }}>
         <div className="d-flex align-items-center justify-content-between small text-muted">
           <span>
             {progress
