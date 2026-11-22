@@ -216,13 +216,7 @@ const BookReaderPage = () => {
   return (
     <div
       className="book-reader-page"
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 2000,
-        background: "#fff",
-        overflow: "auto",
-      }}
+      style={{ background: "#fff" }}
     >
       {/* PDF first — native browser viewer fills 90% of the screen. `blobUrl`
           is a same-origin blob: URL, so the built-in viewer renders it without
