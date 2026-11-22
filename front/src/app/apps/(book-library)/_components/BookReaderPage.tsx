@@ -6,7 +6,6 @@ import Breadcrumbs from "@/Component/CommonElements/Breadcrumbs";
 import { useParams, useRouter } from "next/navigation";
 import { notFound } from "next/navigation";
 import { getBook, getBookRead, Book } from "@/lib/api/books";
-import { BookReader } from "@/Component/BookReader/BookReader";
 import { useReadingProgress } from "@/hooks/useReadingProgress";
 import { IconBook, IconArrowLeft, IconRefresh } from "@tabler/icons-react";
 
@@ -147,12 +146,6 @@ const BookReaderPage = () => {
     };
   }, [blobUrl]);
 
-  const handleLocationChange = (location: any) => {
-    if (location?.cfi) {
-      setReaderLocation(location.cfi);
-    }
-  };
-
   const handleSaveProgress = async () => {
     if (!bookId || !book) return;
     try {
@@ -286,14 +279,18 @@ const BookReaderPage = () => {
         style={{ flex: 1, overflow: "hidden" }}
         onContextMenu={(e) => e.preventDefault()}
       >
-        <BookReader
-          url={blobUrl}
-          isPdf={true}
-          location={readerLocation}
+        {/* Native browser PDF viewer. `blobUrl` is a same-origin blob: URL, so
+            the built-in viewer renders it without any JS PDF library and
+            without cross-origin X-Frame-Options issues. */}
+        <iframe
+          src={blobUrl}
           title={book.title}
-          showToc={true}
-          onLocationChange={handleLocationChange}
-          style={{ height: "100%" }}
+          style={{
+            width: "100%",
+            height: "100%",
+            border: "none",
+            display: "block",
+          }}
         />
       </main>
 

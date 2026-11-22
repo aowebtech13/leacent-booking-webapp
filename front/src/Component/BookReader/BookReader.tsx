@@ -2,6 +2,8 @@
 
 import React, { useState, useCallback } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
+import "react-pdf/dist/Page/TextLayer.css";
+import "react-pdf/dist/Page/AnnotationLayer.css";
 import { IconAlertCircle, IconExternalLink, IconChevronLeft, IconChevronRight, IconZoomIn, IconZoomOut, IconRotate, IconDownload, IconSearch } from "@tabler/icons-react";
 
 // Serve the pdf.js worker that ships with the installed pdfjs-dist from the
@@ -43,7 +45,6 @@ export const BookReader: React.FC<BookReaderProps> = ({
   const [pageNumber, setPageNumber] = useState(1);
   const [scale, setScale] = useState(1.2);
   const [rotation, setRotation] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [outline, setOutline] = useState<any[]>([]);
   const [showOutline, setShowOutline] = useState(false);
@@ -53,7 +54,6 @@ export const BookReader: React.FC<BookReaderProps> = ({
 
   const onDocumentLoadSuccess = useCallback((doc: any) => {
     setNumPages(doc.numPages);
-    setIsLoading(false);
     if (doc.fingerprints) {
       doc.getOutline().then((outline: any[]) => {
         if (outline && outline.length > 0) {
@@ -66,7 +66,6 @@ export const BookReader: React.FC<BookReaderProps> = ({
 
   const onLoadError = useCallback((err: any) => {
     setError(err.message || "Failed to load PDF");
-    setIsLoading(false);
   }, []);
 
   const onPageChange = useCallback((page: number) => {
@@ -153,30 +152,6 @@ export const BookReader: React.FC<BookReaderProps> = ({
             </a>
           </div>
         )}
-      </div>
-    );
-  }
-
-  if (isLoading) {
-    return (
-      <div
-        className={className}
-        style={{
-          height: "100%",
-          width: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: "#fff",
-          ...style,
-        }}
-      >
-        <div className="text-center">
-          <div className="spinner-border text-primary" role="status">
-            <span className="visually-hidden">Loading PDF...</span>
-          </div>
-          <p className="mt-2 text-muted">Loading document...</p>
-        </div>
       </div>
     );
   }
@@ -426,6 +401,7 @@ export const BookReader: React.FC<BookReaderProps> = ({
         <main style={{ flex: 1, overflow: "auto", display: "flex", alignItems: "center", justifyContent: "center", background: "#e0e0e0", padding: "2rem" }}>
           <Document
             file={href}
+            suspense={false}
             onLoadSuccess={onDocumentLoadSuccess}
             onLoadError={onLoadError}
             loading={(
