@@ -246,7 +246,7 @@ const BookLibraryPage = () => {
                             <CardBody className="d-flex flex-column">
                               <h5 className="card-title mb-1">{book.title}</h5>
                               <p className="text-muted small mb-2">
-                                {book.author || "Unknown Author"}
+                                {book.author || "Ola Emmnauel"}
                               </p>
                               {book.can_access && book.description && (
                                 <p className="card-text text-muted small flex-grow-1">

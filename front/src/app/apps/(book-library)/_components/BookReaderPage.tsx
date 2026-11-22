@@ -267,7 +267,7 @@ const BookReaderPage = () => {
               {book.title}
             </h5>
             <small className="text-muted">
-              {book.author || book.authorDetail?.name || "Unknown Author"}
+              {book.author || book.authorDetail?.name || "Ola Emmnauel"}
             </small>
           </div>
           <div className="d-flex align-items-center gap-2">
