@@ -178,7 +178,6 @@ const BookLibrarySidebar: React.FC<BookLibrarySidebarProps> = ({
                   <h6 className="mb-0">{category.label}</h6>
                   <p className="text-secondary mb-0">{category.files}</p>
                 </div>
-                <p className="text-secondary f-w-500 mb-0">{category.size}</p>
               </div>
             </div>
           ))}
