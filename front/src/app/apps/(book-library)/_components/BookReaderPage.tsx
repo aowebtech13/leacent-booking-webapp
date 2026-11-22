@@ -18,9 +18,6 @@ const BookReaderPage = () => {
   const [blobUrl, setBlobUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [readerLocation, setReaderLocation] = useState<string | number | null>(
-    null
-  );
 
   const {
     progress,
@@ -80,10 +77,7 @@ const BookReaderPage = () => {
         }
       }
 
-      const saved = await loadProgress(bookId);
-      if (saved?.progress_percentage) {
-        setReaderLocation(saved.progress_percentage as any);
-      }
+      await loadProgress(bookId);
 
       // Load the book file as a blob so the iframe renders from a same-origin
       // URL, avoiding cross-origin X-Frame-Options blocking on the backend.
@@ -149,16 +143,16 @@ const BookReaderPage = () => {
   const handleSaveProgress = async () => {
     if (!bookId || !book) return;
     try {
-      if (readerLocation) {
-        await saveProgress(bookId, {
-          current_page: Math.round(
-            (progress?.progress_percentage as number) || 0
-          ),
-          total_pages: book.page_count || 0,
-          progress_percentage: (progress?.progress_percentage as number) || 0,
-          is_completed: (progress?.progress_percentage as number) >= 100,
-        });
-      }
+      // The native browser PDF viewer (iframe) can't report the current page,
+      // so we persist the last known progress (or a fresh "started" record for
+      // a first-time reader). This keeps "last read" and reading stats correct.
+      const percent = Number(progress?.progress_percentage) || 0;
+      await saveProgress(bookId, {
+        current_page: Number(progress?.current_page) || 1,
+        total_pages: book.page_count || 0,
+        progress_percentage: percent,
+        is_completed: percent >= 100,
+      });
     } catch (err) {
       console.error("Failed to save progress:", err);
     }
@@ -225,7 +219,7 @@ const BookReaderPage = () => {
       style={{
         position: "fixed",
         inset: 0,
-        zIndex: 1000,
+        zIndex: 2000,
         background: "#fff",
         overflow: "auto",
       }}
