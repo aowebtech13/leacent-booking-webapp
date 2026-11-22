@@ -51,6 +51,12 @@ const BookLibrarySidebar: React.FC<BookLibrarySidebarProps> = ({
     if (typeof window !== "undefined") loadModules();
   }, []);
 
+  // Total books the user has (unlocked). The radial curve is scaled against
+  // 100 books, so the fill shows how many of 100 the user has; the center
+  // label always displays the real total.
+  const booksCount = unlockedCount ?? 0;
+  const curveValue = Math.min(100, Math.max(0, booksCount));
+
   return (
     <>
       <Card>
@@ -91,7 +97,7 @@ const BookLibrarySidebar: React.FC<BookLibrarySidebarProps> = ({
           <div className="mb-3">
             {ApexCharts ? (
               <ApexCharts
-                series={[70]}
+                series={[curveValue]}
                 type={"radialBar"}
                 height={350}
                 options={{
@@ -116,7 +122,11 @@ const BookLibrarySidebar: React.FC<BookLibrarySidebarProps> = ({
                       },
                       dataLabels: {
                         name: { show: false },
-                        value: { offsetY: -4, fontSize: "22px" },
+                        value: {
+                          offsetY: -4,
+                          fontSize: "22px",
+                          formatter: () => `${booksCount}`,
+                        },
                       },
                     },
                   },
@@ -132,7 +142,7 @@ const BookLibrarySidebar: React.FC<BookLibrarySidebarProps> = ({
                       stops: [0, 60, 73, 108],
                     },
                   },
-                  labels: ["Average Results"],
+                  labels: ["Books Unlocked"],
                 }}
               />
             ) : (
