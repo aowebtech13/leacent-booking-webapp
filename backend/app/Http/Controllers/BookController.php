@@ -260,7 +260,7 @@ class BookController extends Controller
             'success' => true,
             'data' => [
                 'book' => $book,
-                'file_url' => Storage::disk('public')->url($book->file_path),
+                'file_url' => $book->file_url,
                 'access' => $access,
             ],
         ]);
@@ -284,7 +284,7 @@ class BookController extends Controller
         return response()->json([
             'success' => true,
             'data' => [
-                'preview_url' => Storage::disk('public')->url($book->preview_path),
+                'preview_url' => $book->preview_url,
             ],
         ]);
     }
