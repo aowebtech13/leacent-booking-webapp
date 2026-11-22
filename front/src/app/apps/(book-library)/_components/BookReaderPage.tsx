@@ -226,15 +226,31 @@ const BookReaderPage = () => {
         position: "fixed",
         inset: 0,
         zIndex: 1000,
-        display: "flex",
-        flexDirection: "column",
         background: "#fff",
+        overflow: "auto",
       }}
     >
-      <nav
-        className="navbar navbar-light bg-white border-bottom px-3"
-        style={{ zIndex: 100, flex: "0 0 auto" }}
+      {/* PDF first — native browser viewer fills 90% of the screen. `blobUrl`
+          is a same-origin blob: URL, so the built-in viewer renders it without
+          any JS PDF library and without cross-origin X-Frame-Options issues. */}
+      <div
+        style={{ width: "100%", background: "#e0e0e0" }}
+        onContextMenu={(e) => e.preventDefault()}
       >
+        <iframe
+          src={blobUrl}
+          title={book.title}
+          style={{
+            width: "100%",
+            height: "90vh",
+            border: "none",
+            display: "block",
+          }}
+        />
+      </div>
+
+      {/* Title / author / actions below the PDF */}
+      <div className="bg-white border-top px-3 py-2">
         <div className="d-flex align-items-center w-100">
           <Button
             color="link"
@@ -280,28 +296,9 @@ const BookReaderPage = () => {
             </Button>
           </div>
         </div>
-      </nav>
+      </div>
 
-      <main
-        style={{ flex: "1 1 0", minHeight: 0, overflow: "hidden" }}
-        onContextMenu={(e) => e.preventDefault()}
-      >
-        {/* Native browser PDF viewer. `blobUrl` is a same-origin blob: URL, so
-            the built-in viewer renders it without any JS PDF library and
-            without cross-origin X-Frame-Options issues. */}
-        <iframe
-          src={blobUrl}
-          title={book.title}
-          style={{
-            width: "100%",
-            height: "100%",
-            border: "none",
-            display: "block",
-          }}
-        />
-      </main>
-
-      <div className="bg-light border-top px-3 py-2" style={{ flex: "0 0 auto" }}>
+      <div className="bg-light border-top px-3 py-2">
         <div className="d-flex align-items-center justify-content-between small text-muted">
           <span>
             {progress
