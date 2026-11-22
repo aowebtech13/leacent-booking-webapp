@@ -6,7 +6,6 @@ import Breadcrumbs from "@/Component/CommonElements/Breadcrumbs";
 import { useParams, useRouter } from "next/navigation";
 import { notFound } from "next/navigation";
 import { getBook, getBookRead, Book } from "@/lib/api/books";
-import api from "@/lib/api/client";
 import { BookReader } from "@/Component/BookReader/BookReader";
 import { useReadingProgress } from "@/hooks/useReadingProgress";
 import { IconBook, IconArrowLeft, IconRefresh } from "@tabler/icons-react";
@@ -17,7 +16,6 @@ const BookReaderPage = () => {
   const bookId = params.id ? parseInt(params.id as string, 10) : null;
 
   const [book, setBook] = useState<Book | null>(null);
-  const [fileUrl, setFileUrl] = useState<string | null>(null);
   const [blobUrl, setBlobUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -49,10 +47,17 @@ const BookReaderPage = () => {
     setIsLoading(true);
     setError(null);
     try {
+      // Track the file URL in a local variable. Reading it back from state
+      // (fileUrl) right after setFileUrl() would return the stale value from
+      // the render that created this closure (null on mount), which made every
+      // book appear to have no file uploaded.
+      let readableFileUrl: string | null = null;
+      let specificError: string | null = null;
+
       try {
         const res = await getBookRead(bookId);
         setBook(res.book);
-        setFileUrl(res.file_url);
+        readableFileUrl = res.file_url;
       } catch (readErr: any) {
         // The read endpoint failed (no access / no file uploaded). Fall back
         // to the public book endpoint to tell "book missing" apart from
@@ -67,11 +72,12 @@ const BookReaderPage = () => {
         setBook(details);
         if (details?.file_url) {
           // Public file URL available as a fallback.
-          setFileUrl(details.file_url);
+          readableFileUrl = details.file_url;
         } else {
           // Book exists but is not readable (no access or no file uploaded).
           // Surface the backend's message instead of a generic error.
-          setError(readErr?.message || "Book file is not available yet.");
+          specificError =
+            readErr?.message || "Book file is not available yet.";
         }
       }
 
@@ -82,13 +88,23 @@ const BookReaderPage = () => {
 
       // Load the book file as a blob so the iframe renders from a same-origin
       // URL, avoiding cross-origin X-Frame-Options blocking on the backend.
-      const resolved = resolveFileUrl(fileUrl);
+      const resolved = resolveFileUrl(readableFileUrl);
       if (resolved) {
         try {
-          const res = await api.get(resolved, { responseType: "blob" as const });
-          const blob = new Blob([res.data as BlobPart], {
-            type: (res.headers["content-type"] as string) || "application/pdf",
+          // Book files are public (Cloudinary / public storage disk), so the
+          // download must be credential-less. The shared axios `api` instance
+          // sends withCredentials, which makes Cloudinary's wildcard
+          // Access-Control-Allow-Origin invalid ("credentials mode include").
+          const res = await fetch(resolved, {
+            credentials: "omit",
+            mode: "cors",
           });
+          if (!res.ok) {
+            throw new Error(
+              `Failed to fetch book file (HTTP ${res.status}).`
+            );
+          }
+          const blob = await res.blob();
           const objectUrl = URL.createObjectURL(blob);
           setBlobUrl(objectUrl);
         } catch (blobErr: any) {
@@ -97,6 +113,8 @@ const BookReaderPage = () => {
               "Failed to load the book file. Please try again later."
           );
         }
+      } else if (specificError) {
+        setError(specificError);
       } else {
         setError(
           "This book doesn't have a file uploaded. Please contact support or try another book."

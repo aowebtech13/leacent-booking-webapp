@@ -4,7 +4,12 @@ import React, { useState, useCallback } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import { IconAlertCircle, IconExternalLink, IconChevronLeft, IconChevronRight, IconZoomIn, IconZoomOut, IconRotate, IconDownload, IconSearch } from "@tabler/icons-react";
 
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+// Serve the pdf.js worker that ships with the installed pdfjs-dist from the
+// app's own public/ directory. The previous CDN URL
+// (cdnjs .../pdf.js/${pdfjs.version}/pdf.worker.min.js) 404s for pdfjs v6
+// (cdnjs only hosts up to 3.11.174), so the worker never loaded and the
+// document span the "Loading..." state indefinitely.
+pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
 
 interface BookReaderProps {
   url: string | File;
